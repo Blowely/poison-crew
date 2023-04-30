@@ -10,6 +10,7 @@ body {
 .App {
   background: #ffffff;
   position: relative;
+  top: 0;
 }
 
 header {
@@ -27,13 +28,22 @@ header {
     margin: 0;
   }
 }
+
 .content {
   width: 100%;
-
+  padding-top: 72px!important;
+  z-index: 1;
   h1 {
     margin: 0px;
   }
 }
+
+.cards-section-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
 .cartEmpty {
   text-align: center;
 

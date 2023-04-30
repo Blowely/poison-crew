@@ -1,0 +1,22 @@
+.ant-segmented {
+  border-radius: 0px;
+  background-color: unset;
+}
+
+.ant-segmented-group {
+  display: flex!important;
+}
+.ant-segmented-item {
+  width: available!important;
+}
+
+.ant-segmented-item-selected {
+  box-shadow: none!important;
+
+}
+
+.ant-segmented-item-label {
+  color: black!important;
+  font-size: small;
+
+}

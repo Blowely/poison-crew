@@ -6,7 +6,7 @@ import axios from "axios";
 import Home from "./pages/Home";
 import AppContext from "./context";
 import Favorites from "./pages/Favorites";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer";
 
 import "./index.scss";
