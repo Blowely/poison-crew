@@ -63,7 +63,7 @@ function Drawer({onClose, onRemove, items = []}){
                 ) : (
                     <Info title={isOrderComplete ? "Order complete!":"Cart is empty"}
                           description={isOrderComplete ?  `Thank you for order #${orderId}!` : 'You need to make an order'}
-                          image={isOrderComplete ? "/img/complete-order.jpg":"/img/empty-cart.jpg"}/>
+                          image={isOrderComplete ? "/svg/complete-order.jpg":"/svg/empty-cart.jpg"}/>
                 )}
             </div>
         </div>
