@@ -1,22 +1,47 @@
 .ant-segmented {
   border-radius: 0px;
   background-color: unset;
+  padding: 0;
+  width: fit-content;
 }
 
 .ant-segmented-group {
-  display: flex!important;
+  height: 30px;
 }
 .ant-segmented-item {
-  width: available!important;
+  width: 25%!important;
+
+  &::after {
+    background-color: unset!important;
+  }
+}
+
+.ant-segmented-item-label {
+  display: flex!important;
+  align-items: start!important;
+  justify-content: center!important;
+  line-height: 25px!important;
 }
 
 .ant-segmented-item-selected {
   box-shadow: none!important;
+  border-bottom: 2px solid rgb(1, 195, 195);
+  border-radius: 0 !important;
+  > .ant-segmented-item-label {
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.07s ease-in;
+  }
 
+}
+
+.ant-segmented-thumb {
+  box-shadow: none!important;
+  border-bottom: 2px solid rgb(1, 195, 195);
+  border-radius: 0 !important;
 }
 
 .ant-segmented-item-label {
   color: black!important;
   font-size: small;
-
 }
