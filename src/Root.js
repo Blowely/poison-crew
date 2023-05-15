@@ -14,14 +14,13 @@ import "./nova-ds.scss";
 import {Layout} from "antd";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorHandler from "./common/ErrorHandler";
+import {useGetProductsQuery} from "./store/products.store";
 
 const Root = () => {
-  const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
   const [favorites, setFavorites] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -35,14 +34,21 @@ const Root = () => {
         "http://localhost:3000/api/products?limit=20"
       );
 
-      setIsLoading(false);
-
       setCartItems(cartResponse.data);
       setFavorites(favoritesResponse.data);
-      setItems(itemsResponse.data.items);
     }
     fetchData();
   }, []);
+
+  const buildRequest = () => {
+    const obj = {
+      limit: 20,
+    }
+
+    return obj;
+  }
+
+  const { data: products = { items: [], totalCount: 0 }, isLoading } = useGetProductsQuery(buildRequest())
 
   const onAddToCart = (obj) => {
     try {
@@ -106,7 +112,7 @@ const Root = () => {
       <Layout className="App clear">
         {cartOpened && (
           <Drawer
-            items={cartItems}
+            items={products.items}
             onClose={() => setCartOpened(false)}
             onRemove={onRemoveItem}
           />
@@ -120,7 +126,7 @@ const Root = () => {
                 path="/"
                 element={
                   <Home
-                    items={items}
+                    products={products}
                     cartItems={cartItems}
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}

@@ -7,7 +7,7 @@ import MoreIcon from "../assets/svg/brands/more-icon";
 
 
 function Home({
-                  items,
+                  products,
                   searchValue,
                   setSearchValue,
                   onChangeSearchInput,
@@ -16,7 +16,7 @@ function Home({
                   isLoading,
               }) {
     const renderItems = () => {
-        const filtredItems = items.filter((item) =>
+        const filtredItems = products.items.filter((item) =>
             item.title.toLowerCase().includes(searchValue.toLowerCase())
         );
         return (isLoading ? [...Array(8)] : filtredItems).map((item, index) => (
@@ -25,6 +25,7 @@ function Home({
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
                 loading={isLoading}
+                imageUrl={item?.images[0]}
                 {...item}
             />
         ));

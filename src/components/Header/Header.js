@@ -8,10 +8,10 @@ const Header = (props) => {
     const onSearch = (value) => console.log(value);
 
     return (
-        <header className="d-flex flex-column justify-between align-center pl-20 pt-20 pr-20">
+        <header className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20">
             <Input placeholder="input search text" allowClear onSearch={onSearch} prefix={<SearchOutlined />}
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}>Найти</span>} />
-            <Segmented className="mt-15 w100p" options={['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly']} />
+            <Segmented className="header-segmented mt-15 w100p" options={['Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly']} />
             {/*<Link to="/">
                 <div className="d-flex align-center">
                     <svg width={40} height={40} src="svg/logo.png" alt="Logo" />
