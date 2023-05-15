@@ -9,7 +9,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import moment from "moment";
 import Root from "./Root";
 import reportWebVitals from "./reportWebVitals";
-import * as serviceWorker from "./serviceWorkerRegistration";
+import * as serviceWorker from "./serviceWorkerRegistration.ts";
 
 moment.locale('ru');
 export const ErrorFallback = ({error, resetErrorBoundary}) => {
