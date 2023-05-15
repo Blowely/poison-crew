@@ -29,14 +29,14 @@ function App() {
                 "https://643806eac1565cdd4d6435e6.mockapi.io/favorites"
             );
             const itemsResponse = await axios.get(
-                "https://643062f7b289b1dec4c76583.mockapi.io/items"
+                "http://localhost:3000/api/products?limit=20"
             );
 
             setIsLoading(false);
 
             setCartItems(cartResponse.data);
             setFavorites(favoritesResponse.data);
-            setItems(itemsResponse.data);
+            setItems(itemsResponse.data.items);
         }
         fetchData();
     }, []);
