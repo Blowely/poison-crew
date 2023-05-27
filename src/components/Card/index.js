@@ -28,7 +28,7 @@ function Card({
   };
 
   return (
-      <div className={styles.card} onClick={() => navigate(`pId=${id}`)}>
+      <div className={styles.card} onClick={() => navigate(`/products/view?productId=${id}`)}>
           {loading ? (
               <ContentLoader
                   speed={2}

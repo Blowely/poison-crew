@@ -12,7 +12,7 @@ export const productsApi = createApi({
       ...collectionQueryProps('Product'),
     }),
     getProduct: builder.query({
-      query: (productId) => customUrlBuilder(`/products${productId}`, ),
+      query: (productId) => `/products?id=${productId}`,
       invalidatesTags: (result, error, arg) => [{type: 'Product', id: arg}],
     })
   })

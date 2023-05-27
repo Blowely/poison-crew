@@ -14,7 +14,6 @@ import "./nova-ds.scss";
 import {Layout} from "antd";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorHandler from "./common/ErrorHandler";
-import {useGetProductsQuery} from "./store/products.store";
 import {PrivateAppRouter} from "./PrivateAppRouter";
 
 const Root = () => {
@@ -25,7 +24,7 @@ const Root = () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      const cartResponse = await axios.get(
+      /*const cartResponse = await axios.get(
         "https://643062f7b289b1dec4c76583.mockapi.io/cart"
       );
       const favoritesResponse = await axios.get(
@@ -36,20 +35,11 @@ const Root = () => {
       );
 
       setCartItems(cartResponse.data);
-      setFavorites(favoritesResponse.data);
+      setFavorites(favoritesResponse.data);*/
     }
     fetchData();
   }, []);
 
-  const buildRequest = () => {
-    const obj = {
-      limit: 20,
-    }
-
-    return obj;
-  }
-
-  const { data: products = { items: [], totalCount: 0 }, isLoading } = useGetProductsQuery(buildRequest())
 
   const onAddToCart = (obj) => {
     try {
@@ -113,7 +103,7 @@ const Root = () => {
       <Layout className="App clear">
         {cartOpened && (
           <Drawer
-            items={products.items}
+            items={[]}
             onClose={() => setCartOpened(false)}
             onRemove={onRemoveItem}
           />
@@ -122,14 +112,12 @@ const Root = () => {
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <ErrorHandler>
             <PrivateAppRouter
-              products={products}
               cartItems={cartItems}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
               onChangeSearchInput={onChangeSearchInput}
               onAddToFavorite={onAddToFavorite}
               onAddToCart={onAddToCart}
-              isLoading={isLoading}
             />
           </ErrorHandler>
         </ErrorBoundary>
