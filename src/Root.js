@@ -15,6 +15,7 @@ import {Layout} from "antd";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorHandler from "./common/ErrorHandler";
 import {useGetProductsQuery} from "./store/products.store";
+import {PrivateAppRouter} from "./PrivateAppRouter";
 
 const Root = () => {
   const [cartItems, setCartItems] = React.useState([]);
@@ -117,31 +118,19 @@ const Root = () => {
             onRemove={onRemoveItem}
           />
         )}
-        <Header onClickCart={() => setCartOpened(true)} />
 
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <ErrorHandler>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Home
-                    products={products}
-                    cartItems={cartItems}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    onChangeSearchInput={onChangeSearchInput}
-                    onAddToFavorite={onAddToFavorite}
-                    onAddToCart={onAddToCart}
-                    isLoading={isLoading}
-                  />
-                }
-              />
-              <Route
-                path="/favorites"
-                element={<Favorites />}
-              />
-            </Routes>
+            <PrivateAppRouter
+              products={products}
+              cartItems={cartItems}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+              isLoading={isLoading}
+            />
           </ErrorHandler>
         </ErrorBoundary>
 

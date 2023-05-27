@@ -9,11 +9,16 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (params) => customUrlBuilder('/products', params),
-      ...collectionQueryProps('Campaign'),
+      ...collectionQueryProps('Product'),
+    }),
+    getProduct: builder.query({
+      query: (productId) => customUrlBuilder(`/products${productId}`, ),
+      invalidatesTags: (result, error, arg) => [{type: 'Product', id: arg}],
     })
   })
 })
 
 export const {
-  useGetProductsQuery
+  useGetProductsQuery,
+  useGetProductQuery
 } = productsApi;
