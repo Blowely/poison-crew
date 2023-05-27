@@ -18,10 +18,17 @@ function Product({
     const { data: ad, isLoading: isLoadingProduct } = useGetProductQuery(productId);
 
     return (
-        <Layout >
-            FJDSJFLSKDJFfdgblfglb;k
+        <Layout>
 
-            <img src={ad?.images[0]} alt=""/>
+          <img src={ad?.images[0]} alt=""/>
+          <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
+            <div style={{fontSize: '30px', fontWeight: '600'}}>руб {ad?.price}</div>
+            <div style={{fontSize: '24px'}}>{ad?.title}</div>
+          </div>
+          <div style={{position: "fixed", marginTop: "calc(100vh - 90px)", width: '100%',
+            height: '90px', backgroundColor: "white", borderTop: '1px solid #f9f9f9'}} >
+
+          </div>
         </Layout>
     );
 }

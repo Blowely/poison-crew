@@ -100,7 +100,7 @@ const Root = () => {
   }
 
   return (
-      <Layout className="App clear">
+      <Layout className="App">
         {cartOpened && (
           <Drawer
             items={[]}
