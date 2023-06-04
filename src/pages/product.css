@@ -4,3 +4,38 @@
     padding: 10px;
     height: auto;
 }
+
+.ant-modal-wrap {
+}
+
+.ant-modal {
+    max-width: 100vw;
+}
+
+.ant-modal-content {
+    padding: 0!important;
+
+}
+
+.content-size-wrapper {
+    background-color: gainsboro;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+    max-width: calc(100vw - 20px);
+    grid-template-columns: repeat(4, auto);
+
+}
+
+.size-wrapper {
+    background-color: white;
+    padding: 20px;
+    border-radius: 2px;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-modal-root .ant-modal-centered::before {
+    vertical-align: bottom!important;
+    content: "";
+}

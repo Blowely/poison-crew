@@ -10,14 +10,12 @@ const contentStyle = {
   background: '#364d79',
 };
 const CarouselComponent = ({images}) => {
-  const onChange = (currentSlide) => {
-    console.log(currentSlide);
-  };
+
   return (
-    <Carousel afterChange={onChange}>
-      {images?.map((el) => {
+    <Carousel afterChange={() => {}}>
+      {images?.map((el, i) => {
       return (
-        <div>
+        <div key={i}>
           <h3 style={contentStyle}>
             <img style={{ width: '-webkit-fill-available'}} src={el} alt=""/>
           </h3>
