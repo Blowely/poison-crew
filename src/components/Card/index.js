@@ -46,7 +46,7 @@ function Card({
               </ContentLoader>
           ) : (
               <>
-                  <img style={{width: "100%", height: 'fit-content'}} src={imageUrl} alt="Sneakers" />
+                  <img style={{width: "100%"}} src={imageUrl} alt="Sneakers" />
                   <h5>{title}</h5>
                   <div className="d-flex justify-between align-center">
                       <div className="d-flex flex-column ">
