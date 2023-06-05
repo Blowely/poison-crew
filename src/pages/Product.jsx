@@ -3,11 +3,12 @@ import {Button, Layout, Modal} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useSearchParams} from "react-router-dom";
 import CarouselComponent from "../components/Carousel/Carousel";
-import "./product.css";
+import "./product.scss";
 
 function Product({onAddToFavorite, onAddToCart, isLoading}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [isModalOpen, setModalOpen] = useState(false);
+    const [choice, setChoice] = useState(null);
 
     const productId = searchParams.get('productId');
 
@@ -25,7 +26,7 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
             <div className="content-size-wrapper">
               {product?.properties?.sizes.map((el, i) => {
                 return (
-                  <div className="size-wrapper gap-2">
+                  <div className={i === choice ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"} onClick={() => setChoice(i)}>
                     <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
                     <div style={{fontSize: '13px', textAlign: 'center'}}>₽{el.price}</div>
                   </div>

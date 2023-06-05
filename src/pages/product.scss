@@ -9,6 +9,7 @@
 }
 
 .ant-modal {
+    border-radius: 0;
     max-width: 100vw;
 }
 
@@ -18,7 +19,7 @@
 }
 
 .content-size-wrapper {
-    background-color: gainsboro;
+    background-color: #ececec;
     width: 100%;
     height: 100%;
     display: grid;
@@ -33,6 +34,12 @@
     background-color: white;
     padding: 20px;
     border-radius: 2px;
+    &.selected {
+        box-sizing: border-box;
+        width: 100%;
+        border: solid #000000 2px;
+        padding: 18px;
+    }
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-modal-root .ant-modal-centered::before {
