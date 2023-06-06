@@ -8,7 +8,7 @@ import "./product.scss";
 function Product({onAddToFavorite, onAddToCart, isLoading}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [isModalOpen, setModalOpen] = useState(false);
-    const [choice, setChoice] = useState(null);
+    const [choice, setChoice] = useState({});
 
     const productId = searchParams.get('productId');
 
@@ -20,13 +20,27 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
             title="Выберите размер"
             open={isModalOpen}
             onOk={() => {}}
+            okText={"₽" + choice.price}
             centered
             onCancel={() => {setModalOpen(false)}}
           >
+            <div style={{display: "flex",padding: '15px', borderBottom: '1px solid #ececec', gap: '20px'}}>
+              <img src={product?.images[0]} style={{width: '20%'}} alt=""/>
+              <div style={{display: "flex", flexDirection: 'column', justifyContent: 'space-between'}}>
+                <div style={{fontSize: '22px', fontWeight: '700'}}>₽{choice.price}</div>
+                <div style={{fontSize: '15px'}}>Размер: {choice.size}</div>
+              </div>
+
+            </div>
+            <div style={{display: 'flex', padding: '15px',paddingRight: '25px', justifyContent: 'space-between'}}>
+              <span>Таблица размеров</span>
+              >
+            </div>
             <div className="content-size-wrapper">
               {product?.properties?.sizes.map((el, i) => {
                 return (
-                  <div className={i === choice ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"} onClick={() => setChoice(i)}>
+                  <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
+                       onClick={() => setChoice({size: el.size, price: el.price, index: i})}>
                     <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
                     <div style={{fontSize: '13px', textAlign: 'center'}}>₽{el.price}</div>
                   </div>
