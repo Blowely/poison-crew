@@ -26,6 +26,7 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
             <AuthModal
                 open={isModalOpen}
                 setRemotePhone={setPhone}
+                setModalOpen={setModalOpen}
                 onCancel={() => {setModalOpen(false); setCodeModalOpen(false)}}
                 isCodeModalOpen={isCodeModalOpen}
                 setCodeModalOpen={setCodeModalOpen}

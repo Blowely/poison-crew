@@ -5,14 +5,14 @@ import {useSearchParams} from "react-router-dom";
 import "./authModal.scss";
 import {LoadingOutlined} from "@ant-design/icons";
 import {useLazyGetCodeQuery, useAddCodeMutation} from "../store/accounts.store";
+import FormItem from "antd/es/form/FormItem";
 
-const AuthModal = ({open, onCancel, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
-
+const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState(null);
-  const [getCode, {codeData, isLoadingCode} ] = useLazyGetCodeQuery(phone, {skip: phone.length !== 10});
-  const [sendCode, {isLoading: isLoadingPostCode, error}] = useAddCodeMutation();
+  const [getCode, {codeData, isLoadingCode} ] = useLazyGetCodeQuery();
+  const [sendCode, {isLoading: isLoadingPostCode, error}] = useAddCodeMutation({},{refetchOnMountOrArgChange: true});
 
   const phoneInputHandler = (value) => {
     if (value.length <= 10) {
@@ -27,7 +27,8 @@ const AuthModal = ({open, onCancel, setRemotePhone, isCodeModalOpen, setCodeModa
           <div style={{fontSize: '22px', fontWeight: '500'}}>Вход по номеру телефона</div>
           <div style={{fontSize: '15px'}}>Незарегистрированные номера будут автоматически зарегетрированы</div>
 
-          <Input prefix="+7" type="number" value={phone} placeholder="Пожалуйста введите ваш номер телефона" onChange={(ev) => phoneInputHandler(ev.target.value)} />
+          <Input prefix="+7" type="number" value={phone} placeholder="Пожалуйста введите ваш номер телефона"
+                 onChange={(ev) => phoneInputHandler(ev.target.value)} />
 
         </>
 
@@ -36,8 +37,9 @@ const AuthModal = ({open, onCancel, setRemotePhone, isCodeModalOpen, setCodeModa
         <>
           <div style={{fontSize: '22px', fontWeight: '500'}}>Введите код подтверждения</div>
           <div style={{fontSize: '15px'}}>Отправлен на +7{phone}</div>
-
-          <Input  placeholder="Пожалуйста введите код" onChange={(ev) => setCode(ev.target.value)} />
+          <FormItem help={error?.data.message} validateStatus={error?.data.message ? 'error' : 'success'}>
+            <Input  placeholder="Пожалуйста введите код" onChange={(ev) => setCode(ev.target.value)} />
+          </FormItem>
         </>
       }
     </div>
@@ -45,14 +47,17 @@ const AuthModal = ({open, onCancel, setRemotePhone, isCodeModalOpen, setCodeModa
 
   const onOkHandler = async () => {
     if (!isCodeModalOpen) {
-      getCode();
+      getCode(phone);
       setCodeModalOpen(true);
       return setRemotePhone(phone)
     } else {
-      console.log('sendCode')
-      const res = await sendCode({phone,code}).unwrap();
-      console.log('res=', res);
-      //localStorage.setItem('token', res.token);
+      const res = await sendCode({phone: '7' + phone,code});
+
+      if (res?.data?.token) {
+        localStorage.setItem('token', res?.data?.token);
+        onCancel();
+        setModalOpen(true);
+      }
     }
   }
 
