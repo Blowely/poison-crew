@@ -4,8 +4,8 @@ import {baseQuery} from "../common/baseQuery";
 export const accountsApi = createApi({
   reducerPath: 'accountsApi',
   tagTypes: ['Account','Sms'],
-  //baseQuery: baseQuery('http://185.164.172.242:3000/api'),
-  baseQuery: baseQuery('http://localhost:3000/api'),
+  baseQuery: baseQuery('http://185.164.172.242:3000/api'),
+  //baseQuery: baseQuery('http://localhost:3000/api'),
   endpoints: (builder) => ({
     getCode: builder.query({
       query: (phone) => `/sms?phone=7${phone}`,
