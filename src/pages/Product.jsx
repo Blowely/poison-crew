@@ -6,7 +6,6 @@ import CarouselComponent from "../components/Carousel/Carousel";
 import "./product.scss";
 import {LoadingOutlined} from "@ant-design/icons";
 import AuthModal from "./AuthModal";
-import CodeModal from "./CodeModal";
 
 function Product({onAddToFavorite, onAddToCart, isLoading}) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -23,8 +22,15 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
 
     return (
         <Layout>
-          {isCodeModalOpen && <CodeModal phone={phone} open={isCodeModalOpen} onCancel={() => {setCodeModalOpen(false)}} />}
-          {!isAuth && <AuthModal open={isModalOpen} setRemotePhone={setPhone} onCancel={() => {setModalOpen(false)}} setCodeModalOpen={setCodeModalOpen}/>}
+          {!isAuth &&
+            <AuthModal
+                open={isModalOpen}
+                setRemotePhone={setPhone}
+                onCancel={() => {setModalOpen(false); setCodeModalOpen(false)}}
+                isCodeModalOpen={isCodeModalOpen}
+                setCodeModalOpen={setCodeModalOpen}
+            />
+          }
           {isAuth &&
             <Modal
               title="Выберите размер"
