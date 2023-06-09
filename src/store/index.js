@@ -1,9 +1,11 @@
 import {productsApi} from "./products.store";
 import {combineReducers, configureStore as createStore} from "@reduxjs/toolkit";
 import {useDispatch, useSelector} from "react-redux";
+import {accountsApi} from "./accounts.store";
 
 export const reducers = {
-  [productsApi.reducerPath]: productsApi.reducer
+  [productsApi.reducerPath]: productsApi.reducer,
+  [accountsApi.reducerPath]: accountsApi.reducer
 };
 
 const reducer = combineReducers(reducers);
@@ -14,6 +16,7 @@ export default function configureStore() {
     devTools: process.env.NODE_ENV !== 'PRODUCTION',
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
       .concat(productsApi.middleware)
+      .concat(accountsApi.middleware)
   });
 
   return store;

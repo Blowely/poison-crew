@@ -1,0 +1,41 @@
+.ant-modal {
+  vertical-align: bottom!important;
+  max-width: 100vw;
+  height: 100%;
+}
+
+.ant-modal-content {
+  padding: 0!important;
+  border-radius: 0!important;
+  bottom: 0;
+  height: 100%;
+}
+
+.ant-modal-body {
+  padding-top: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-modal-root .ant-modal-centered::before {
+  vertical-align: bottom!important;
+  content: "";
+}
+
+.ant-modal-title {
+  display: none;
+}
+
+.ant-modal-footer {
+  padding-right: 20px;
+  padding-left: 20px;
+  & > .ant-btn-default {
+    display: none;
+  }
+}
+
+.ant-btn-primary {
+  height: 55px!important;
+  font-size: 18px!important;
+  font-weight: 500!important;
+}
