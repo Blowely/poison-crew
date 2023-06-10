@@ -19,10 +19,11 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const { data: product, isLoading: isLoadingProduct } = useGetProductQuery(productId);
 
     return (
-        <Layout>
-            <div className="cartLayout">
-                {cartItems.map(el => el.title)}
-            </div>
+        <Layout >
+
+                {cartItems.map(el => {
+                  return <div className="cart-item">{el.title}</div>
+                })}
         </Layout>
     );
 }
