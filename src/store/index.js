@@ -2,10 +2,12 @@ import {productsApi} from "./products.store";
 import {combineReducers, configureStore as createStore} from "@reduxjs/toolkit";
 import {useDispatch, useSelector} from "react-redux";
 import {accountsApi} from "./accounts.store";
+import {cartSlice} from "../common/cartSlice";
 
 export const reducers = {
   [productsApi.reducerPath]: productsApi.reducer,
-  [accountsApi.reducerPath]: accountsApi.reducer
+  [accountsApi.reducerPath]: accountsApi.reducer,
+  [cartSlice.name]: cartSlice.reducer,
 };
 
 const reducer = combineReducers(reducers);

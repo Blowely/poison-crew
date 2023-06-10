@@ -1,13 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {Button, Layout, Modal} from "antd";
 import {useGetProductQuery} from "../store/products.store";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import CarouselComponent from "../components/Carousel/Carousel";
 import "./product.scss";
 import {LoadingOutlined} from "@ant-design/icons";
 import AuthModal from "./AuthModal";
+import {useAppDispatch} from "../store";
+import {addToCart} from "../common/cartSlice";
 
-function Product({onAddToFavorite, onAddToCart, isLoading}) {
+function Product({onAddToFavorite, isLoading}) {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [isModalOpen, setModalOpen] = useState(false);
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
@@ -19,6 +24,10 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
     const productId = searchParams.get('productId');
 
     const { data: product, isLoading: isLoadingProduct } = useGetProductQuery(productId);
+    const onAddToCart = () => {
+        dispatch(addToCart({...product, size: choice.size, price: choice.price}));
+        navigate('/cart');
+    }
 
     return (
         <Layout>
@@ -36,7 +45,7 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
             <Modal
               title="Выберите размер"
               open={isModalOpen}
-              onOk={() => {}}
+              onOk={onAddToCart}
               okText={"₽" + choice.price}
               centered
               onCancel={() => {setModalOpen(false)}}
@@ -57,7 +66,7 @@ function Product({onAddToFavorite, onAddToCart, isLoading}) {
                 {product?.properties?.sizes.map((el, i) => {
                   return (
                     <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
-                         onClick={() => setChoice({size: el.size, price: el.price, index: i})}>
+                         onClick={() => setChoice({ size: el.size, price: el.price, index: i})}>
                       <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
                       <div style={{fontSize: '13px', textAlign: 'center'}}>₽{el.price}</div>
                     </div>

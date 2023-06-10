@@ -3,6 +3,7 @@ import {AppLoading} from "./common/AppLoading";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
+import Cart from "./pages/Cart";
 
 export const PrivateAppRouter = ({
                                    products,
@@ -30,6 +31,7 @@ export const PrivateAppRouter = ({
         />
       } />
       <Route path="/products/*" element={<Product />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="*" element={<Navigate to="products" />} replace />
     </Routes>
   </Suspense>
