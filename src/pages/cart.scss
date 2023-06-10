@@ -36,3 +36,9 @@
         border-bottom: 1px solid green;
     }
 }
+
+.cart-product-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+}
