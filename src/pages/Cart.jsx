@@ -3,8 +3,9 @@ import {Button, Layout, Modal} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
-import {LeftOutlined, LoadingOutlined, RightOutlined} from "@ant-design/icons";
+import {LeftOutlined, LoadingOutlined, RightOutlined, ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
+import BagIcon from "../assets/svg/bag-icon";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -45,7 +46,11 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                     </div>
                 })}
             </div>
-
+          <footer>
+            <BagIcon onClick={() => navigate('/products')} />
+            <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
+            <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/products')} />
+          </footer>
         </Layout>
     );
 }
