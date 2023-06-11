@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
+import {useGetAccountQuery} from "../store/accounts.store";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -20,16 +21,19 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const from = searchParams.get('from');
+    const token = localStorage.getItem('token');
 
     const cartItems = useAppSelector((state) => state.cart.items);
     const addresses = useAppSelector((state) => state.account.addresses);
+
+    const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
 
     const onGoBackClick = () => {
       return from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
     }
 
     const onOkHandler = () => {
-      if (!addresses.length) {
+      if (!addresses.length && !accountData?.account?.addresses?.length) {
         notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
       }
       if (!cartItems.length) {
@@ -45,7 +49,9 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             <div className="content-block">
 
                 <div className="cart-item address" onClick={() => navigate('/address')}>
-                  {addresses[0]?.address ?? 'Необходимо заполнить адрес доставки'} <RightOutlined />
+                  {(addresses[0]?.address ||
+                      accountData?.account?.addresses?.[accountData?.account?.addresses.length - 1]?.address) ??
+                    'Необходимо заполнить адрес доставки'} <RightOutlined />
                 </div>
                 {cartItems.map((el, i) => {
                     return <div key={i} className="cart-item">

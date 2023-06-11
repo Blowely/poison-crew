@@ -24,7 +24,7 @@ export const accountsApi = createApi({
     }),
     addAddress: builder.mutation({
       query: ({accPhone, address}) => ({
-        url: `/address?accPhone=${accPhone}`,
+        url: `/accounts?accPhone=${accPhone}`,
         method: 'POST',
         body: JSON.stringify({address})
       })
@@ -34,6 +34,7 @@ export const accountsApi = createApi({
 
 export const {
   useLazyGetCodeQuery,
+  useGetAccountQuery,
   useAddCodeMutation,
   useAddAddressMutation,
 } = accountsApi;

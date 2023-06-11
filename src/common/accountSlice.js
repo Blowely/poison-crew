@@ -11,7 +11,7 @@ export const accountSlice = createSlice({
       state.phone = payload.phone;
     },
     addAddress(state, {payload}) {
-      state.addresses = [...state.addresses, ...payload];
+      state.addresses = [...state.addresses, payload];
     },
     removeAddress(state, { payload }) {
       state.addresses = state.addresses.filter(el => el.id !== payload.id);

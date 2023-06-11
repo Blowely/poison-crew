@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
 import "./address.scss";
 import {useFormik} from "formik";
-import {useAddAddressMutation, useAddCodeMutation} from "../store/accounts.store";
+import {useAddAddressMutation, useGetAccountQuery} from "../store/accounts.store";
 import {addAddress} from "../common/accountSlice";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
@@ -18,8 +18,10 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const from = searchParams.get('from');
+  const token = localStorage.getItem('token');
 
   const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
+  const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: phone});
 
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
@@ -30,22 +32,24 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
         postalCode: '',
       },
       onSubmit(body) {
-
-        addAccountAddress({accPhone: phone, address: body}).then(res => {
+        console.log('account=', accountData?.account);
+        console.log('phone=',phone);
+        addAccountAddress({accPhone: phone ? phone : accountData?.account?.phone, address: body}).then(res => {
           console.log('resAddAddress =', res);
-          const address = {...body, phone: '7'+ body.phone}
-          dispatch(addAddress({id: Date.now(), ...address}));
-          notification.open({duration: 1.5, type: 'success', message:'Адрес добавлен'})
+          const address = {...body,id: Date.now(), phone: '7'+ body.phone}
+          dispatch(addAddress(address));
+          notification.open({duration: 2, type: 'success', message:'Адрес добавлен'})
           navigate('/cart');
         }).catch((err) => {
+          console.log('err=', err);
           navigate('/cart');
-          notification.open({duration: 1.5, type: 'error', message:'Ошибка добавления адреса'})
+          notification.open({duration: 2, type: 'error', message:'Ошибка добавления адреса'})
         })
       }
   })
 
   const onGoBackClick = () => {
-    return from ? navigate('/cart') : navigate(`/cart`);
+    return from ? navigate('/cart?from=address') : navigate(`/cart?from=address`);
   }
 
   const phoneInputHandler = (value) => {
