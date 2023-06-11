@@ -27,6 +27,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
         phone: phone.substring(1) || '',
         city: '',
         address: '',
+        postalCode: '',
       },
       onSubmit(body) {
 
@@ -81,6 +82,10 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
             <div className="address-item">
               <div className="field-name">Адрес</div>
               <Input value={values.address} onChange={(ev) => setFieldValue('address',ev.target.value)} />
+            </div>
+            <div className="address-item">
+              <div className="field-name">Почтовый индекс</div>
+              <Input value={values.postalCode} onChange={(ev) => setFieldValue('postalCode',ev.target.value)} />
             </div>
           </div>
           <div className="cart-product-info-submit-btn-wrapper">
