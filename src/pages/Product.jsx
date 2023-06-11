@@ -4,7 +4,7 @@ import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import CarouselComponent from "../components/Carousel/Carousel";
 import "./product.scss";
-import {LoadingOutlined} from "@ant-design/icons";
+import {LeftOutlined, LoadingOutlined} from "@ant-design/icons";
 import AuthModal from "./AuthModal";
 import {useAppDispatch} from "../store";
 import {addToCart} from "../common/cartSlice";
@@ -30,7 +30,7 @@ function Product({onAddToFavorite, isLoading}) {
     }
 
     return (
-        <Layout>
+        <Layout style={{position: 'relative'}}>
           {!isAuth &&
             <AuthModal
                 open={isModalOpen}
@@ -66,9 +66,9 @@ function Product({onAddToFavorite, isLoading}) {
                 {product?.properties?.sizes.map((el, i) => {
                   return (
                     <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
-                         onClick={() => setChoice({ size: el.size, price: el.price, index: i})}>
+                         onClick={() => setChoice({ size: el.size, price: el.price, index: i})} key={i}>
                       <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
-                      <div style={{fontSize: '13px', textAlign: 'center'}}>₽{el.price}</div>
+                        <div style={{fontSize: '13px', textAlign: 'center'}}>₽{el.price}</div>
                     </div>
                   )
                 })}
@@ -83,21 +83,25 @@ function Product({onAddToFavorite, isLoading}) {
           }
           {!isLoadingProduct &&
             <>
-              <CarouselComponent images={product?.images} />
-              <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
-                <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
-                <div style={{fontSize: '24px'}}>{product?.title}</div>
-              </div>
-              <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
-                <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
-                <div style={{fontSize: '24px'}}>{product?.title}</div>
-              </div>
-              <div style={{position: "fixed", marginTop: "calc(100vh - 90px)", width: '100%',
-                height: '90px', padding: 10, backgroundColor: "white", borderTop: '1px solid #f9f9f9'}} >
-                <Button type="primary" style={{width: '100%', height: '100%', fontSize: '20px', fontWeight: '400'}} onClick={() => setModalOpen(true)}>
-                  Выбрать размер
-                </Button>
-              </div>
+                <LeftOutlined
+                    style={{zIndex: '99', position: 'absolute', padding: '15px', marginTop: '10px', fontSize: '25px'}}
+                    onClick={() => navigate('/products')}
+                />
+                <CarouselComponent images={product?.images} />
+                <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
+                    <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
+                    <div style={{fontSize: '24px'}}>{product?.title}</div>
+                </div>
+                <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
+                    <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
+                    <div style={{fontSize: '24px'}}>{product?.title}</div>
+                </div>
+                <div style={{position: "fixed", marginTop: "calc(100vh - 90px)", width: '100%',
+                    height: '90px', padding: 10, backgroundColor: "white", borderTop: '1px solid #f9f9f9'}} >
+                    <Button type="primary" style={{width: '100%', height: '100%', fontSize: '20px', fontWeight: '400'}} onClick={() => setModalOpen(true)}>
+                      Выбрать размер
+                    </Button>
+                </div>
             </>
           }
         </Layout>

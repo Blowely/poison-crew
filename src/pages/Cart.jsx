@@ -24,8 +24,8 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                 <div className="cart-item address">
                     Необходимо заполнить адрес доставки <RightOutlined />
                 </div>
-                {cartItems.map(el => {
-                    return <div className="cart-item">
+                {cartItems.map((el, i) => {
+                    return <div key={i} className="cart-item">
                       <div className="cart-product-info">
                         <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
                         <div>
