@@ -33,11 +33,15 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                 {cartItems.map((el, i) => {
                     return <div key={i} className="cart-item">
                       <div className="cart-product-info">
-                        <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
-                        <div>
-                          <div style={{fontSize: '16px'}}>{el.title}</div>
-                          <div>размер: {el.size}</div>
+                        <div style={{display: 'flex', gap: '7px'}}>
+                          <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
+                          <div>
+                            <div style={{fontSize: '16px'}}>{el.title}</div>
+                            <div>размер: {el.size}</div>
+                          </div>
                         </div>
+
+
                         <div>
                           <div style={{fontWeight: '500'}}>₽{el.price}</div>
                         </div>
