@@ -7,14 +7,14 @@ import MoreIcon from "../assets/svg/brands/more-icon";
 import {Layout, Pagination} from "antd";
 import Header from "../components/Header/Header";
 import {useGetProductsQuery} from "../store/products.store";
+import "../index.scss"
+import {ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
+import BagIcon from "../assets/svg/bag-icon.js";
+import {useNavigate} from "react-router-dom";
 
 
-function Home({
-                  onAddToFavorite,
-                  onAddToCart,
-              }) {
-
-
+function Home({onAddToFavorite, onAddToCart}) {
+  const navigate = useNavigate();
   const buildRequest = () => {
     const obj = {
       limit: 20,
@@ -96,7 +96,11 @@ function Home({
           showTotal={(total) => `Total ${total} items`}
         />
       </div>
-      <footer></footer>
+      <footer>
+        <BagIcon onClick={() => navigate('/products')} />
+        <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
+        <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/products')} />
+      </footer>
     </Layout>
 
   );

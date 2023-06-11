@@ -10,14 +10,19 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const from = searchParams.get('from');
+
     const cartItems = useAppSelector((state) => state.cart.items);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const onGoBackClick = () => {
+      return  from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
+    }
 
     return (
         <Layout >
             <div className="content-block-header">
-              <LeftOutlined onClick={() => navigate(`/products/view?productId=${cartItems[0]._id}`)} />
+              <LeftOutlined onClick={onGoBackClick} />
               Оформление заказа <div /></div>
             <div className="content-block">
 
