@@ -7,7 +7,7 @@ export const accountSlice = createSlice({
     addresses: []
   },
   reducers: {
-    addPhone(state, { payload }) {
+    addPhone(state) {
       state.phone = payload.phone;
     },
     addAddress(state, { payload }) {

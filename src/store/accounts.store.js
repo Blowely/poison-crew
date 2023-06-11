@@ -12,10 +12,10 @@ export const accountsApi = createApi({
       invalidatesTags: (result, error, arg) => [{type: 'Account', id: arg}],
     }),
     addCode: builder.mutation({
-      query: ({phone, code}) => ({
+      query: ({phone, code, userAgent}) => ({
         url: '/sms',
         method: 'POST',
-        body: JSON.stringify({phone, code})
+        body: JSON.stringify({phone, code, userAgent})
       })
     }),
     addAddress: builder.mutation({

@@ -56,7 +56,8 @@ const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpe
       return setRemotePhone(phone)
     } else {
       try {
-        const res = await sendCode({phone: '7' + phone,code});
+        const userAgent = window?.navigator?.userAgent;
+        const res = await sendCode({phone: '7' + phone, code, userAgent});
 
         if (res?.data?.token) {
           dispatch(addPhone({phone: '7' + phone}));
