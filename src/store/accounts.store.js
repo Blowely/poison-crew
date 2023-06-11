@@ -18,10 +18,26 @@ export const accountsApi = createApi({
         body: JSON.stringify({phone, code})
       })
     }),
+    addAccount: builder.mutation({
+      query: (body) => ({
+        url: '/accounts',
+        method: 'POST',
+        body: JSON.stringify(body)
+      })
+    }),
+    addAddress: builder.mutation({
+      query: ({phone, code}) => ({
+        url: '/address',
+        method: 'POST',
+        body: JSON.stringify({phone, code})
+      })
+    }),
   })
 })
 
 export const {
   useLazyGetCodeQuery,
   useAddCodeMutation,
+  useAddAccountMutation,
+  useAddAddressMutation,
 } = accountsApi;

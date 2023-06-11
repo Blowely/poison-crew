@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
 import "./address.scss";
 import {useFormik} from "formik";
+import {useAddAddressMutation, useAddCodeMutation} from "../store/accounts.store";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const dispatch = useAppDispatch();
@@ -15,7 +16,9 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const from = searchParams.get('from');
 
-  const {values, setValues, setFieldValue, errors} = useFormik({
+  const [addAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
+
+  const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
         fio: '',
         city: '',
@@ -23,12 +26,14 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
         phone: '',
       },
       onSubmit(body) {
+        addAddress(body);
+        navigate('/cart');
         console.log('body =', body);
       }
   })
 
   const onGoBackClick = () => {
-    return  from ? navigate('/cart') : navigate(`/cart`);
+    return from ? navigate('/cart') : navigate(`/cart`);
   }
 
   const phoneInputHandler = (value) => {
@@ -43,6 +48,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
     }
 
     notification.open({duration: 1.5, type: 'success', message:'Адрес добавлен'})
+    submitForm();
   }
 
   return (
