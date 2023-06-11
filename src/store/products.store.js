@@ -15,11 +15,16 @@ export const productsApi = createApi({
     getProduct: builder.query({
       query: (productId) => `/products?id=${productId}`,
       invalidatesTags: (result, error, arg) => [{type: 'Product', id: arg}],
-    })
+    }),
+    getCartProducts: builder.query({
+      query: (token) => `/products?token${token}`,
+      ...collectionQueryProps('Product'),
+    }),
   })
 })
 
 export const {
   useGetProductsQuery,
-  useGetProductQuery
+  useGetProductQuery,
+  useGetCartProductsQuery
 } = productsApi;

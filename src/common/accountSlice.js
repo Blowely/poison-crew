@@ -7,10 +7,10 @@ export const accountSlice = createSlice({
     addresses: []
   },
   reducers: {
-    addPhone(state) {
+    addPhone(state, {payload}) {
       state.phone = payload.phone;
     },
-    addAddress(state, { payload }) {
+    addAddress(state, {payload}) {
       state.addresses = [...state.addresses, ...payload];
     },
     removeAddress(state, { payload }) {

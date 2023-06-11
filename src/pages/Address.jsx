@@ -33,7 +33,8 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
         addAccountAddress({accPhone: phone, address: body}).then(res => {
           console.log('resAddAddress =', res);
-          dispatch(addAddress({id: Date.now(), ...body}));
+          const address = {...body, phone: '7'+ body.phone}
+          dispatch(addAddress({id: Date.now(), ...address}));
           notification.open({duration: 1.5, type: 'success', message:'Адрес добавлен'})
           navigate('/cart');
         }).catch((err) => {
