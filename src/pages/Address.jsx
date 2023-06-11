@@ -7,7 +7,7 @@ import {LeftOutlined, LoadingOutlined, RightOutlined, ShoppingCartOutlined, User
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
 
-function Cart({onAddToFavorite, onAddToCart, isLoading}) {
+function Address({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -50,12 +50,12 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                     </div>
                 })}
             </div>
-            <footer>
-              <div onClick={() => navigate('/products')}><BagIcon/></div>
-              <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
-              <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/products')} />
-            </footer>
+          <footer>
+            <div onClick={() => navigate('/products')}><BagIcon/></div>
+            <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
+            <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/products')} />
+          </footer>
         </Layout>
     );
 }
-export default Cart;
+export default Address;

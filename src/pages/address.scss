@@ -18,9 +18,8 @@
 
 .content-block {
     padding: 15px;
-    padding-bottom: 60px;
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .cart-item {
@@ -30,7 +29,6 @@
     background-color: white;
     padding: 10px;
     &.address {
-        margin-top: unset;
         display: flex;
         justify-content: space-between;
         align-items: center;
