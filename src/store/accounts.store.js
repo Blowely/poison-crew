@@ -8,14 +8,14 @@ export const accountsApi = createApi({
   //baseQuery: baseQuery('http://localhost:3000/api'),
   endpoints: (builder) => ({
     getCode: builder.query({
-      query: (phone) => `/sms?phone=7${phone}`,
+      query: ({phone, userAgent}) => `/sms?phone=7${phone}?userAgent=${userAgent}`,
       invalidatesTags: (result, error, arg) => [{type: 'Account', id: arg}],
     }),
     addCode: builder.mutation({
-      query: ({phone, code, userAgent}) => ({
+      query: ({phone, code}) => ({
         url: '/sms',
         method: 'POST',
-        body: JSON.stringify({phone, code, userAgent})
+        body: JSON.stringify({phone, code})
       })
     }),
     addAddress: builder.mutation({

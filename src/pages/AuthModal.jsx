@@ -51,13 +51,13 @@ const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpe
 
   const onOkHandler = async () => {
     if (!isCodeModalOpen) {
-      getCode(phone);
+      const userAgent = window?.navigator?.userAgent;
+      getCode({phone, userAgent});
       setCodeModalOpen(true);
       return setRemotePhone(phone)
     } else {
       try {
-        const userAgent = window?.navigator?.userAgent;
-        const res = await sendCode({phone: '7' + phone, code, userAgent});
+        const res = await sendCode({phone: '7' + phone, code});
 
         if (res?.data?.token) {
           dispatch(addPhone({phone: '7' + phone}));
