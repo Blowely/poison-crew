@@ -8,27 +8,37 @@ import BagIcon from "../assets/svg/bag-icon";
 import "./address.scss";
 import {useFormik} from "formik";
 import {useAddAddressMutation, useAddCodeMutation} from "../store/accounts.store";
+import {addAddress} from "../common/accountSlice";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const dispatch = useAppDispatch();
+
+  const phone = useAppSelector((state) => state.account.phone);
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const from = searchParams.get('from');
 
-  const [addAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
+  const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
 
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
         fio: '',
+        phone: phone.substring(1) || '',
         city: '',
         address: '',
-        phone: '',
       },
       onSubmit(body) {
-        addAddress(body);
-        navigate('/cart');
-        console.log('body =', body);
+
+        addAccountAddress({accPhone: phone, address: body}).then(res => {
+          console.log('resAddAddress =', res);
+          dispatch(addAddress({id: Date.now(), ...body}));
+          notification.open({duration: 1.5, type: 'success', message:'Адрес добавлен'})
+          navigate('/cart');
+        }).catch((err) => {
+          navigate('/cart');
+          notification.open({duration: 1.5, type: 'error', message:'Ошибка добавления адреса'})
+        })
       }
   })
 
@@ -46,8 +56,6 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
     if (Object.values(values).filter(el => el.length).length !== Object.keys(values).length) {
       return notification.open({duration: 1.5, type: 'warning', message:'Заполните все поля'})
     }
-
-    notification.open({duration: 1.5, type: 'success', message:'Адрес добавлен'})
     submitForm();
   }
 

@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {Button, Input, Modal} from "antd";
+import {Button, Input, Modal, notification} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useSearchParams} from "react-router-dom";
 import "./authModal.scss";
 import {LoadingOutlined} from "@ant-design/icons";
 import {useLazyGetCodeQuery, useAddCodeMutation, useAddAccountMutation} from "../store/accounts.store";
 import FormItem from "antd/es/form/FormItem";
+import {useAppDispatch} from "../store";
+import {addPhone} from "../common/accountSlice";
 
 const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
+  const dispatch = useAppDispatch();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState(null);
@@ -55,10 +59,18 @@ const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpe
       const res = await sendCode({phone: '7' + phone,code});
 
       if (res?.data?.token) {
-        const accResponse = await addAccount({phone: '7' + phone});
-        localStorage.setItem('token', res?.data?.token);
-        onCancel();
-        setModalOpen(true);
+        try {
+          const accResponse = await addAccount({phone: '7' + phone});
+          dispatch(addPhone({phone: '7' + phone}));
+          localStorage.setItem('token', res?.data?.token);
+          onCancel();
+          setModalOpen(true);
+
+        } catch (e) {
+          notification.open({duration: 1.5, message: 'Ошибка регистрации', type: 'error'})
+          onCancel();
+          setModalOpen(true);
+        }
       }
     }
   }

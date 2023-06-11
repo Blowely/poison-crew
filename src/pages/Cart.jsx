@@ -18,31 +18,34 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const from = searchParams.get('from');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const from = searchParams.get('from');
 
     const cartItems = useAppSelector((state) => state.cart.items);
+    const addresses = useAppSelector((state) => state.account.addresses);
 
     const onGoBackClick = () => {
       return from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
     }
 
     const onOkHandler = () => {
-      if (!cartItems.length) {
-        notification.open({duration: 1.5, type: 'warning', message:'Товары не выбраны'})
+      if (!addresses.length) {
+        notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
       }
-
+      if (!cartItems.length) {
+        notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
+      }
     }
 
     return (
-        <Layout >
+        <Layout>
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
               Оформление заказа <div /></div>
             <div className="content-block">
 
                 <div className="cart-item address" onClick={() => navigate('/address')}>
-                    Необходимо заполнить адрес доставки <RightOutlined />
+                  {addresses[0]?.address ?? 'Необходимо заполнить адрес доставки'} <RightOutlined />
                 </div>
                 {cartItems.map((el, i) => {
                     return <div key={i} className="cart-item">
