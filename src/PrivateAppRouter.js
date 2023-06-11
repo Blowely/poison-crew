@@ -32,7 +32,7 @@ export const PrivateAppRouter = ({
       } />
       <Route path="/products/*" element={<Product />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="*" element={<Navigate to="products" />} replace />
+      <Route path="*" element={<Navigate to="/products" />} replace />
     </Routes>
   </Suspense>
 )

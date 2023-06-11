@@ -40,7 +40,7 @@ function Home({
   };
 
   return (
-    <div>
+    <Layout style={{backgroundColor: 'white'}}>
       <Header />
       <div className="content">
         {/*<div className="d-flex align-center justify-between mb-40">
@@ -96,7 +96,8 @@ function Home({
           showTotal={(total) => `Total ${total} items`}
         />
       </div>
-    </div>
+      <footer></footer>
+    </Layout>
 
   );
 }
