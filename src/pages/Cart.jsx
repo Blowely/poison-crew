@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal} from "antd";
+import {Button, Layout, Modal, notification} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
-import {LeftOutlined, LoadingOutlined, RightOutlined, ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  LeftOutlined,
+  LoadingOutlined,
+  RightOutlined,
+  ShoppingCartOutlined,
+  UserOutlined
+} from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
 
@@ -17,7 +24,14 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const cartItems = useAppSelector((state) => state.cart.items);
 
     const onGoBackClick = () => {
-      return  from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
+      return from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
+    }
+
+    const onOkHandler = () => {
+      if (!cartItems.length) {
+        notification.open({duration: 1.5, type: 'warning', message:'Товары не выбраны'})
+      }
+
     }
 
     return (
@@ -27,7 +41,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
               Оформление заказа <div /></div>
             <div className="content-block">
 
-                <div className="cart-item address">
+                <div className="cart-item address" onClick={() => navigate('/address')}>
                     Необходимо заполнить адрес доставки <RightOutlined />
                 </div>
                 {cartItems.map((el, i) => {
@@ -41,22 +55,17 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                           </div>
                         </div>
 
-
                         <div>
                           <div style={{fontWeight: '500'}}>₽{el.price}</div>
                         </div>
                       </div>
-
                     </div>
                 })}
-
-
-
             </div>
 
             <div className="cart-product-info-submit-btn-wrapper">
               <Button type="primary" className="cart-product-info-submit-btn"
-                      onClick={() => {}}>
+                      onClick={onOkHandler}>
                 Подтвердить заказ
               </Button>
             </div>
