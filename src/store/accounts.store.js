@@ -18,13 +18,6 @@ export const accountsApi = createApi({
         body: JSON.stringify({phone, code})
       })
     }),
-    addAccount: builder.mutation({
-      query: ({phone}) => ({
-        url: '/accounts',
-        method: 'POST',
-        body: JSON.stringify({phone})
-      })
-    }),
     addAddress: builder.mutation({
       query: ({accPhone, address}) => ({
         url: `/address?accPhone=${accPhone}`,
