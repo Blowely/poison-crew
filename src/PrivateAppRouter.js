@@ -17,7 +17,7 @@ export const PrivateAppRouter = ({
                                  }) => (
   <Suspense fallback={<AppLoading />}>
     <Routes>
-      <Route path="/" element={<Navigate to="products" />} replace />
+      <Route path="/" element={<Navigate to="/products" />} />
       <Route path="/products" element={
         <Home
           products={products}
