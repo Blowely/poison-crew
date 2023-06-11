@@ -31,6 +31,5 @@ export const accountsApi = createApi({
 export const {
   useLazyGetCodeQuery,
   useAddCodeMutation,
-  useAddAccountMutation,
   useAddAddressMutation,
 } = accountsApi;
