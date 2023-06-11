@@ -49,7 +49,18 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
                     </div>
                 })}
+
+
+
             </div>
+
+            <div className="cart-product-info-submit-btn-wrapper">
+              <Button type="primary" className="cart-product-info-submit-btn"
+                      onClick={() => {}}>
+                Подтвердить заказ
+              </Button>
+            </div>
+
             <footer>
               <div onClick={() => navigate('/products')}><BagIcon/></div>
               <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
