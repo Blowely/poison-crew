@@ -13,7 +13,8 @@ import {
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
-import {useGetAccountQuery} from "../store/accounts.store";
+import {useAddCodeMutation, useGetAccountQuery} from "../store/accounts.store";
+import {useAddOrderMutation} from "../store/orders.store";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -27,17 +28,36 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const addresses = useAppSelector((state) => state.account.addresses);
 
     const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
+    const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
     const onGoBackClick = () => {
       return from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
     }
 
-    const onOkHandler = () => {
-      if (!addresses.length && !accountData?.account?.addresses?.length) {
-        notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
-      }
-      if (!cartItems.length) {
-        notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
+    const onOkHandler = async () => {
+      try {
+        if (!addresses.length && !accountData?.account?.addresses?.length) {
+          notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
+        }
+        if (!cartItems.length) {
+          notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
+        }
+
+        const addOrderBody = {
+          clientId: accountData?.account?._id,
+          products: cartItems || [],
+          address: addresses[0] || accountData?.account?.addresses[0] || {},
+        }
+
+        const res = await addOrder(addOrderBody);
+        if (res.status === 'ok') {
+          notification.open({duration: 2, type: 'success', message:'Заказ успешно оформлен'})
+        } else {
+          notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
+        }
+
+      } catch (e) {
+        notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
       }
     }
 
