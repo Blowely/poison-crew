@@ -45,7 +45,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         <Layout>
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
-              Оформление заказа <div /></div>
+              Корзина <div /></div>
             <div className="content-block">
 
                 <div className="cart-item address" onClick={() => navigate('/address')}>

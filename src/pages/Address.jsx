@@ -23,10 +23,12 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: phone});
 
+  const remotePhone = accountData?.account?.phone;
+
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
         fio: '',
-        phone: phone.substring(1) || '',
+        phone: phone.substring(1) || remotePhone || '',
         city: '',
         address: '',
         postalCode: '',
@@ -34,7 +36,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
       onSubmit(body) {
         console.log('account=', accountData?.account);
         console.log('phone=',phone);
-        addAccountAddress({accPhone: phone ? phone : accountData?.account?.phone, address: body}).then(res => {
+        addAccountAddress({accPhone: phone || remotePhone, address: body}).then(res => {
           console.log('resAddAddress =', res);
           const address = {...body,id: Date.now(), phone: '7'+ body.phone}
           dispatch(addAddress(address));
