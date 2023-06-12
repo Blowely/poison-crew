@@ -50,8 +50,9 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         }
 
         const res = await addOrder(addOrderBody);
-        if (res.status === 'ok') {
-          notification.open({duration: 2, type: 'success', message:'Заказ успешно оформлен'})
+
+        if (res.data.status === 'ok') {
+          return notification.open({duration: 2, type: 'success', message:'Заказ успешно оформлен'})
         } else {
           notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
         }
