@@ -28,7 +28,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
         fio: '',
-        phone: phone.substring(1) || remotePhone || '',
+        phone: (phone || remotePhone).substring(1) || '',
         city: '',
         address: '',
         postalCode: '',

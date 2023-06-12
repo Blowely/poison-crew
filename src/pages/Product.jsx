@@ -19,11 +19,11 @@ function Product({onAddToFavorite, isLoading}) {
     const [choice, setChoice] = useState({});
     const [phone, setPhone] = useState('');
 
-    const isAuth = localStorage.getItem('token') || false;
+    const token = localStorage.getItem('token');
 
     const productId = searchParams.get('productId');
 
-    const { data: product, isLoading: isLoadingProduct } = useGetProductQuery(productId);
+    const { data: product, isLoading: isLoadingProduct } = useGetProductQuery({productId, token});
     const onAddToCart = () => {
         dispatch(addToCart({...product, size: choice.size, price: choice.price}));
         navigate('/cart');
@@ -31,7 +31,7 @@ function Product({onAddToFavorite, isLoading}) {
 
     return (
         <Layout style={{position: 'relative'}}>
-          {!isAuth &&
+          {!token &&
             <AuthModal
                 open={isModalOpen}
                 setRemotePhone={setPhone}
@@ -41,7 +41,7 @@ function Product({onAddToFavorite, isLoading}) {
                 setCodeModalOpen={setCodeModalOpen}
             />
           }
-          {isAuth &&
+          {token &&
             <Modal
               title="Выберите размер"
               open={isModalOpen}
