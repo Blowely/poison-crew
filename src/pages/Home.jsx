@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../components/Card";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
@@ -15,9 +15,10 @@ import {useNavigate} from "react-router-dom";
 
 function Home({onAddToFavorite, onAddToCart}) {
   const navigate = useNavigate();
+  const [limit, setLimit] = useState(20);
   const buildRequest = () => {
     const obj = {
-      limit: 20,
+      limit: limit,
     }
     return obj;
   }
@@ -38,6 +39,19 @@ function Home({onAddToFavorite, onAddToCart}) {
           />
       ));
   };
+
+  const docElements = document.getElementsByClassName('cards-section-wrapper');
+  console.log('docElements =, ', docElements[0]?.children);
+
+
+  window.addEventListener("scroll", function(event) {
+    const lastEl = docElements[0]?.children[docElements[0]?.children?.length - 1]?.offsetTop - 600;
+    const windowPageYOffset = window.pageYOffset;
+
+    if (windowPageYOffset >= lastEl) {
+      setLimit((prevLimit) => prevLimit += 20);
+    }
+  }, false);
 
   return (
     <Layout style={{backgroundColor: 'white'}}>
