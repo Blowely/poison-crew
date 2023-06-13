@@ -18,7 +18,7 @@
 
 .content-block {
     padding: 15px;
-    padding-bottom: 135px;
+    padding-bottom: 80px;
     width: 100%;
     height: auto;
 }
@@ -81,4 +81,12 @@
     margin-top: 15px;
     z-index: 100;
     bottom: 70px;
+}
+
+.total-price {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    font-weight: 500;
+    font-size: 15px;
 }

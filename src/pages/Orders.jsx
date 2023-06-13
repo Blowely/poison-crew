@@ -15,6 +15,7 @@ import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
+import moment from "moment/moment";
 
 const Orders = () => {
     const dispatch = useAppDispatch();
@@ -26,13 +27,19 @@ const Orders = () => {
 
     const addresses = useAppSelector((state) => state.account.addresses);
 
-    const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token);
+    const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
-    const {data: orders, isLoadingOrders, error: ordersError} = useGetOrdersQuery(clientId, {skip: !clientId});
-
+    const {data: orders, isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
+        skip: !clientId,
+    });
+    useEffect(() => {
+        refetch();
+    }, [])
     const onGoBackClick = () => {
       return navigate('/profile');
     }
+
+    let totalPrice = 0;
 
     return (
         <Layout>
@@ -48,13 +55,20 @@ const Orders = () => {
             {!isLoadingOrders &&
                 <div className="content-block">
                     {orders?.map((el, i) => {
+                        totalPrice = 0;
                         return <div key={i} className="cart-item">
                             <div className="cart-order-info">
                                 <div style={{display: "grid", gap: '7px'}}>
-                                    <div style={{fontSize: '15px', fontWeight: '500'}}>Адрес: {el.address.address}</div>
-                                    {el?.products?.map((p) => {
+                                    <div>№ {el._id}</div>
+                                    <div style={{fontSize: '15px', fontWeight: '500'}}>
+
+                                        <div>Адрес: {el.address.address}</div>
+                                        <div>{moment(el?.createdAt).format('lll')}</div>
+                                    </div>
+                                    {el?.products?.map((p, i) => {
+                                        totalPrice += Number(p.price);
                                         return (
-                                            <div className="cart-product-info">
+                                            <div key={i} className="cart-product-info">
                                                 <div style={{display: 'flex', gap: '7px'}}>
                                                     <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
                                                     <div>
@@ -70,6 +84,7 @@ const Orders = () => {
                                         )
                                     })}
 
+                                    <div className="total-price">Стоимость заказа ₽{totalPrice}</div>
                                 </div>
 
 

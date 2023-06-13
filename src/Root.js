@@ -14,6 +14,10 @@ import {Layout} from "antd";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorHandler from "./common/ErrorHandler";
 import {PrivateAppRouter} from "./PrivateAppRouter";
+import moment from "moment";
+import 'moment/dist/locale/ru';
+
+moment.locale('ru');
 
 const Root = () => {
   const [cartItems, setCartItems] = React.useState([]);
