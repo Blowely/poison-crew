@@ -99,7 +99,7 @@ function Home({onAddToFavorite, onAddToCart}) {
       <footer>
         <div onClick={() => navigate('/products')}><BagIcon/></div>
         <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
-        <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/products')} />
+        <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/profile')} />
       </footer>
     </Layout>
 

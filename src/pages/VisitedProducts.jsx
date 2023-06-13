@@ -16,7 +16,7 @@ import BagIcon from "../assets/svg/bag-icon";
 import {useAddCodeMutation, useGetAccountQuery} from "../store/accounts.store";
 import {useAddOrderMutation} from "../store/orders.store";
 
-function Cart({onAddToFavorite, onAddToCart, isLoading}) {
+const VisitedProducts = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -30,9 +30,9 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
     const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
-    const onGoBackClick = () => {
-      return from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
-    }
+  const onGoBackClick = () => {
+    return navigate('/profile');
+  }
 
     const onOkHandler = async () => {
       try {
@@ -66,14 +66,8 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         <Layout>
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
-              Корзина <div /></div>
+              Просмотренные товары <div /></div>
             <div className="content-block">
-
-                <div className="cart-item redirect" onClick={() => navigate('/address')}>
-                  {(addresses[0]?.address ||
-                      accountData?.account?.addresses?.[accountData?.account?.addresses.length - 1]?.address) ??
-                    'Необходимо заполнить адрес доставки'} <RightOutlined />
-                </div>
                 {cartItems.map((el, i) => {
                     return <div key={i} className="cart-item">
                       <div className="cart-product-info">
@@ -93,13 +87,6 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                 })}
             </div>
 
-            <div className="cart-product-info-submit-btn-wrapper">
-              <Button type="primary" className="cart-product-info-submit-btn"
-                      onClick={onOkHandler}>
-                Перейти к оплате
-              </Button>
-            </div>
-
             <footer>
               <div onClick={() => navigate('/products')}><BagIcon/></div>
               <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
@@ -108,4 +95,4 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         </Layout>
     );
 }
-export default Cart;
+export default VisitedProducts;
