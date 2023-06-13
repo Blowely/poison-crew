@@ -13,8 +13,8 @@ import {
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/bag-icon";
-import {useAddCodeMutation, useGetAccountQuery} from "../store/accounts.store";
-import {useAddOrderMutation} from "../store/orders.store";
+import {useGetAccountQuery} from "../store/accounts.store";
+import { useGetOrdersQuery} from "../store/orders.store";
 
 const Orders = () => {
     const dispatch = useAppDispatch();
@@ -24,69 +24,60 @@ const Orders = () => {
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
 
-    const cartItems = useAppSelector((state) => state.cart.items);
     const addresses = useAppSelector((state) => state.account.addresses);
 
-    const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
-    const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
+    const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token);
+    const clientId = accountData?.account?._id;
+    const {data: orders, isLoadingOrders, error: ordersError} = useGetOrdersQuery(clientId, {skip: !clientId});
 
     const onGoBackClick = () => {
       return navigate('/profile');
-    }
-
-    const onOkHandler = async () => {
-      try {
-        if (!addresses.length && !accountData?.account?.addresses?.length) {
-          notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
-        }
-        if (!cartItems.length) {
-          notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
-        }
-
-        const addOrderBody = {
-          clientId: accountData?.account?._id,
-          products: cartItems || [],
-          address: addresses[0] || accountData?.account?.addresses[0] || {},
-        }
-
-        const res = await addOrder(addOrderBody);
-
-        if (res.data.status === 'ok') {
-          return notification.open({duration: 2, type: 'success', message:'Заказ успешно оформлен'})
-        } else {
-          notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
-        }
-
-      } catch (e) {
-        notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
-      }
     }
 
     return (
         <Layout>
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
-              Заказы <div /></div>
-            <div className="content-block">
-                {cartItems.map((el, i) => {
-                    return <div key={i} className="cart-item">
-                      <div className="cart-product-info">
-                        <div style={{display: 'flex', gap: '7px'}}>
-                          <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
-                          <div>
-                            <div style={{fontSize: '16px'}}>{el.title}</div>
-                            <div>размер: {el.size}</div>
-                          </div>
-                        </div>
-
-                        <div>
-                          <div style={{fontWeight: '500'}}>₽{el.price}</div>
-                        </div>
-                      </div>
-                    </div>
-                })}
+              Заказы <div />
             </div>
+            {isLoadingOrders &&
+                <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+                    <LoadingOutlined style={{fontSize: '24px'}} spin />
+                </div>
+            }
+            {!isLoadingOrders &&
+                <div className="content-block">
+                    {orders?.map((el, i) => {
+                        return <div key={i} className="cart-item">
+                            <div className="cart-order-info">
+                                <div style={{display: "grid", gap: '7px'}}>
+                                    <div style={{fontSize: '15px', fontWeight: '500'}}>Адрес: {el.address.address}</div>
+                                    {el?.products?.map((p) => {
+                                        return (
+                                            <div className="cart-product-info">
+                                                <div style={{display: 'flex', gap: '7px'}}>
+                                                    <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
+                                                    <div>
+                                                        <div style={{fontSize: '16px'}}>{p?.title}</div>
+                                                        <div>размер: {p?.size}</div>
+                                                    </div>
+                                                </div>
 
+                                                <div>
+                                                    <div style={{fontWeight: '500'}}>₽{p?.price}</div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    })}
+                </div>
+            }
             <footer>
               <div onClick={() => navigate('/products')}><BagIcon/></div>
               <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
