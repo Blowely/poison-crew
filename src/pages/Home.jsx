@@ -27,13 +27,12 @@ function Home({onAddToFavorite, onAddToCart}) {
     const obj = {
       limit: limit,
       search: search,
-      type: type || 'personal'
+      collName: 'personal',
     }
 
 
     if (collection) {
       obj.collName = collection
-      delete obj.type;
     }
 
     return obj;

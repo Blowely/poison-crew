@@ -28,8 +28,18 @@ const Header = () => {
     const onChangeCollection = (value) => {
         const collectionIndex = collectionsNames?.findIndex((el) => el === value);
         const fullCollection = randomCollections[collectionIndex];
-
+        console.log('value',value);
         searchParams.set('collName', fullCollection?.name);
+
+        if (value === 'Для Вас') {
+            searchParams.set('collName', 'personal');
+        }
+
+        if (value === 'Популярное') {
+            searchParams.set('collName', 'popular');
+        }
+
+
         setSearchParams(searchParams);
     }
 
