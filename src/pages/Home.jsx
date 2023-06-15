@@ -22,7 +22,6 @@ function Home({onAddToFavorite, onAddToCart}) {
     }
     return obj;
   }
-
   const { data: products = { items: [], totalCount: 0 }, isLoading } = useGetProductsQuery(buildRequest())
 
   const renderItems = () => {
@@ -41,14 +40,19 @@ function Home({onAddToFavorite, onAddToCart}) {
   };
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
-  console.log('docElements =, ', docElements[0]?.children);
 
+  let currentPage = true;
+
+  useEffect(() => {
+    currentPage = false;
+  }, [products])
 
   window.addEventListener("scroll", function(event) {
     const lastEl = docElements[0]?.children[docElements[0]?.children?.length - 1]?.offsetTop - 600;
     const windowPageYOffset = window.pageYOffset;
 
-    if (windowPageYOffset >= lastEl) {
+    if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
+      currentPage = true;
       setLimit((prevLimit) => prevLimit += 20);
     }
   }, false);

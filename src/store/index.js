@@ -5,11 +5,13 @@ import {accountsApi} from "./accounts.store";
 import {cartSlice} from "../common/cartSlice";
 import {accountSlice} from "../common/accountSlice";
 import {ordersApi} from "./orders.store";
+import {collectionsApi} from "./collections.store";
 
 export const reducers = {
   [productsApi.reducerPath]: productsApi.reducer,
   [accountsApi.reducerPath]: accountsApi.reducer,
   [ordersApi.reducerPath]: ordersApi.reducer,
+  [collectionsApi.reducerPath]: collectionsApi.reducer,
   [cartSlice.name]: cartSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
 };
@@ -24,6 +26,7 @@ export default function configureStore() {
       .concat(productsApi.middleware)
       .concat(accountsApi.middleware)
       .concat(ordersApi.middleware)
+      .concat(collectionsApi.middleware)
   });
 
   return store;
