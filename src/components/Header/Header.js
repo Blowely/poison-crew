@@ -26,12 +26,9 @@ const Header = () => {
     }
 
     const onChangeCollection = (value) => {
-        console.log('collectionsNames',collectionsNames);
-        console.log('value',value);
         const collectionIndex = collectionsNames?.findIndex((el) => el === value);
         const fullCollection = randomCollections[collectionIndex];
 
-        console.log('fullCollection=',fullCollection);
         searchParams.set('collName', fullCollection?.name);
         setSearchParams(searchParams);
     }
