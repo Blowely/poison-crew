@@ -3,7 +3,6 @@ import {Input, Segmented} from "antd";
 import React, {useMemo, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import './header.styles.scss';
-import {useGetProductsQuery} from "../../store/products.store";
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 
@@ -12,6 +11,7 @@ const Header = () => {
     const [searchValue, setSearchValue] = useState('');
 
     const search = searchParams.get('search');
+
     const onChange = (value) => {
         if (search && !value) {
             searchParams.delete('search');
@@ -22,6 +22,17 @@ const Header = () => {
 
     const onSearch = () => {
         searchParams.set('search', searchValue);
+        setSearchParams(searchParams);
+    }
+
+    const onChangeCollection = (value) => {
+        console.log('collectionsNames',collectionsNames);
+        console.log('value',value);
+        const collectionIndex = collectionsNames?.findIndex((el) => el === value);
+        const fullCollection = randomCollections[collectionIndex];
+
+        console.log('fullCollection=',fullCollection);
+        searchParams.set('collName', fullCollection?.name);
         setSearchParams(searchParams);
     }
 
@@ -51,7 +62,7 @@ const Header = () => {
                    prefix={<SearchOutlined />}
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
                                  onClick={onSearch}>Найти</span>} />
-            <Segmented className="header-segmented mt-15 w100p" options={['Для Вас', 'Популярное', ...collectionsNames]} />
+            <Segmented className="header-segmented mt-15 w100p" onChange={onChangeCollection} options={['Для Вас', 'Популярное', ...collectionsNames]} />
             {/*<Link to="/">
                 <div className="d-flex align-center">
                     <svg width={40} height={40} src="svg/logo.png" alt="Logo" />

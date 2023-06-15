@@ -20,7 +20,7 @@ function Home({onAddToFavorite, onAddToCart}) {
   const [limit, setLimit] = useState(20);
 
   const search = searchParams.get('search');
-  const collection = searchParams.get('coll');
+  const collection = searchParams.get('collName');
   const type = searchParams.get('type');
 
   const buildRequest = () => {
@@ -32,7 +32,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
 
     if (collection) {
-      obj.collection = collection
+      obj.collName = collection
       delete obj.type;
     }
 
