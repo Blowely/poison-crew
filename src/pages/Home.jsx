@@ -10,16 +10,32 @@ import {useGetProductsQuery} from "../store/products.store";
 import "../index.scss"
 import {ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
 import BagIcon from "../assets/svg/bag-icon.js";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [limit, setLimit] = useState(20);
+
+  const search = searchParams.get('search');
+  const collection = searchParams.get('coll');
+  const type = searchParams.get('type');
+
   const buildRequest = () => {
     const obj = {
       limit: limit,
+      search: search,
+      type: type || 'personal'
     }
+
+
+    if (collection) {
+      obj.collection = collection
+      delete obj.type;
+    }
+
     return obj;
   }
   const { data: products = { items: [], totalCount: 0 }, isLoading } = useGetProductsQuery(buildRequest())

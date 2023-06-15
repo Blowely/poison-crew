@@ -1,14 +1,29 @@
-import {Link} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import {Input, Segmented} from "antd";
-import React from "react";
+import React, {useMemo, useState} from "react";
 import {SearchOutlined} from "@ant-design/icons";
 import './header.styles.scss';
 import {useGetProductsQuery} from "../../store/products.store";
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 
-const Header = (props) => {
-    const onSearch = (value) => console.log(value);
+const Header = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchValue, setSearchValue] = useState('');
+
+    const search = searchParams.get('search');
+    const onChange = (value) => {
+        if (search && !value) {
+            searchParams.delete('search');
+            setSearchParams(searchParams);
+        }
+        setSearchValue(value);
+    }
+
+    const onSearch = () => {
+        searchParams.set('search', searchValue);
+        setSearchParams(searchParams);
+    }
 
     const buildRequest = () => {
         const obj = {
@@ -17,22 +32,25 @@ const Header = (props) => {
         return obj;
     }
     const { data: collections = { items: [], totalCount: 0 }, isLoading } = useGetCollectionsQuery(buildRequest())
-    console.log('collections=',collections);
 
-
-
-    const randomCollections = getMultipleRandom(collections.items, 2);
+    const randomCollections = useMemo(() => getMultipleRandom(collections.items, 2), [collections])
     const collectionsNames = randomCollections.map(el => {
         if (el?.name?.length >= 8) {
             return el?.name.substring(0, 8) + '..'
         }
         return el?.name;
     });
-    console.log('collectionsNames',collectionsNames);
+
     return (
         <header className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20">
-            <Input placeholder="input search text" allowClear onSearch={onSearch} prefix={<SearchOutlined />}
-                   suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}>Найти</span>} />
+            <Input placeholder="Я ищу..." allowClear
+                   value={searchValue}
+                   onChange={(e) => onChange(e.target.value)}
+                   onSearch={onSearch}
+                   onPressEnter={onSearch}
+                   prefix={<SearchOutlined />}
+                   suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
+                                 onClick={onSearch}>Найти</span>} />
             <Segmented className="header-segmented mt-15 w100p" options={['Для Вас', 'Популярное', ...collectionsNames]} />
             {/*<Link to="/">
                 <div className="d-flex align-center">
