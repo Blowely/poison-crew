@@ -17,6 +17,7 @@ import {usePrevious} from "../hooks/usePrevios";
 function Home({onAddToFavorite, onAddToCart}) {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [collectionValue, setCollectionValue] = useState('');
 
   const [limit, setLimit] = useState(20);
 
@@ -48,9 +49,9 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   const [handledProducts, setHandledProducts] = useState([]);
 
-  const prevReqObj = usePrevious(obj);
+  const prevCollectionValue = usePrevious(collectionValue);
 
-  useEffect(() => {
+ /* useEffect(() => {
     console.log('obj = ', obj);
     console.log('prevReqObj = ', prevReqObj);
     if (JSON.stringify(prevReqObj) !== JSON.stringify(obj)){
@@ -59,9 +60,27 @@ function Home({onAddToFavorite, onAddToCart}) {
     } else if (handledProducts.length){
       return setHandledProducts((prev) => [...prev, ...products?.items]);
     }
+  }, [obj, products])*/
 
-    return setHandledProducts(products.items)
-  }, [obj, products?.items?.length])
+  useEffect(() => {
+    console.log('collectionValue =',collectionValue);
+    console.log('prevCollectionValue =',prevCollectionValue);
+    console.log('handledProducts =',handledProducts);
+    if (handledProducts.length) {
+      if (prevCollectionValue !== collectionValue) {
+        console.log('123');
+
+        setHandledProducts(products.items);
+      } else {
+        console.log('321');
+        setHandledProducts((prev) => [...prev, ...products.items])
+      }
+
+    } else if (products?.items?.length){
+      console.log('products',products.items )
+      setHandledProducts(products.items);
+    }
+  }, [products.items, collectionValue])
 
   const renderItems = () => {
       return (isLoading ? [...Array(8)] : handledProducts).map((item, index) => (
@@ -78,8 +97,6 @@ function Home({onAddToFavorite, onAddToCart}) {
       ));
   };
 
-
-
   const docElements = document.getElementsByClassName('cards-section-wrapper');
 
   let currentPage = true;
@@ -89,18 +106,22 @@ function Home({onAddToFavorite, onAddToCart}) {
   }, [products])
 
   window.addEventListener("scroll", function(event) {
-    const lastEl = docElements[0]?.children[docElements[0]?.children?.length - 1]?.offsetTop - 600;
-    const windowPageYOffset = window.pageYOffset;
+    try {
+      const lastEl = docElements[0]?.children[docElements[0]?.children?.length - 1]?.offsetTop - 600;
+      const windowPageYOffset = window.pageYOffset;
 
-    if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
-      currentPage = true;
-      refetch();
+      if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
+        currentPage = true;
+        refetch();
+      }
+    } catch (e) {
+      console.log('e =', e);
     }
   }, false);
 
   return (
     <Layout style={{backgroundColor: 'white'}}>
-      <Header />
+      <Header setCollectionValue={setCollectionValue}/>
       <div className="content">
         {/*<div className="d-flex align-center justify-between mb-40">
               <h1>{searchValue ? `Search for "${searchValue}"` : "All Sneakers"}</h1>

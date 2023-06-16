@@ -6,7 +6,7 @@ import './header.styles.scss';
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 
-const Header = () => {
+const Header = ({setCollectionValue}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchValue, setSearchValue] = useState('');
 
@@ -23,24 +23,28 @@ const Header = () => {
     const onSearch = () => {
         searchParams.set('search', searchValue);
         setSearchParams(searchParams);
+        setCollectionValue(searchValue);
     }
 
     const onChangeCollection = (value) => {
         const collectionIndex = collectionsNames?.findIndex((el) => el === value);
         const fullCollection = randomCollections[collectionIndex];
-        console.log('value',value);
+
         searchParams.set('collName', fullCollection?.name);
+        setCollectionValue(fullCollection?.name);
 
         if (value === 'Для Вас') {
             searchParams.set('collName', 'personal');
+            setCollectionValue('personal');
         }
 
         if (value === 'Популярное') {
             searchParams.set('collName', 'popular');
+            setCollectionValue('popular');
         }
 
-
         setSearchParams(searchParams);
+
     }
 
     const buildRequest = () => {
