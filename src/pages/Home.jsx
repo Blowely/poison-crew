@@ -11,6 +11,7 @@ import "../index.scss"
 import {ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
 import BagIcon from "../assets/svg/bag-icon.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {usePrevious} from "../hooks/usePrevios";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
@@ -23,9 +24,12 @@ function Home({onAddToFavorite, onAddToCart}) {
   const collection = searchParams.get('collName');
   const type = searchParams.get('type');
 
+  let obj;
+
+
   const buildRequest = () => {
-    const obj = {
-      limit: limit,
+    obj = {
+      limit: 20,
       search: search,
       collName: 'personal',
     }
@@ -37,10 +41,30 @@ function Home({onAddToFavorite, onAddToCart}) {
 
     return obj;
   }
-  const { data: products = { items: [], totalCount: 0 }, isLoading } = useGetProductsQuery(buildRequest())
+
+
+
+  const { data: products = { items: [], totalCount: 0 }, isLoading, refetch } = useGetProductsQuery(buildRequest())
+
+  const [handledProducts, setHandledProducts] = useState([]);
+
+  const prevReqObj = usePrevious(obj);
+
+  useEffect(() => {
+    console.log('obj = ', obj);
+    console.log('prevReqObj = ', prevReqObj);
+    if (JSON.stringify(prevReqObj) !== JSON.stringify(obj)){
+      console.log('1')
+      return setHandledProducts(products.items);
+    } else if (handledProducts.length){
+      return setHandledProducts((prev) => [...prev, ...products?.items]);
+    }
+
+    return setHandledProducts(products.items)
+  }, [obj, products?.items?.length])
 
   const renderItems = () => {
-      return (isLoading ? [...Array(8)] : products.items).map((item, index) => (
+      return (isLoading ? [...Array(8)] : handledProducts).map((item, index) => (
           <Card
               id={item?._id}
               key={index}
@@ -53,6 +77,8 @@ function Home({onAddToFavorite, onAddToCart}) {
           />
       ));
   };
+
+
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
 
@@ -68,7 +94,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
     if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
       currentPage = true;
-      setLimit((prevLimit) => prevLimit += 20);
+      refetch();
     }
   }, false);
 
