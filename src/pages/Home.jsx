@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import Card from "../components/Card";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
@@ -12,78 +12,79 @@ import {ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
 import BagIcon from "../assets/svg/bag-icon.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {usePrevious} from "../hooks/usePrevios";
+import {useAppDispatch, useAppSelector} from "../store";
+import {addAddress} from "../common/accountSlice";
+import {addProducts} from "../common/productsSlice";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const productsSlice = useAppSelector((state) => state.products);
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const [collectionValue, setCollectionValue] = useState('');
 
   const [limit, setLimit] = useState(20);
 
   const search = searchParams.get('search');
-  const collection = searchParams.get('collName');
+  const collection = searchParams.get('collName') || 'personal';
+  const offset = searchParams.get('offset');
   const type = searchParams.get('type');
 
-  let obj;
-
-
   const buildRequest = () => {
-    obj = {
+    let obj = {
       limit: 20,
       search: search,
       collName: 'personal',
     }
 
-
     if (collection) {
       obj.collName = collection
     }
 
+    if (offset) {
+      obj.offset = offset;
+    }
+
+    console.log('obj',obj);
     return obj;
   }
 
-
-
   const { data: products = { items: [], totalCount: 0 }, isLoading, refetch } = useGetProductsQuery(buildRequest())
 
-  const [handledProducts, setHandledProducts] = useState([]);
 
-  const prevCollectionValue = usePrevious(collectionValue);
-
- /* useEffect(() => {
-    console.log('obj = ', obj);
-    console.log('prevReqObj = ', prevReqObj);
-    if (JSON.stringify(prevReqObj) !== JSON.stringify(obj)){
-      console.log('1')
-      return setHandledProducts(products.items);
-    } else if (handledProducts.length){
-      return setHandledProducts((prev) => [...prev, ...products?.items]);
-    }
-  }, [obj, products])*/
+  const prevCollectionValue = usePrevious(collection);
+  const trimCollectionValue = collection.replace(/ /g,'');
 
   useEffect(() => {
-    console.log('collectionValue =',collectionValue);
     console.log('prevCollectionValue =',prevCollectionValue);
-    console.log('handledProducts =',handledProducts);
-    if (handledProducts.length) {
-      if (prevCollectionValue !== collectionValue) {
-        console.log('123');
+    console.log('collection',collection);
 
-        setHandledProducts(products.items);
+    if (productsSlice[trimCollectionValue]?.length) {
+      if (prevCollectionValue !== collection) {
+        dispatch(addProducts({
+          [trimCollectionValue]: products?.items
+        }));
       } else {
-        console.log('321');
-        setHandledProducts((prev) => [...prev, ...products.items])
+        dispatch(addProducts({
+          [trimCollectionValue]: [...productsSlice[trimCollectionValue], ...products?.items]
+        }));
       }
-
     } else if (products?.items?.length){
-      console.log('products',products.items )
-      setHandledProducts(products.items);
+      try {
+        console.log('trimCollectionValue =', trimCollectionValue);
+        console.log('products =', products);
+        dispatch(addProducts({
+          [trimCollectionValue]: products?.items
+        }));
+      } catch (e) {
+        console.log('e =', e);
+      }
     }
-  }, [products.items, collectionValue])
+  }, [products?.items])
 
   const renderItems = () => {
-      return (isLoading ? [...Array(8)] : handledProducts).map((item, index) => (
+      return (isLoading ? [...Array(8)] : productsSlice[trimCollectionValue] || []).map((item, index) => (
           <Card
               id={item?._id}
               key={index}
@@ -95,7 +96,7 @@ function Home({onAddToFavorite, onAddToCart}) {
               {...item}
           />
       ));
-  };
+  }
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
 
@@ -113,6 +114,10 @@ function Home({onAddToFavorite, onAddToCart}) {
       if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
         currentPage = true;
         refetch();
+        if (collection !== 'personal' && collection !== 'popular' && products.items.length === limit) {
+          let prevOffset = Number(offset);
+          searchParams.set('offset', (prevOffset += 20).toString())
+        }
       }
     } catch (e) {
       console.log('e =', e);
@@ -121,27 +126,8 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   return (
     <Layout style={{backgroundColor: 'white'}}>
-      <Header setCollectionValue={setCollectionValue}/>
+      <Header/>
       <div className="content">
-        {/*<div className="d-flex align-center justify-between mb-40">
-              <h1>{searchValue ? `Search for "${searchValue}"` : "All Sneakers"}</h1>
-              <div className="Search-block d-flex">
-                  <svg width={20} height={40} src="svg/search.svg" alt="searchIcon" />
-                  {searchValue && (
-                      <svg
-                          onClick={() => setSearchValue("")}
-                          className=" clear cu-p"
-                          src="/svg/btn-remove.svg"
-                          alt="Clear"
-                      />
-                  )}
-                  <input
-                      onChange={onChangeSearchInput}
-                      value={searchValue}
-                      placeholder="Search..."
-                  />
-              </div>
-          </div>*/}
         <div className="brands-section-wrapper">
           <div className="brands-section-wrapper_card" >
             <div className="brands-section-wrapper_card-icon">
@@ -169,12 +155,6 @@ function Home({onAddToFavorite, onAddToCart}) {
           </div>
         </div>
         <div className="cards-section-wrapper">{renderItems()}</div>
-        <Pagination
-          total={products.totalCount}
-          showSizeChanger
-          showQuickJumper
-          showTotal={(total) => `Total ${total} items`}
-        />
       </div>
       <footer>
         <div onClick={() => navigate('/products')}><BagIcon/></div>

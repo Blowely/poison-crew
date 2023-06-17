@@ -6,6 +6,7 @@ import {cartSlice} from "../common/cartSlice";
 import {accountSlice} from "../common/accountSlice";
 import {ordersApi} from "./orders.store";
 import {collectionsApi} from "./collections.store";
+import {productsSlice} from "../common/productsSlice";
 
 export const reducers = {
   [productsApi.reducerPath]: productsApi.reducer,
@@ -14,6 +15,7 @@ export const reducers = {
   [collectionsApi.reducerPath]: collectionsApi.reducer,
   [cartSlice.name]: cartSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
+  [productsSlice.name]: productsSlice.reducer,
 };
 
 const reducer = combineReducers(reducers);

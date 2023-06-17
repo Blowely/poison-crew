@@ -6,7 +6,7 @@ import './header.styles.scss';
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 
-const Header = ({setCollectionValue}) => {
+const Header = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchValue, setSearchValue] = useState('');
 
@@ -23,7 +23,6 @@ const Header = ({setCollectionValue}) => {
     const onSearch = () => {
         searchParams.set('search', searchValue);
         setSearchParams(searchParams);
-        setCollectionValue(searchValue);
     }
 
     const onChangeCollection = (value) => {
@@ -31,20 +30,16 @@ const Header = ({setCollectionValue}) => {
         const fullCollection = randomCollections[collectionIndex];
 
         searchParams.set('collName', fullCollection?.name);
-        setCollectionValue(fullCollection?.name);
 
         if (value === 'Для Вас') {
             searchParams.set('collName', 'personal');
-            setCollectionValue('personal');
         }
 
         if (value === 'Популярное') {
             searchParams.set('collName', 'popular');
-            setCollectionValue('popular');
         }
 
         setSearchParams(searchParams);
-
     }
 
     const buildRequest = () => {
@@ -68,7 +63,6 @@ const Header = ({setCollectionValue}) => {
             <Input placeholder="Я ищу..." allowClear
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
-                   onSearch={onSearch}
                    onPressEnter={onSearch}
                    prefix={<SearchOutlined />}
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
