@@ -57,9 +57,6 @@ function Home({onAddToFavorite, onAddToCart}) {
   const trimCollectionValue = collection.replace(/ /g,'');
 
   useEffect(() => {
-    console.log('prevCollectionValue =',prevCollectionValue);
-    console.log('collection',collection);
-
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== collection) {
         dispatch(addProducts({
