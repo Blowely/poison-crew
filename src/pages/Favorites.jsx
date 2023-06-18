@@ -12,9 +12,12 @@ import {
   UserOutlined
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
-import BagIcon from "../assets/svg/bag-icon";
+import BagIcon from "../assets/svg/active-bag-icon";
 import {useAddCodeMutation, useGetAccountQuery} from "../store/accounts.store";
 import {useAddOrderMutation} from "../store/orders.store";
+import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
+import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
+import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 
 const Favorites = () => {
     const dispatch = useAppDispatch();
@@ -87,9 +90,15 @@ const Favorites = () => {
                 })}
             </div>
             <footer>
-              <div onClick={() => navigate('/products')}><BagIcon/></div>
-              <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
-              <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/profile')} />
+                <div onClick={() => navigate('/products')}>
+                    <NonActiveBagIcon/>
+                </div>
+                <div onClick={() => navigate('/cart?from=products') }>
+                    <NonActiveCartIcon style={{ fontSize: '30px'}} />
+                </div>
+                <div onClick={() => navigate('/profile')}>
+                    <ActiveProfileIcon style={{ fontSize: '30px'}} />
+                </div>
             </footer>
         </Layout>
     );

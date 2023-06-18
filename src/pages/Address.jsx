@@ -4,7 +4,7 @@ import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {LeftOutlined, LoadingOutlined, RightOutlined, ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
-import BagIcon from "../assets/svg/bag-icon";
+import BagIcon from "../assets/svg/active-bag-icon";
 import "./address.scss";
 import {useFormik} from "formik";
 import {useAddAddressMutation, useGetAccountQuery} from "../store/accounts.store";

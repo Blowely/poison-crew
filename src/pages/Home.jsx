@@ -9,12 +9,14 @@ import Header from "../components/Header/Header";
 import {useGetProductsQuery} from "../store/products.store";
 import "../index.scss"
 import {ShoppingCartOutlined, UserOutlined} from "@ant-design/icons";
-import BagIcon from "../assets/svg/bag-icon.js";
+import ActiveBagIcon from "../assets/svg/active-bag-icon.js";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {usePrevious} from "../hooks/usePrevios";
 import {useAppDispatch, useAppSelector} from "../store";
 import {addAddress} from "../common/accountSlice";
 import {addProducts} from "../common/productsSlice";
+import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
+import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
@@ -154,9 +156,13 @@ function Home({onAddToFavorite, onAddToCart}) {
         <div className="cards-section-wrapper">{renderItems()}</div>
       </div>
       <footer>
-        <div onClick={() => navigate('/products')}><BagIcon/></div>
-        <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
-        <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/profile')} />
+        <div onClick={() => navigate('/products')}><ActiveBagIcon/></div>
+        <div onClick={() => navigate('/cart?from=products')}>
+          <NonActiveCartIcon style={{ fontSize: '30px'}} />
+        </div>
+        <div onClick={() => navigate('/profile')}>
+          <NonActiveProfileIcon style={{ fontSize: '30px'}} />
+        </div>
       </footer>
     </Layout>
 
