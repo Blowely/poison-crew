@@ -20,6 +20,7 @@ import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
+import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -41,8 +42,9 @@ const Profile = () => {
       <div className="content-block">
         <div className="cart-item cart-item-transparent padding-bottom">
           <div className="transparent">
-            <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
-                 style={{width: '40px', height: '40px'}} alt=""/>
+            <ActiveProfileLargeIcon />
+            {/*<img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
+                 style={{width: '40px', height: '40px'}} alt=""/>*/}
             +{accountData?.account?.phone}
           </div>
           <LogoutOutlined style={{fontSize: '25px'}} onClick={() => {alert('в разработке')}}/>
