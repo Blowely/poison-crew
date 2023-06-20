@@ -4,7 +4,7 @@ import {baseQuery} from "../common/baseQuery";
 export const accountsApi = createApi({
   reducerPath: 'accountsApi',
   tagTypes: ['Account','Sms'],
-  baseQuery: baseQuery('http://77.91.126.217:3000/api'),
+  baseQuery: baseQuery('https://api.re-poizon.ru'),
   //baseQuery: baseQuery('http://localhost:3000/api'),
   endpoints: (builder) => ({
     getCode: builder.query({
