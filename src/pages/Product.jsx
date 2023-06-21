@@ -84,7 +84,7 @@ function Product({onAddToFavorite, isLoading}) {
           {!isLoadingProduct &&
             <>
                 <LeftOutlined
-                    style={{zIndex: '99', position: 'absolute', padding: '15px', marginTop: '10px', fontSize: '25px'}}
+                    style={{zIndex: '99', position: 'fixed', padding: '15px', marginTop: '10px', fontSize: '25px'}}
                     onClick={() => navigate('/products')}
                 />
                 <CarouselComponent images={product?.images} />
@@ -96,7 +96,7 @@ function Product({onAddToFavorite, isLoading}) {
                     <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
                     <div style={{fontSize: '24px'}}>{product?.title}</div>
                 </div>
-                <div style={{position: "fixed", marginTop: "calc(100vh - 90px)", width: '100%',
+                <div style={{position: "fixed", bottom: '0', width: '100%',
                     height: '90px', padding: 10, backgroundColor: "white", borderTop: '1px solid #f9f9f9'}} >
                     <Button type="primary" style={{width: '100%', height: '100%', fontSize: '20px', fontWeight: '400'}} onClick={() => setModalOpen(true)}>
                       Выбрать размер

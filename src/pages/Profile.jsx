@@ -43,8 +43,6 @@ const Profile = () => {
         <div className="cart-item cart-item-transparent padding-bottom">
           <div className="transparent">
             <ActiveProfileLargeIcon />
-            {/*<img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
-                 style={{width: '40px', height: '40px'}} alt=""/>*/}
             +{accountData?.account?.phone}
           </div>
           <LogoutOutlined style={{fontSize: '25px'}} onClick={() => {alert('в разработке')}}/>
