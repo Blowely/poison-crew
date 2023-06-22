@@ -20,12 +20,16 @@ import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
+import ChoiceAddressModal from "./ChoiceAddressModal";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
+
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
 
@@ -67,14 +71,32 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
       }
     }
 
+    const onAddressClick = () => {
+        if (accountData?.account?.addresses?.length) {
+            setChoiceAddressModalOpen(true)
+        } else {
+            navigate('/address');
+        }
+    }
+
     return (
         <Layout>
+            {isChoiceAddressModalOpen &&
+                <ChoiceAddressModal
+                    addresses={accountData?.account?.addresses}
+                    open={isChoiceAddressModalOpen}
+                    setModalOpen={setChoiceAddressModalOpen}
+                    onCancel={() => {setChoiceAddressModalOpen(false)}}
+                    isChoiceAddressModalOpen={isChoiceAddressModalOpen}
+                    setChoiceAddressModalOpen={setChoiceAddressModalOpen}
+                />
+            }
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
               Корзина <div /></div>
             <div className="content-block">
 
-                <div className="cart-item redirect" onClick={() => navigate('/address')}>
+                <div className="cart-item redirect" onClick={onAddressClick}>
                   {(addresses[0]?.address ||
                       accountData?.account?.addresses?.[accountData?.account?.addresses.length - 1]?.address) ??
                     'Необходимо заполнить адрес доставки'} <RightOutlined />
