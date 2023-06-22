@@ -158,10 +158,10 @@ function Home({onAddToFavorite, onAddToCart}) {
       <footer>
         <div onClick={() => navigate('/products')}><ActiveBagIcon/></div>
         <div onClick={() => navigate('/cart?from=products')}>
-          <NonActiveCartIcon style={{ fontSize: '30px'}} />
+          <NonActiveCartIcon  />
         </div>
         <div onClick={() => navigate('/profile')}>
-          <NonActiveProfileIcon style={{ fontSize: '30px'}} />
+          <NonActiveProfileIcon  />
         </div>
       </footer>
     </Layout>

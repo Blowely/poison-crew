@@ -262,10 +262,12 @@ footer {
   border-top: 1px solid #f5f5f5;
   display: flex;
   justify-content: space-around;
-  padding: 15px;
+  align-items: center;
 
-  & > img {
-    width: 40px;
-    height: 100%;
+  & > div {
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
