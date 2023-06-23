@@ -63,7 +63,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, setModalOpen, setRemoteP
             <Radio.Group name="radiogroup" className="address-items-wrapper" defaultValue={1}>
               {addresses?.map((adr, i) => {
                 return <div className="address-item-wrapper" key={i}>
-                  <Radio  value={i} />
+                  <Radio value={i} />
                   <div className="address-item-wrapper-data">{adr?.address} {addressSettingsBtn()} </div>
                 </div>
               })}

@@ -71,8 +71,6 @@ function Home({onAddToFavorite, onAddToCart}) {
       }
     } else if (products?.items?.length){
       try {
-        console.log('trimCollectionValue =', trimCollectionValue);
-        console.log('products =', products);
         dispatch(addProducts({
           [trimCollectionValue]: products?.items
         }));

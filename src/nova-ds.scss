@@ -19,3 +19,11 @@
     background-color: rgb(1, 194, 195);
   }
 }
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border-color: rgb(1, 194, 195);
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-input:hover {
+  border-color: rgb(1, 194, 195);
+}
