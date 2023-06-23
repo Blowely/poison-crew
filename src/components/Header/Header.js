@@ -8,12 +8,13 @@ import {getMultipleRandom} from "../../common/utils";
 
 const Header = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchValue, setSearchValue] = useState('');
-
     const search = searchParams.get('search');
+
+    const [searchValue, setSearchValue] = useState(search || '');
 
     const onChange = (value) => {
         if (search && !value) {
+            window.scrollTo({top: 0})
             searchParams.delete('search');
             setSearchParams(searchParams);
         }
@@ -21,6 +22,7 @@ const Header = () => {
     }
 
     const onSearch = () => {
+        window.scrollTo({top: 0})
         searchParams.set('search', searchValue);
         setSearchParams(searchParams);
     }

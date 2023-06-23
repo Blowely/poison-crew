@@ -27,6 +27,7 @@ function Home({onAddToFavorite, onAddToCart}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [limit, setLimit] = useState(20);
+  const [test, setTest] = useState([]);
 
   const search = searchParams.get('search');
   const collection = searchParams.get('collName') || 'personal';
@@ -54,13 +55,13 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   const { data: products = { items: [], totalCount: 0 }, isLoading, refetch } = useGetProductsQuery(buildRequest())
 
-
-  const prevCollectionValue = usePrevious(collection);
-  const trimCollectionValue = collection.replace(/ /g,'');
+  const searchOrCollection = search || collection;
+  const prevCollectionValue = usePrevious(searchOrCollection);
+  const trimCollectionValue = (searchOrCollection).replace(/ /g,'');
 
   useEffect(() => {
     if (productsSlice[trimCollectionValue]?.length) {
-      if (prevCollectionValue !== collection) {
+      if (prevCollectionValue !== searchOrCollection) {
         dispatch(addProducts({
           [trimCollectionValue]: products?.items
         }));
@@ -111,7 +112,8 @@ function Home({onAddToFavorite, onAddToCart}) {
       if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
         currentPage = true;
         refetch();
-        if (collection !== 'personal' && collection !== 'popular' && products.items.length === limit) {
+
+        if (products.items.length === limit) {
           let prevOffset = Number(offset);
           searchParams.set('offset', (prevOffset += 20).toString())
         }
