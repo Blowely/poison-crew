@@ -28,7 +28,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
         fio: '',
-        phone: (phone || remotePhone).substring(1) || '',
+        phone: (phone || remotePhone)?.substring(1) || '',
         city: '',
         address: '',
         postalCode: '',
@@ -36,7 +36,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
       onSubmit(body) {
         console.log('account=', accountData?.account);
         console.log('phone=',phone);
-        addAccountAddress({accPhone: phone || remotePhone, address: body}).then(res => {
+        addAccountAddress({token: token, address: body}).then(res => {
           console.log('resAddAddress =', res);
           const address = {...body,id: Date.now(), phone: '7'+ body.phone}
           dispatch(addAddress(address));

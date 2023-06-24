@@ -23,8 +23,8 @@ export const accountsApi = createApi({
       invalidatesTags: (result, error, arg) => [{type: 'Account', id: arg}],
     }),
     addAddress: builder.mutation({
-      query: ({accPhone, address}) => ({
-        url: `/accounts?accPhone=${accPhone}`,
+      query: ({token, address}) => ({
+        url: `/accounts?token=${token}`,
         method: 'POST',
         body: JSON.stringify({address})
       })
