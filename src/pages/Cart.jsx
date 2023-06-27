@@ -85,7 +85,6 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                 <ChoiceAddressModal
                     addresses={accountData?.account?.addresses}
                     open={isChoiceAddressModalOpen}
-                    setModalOpen={setChoiceAddressModalOpen}
                     onCancel={() => {setChoiceAddressModalOpen(false)}}
                     isChoiceAddressModalOpen={isChoiceAddressModalOpen}
                     setChoiceAddressModalOpen={setChoiceAddressModalOpen}

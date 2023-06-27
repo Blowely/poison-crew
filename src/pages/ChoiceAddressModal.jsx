@@ -50,6 +50,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, setModalOpen, setRemoteP
       if (res?.data?.status === 'ok') {
         notification.open({duration: 1.5, type: "success", message: 'Адрес доставки изменен'})
       }
+      setChoiceAddressModalOpen(false);
     } catch (e) {
       notification.open({duration: 1.5, type: "error", message: 'Не удалось сменить адрес'})
     }
