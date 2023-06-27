@@ -10,7 +10,7 @@ import {useAppDispatch} from "../store";
 import {addPhone} from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
 
-const ChoiceAddressModal = ({addresses, open, onCancel, setModalOpen, setRemotePhone, isChoiceAddressModalOpen, setChoiceAddressModalOpen}) => {
+const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen, setChoiceAddressModalOpen, refetchAcc, activeAddr}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -40,17 +40,20 @@ const ChoiceAddressModal = ({addresses, open, onCancel, setModalOpen, setRemoteP
     },
   ];
 
-  const onChangeActiveAddress = (addressId) => {
+  const onChangeActiveAddress = async (addressId) => {
     try {
+      setChoiceAddressModalOpen(false);
+
       if (!token) {
         return notification.open({duration: 1.5, type: "error", message: 'Неавторизированный запрос'})
       }
-      const res = updateActiveAddress({token, addressId});
 
-      if (res?.data?.status === 'ok') {
+      const res = await updateActiveAddress({token, addressId}).unwrap();
+
+      if (res?.status === 'ok') {
         notification.open({duration: 1.5, type: "success", message: 'Адрес доставки изменен'})
+        refetchAcc();
       }
-      setChoiceAddressModalOpen(false);
     } catch (e) {
       notification.open({duration: 1.5, type: "error", message: 'Не удалось сменить адрес'})
     }
@@ -79,8 +82,12 @@ const ChoiceAddressModal = ({addresses, open, onCancel, setModalOpen, setRemoteP
             <div style={{fontSize: '15px'}}>Выберете адрес, чтобы увидеть условия доставки</div>
             <Radio.Group name="radiogroup" className="address-items-wrapper" defaultValue={1}>
               {addresses?.map((adr, i) => {
+                console.log('adr?._id === activeAddr =', adr?._id === activeAddr._id);
+                console.log('i =', i);
+                console.log('adr', adr);
+                console.log('activeAddr', activeAddr);
                 return <div className="address-item-wrapper" key={i}>
-                  <Radio value={i} onClick={() => onChangeActiveAddress(adr?._id)}/>
+                  <Radio checked={adr?._id === activeAddr._id} value={i} onClick={() => onChangeActiveAddress(adr?._id)}/>
                   <div className="address-item-wrapper-data">{adr?.address} {addressSettingsBtn()} </div>
                 </div>
               })}

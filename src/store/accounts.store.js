@@ -31,8 +31,8 @@ export const accountsApi = createApi({
     }),
     updateActiveAddress: builder.mutation({
       query: ({token, addressId}) => ({
-        url: `/accounts?token=${token}`,
-        method: 'PATCH',
+        url: `/accounts?token=${token}&methodType=patchAccAddr`,
+        method: 'POST',
         body: JSON.stringify({addressId})
       })
     }),

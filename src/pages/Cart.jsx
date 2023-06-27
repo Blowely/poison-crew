@@ -29,6 +29,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [isModalOpen, setModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
+    const [activeAddr, setActiveAddr] = useState('');
 
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
@@ -36,7 +37,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const cartItems = useAppSelector((state) => state.cart.items);
     const addresses = useAppSelector((state) => state.account.addresses);
 
-    const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
+    const {data: accountData, isLoadingAcc, error: accError, refetch: refetchAcc} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
     const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
     const onGoBackClick = () => {
@@ -79,6 +80,13 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         }
     }
 
+    useEffect(() => {
+        const arrAcitveAddr = accountData?.account?.addresses?.filter((el) => {
+            return el._id === accountData?.account?.activeAddressId;
+        });
+        setActiveAddr(arrAcitveAddr?.[0] || {})
+    },[accountData?.account]);
+
     return (
         <Layout>
             {isChoiceAddressModalOpen &&
@@ -88,6 +96,8 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                     onCancel={() => {setChoiceAddressModalOpen(false)}}
                     isChoiceAddressModalOpen={isChoiceAddressModalOpen}
                     setChoiceAddressModalOpen={setChoiceAddressModalOpen}
+                    refetchAcc={refetchAcc}
+                    activeAddr={activeAddr}
                 />
             }
             <div className="content-block-header">
@@ -96,8 +106,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             <div className="content-block">
 
                 <div className="cart-item redirect" onClick={onAddressClick}>
-                  {(addresses[0]?.address ||
-                      accountData?.account?.addresses?.[accountData?.account?.addresses.length - 1]?.address) ??
+                  {(addresses[0]?.address || activeAddr?.address) ??
                     'Необходимо заполнить адрес доставки'} <RightOutlined />
                 </div>
                 {cartItems.map((el, i) => {
