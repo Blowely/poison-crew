@@ -4,8 +4,8 @@ import {baseQuery} from "../common/baseQuery";
 export const accountsApi = createApi({
   reducerPath: 'accountsApi',
   tagTypes: ['Account','Sms'],
-  baseQuery: baseQuery('https://api.re-poizon.ru/api'),
-  //baseQuery: baseQuery('http://localhost:3000/api'),
+  //baseQuery: baseQuery('https://api.re-poizon.ru/api'),
+  baseQuery: baseQuery('http://localhost:3000/api'),
   endpoints: (builder) => ({
     getCode: builder.query({
       query: ({phone, userAgent}) => `/sms?phone=7${phone}&userAgent=${userAgent}`,
@@ -29,6 +29,13 @@ export const accountsApi = createApi({
         body: JSON.stringify({address})
       })
     }),
+    updateActiveAddress: builder.mutation({
+      query: ({token, addressId}) => ({
+        url: `/accounts?token=${token}`,
+        method: 'PATCH',
+        body: JSON.stringify({addressId})
+      })
+    }),
   })
 })
 
@@ -37,4 +44,5 @@ export const {
   useGetAccountQuery,
   useAddCodeMutation,
   useAddAddressMutation,
+  useUpdateActiveAddressMutation
 } = accountsApi;
