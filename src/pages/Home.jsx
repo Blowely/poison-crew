@@ -37,7 +37,7 @@ function Home({onAddToFavorite, onAddToCart}) {
   const buildRequest = () => {
     let obj = {
       limit: 20,
-      search: search,
+      search: search?.toLowerCase(),
       collName: 'personal',
     }
 
@@ -49,7 +49,6 @@ function Home({onAddToFavorite, onAddToCart}) {
       obj.offset = offset;
     }
 
-    console.log('obj',obj);
     return obj;
   }
 

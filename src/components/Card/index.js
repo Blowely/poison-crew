@@ -15,19 +15,28 @@ function Card({
                   added = false,
                   loading = false,
               }) {
-  const navigate = useNavigate();
-  const [isFavorite, setIsFavorite] = React.useState(favorited);
+    const navigate = useNavigate();
+    const [isFavorite, setIsFavorite] = React.useState(favorited);
 
-  const onClickPlus = () => {
+    const onClickPlus = () => {
       onPlus({ id, title, imageUrl, price });
-  };
+    };
 
-  const onClickFavorite = () => {
+    const onClickFavorite = () => {
       onFavorite({ id, title, imageUrl, price });
       setIsFavorite(!isFavorite);
-  };
+    };
 
-  return (
+
+    const getPrice = () => {
+        if (Number(price) < 1) {
+            return '--';
+        }
+        return Math.ceil(price * 11.9 + 1000);
+    }
+
+
+    return (
       <div className={styles.card} onClick={() => navigate(`/products/view?productId=${id}`)}>
           {loading ? (
               <ContentLoader
@@ -50,12 +59,13 @@ function Card({
                   <h5>{title}</h5>
                   <div className="d-flex justify-between align-center">
                       <div className="d-flex flex-column ">
-                          <b>₽ {price}</b>
+                          <b style={{fontSize: '15px', gap: '3px', display: 'flex'}}>
+                              <b style={{fontSize: '14px', color: 'black'}}>₽</b>{getPrice()}</b>
                       </div>
                   </div>
               </>
           )}
       </div>
-  );
+    );
 }
 export default Card;

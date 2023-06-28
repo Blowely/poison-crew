@@ -4,10 +4,11 @@ import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import CarouselComponent from "../components/Carousel/Carousel";
 import "./product.scss";
-import {LeftOutlined, LoadingOutlined} from "@ant-design/icons";
+import {LeftOutlined, LoadingOutlined, RightOutlined} from "@ant-design/icons";
 import AuthModal from "./AuthModal";
 import {useAppDispatch} from "../store";
 import {addToCart} from "../common/cartSlice";
+import AdidasIcon from "../assets/svg/brands/adidas-icon";
 
 function Product({onAddToFavorite, isLoading}) {
     const dispatch = useAppDispatch();
@@ -29,6 +30,12 @@ function Product({onAddToFavorite, isLoading}) {
         navigate('/cart');
     }
 
+    const onChangeChoiceHandler = (el, i) => {
+        if (Number(el.price) > 0) {
+            setChoice({ size: el.size, price: el.price, index: i})
+        }
+    }
+
     return (
         <Layout style={{position: 'relative'}}>
           {!token &&
@@ -46,7 +53,7 @@ function Product({onAddToFavorite, isLoading}) {
               title="Выберите размер"
               open={isModalOpen}
               onOk={onAddToCart}
-              okText={"₽" + choice.price}
+              okText={"₽" + Math.ceil(Number(choice.price) * 11.9 + 1000) }
               centered
               onCancel={() => {setModalOpen(false)}}
             >
@@ -66,9 +73,11 @@ function Product({onAddToFavorite, isLoading}) {
                 {product?.properties?.sizes.map((el, i) => {
                   return (
                     <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
-                         onClick={() => setChoice({ size: el.size, price: el.price, index: i})} key={i}>
+                         onClick={() => onChangeChoiceHandler(el, i)} key={i}>
                       <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
-                        <div style={{fontSize: '13px', textAlign: 'center'}}>₽{el.price}</div>
+                        <div style={{fontSize: '13px', textAlign: 'center'}}>
+                            ₽{Math.ceil(el.price * 11.9 + 1000) || '--'}
+                        </div>
                     </div>
                   )
                 })}
@@ -89,16 +98,24 @@ function Product({onAddToFavorite, isLoading}) {
                 />
                 <CarouselComponent images={product?.images} />
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
-                    <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
+                    <div style={{fontSize: '30px', fontWeight: '600'}}>
+                        <span style={{fontSize: '23px'}}>₽</span>{Math.ceil(product?.price * 11.9 + 1000) || '--'}
+                    </div>
                     <div style={{fontSize: '24px'}}>{product?.title}</div>
                 </div>
-                <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
-                    <div style={{fontSize: '30px', fontWeight: '600'}}>руб {product?.price}</div>
-                    <div style={{fontSize: '24px'}}>{product?.title}</div>
+                <div style={{backgroundColor: 'white', margin: '10px', padding: '10px',
+                    display: "flex", justifyContent: "space-between", height: '70px', alignItems: "center"}}>
+                    <div style={{display:"flex", gap: '10px', width: '50%'}}>
+                        <AdidasIcon  />
+                        <div style={{fontSize: '24px'}}>adidas</div>
+                    </div>
+
+                    <RightOutlined />
                 </div>
                 <div style={{position: "fixed", bottom: '0', width: '100%',
                     height: '90px', padding: 10, backgroundColor: "white", borderTop: '1px solid #f9f9f9'}} >
-                    <Button type="primary" style={{width: '100%', height: '100%', fontSize: '20px', fontWeight: '400'}} onClick={() => setModalOpen(true)}>
+                    <Button type="primary" style={{width: '100%', height: '100%', fontSize: '20px', fontWeight: '400'}}
+                            onClick={() => setModalOpen(true)}>
                       Выбрать размер
                     </Button>
                 </div>
