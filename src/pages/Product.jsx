@@ -26,7 +26,11 @@ function Product({onAddToFavorite, isLoading}) {
 
     const { data: product, isLoading: isLoadingProduct } = useGetProductQuery({productId, token});
     const onAddToCart = () => {
-        dispatch(addToCart({...product, size: choice.size, price: choice.price}));
+        if (!choice?.price) {
+            return;
+        }
+
+        dispatch(addToCart({...product, size: choice?.size, price: choice?.price}));
         navigate('/cart');
     }
 
@@ -60,7 +64,7 @@ function Product({onAddToFavorite, isLoading}) {
               title="Выберите размер"
               open={isModalOpen}
               onOk={onAddToCart}
-              okText={"₽" + Math.ceil(Number(choice.price) * 11.9 + 1000) }
+              okText={"₽" + (Math.ceil(Number(choice.price) * 11.9 + 1000) || '--') }
               centered
               onCancel={() => {setModalOpen(false)}}
             >
