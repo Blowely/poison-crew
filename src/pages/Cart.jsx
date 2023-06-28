@@ -57,7 +57,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         const addOrderBody = {
           clientId: accountData?.account?._id,
           products: cartItems || [],
-          address: addresses[0] || accountData?.account?.addresses[0] || {},
+          address: activeAddr,
         }
 
         const res = await addOrder(addOrderBody);
