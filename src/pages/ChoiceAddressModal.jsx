@@ -77,7 +77,6 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
 
 
   const renderModalContent = useCallback(() => {
-    console.log('activeAddressCheckboxIndex=',activeAddressCheckboxIndex);
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
       {!isChoiceAddressModalOpen &&
           <>
