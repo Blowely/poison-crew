@@ -123,7 +123,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                         </div>
 
                         <div>
-                          <div style={{fontWeight: '500'}}>₽{el.price}</div>
+                          <div style={{fontWeight: '500'}}>₽{Math.ceil(Number(el.price) * 11.9 + 1000)}</div>
                         </div>
                       </div>
                     </div>

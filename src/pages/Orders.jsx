@@ -69,7 +69,7 @@ const Orders = () => {
                                         <div>{moment(el?.createdAt).format('lll')}</div>
                                     </div>
                                     {el?.products?.map((p, i) => {
-                                        totalPrice += Number(p.price);
+                                        totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000);
                                         return (
                                             <div key={i} className="cart-product-info">
                                                 <div style={{display: 'flex', gap: '7px'}}>
@@ -81,7 +81,9 @@ const Orders = () => {
                                                 </div>
 
                                                 <div>
-                                                    <div style={{fontWeight: '500'}}>₽{p?.price}</div>
+                                                    <div style={{fontWeight: '500'}}>
+                                                        ₽{Math.ceil(Number(p?.price) * 11.9 + 1000)}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )
