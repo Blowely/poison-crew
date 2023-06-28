@@ -30,7 +30,6 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
-    const [remoteAddresses, setRemoteAddresses] = useState([]);
 
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
@@ -86,14 +85,13 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             return el._id === accountData?.account?.activeAddressId;
         });
         setActiveAddr(arrAcitveAddr?.[0] || {})
-        setRemoteAddresses(accountData?.account?.addresses);
     },[accountData?.account]);
 
     return (
         <Layout>
             {isChoiceAddressModalOpen &&
                 <ChoiceAddressModal
-                    addresses={remoteAddresses}
+                    addresses={accountData?.account?.addresses}
                     open={isChoiceAddressModalOpen}
                     onCancel={() => {setChoiceAddressModalOpen(false)}}
                     isChoiceAddressModalOpen={isChoiceAddressModalOpen}
