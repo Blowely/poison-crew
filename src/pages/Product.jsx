@@ -36,6 +36,13 @@ function Product({onAddToFavorite, isLoading}) {
         }
     }
 
+    const getTitlePrice = (price) => {
+        if (Number(price) > 0) {
+            return Math.ceil(product?.price * 11.9 + 1000);
+        }
+        return '--';
+    }
+
     return (
         <Layout style={{position: 'relative'}}>
           {!token &&
@@ -60,7 +67,9 @@ function Product({onAddToFavorite, isLoading}) {
               <div style={{display: "flex",padding: '15px', borderBottom: '1px solid #ececec', gap: '20px'}}>
                 <img src={product?.images[0]} style={{width: '20%'}} alt=""/>
                 <div style={{display: "flex", flexDirection: 'column', justifyContent: 'space-between'}}>
-                  <div style={{fontSize: '22px', fontWeight: '700'}}>₽{choice.price}</div>
+                  <div style={{fontSize: '22px', fontWeight: '700', display:'flex', gap: '3px', alignItems: 'flex-end'}}>
+                      <span style={{fontSize: '19px'}}>₽</span>{Math.ceil(Number(choice.price) * 11.9 + 1000) || '--'}
+                  </div>
                   <div style={{fontSize: '15px'}}>Размер: {choice.size}</div>
                 </div>
 
@@ -75,8 +84,8 @@ function Product({onAddToFavorite, isLoading}) {
                     <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
                          onClick={() => onChangeChoiceHandler(el, i)} key={i}>
                       <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
-                        <div style={{fontSize: '13px', textAlign: 'center'}}>
-                            ₽{Math.ceil(el.price * 11.9 + 1000) || '--'}
+                        <div style={{fontSize: '13px', textAlign: 'center', display: "flex", gap: '1.5px', justifyContent: "center"}}>
+                            <span style={{fontSize: '13px'}}>₽</span>{Math.ceil(el.price * 11.9 + 1000) || '--'}
                         </div>
                     </div>
                   )
@@ -98,8 +107,8 @@ function Product({onAddToFavorite, isLoading}) {
                 />
                 <CarouselComponent images={product?.images} />
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
-                    <div style={{fontSize: '30px', fontWeight: '600'}}>
-                        <span style={{fontSize: '23px'}}>₽</span>{Math.ceil(product?.price * 11.9 + 1000) || '--'}
+                    <div style={{fontSize: '30px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
+                        <span style={{fontSize: '23px'}}>₽</span>{getTitlePrice(product?.price)  || '--'}
                     </div>
                     <div style={{fontSize: '24px'}}>{product?.title}</div>
                 </div>
