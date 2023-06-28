@@ -21,6 +21,7 @@ import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import ChoiceAddressModal from "./ChoiceAddressModal";
+import {cleanAddresses, removeAddress} from "../common/accountSlice";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -37,7 +38,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const cartItems = useAppSelector((state) => state.cart.items);
     const addresses = useAppSelector((state) => state.account.addresses);
 
-    const {data: accountData, isLoadingAcc, error: accError, refetch: refetchAcc} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
+    const {data: accountData, isLoadingAcc, error: accError, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
     const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
     const onGoBackClick = () => {
@@ -81,6 +82,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     }
 
     useEffect(() => {
+        dispatch(cleanAddresses())
         const arrAcitveAddr = accountData?.account?.addresses?.filter((el) => {
             return el._id === accountData?.account?.activeAddressId;
         });
@@ -106,7 +108,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             <div className="content-block">
 
                 <div className="cart-item redirect" onClick={onAddressClick}>
-                  {(addresses[0]?.address || activeAddr?.address) ??
+                  {activeAddr?.address ??
                     'Необходимо заполнить адрес доставки'} <RightOutlined />
                 </div>
                 {cartItems.map((el, i) => {

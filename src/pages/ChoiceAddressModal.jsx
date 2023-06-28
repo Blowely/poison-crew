@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Button, Divider, Dropdown, Input, message, Modal, notification, Radio} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -6,8 +6,8 @@ import "./choiceAddressModal.scss";
 import {LoadingOutlined, UserOutlined} from "@ant-design/icons";
 import {useLazyGetCodeQuery, useAddCodeMutation, useUpdateActiveAddressMutation} from "../store/accounts.store";
 import FormItem from "antd/es/form/FormItem";
-import {useAppDispatch} from "../store";
-import {addPhone} from "../common/accountSlice";
+import {useAppDispatch, useAppSelector} from "../store";
+import {addPhone, setAddress} from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
 
 const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen, setChoiceAddressModalOpen, refetchAcc, activeAddr}) => {
@@ -22,6 +22,10 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
   const [updateActiveAddress, {isLoading: isLoadingUpdateActiveAddress, activeAddressError}] = useUpdateActiveAddressMutation();
 
   const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    refetchAcc();
+  }, [])
 
   const phoneInputHandler = (value) => {
     if (value.length <= 10) {
@@ -40,7 +44,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     },
   ];
 
-  const onChangeActiveAddress = async (addressId) => {
+  const onChangeActiveAddress = async (adr) => {
     try {
       setChoiceAddressModalOpen(false);
 
@@ -48,11 +52,12 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
         return notification.open({duration: 1.5, type: "error", message: 'Неавторизированный запрос'})
       }
 
-      const res = await updateActiveAddress({token, addressId}).unwrap();
+      const res = await updateActiveAddress({token, addressId: adr?._id}).unwrap();
 
       if (res?.status === 'ok') {
         notification.open({duration: 1.5, type: "success", message: 'Адрес доставки изменен'})
         refetchAcc();
+        dispatch(setAddress(adr))
       }
     } catch (e) {
       notification.open({duration: 1.5, type: "error", message: 'Не удалось сменить адрес'})
@@ -63,9 +68,16 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     <Button style={{backgroundColor: 'unset', border: 'none'}}><DotsIcon/></Button>
   </Dropdown>)
 
-  const activeAddressCheckboxIndex = addresses?.findIndex((el) => el?._id === activeAddr?._id);
+  const [activeAddressCheckboxIndex, setActiveAddressCheckboxIndex] = useState([]);
 
-  const renderModalContent = () => {
+  useEffect(() => {
+    const foundIndex = addresses?.findIndex((el) => el?._id === activeAddr?._id);
+    setActiveAddressCheckboxIndex(foundIndex)
+  },[addresses, activeAddr])
+
+
+  const renderModalContent = useCallback(() => {
+    console.log('activeAddressCheckboxIndex=',activeAddressCheckboxIndex);
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
       {!isChoiceAddressModalOpen &&
           <>
@@ -85,7 +97,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
             <Radio.Group name="radiogroup" className="address-items-wrapper" value={activeAddressCheckboxIndex}>
               {addresses?.map((adr, i) => {
                 return <div className="address-item-wrapper" key={i}>
-                  <Radio checked={adr?._id === activeAddr._id} value={i} onClick={() => onChangeActiveAddress(adr?._id)}/>
+                  <Radio checked={adr?._id === activeAddr._id} value={i} onClick={() => onChangeActiveAddress(adr)}/>
                   <div className="address-item-wrapper-data">{adr?.address} {addressSettingsBtn()} </div>
                 </div>
               })}
@@ -93,7 +105,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
           </>
       }
     </div>
-  }
+  }, [activeAddressCheckboxIndex,addresses])
 
   const onOkHandler = async () => {
     navigate('/address');

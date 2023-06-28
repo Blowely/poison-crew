@@ -13,10 +13,16 @@ export const accountSlice = createSlice({
     addAddress(state, {payload}) {
       state.addresses = [...state.addresses, payload];
     },
+    setAddress(state, {payload}) {
+      state.addresses = [payload];
+    },
     removeAddress(state, { payload }) {
       state.addresses = state.addresses.filter(el => el.id !== payload.id);
-    }
+    },
+    cleanAddresses(state) {
+      state.addresses = [];
+    },
   }
 })
 
-export const {addPhone, addAddress, removeAddress} = accountSlice.actions;
+export const {addPhone, addAddress, setAddress, removeAddress, cleanAddresses} = accountSlice.actions;

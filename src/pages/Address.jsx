@@ -7,8 +7,8 @@ import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/active-bag-icon";
 import "./address.scss";
 import {useFormik} from "formik";
-import {useAddAddressMutation, useGetAccountQuery} from "../store/accounts.store";
-import {addAddress} from "../common/accountSlice";
+import {useAddAddressMutation, useGetAccountQuery, useUpdateActiveAddressMutation} from "../store/accounts.store";
+import {addAddress, setAddress} from "../common/accountSlice";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const dispatch = useAppDispatch();
@@ -22,6 +22,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
   const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: phone});
+  const [updateActiveAddress, {isLoading: isLoadingUpdateActiveAddress, activeAddressError}] = useUpdateActiveAddressMutation();
 
   const remotePhone = accountData?.account?.phone;
 
@@ -34,13 +35,14 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
         postalCode: '',
       },
       onSubmit(body) {
-        console.log('account=', accountData?.account);
-        console.log('phone=',phone);
-        addAccountAddress({token: token, address: body}).then(res => {
-          console.log('resAddAddress =', res);
-          const address = {...body,id: Date.now(), phone: '7'+ body.phone}
-          dispatch(addAddress(address));
-          notification.open({duration: 2, type: 'success', message:'Адрес добавлен'})
+        addAccountAddress({token: token, address: body}).then(async (res) => {
+          const address = {...body, _id: `${Date.now()}`, phone: '7'+ body.phone}
+          dispatch(setAddress(address));
+          const activeAddrRes = await updateActiveAddress({token, addressId: res?.data?.addressId}).unwrap();
+
+          if (activeAddrRes) {
+            notification.open({duration: 2, type: 'success', message:'Адрес добавлен'})
+          }
           navigate('/cart');
         }).catch((err) => {
           console.log('err=', err);
