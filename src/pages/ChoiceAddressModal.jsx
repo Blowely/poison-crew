@@ -63,6 +63,8 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     <Button style={{backgroundColor: 'unset', border: 'none'}}><DotsIcon/></Button>
   </Dropdown>)
 
+  const activeAddressCheckboxIndex = addresses?.findIndex((el) => el?._id === activeAddr?._id);
+
   const renderModalContent = () => {
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
       {!isChoiceAddressModalOpen &&
@@ -80,12 +82,8 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
           <>
             <div style={{fontSize: '22px', fontWeight: '500'}}>Куда доставить заказ?</div>
             <div style={{fontSize: '15px'}}>Выберете адрес, чтобы увидеть условия доставки</div>
-            <Radio.Group name="radiogroup" className="address-items-wrapper" defaultValue={1}>
+            <Radio.Group name="radiogroup" className="address-items-wrapper" value={activeAddressCheckboxIndex}>
               {addresses?.map((adr, i) => {
-                console.log('adr?._id === activeAddr =', adr?._id === activeAddr._id);
-                console.log('i =', i);
-                console.log('adr', adr);
-                console.log('activeAddr', activeAddr);
                 return <div className="address-item-wrapper" key={i}>
                   <Radio checked={adr?._id === activeAddr._id} value={i} onClick={() => onChangeActiveAddress(adr?._id)}/>
                   <div className="address-item-wrapper-data">{adr?.address} {addressSettingsBtn()} </div>
