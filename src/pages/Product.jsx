@@ -116,6 +116,10 @@ function Product({onAddToFavorite, isLoading}) {
                     </div>
                     <div style={{fontSize: '24px'}}>{product?.title}</div>
                 </div>
+                <div style={{backgroundColor: 'white', margin: '10px', padding: '10px', display: "grid", gap: '10px'}}>
+                    <div style={{fontSize: '22px'}}>Описание</div>
+                    <div style={{fontSize: '18px'}}>- Страна-производитель: Китай</div>
+                </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px',
                     display: "flex", justifyContent: "space-between", height: '70px', alignItems: "center"}}>
                     <div style={{display:"flex", gap: '10px', width: '50%'}}>
