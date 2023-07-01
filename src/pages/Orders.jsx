@@ -34,10 +34,9 @@ const Orders = () => {
     const clientId = accountData?.account?._id;
     const {data: orders, isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,
+        refetchOnMountOrArgChange: true
     });
-    useEffect(() => {
-        refetch();
-    }, [])
+
     const onGoBackClick = () => {
       return navigate('/profile');
     }

@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Orders from "./pages/Orders";
 import VisitedProducts from "./pages/VisitedProducts";
 import Favorites from "./pages/Favorites";
+import Information from "./pages/Information";
 
 export const PrivateAppRouter = ({
                                    products,
@@ -43,6 +44,7 @@ export const PrivateAppRouter = ({
       <Route path="/orders" element={<Orders />} />
       <Route path="/visited" element={<VisitedProducts />} />
       <Route path="/favorites" element={<Favorites />} />
+      <Route path="/info" element={<Information />} />
       <Route path="*" element={<Navigate to="/products" />} replace />
     </Routes>
   </Suspense>

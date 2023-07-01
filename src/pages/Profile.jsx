@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Layout, Modal, notification} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import "./cart.scss";
+import "./profile.scss";
 import {
   DeleteOutlined,
   LeftOutlined,
@@ -47,15 +47,26 @@ const Profile = () => {
           </div>
           <LogoutOutlined style={{fontSize: '25px'}} onClick={() => {alert('в разработке')}}/>
         </div>
-        <div className="cart-item redirect borderless" onClick={() => navigate('/orders')}>
-          Мои заказы <RightOutlined />
+        <div className="profile-items-wrapper">
+          <div>
+            <div className="cart-item redirect borderless" onClick={() => navigate('/orders')}>
+              Мои заказы <RightOutlined />
+            </div>
+            <div className="cart-item redirect borderless" onClick={() => navigate('/visited')}>
+              Просмотренные товары <RightOutlined />
+            </div>
+            <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
+              Избранное <RightOutlined />
+            </div>
+          </div>
+          <div>
+            <div className="cart-item redirect borderless" onClick={() => navigate('/info')}>
+              Информация <RightOutlined />
+            </div>
+          </div>
         </div>
-        <div className="cart-item redirect borderless" onClick={() => navigate('/visited')}>
-          Просмотренные товары <RightOutlined />
-        </div>
-        <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
-          Избранное <RightOutlined />
-        </div>
+
+
       </div>
 
       <footer>
