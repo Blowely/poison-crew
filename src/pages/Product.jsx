@@ -140,7 +140,7 @@ function Product({onAddToFavorite, isLoading}) {
                       Выбрать размер
                     </Button>
                 </div>
-            </>
+            </div>
           }
         </Layout>
     );
