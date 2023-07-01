@@ -159,6 +159,12 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             </div>
 
             <div className="cart-product-info-submit-btn-wrapper">
+                <div className="cart-product-info-submit-confirm-oferta">
+                    Нажимая на кнопку "Перейти к оплате", Вы принимаете {' '}
+                    <a href="https://docs.google.com/document/d/15NzT5rCkEwUl9O8QYr2L5qIzw_QgdLtGWOKbqD_GlYQ/edit">
+                        Условия оферты
+                    </a>
+                </div>
               <Button type="primary" className="cart-product-info-submit-btn"
                       onClick={onOkHandler}>
                 Перейти к оплате
