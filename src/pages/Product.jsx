@@ -104,7 +104,7 @@ function Product({onAddToFavorite, isLoading}) {
             </div>
           }
           {!isLoadingProduct &&
-            <>
+            <div style={{paddingBottom: '140px'}}>
                 <LeftOutlined
                     style={{zIndex: '99', position: 'fixed', padding: '15px', marginTop: '10px', fontSize: '25px'}}
                     onClick={() => navigate('/products')}
@@ -117,8 +117,12 @@ function Product({onAddToFavorite, isLoading}) {
                     <div style={{fontSize: '24px'}}>{product?.title}</div>
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px', display: "grid", gap: '10px'}}>
-                    <div style={{fontSize: '22px'}}>Описание</div>
-                    <div style={{fontSize: '18px'}}>- Страна-производитель: Китай</div>
+                    <div style={{fontSize: '20px'}}>Описание</div>
+                    <div style={{fontSize: '16px'}}>- Страна-производитель: Китай.</div>
+                </div>
+                <div style={{backgroundColor: 'white', margin: '10px', padding: '10px', display: "grid", gap: '10px'}}>
+                    <div style={{fontSize: '20px'}}>Информация о доставке</div>
+                    <div style={{fontSize: '16px'}}>Курьером по адресу</div>
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px',
                     display: "flex", justifyContent: "space-between", height: '70px', alignItems: "center"}}>

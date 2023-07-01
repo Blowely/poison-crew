@@ -22,6 +22,7 @@ import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses, removeAddress} from "../common/accountSlice";
+import AuthModal from "./AuthModal";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -29,8 +30,10 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [isModalOpen, setModalOpen] = useState(false);
+    const [isCodeModalOpen, setCodeModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
+    const [phone, setPhone] = useState('');
 
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
@@ -77,7 +80,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         if (accountData?.account?.addresses?.length) {
             setChoiceAddressModalOpen(true)
         } else {
-            navigate('/address');
+            setModalOpen(true)
         }
     }
 
@@ -91,6 +94,16 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
     return (
         <Layout>
+            {!token &&
+                <AuthModal
+                    open={isModalOpen}
+                    setRemotePhone={setPhone}
+                    setModalOpen={setModalOpen}
+                    onCancel={() => {setModalOpen(false); setCodeModalOpen(false)}}
+                    isCodeModalOpen={isCodeModalOpen}
+                    setCodeModalOpen={setCodeModalOpen}
+                />
+            }
             {isChoiceAddressModalOpen &&
                 <ChoiceAddressModal
                     addresses={accountData?.account?.addresses}
