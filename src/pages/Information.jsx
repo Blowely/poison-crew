@@ -48,7 +48,7 @@ const Information = () => {
               Информация <div />
             </div>
 
-            <div className="content-block">
+            <div className="content-block" style={{height: '100%'}}>
 
                 <div className="cart-item">
                     <div className="cart-order-info">
