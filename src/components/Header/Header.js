@@ -53,7 +53,11 @@ const Header = () => {
     const { data: collections = { items: [], totalCount: 0 }, isLoading } = useGetCollectionsQuery(buildRequest())
 
     const randomCollections = useMemo(() => getMultipleRandom(collections.items, 2), [collections])
-    const collectionsNames = randomCollections.map(el => {
+    const collectionsNames = randomCollections.map((el, i) => {
+        if (i === 1 && el?.name === randomCollections[0].name) {
+            return '';
+        }
+
         if (el?.name?.length >= 8) {
             return el?.name.substring(0, 8) + '..'
         }

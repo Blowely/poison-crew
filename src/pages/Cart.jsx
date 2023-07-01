@@ -23,6 +23,7 @@ import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses, removeAddress} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
+import {removeFromCart} from "../common/cartSlice";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -45,7 +46,13 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
     const onGoBackClick = () => {
-      return from ? navigate('/products') : navigate(`/products/view?productId=${cartItems[0]?._id}`);
+        if (from) {
+            return navigate('/products');
+        } else if (cartItems[0]?._id) {
+            return navigate(`/products/view?productId=${cartItems[0]?._id}`);
+        } else {
+            return navigate('/products');
+        }
     }
 
     const onOkHandler = async () => {
@@ -92,6 +99,11 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         setActiveAddr(arrAcitveAddr?.[0] || {})
     },[accountData?.account]);
 
+
+    const onDeleteItem = (id) => {
+        dispatch(removeFromCart({id}));
+    }
+
     return (
         <Layout>
             {!token &&
@@ -135,8 +147,11 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                           </div>
                         </div>
 
-                        <div>
+                        <div className="cart-product-info-third-column">
                           <div style={{fontWeight: '500'}}>₽{Math.ceil(Number(el.price) * 11.9 + 1000)}</div>
+                          <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
+                              <DeleteOutlined />
+                          </div>
                         </div>
                       </div>
                     </div>

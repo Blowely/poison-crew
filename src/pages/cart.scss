@@ -65,6 +65,12 @@
     gap: 7px;
 }
 
+.cart-product-info-third-column {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
 .cart-order-info {
     background-color: white;
     gap: 15px;
