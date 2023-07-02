@@ -76,12 +76,18 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
     submitForm();
   }
 
+  const onChangeBoxBerry = (res) => {
+    console.log('res=',res);
+  }
+
   return (
       <Layout >
           <div className="content-block-header">
             <LeftOutlined onClick={onGoBackClick} />
             Добавление нового адреса <div /></div>
           <div className="content-address-block">
+
+            <a href="#" onClick={() => window?.boxberry?.open(onChangeBoxBerry)}>Выбрать пункт выдачи на карте</a>
 
             <div className="address-item">
               <div className="field-name">ФИО получателя</div>

@@ -26,22 +26,18 @@ const Root = () => {
   const [cartOpened, setCartOpened] = React.useState(false);
 
   React.useEffect(() => {
-    async function fetchData() {
-      /*const cartResponse = await axios.get(
-        "https://643062f7b289b1dec4c76583.mockapi.io/cart"
-      );
-      const favoritesResponse = await axios.get(
-        "https://643806eac1565cdd4d6435e6.mockapi.io/favorites"
-      );
-      const itemsResponse = await axios.get(
-        "http://localhost:3000/api/products?limit=20"
-      );
+      const script = document.createElement("script")
 
-      setCartItems(cartResponse.data);
-      setFavorites(favoritesResponse.data);*/
-    }
-    fetchData();
-  }, []);
+      script.src = "//points.boxberry.ru/js/boxberry.js";
+      script.async = true;
+
+      document.body.appendChild(script)
+
+      return () => {
+        // clean up the script when the component in unmounted
+        document.body.removeChild(script)
+      }
+    }, []);
 
 
   const onAddToCart = (obj) => {
