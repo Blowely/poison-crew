@@ -9,6 +9,8 @@ import "./address.scss";
 import {useFormik} from "formik";
 import {useAddAddressMutation, useGetAccountQuery, useUpdateActiveAddressMutation} from "../store/accounts.store";
 import {addAddress, setAddress} from "../common/accountSlice";
+import {useGetOfficesQuery as useGetCdekOfficesQuery} from "../store/cdek.store";
+import {useGetOfficesQuery as useGetBBOfficesQuery} from "../store/boxBerry.store";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const dispatch = useAppDispatch();
@@ -22,8 +24,10 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
   const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: phone});
+  const {data: cdekOffices, isLoadinCdekgOffices, error: cdekOfficesError} = useGetCdekOfficesQuery();
+  const {data: BBoffices, isLoadingBBOffices, error: BBofficesError} = useGetBBOfficesQuery();
   const [updateActiveAddress, {isLoading: isLoadingUpdateActiveAddress, activeAddressError}] = useUpdateActiveAddressMutation();
-
+  console.log('BBoffices',BBoffices);
   const remotePhone = accountData?.account?.phone;
 
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
