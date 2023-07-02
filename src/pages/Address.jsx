@@ -11,6 +11,9 @@ import {useAddAddressMutation, useGetAccountQuery, useUpdateActiveAddressMutatio
 import {addAddress, setAddress} from "../common/accountSlice";
 import {useGetOfficesQuery as useGetCdekOfficesQuery} from "../store/cdek.store";
 import {useGetOfficesQuery as useGetBBOfficesQuery} from "../store/boxBerry.store";
+import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
+import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
+import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const dispatch = useAppDispatch();
@@ -108,9 +111,15 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
             </Button>
           </div>
           <footer>
-            <div onClick={() => navigate('/products')}><BagIcon/></div>
-            <ShoppingCartOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/cart?from=products')}/>
-            <UserOutlined style={{ fontSize: '30px'}} onClick={() => navigate('/profile')} />
+            <div onClick={() => navigate('/products')}>
+              <NonActiveBagIcon/>
+            </div>
+            <div onClick={() => navigate('/cart?from=products') }>
+              <NonActiveCartIcon style={{ fontSize: '30px'}} />
+            </div>
+            <div onClick={() => navigate('/profile')}>
+              <ActiveProfileIcon style={{ fontSize: '30px'}} />
+            </div>
           </footer>
       </Layout>
   );
