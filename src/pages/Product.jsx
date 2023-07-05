@@ -122,7 +122,7 @@ function Product({onAddToFavorite, isLoading}) {
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px', display: "grid", gap: '10px'}}>
                     <div style={{fontSize: '20px'}}>Информация о доставке</div>
-                    <div style={{fontSize: '16px'}}>Курьером по адресу</div>
+                    <div style={{fontSize: '16px'}}>- Boxberry</div>
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px',
                     display: "flex", justifyContent: "space-between", height: '70px', alignItems: "center"}}>

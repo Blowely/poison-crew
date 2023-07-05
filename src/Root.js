@@ -25,21 +25,6 @@ const Root = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
 
-  React.useEffect(() => {
-      const script = document.createElement("script")
-
-      script.src = "//points.boxberry.ru/js/boxberry.js";
-      script.async = true;
-
-      document.body.appendChild(script)
-
-      return () => {
-        // clean up the script when the component in unmounted
-        document.body.removeChild(script)
-      }
-    }, []);
-
-
   const onAddToCart = (obj) => {
     try {
       if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {

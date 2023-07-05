@@ -4,13 +4,20 @@ import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./choiceAddressModal.scss";
 import {LoadingOutlined, UserOutlined} from "@ant-design/icons";
-import {useLazyGetCodeQuery, useAddCodeMutation, useUpdateActiveAddressMutation} from "../store/accounts.store";
+import {
+  useLazyGetCodeQuery,
+  useAddCodeMutation,
+  useUpdateActiveAddressMutation,
+  useAddAddressMutation
+} from "../store/accounts.store";
 import FormItem from "antd/es/form/FormItem";
 import {useAppDispatch, useAppSelector} from "../store";
 import {addPhone, setAddress} from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
+import {addressTypes} from "./constants";
 
-const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen, setChoiceAddressModalOpen, refetchAcc, activeAddr}) => {
+const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen, setChoiceAddressModalOpen,
+                              refetchAcc, activeAddr}) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -19,7 +26,8 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
   const [code, setCode] = useState(null);
   const [getCode, {codeData, isLoadingCode} ] = useLazyGetCodeQuery();
   const [sendCode, {isLoading: isLoadingPostCode, error}] = useAddCodeMutation({},{refetchOnMountOrArgChange: true});
-  const [updateActiveAddress, {isLoading: isLoadingUpdateActiveAddress, activeAddressError}] = useUpdateActiveAddressMutation();
+  const [updateActiveAddress] = useUpdateActiveAddressMutation();
+  const [addAccountAddress, {isLoading: isLoadingAddress, AccError}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
 
   const token = localStorage.getItem('token');
 
@@ -106,8 +114,34 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     </div>
   }, [activeAddressCheckboxIndex,addresses])
 
+  const onChangeBoxBerry = (res) => {
+    const body = {
+      type: addressTypes.BB_PVZ,
+      ...res
+    };
+
+    addAccountAddress({token: token, address: body}).then(async (res) => {
+      const address = {...body, _id: `${Date.now()}`}
+      dispatch(setAddress(address));
+      const activeAddrRes = await updateActiveAddress({token, addressId: res?.data?.addressId}).unwrap();
+
+      if (activeAddrRes) {
+        notification.open({duration: 2, type: 'success', message:'Адрес добавлен'})
+      }
+
+      setChoiceAddressModalOpen(false);
+      refetchAcc();
+    }).catch((err) => {
+      console.log('err=', err);
+      navigate('/cart');
+      notification.open({duration: 2, type: 'error', message:'Ошибка добавления адреса'})
+    })
+  }
+
   const onOkHandler = async () => {
-    navigate('/address');
+    window?.boxberry?.open(onChangeBoxBerry)
+
+    //navigate('/address');
   }
 
 

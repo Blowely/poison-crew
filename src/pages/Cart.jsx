@@ -84,11 +84,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     }
 
     const onAddressClick = () => {
-        if (accountData?.account?.addresses?.length) {
-            setChoiceAddressModalOpen(true)
-        } else {
-            setModalOpen(true)
-        }
+        setChoiceAddressModalOpen(true);
     }
 
     useEffect(() => {
