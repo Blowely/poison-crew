@@ -47,6 +47,12 @@ const Profile = () => {
           </div>
           <LogoutOutlined style={{fontSize: '25px'}} onClick={() => {alert('в разработке')}}/>
         </div>
+        <div className="balance-wrapper">
+          <div style={{fontSize: '27px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
+            <span style={{fontSize: '23px'}}>₽</span>{accountData?.account?.balance  || '12355'}
+          </div>
+          <Button type="primary" size="small" className="fillUpBtn">Пополнить</Button>
+        </div>
         <div className="profile-items-wrapper">
           <div>
             <div className="cart-item redirect borderless" onClick={() => navigate('/orders')}>

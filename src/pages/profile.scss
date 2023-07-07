@@ -9,3 +9,17 @@
   height: 100%;
   padding-bottom: 80px;
 }
+
+.balance-wrapper {
+  height: 110px;
+  display: grid;
+  gap: 10px;
+
+  & > button {
+    width: 150px;
+  }
+}
+
+.fillUpBtn {
+  height: 40px!important;
+}
