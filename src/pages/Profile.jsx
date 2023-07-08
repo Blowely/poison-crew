@@ -36,6 +36,9 @@ const Profile = () => {
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
   const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
+  const onAddMoney = () => {
+    window.open(`https://new.donatepay.ru/@re-poizon?name=${accountData?.account?.phone}`);
+  }
 
   return (
     <Layout>
@@ -51,7 +54,7 @@ const Profile = () => {
           <div style={{fontSize: '27px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
             <span style={{fontSize: '23px'}}>₽</span>{accountData?.account?.balance  || '12355'}
           </div>
-          <Button type="primary" size="small" className="fillUpBtn">Пополнить</Button>
+          <Button type="primary" size="small" className="fillUpBtn" onClick={onAddMoney}>Пополнить</Button>
         </div>
         <div className="profile-items-wrapper">
           <div>
