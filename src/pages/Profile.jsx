@@ -6,7 +6,7 @@ import "./profile.scss";
 import {
   DeleteOutlined,
   LeftOutlined,
-  LoadingOutlined, LogoutOutlined,
+  LoadingOutlined, LogoutOutlined, ReloadOutlined,
   RightOutlined,
   ShoppingCartOutlined,
   UserOutlined
@@ -40,6 +40,10 @@ const Profile = () => {
     window.open(`https://new.donatepay.ru/@re-poizon?name=${accountData?.account?.phone}`);
   }
 
+  const refreshBalance = () => {
+
+  }
+
   return (
     <Layout>
       <div className="content-block">
@@ -51,10 +55,15 @@ const Profile = () => {
           <LogoutOutlined style={{fontSize: '25px'}} onClick={() => {alert('в разработке')}}/>
         </div>
         <div className="balance-wrapper">
-          <div style={{fontSize: '27px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
-            <span style={{fontSize: '23px'}}>₽</span>{accountData?.account?.balance  || '12355'}
+          <div style={{fontSize: '27px', fontWeight: '600', display: "flex", gap: '10px', alignItems: 'center'}}>
+            <span>
+              <span style={{fontSize: '23px'}}>₽</span>{accountData?.account?.balance  || '12355'}
+            </span>
+            <Button type="link" size="small" className="fillUpBtn" icon={<ReloadOutlined />} onClick={refreshBalance}>Обновить</Button>
           </div>
-          <Button type="primary" size="small" className="fillUpBtn" onClick={onAddMoney}>Пополнить</Button>
+          <div>
+            <Button type="primary" size="small" className="fillUpBtn" onClick={onAddMoney}>Пополнить</Button>
+          </div>
         </div>
         <div className="profile-items-wrapper">
           <div>
