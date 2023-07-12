@@ -1,0 +1,127 @@
+.cart-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.content-block-header {
+    height: 70px;
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.content-block {
+    padding: 15px;
+    padding-bottom: 160px;
+    width: 100%;
+    height: auto;
+}
+
+.cart-item {
+    margin-top: 15px;
+    width: 100%;
+    min-height: 70px;
+    background-color: white;
+    padding: 10px;
+    &.redirect {
+        margin-top: unset;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+        border-bottom: 1px solid green;
+        &.borderless {
+            border: none;
+            margin-top: 15px;
+        }
+    }
+
+    &.cart-item-transparent {
+        background-color: unset;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+}
+
+.transparent {
+    background-color: unset;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.cart-product-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+.cart-product-info-third-column {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.cart-order-info {
+    background-color: white;
+    gap: 15px;
+}
+
+.cart-product-info-submit-btn-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.cart-product-info-submit-confirm-oferta {
+    position: fixed;
+    width: calc(100vw - 30px);
+    margin-top: 15px;
+    z-index: 100;
+    bottom: 140px;
+}
+
+.cart-product-info-submit-btn {
+    position: fixed;
+    width: calc(100vw - 30px);
+    margin-top: 15px;
+    z-index: 100;
+    bottom: 70px;
+}
+
+.total-price {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.card {
+    width: 100%;
+    height: 190px;
+    background: rgb(101,90,150);
+    background: linear-gradient(90deg, rgba(101,90,150,1) 0%, rgba(49,137,193,0.6306897759103641) 100%);
+    border-radius: 10px;
+}
+
+.formatted-card-number {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    color: white;
+    font-size: 19px;
+    font-weight: 400;
+}
