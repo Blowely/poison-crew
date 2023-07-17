@@ -42,7 +42,7 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="content-block">
+      <div className="content-block content-block-profile">
         <div className="cart-item cart-item-transparent padding-bottom">
           <div className="transparent">
             <ActiveProfileLargeIcon />
