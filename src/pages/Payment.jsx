@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Layout, Modal, notification} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -22,6 +22,8 @@ import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
+import SberIcon from "../assets/svg/payment/sber-icon";
+import {iosCopyToClipboard} from "../common/utils";
 
 const Payment = () => {
     const dispatch = useAppDispatch();
@@ -44,20 +46,28 @@ const Payment = () => {
     }
 
     let totalPrice = 0;
-    const el = {};
+
+    const paymentNumberRef = useRef(null);
+
+    const copyToClickBord = () => {
+        iosCopyToClipboard(paymentNumberRef.current);
+        navigator.clipboard.writeText(paymentNumberRef.current.value);
+    }
 
     const getFormattedCardNumber = () => {
-        const number = '1234567812345678';
+        const number = '2202201875038123';
 
-        return <span>
+        return <span style={{display: "grid", gap: '8px'}}>
+                    Номер карты
+                    <input type="text" ref={paymentNumberRef} value={number}/>
                     <span className="formatted-card-number">
                         <span>{number.substring(0,4)}</span>
                         <span>{number.substring(4,8)}</span>
                         <span>{number.substring(8,12)}</span>
                         <span>{number.substring(12,16)}</span>
-                        <CopyOutlined />
+                        <CopyOutlined onClick={copyToClickBord}/>
                     </span>
-                    Маряшин Андрей Евгеньевич
+                    Андрей Евгеньевич М
                 </span>
     }
 
@@ -82,7 +92,7 @@ const Payment = () => {
                                     {el?.products?.map((p, i) => {
                                         totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000);
                                         return (
-                                            <div key={i} className="cart-product-info">
+                                            <div key={i} className="cart-product-info-payment">
                                                 <div style={{display: 'flex', gap: '7px'}}>
                                                     <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
                                                     <div>
@@ -114,7 +124,7 @@ const Payment = () => {
                                     Доставка
                                 </div>
 
-                                <div className="cart-product-info">
+                                <div className="cart-product-info-payment">
                                     <div style={{display: 'flex', gap: '7px'}}>
                                         <div>
                                             <img src="https://storage.yandexcloud.net/boxberrysite-public/logo/logo-boxberry-mobile.png?v=3"
@@ -140,12 +150,19 @@ const Payment = () => {
                                 <div style={{fontSize: '15px', fontWeight: '500'}}>
                                     Перевод на карту
                                 </div>
+                                        <div className="cart-product-info-payment-card">
+                                            <div className="actions-way">
+                                                <span>1. Скопируйте реквизиты</span>
+                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + 799}</span> RUB(Сбер)</span>
+                                                <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
 
-                                        <div className="cart-product-info">
+                                            </div>
                                             <div className="card">
-                                                Сбер
-                                                Номер карты
-                                                {getFormattedCardNumber()}
+                                                <SberIcon></SberIcon>
+                                                <div>
+                                                    {getFormattedCardNumber()}
+                                                </div>
+
                                             </div>
                                         </div>
 
