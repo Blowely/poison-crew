@@ -48,24 +48,26 @@ const Payment = () => {
     let totalPrice = 0;
 
     const paymentNumberRef = useRef(null);
+    const paymentCostRef = useRef(null);
 
-    const copyToClickBord = () => {
-        iosCopyToClipboard(paymentNumberRef.current);
-        navigator.clipboard.writeText(paymentNumberRef.current.value);
+    const copyToClickBord = (el) => {
+        iosCopyToClipboard(el);
+        navigator.clipboard.writeText(el.value);
     }
 
-    const getFormattedCardNumber = () => {
+    const getFormattedCardNumber = (paymentCost) => {
         const number = '2202201875038123';
 
         return <span style={{display: "grid", gap: '8px'}}>
                     <input type="text" style={{visibility: 'hidden'}} ref={paymentNumberRef} value={number}/>
+                    <input type="text" style={{visibility: 'hidden'}} ref={paymentCostRef} value={paymentCost}/>
                     Номер карты
                     <span className="formatted-card-number">
                         <span>{number.substring(0,4)}</span>
                         <span>{number.substring(4,8)}</span>
                         <span>{number.substring(8,12)}</span>
                         <span>{number.substring(12,16)}</span>
-                        <CopyOutlined onClick={copyToClickBord}/>
+                        <CopyOutlined onClick={() => copyToClickBord(paymentNumberRef.current)}/>
                     </span>
                     Андрей Евгеньевич М
                 </span>
@@ -153,14 +155,14 @@ const Payment = () => {
                                         <div className="cart-product-info-payment-card">
                                             <div className="actions-way">
                                                 <span>1. Скопируйте реквизиты</span>
-                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + 799}</span> RUB(Сбер)</span>
+                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + 799}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
                                                 <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
 
                                             </div>
                                             <div className="card">
                                                 <SberIcon></SberIcon>
                                                 <div>
-                                                    {getFormattedCardNumber()}
+                                                    {getFormattedCardNumber(totalPrice + 799)}
                                                 </div>
 
                                             </div>
