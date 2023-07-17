@@ -60,7 +60,6 @@ const Payment = () => {
 
         return <span style={{display: "grid", gap: '8px'}}>
                     <input type="text" style={{visibility: 'hidden'}} ref={paymentNumberRef} value={number}/>
-                    <input type="text" style={{visibility: 'hidden'}} ref={paymentCostRef} value={paymentCost}/>
                     Номер карты
                     <span className="formatted-card-number">
                         <span>{number.substring(0,4)}</span>
@@ -154,6 +153,7 @@ const Payment = () => {
                                 </div>
                                         <div className="cart-product-info-payment-card">
                                             <div className="actions-way">
+                                                <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + 799}/>
                                                 <span>1. Скопируйте реквизиты</span>
                                                 <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + 799}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
                                                 <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
