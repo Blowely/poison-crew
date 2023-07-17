@@ -55,6 +55,8 @@ const Payment = () => {
         navigator.clipboard.writeText(el.value);
     }
 
+    const deliveryCost = 799;
+
     const getFormattedCardNumber = (paymentCost) => {
         const number = '2202201875038123';
 
@@ -153,16 +155,16 @@ const Payment = () => {
                                 </div>
                                         <div className="cart-product-info-payment-card">
                                             <div className="actions-way">
-                                                <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + 799}/>
+                                                <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
                                                 <span>1. Скопируйте реквизиты</span>
-                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + 799}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
+                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
                                                 <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
 
                                             </div>
                                             <div className="card">
                                                 <SberIcon></SberIcon>
                                                 <div>
-                                                    {getFormattedCardNumber(totalPrice + 799)}
+                                                    {getFormattedCardNumber(totalPrice + deliveryCost)}
                                                 </div>
 
                                             </div>
