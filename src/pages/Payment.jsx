@@ -58,8 +58,8 @@ const Payment = () => {
         const number = '2202201875038123';
 
         return <span style={{display: "grid", gap: '8px'}}>
+                    <input type="text" style={{visibility: 'hidden'}} ref={paymentNumberRef} value={number}/>
                     Номер карты
-                    <input type="text" ref={paymentNumberRef} value={number}/>
                     <span className="formatted-card-number">
                         <span>{number.substring(0,4)}</span>
                         <span>{number.substring(4,8)}</span>
