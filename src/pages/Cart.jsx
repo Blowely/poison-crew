@@ -102,17 +102,17 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
     return (
         <Layout>
-            {!token &&
+            {!token && isChoiceAddressModalOpen &&
                 <AuthModal
-                    open={isModalOpen}
+                    open={isChoiceAddressModalOpen}
                     setRemotePhone={setPhone}
-                    setModalOpen={setModalOpen}
-                    onCancel={() => {setModalOpen(false); setCodeModalOpen(false)}}
+                    setModalOpen={isChoiceAddressModalOpen}
+                    onCancel={() => {setChoiceAddressModalOpen(false); setCodeModalOpen(false)}}
                     isCodeModalOpen={isCodeModalOpen}
                     setCodeModalOpen={setCodeModalOpen}
                 />
             }
-            {isChoiceAddressModalOpen &&
+            {token && isChoiceAddressModalOpen &&
                 <ChoiceAddressModal
                     addresses={accountData?.account?.addresses}
                     open={isChoiceAddressModalOpen}
