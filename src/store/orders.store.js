@@ -4,7 +4,7 @@ import {baseQuery} from "../common/baseQuery";
 export const ordersApi = createApi({
   reducerPath: 'ordersApi',
   tagTypes: ['Order'],
-  baseQuery: baseQuery('http://77.91.126.217:3001/api'),
+  baseQuery: baseQuery('https://api.re-poizon.ru/api'),
   //baseQuery: baseQuery('http://localhost:3000/api'),
   endpoints: (builder) => ({
     getOrders: builder.query({
