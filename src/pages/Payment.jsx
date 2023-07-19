@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Layout, Modal, notification} from "antd";
+import {Button, Layout, message, Modal, notification} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
@@ -53,6 +53,7 @@ const Payment = () => {
     const copyToClickBord = (el) => {
         iosCopyToClipboard(el);
         navigator.clipboard.writeText(el.value);
+        message.success( 'Скопировано')
     }
 
     const deliveryCost = 799;
