@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Layout, message, Modal, notification} from "antd";
-import {useGetProductQuery} from "../store/products.store";
+import {Button, Layout, message} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
 import {
@@ -8,18 +7,11 @@ import {
     DeleteOutlined,
     LeftOutlined,
     LoadingOutlined,
-    RightOutlined,
-    ShoppingCartOutlined,
-    UserOutlined
 } from "@ant-design/icons";
-import {useAppDispatch, useAppSelector} from "../store";
-import BagIcon from "../assets/svg/active-bag-icon";
+import {useAppDispatch} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
-import moment from "moment/moment";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
-import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
@@ -58,7 +50,7 @@ const Payment = () => {
 
     const deliveryCost = 799;
 
-    const getFormattedCardNumber = (paymentCost) => {
+    const getFormattedCardNumber = () => {
         const number = '2202201875038123';
 
         return <span style={{display: "grid", gap: '8px'}}>

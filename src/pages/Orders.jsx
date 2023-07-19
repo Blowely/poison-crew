@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal, notification} from "antd";
+import {Button, Layout, Modal, notification, Tag} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
@@ -62,8 +62,10 @@ const Orders = () => {
                             <div className="cart-order-info">
                                 <div style={{display: "grid", gap: '7px'}}>
                                     <div>№ {el._id}</div>
+                                    <Tag color="blue" style={{width: 'fit-content'}}>
+                                        {el?.status || 'Создан'}
+                                    </Tag>
                                     <div style={{fontSize: '15px', fontWeight: '500'}}>
-
                                         <div>Адрес: {el.address.address}</div>
                                         <div>{moment(el?.createdAt).format('lll')}</div>
                                     </div>
