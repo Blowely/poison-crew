@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal, notification, Tag} from "antd";
+import {Button, Divider, Layout, Modal, notification, Tag} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
@@ -19,6 +19,7 @@ import moment from "moment/moment";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
+import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
 
 const Orders = () => {
     const dispatch = useAppDispatch();
@@ -41,6 +42,16 @@ const Orders = () => {
       return navigate('/profile');
     }
 
+    const onGoToPaymentClick = (id, status) => {
+        if (status !== PRODUCT_STATUS.APPROVED) {
+            return;
+        }
+        return navigate(`/payment?id=${id}`);
+    }
+    const onGoOrderClick = (id) => {
+      return navigate(`/order?id=${id}`);
+    }
+
     let totalPrice = 0;
 
     return (
@@ -58,17 +69,19 @@ const Orders = () => {
                 <div className="content-block">
                     {orders?.map((el, i) => {
                         totalPrice = 0;
-                        return <div key={i} className="cart-item">
+                        return <div key={i} className="cart-item" onClick={() => onGoOrderClick(el?._id)}>
                             <div className="cart-order-info">
                                 <div style={{display: "grid", gap: '7px'}}>
-                                    <div>№ {el._id}</div>
-                                    <Tag color="blue" style={{width: 'fit-content'}}>
-                                        {el?.status || 'Создан'}
-                                    </Tag>
                                     <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                        <div>Адрес: {el.address.address}</div>
-                                        <div>{moment(el?.createdAt).format('lll')}</div>
+                                        <div>Заказ от {moment(el?.createdAt).format('lll')}</div>
                                     </div>
+                                    <div>№ <a onClick={() => onGoOrderClick(el?._id)}>{el._id}</a></div>
+                                    <Divider style={{margin: '6px 0'}}></Divider>
+                                    <Tag color="blue" style={{width: 'fit-content'}}>
+                                        {PRODUCT_STATUS_DICTIONARY[el?.status] || 'Проверка'}
+                                    </Tag>
+
+                                    <div>Адрес: {el.address.address}</div>
                                     {el?.products?.map((p, i) => {
                                         totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000);
                                         return (
@@ -89,11 +102,15 @@ const Orders = () => {
                                             </div>
                                         )
                                     })}
-
-                                    <div className="total-price">Стоимость заказа ₽{totalPrice}</div>
+                                    <div className="total-price">Итого ₽{totalPrice}</div>
+                                    <Button
+                                        disabled={el?.status !== PRODUCT_STATUS.APPROVED}
+                                        type="primary" size="small"
+                                        onClick={() => onGoToPaymentClick(el?._id, el?.status)}
+                                    >
+                                        Оплатить
+                                    </Button>
                                 </div>
-
-
                             </div>
                         </div>
                     })}

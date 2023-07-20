@@ -1,11 +1,7 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
 
 import axios from "axios";
 
-import Home from "./pages/Home";
-import AppContext from "./context";
-import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer";
 
 import "./index.scss";
@@ -15,7 +11,7 @@ import {ErrorBoundary} from "react-error-boundary";
 import ErrorHandler from "./common/ErrorHandler";
 import {PrivateAppRouter} from "./PrivateAppRouter";
 import moment from "moment";
-import 'moment/dist/locale/ru';
+import 'moment/locale/ru';
 
 moment.locale('ru');
 

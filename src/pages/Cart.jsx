@@ -23,7 +23,7 @@ import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses, removeAddress} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
-import {removeFromCart} from "../common/cartSlice";
+import {clearCart, removeFromCart} from "../common/cartSlice";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -73,7 +73,8 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         const res = await addOrder(addOrderBody);
 
         if (res.data.status === 'ok') {
-          return navigate('/payment');
+            dispatch(clearCart())
+            return navigate('/orders');
         } else {
           notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
         }
@@ -156,14 +157,14 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
             <div className="cart-product-info-submit-btn-wrapper">
                 <div className="cart-product-info-submit-confirm-oferta">
-                    Нажимая на кнопку "Перейти к оплате", Вы принимаете {' '}
+                    Нажимая на кнопку "Подтвердить заказ", Вы принимаете {' '}
                     <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
                         Условия оферты
                     </a>
                 </div>
               <Button type="primary" className="cart-product-info-submit-btn"
                       onClick={onOkHandler}>
-                Перейти к оплате
+                Подтвердить заказ
               </Button>
             </div>
 

@@ -60,4 +60,11 @@
   height: 55px!important;
   font-size: 18px!important;
   font-weight: 500!important;
+
+  &.ant-btn-sm {
+    height: unset!important;
+  }
+  &.ant-btn-md {
+    height: unset!important;
+  }
 }

@@ -1,0 +1,44 @@
+.content-block-header-order {
+    font-size: 15px;
+}
+
+.status-block-wrapper {
+    display: flex;
+    margin-top: 10px;
+}
+
+.ant-btn-primary:disabled {
+    background-color: rgba(245, 245, 245, 1);
+}
+
+.cart-product-info-payment-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.order-info-block-item {
+    display: flex;
+    gap: 10px;
+    align-items: start;
+    width: 100% !important;
+    > svg {
+        height: 25px;
+    }
+}
+
+.order-info-block-item-info {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    & > :first-child {
+        font-weight: 500;
+        font-size: 15px;
+    }
+    > div {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+
+    }
+}

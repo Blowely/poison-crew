@@ -12,6 +12,13 @@ export const PRODUCT_STATUS = {
     PAID: 'paid',
 }
 
+export const PRODUCT_STATUS_DICTIONARY = {
+    created: 'Проверка',
+    approved: 'Готов к оплате',
+    paid: 'Оплачен',
+}
+
+
 export const PRODUCT_SERVICE_STATUS = {
     REGISTERED: 'registered',
     SEND_TO_CHINESE_DELIVERY: 'send_to_chinese_delivery',

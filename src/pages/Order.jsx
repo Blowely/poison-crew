@@ -1,9 +1,10 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Button, Layout, message} from "antd";
+import React, {useEffect, useMemo, useRef, useState} from "react";
+import {Button, Divider, Layout, message, Tag} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
+import "./order.scss";
 import {
-    CopyOutlined,
+    CopyOutlined, CreditCardOutlined,
     DeleteOutlined,
     LeftOutlined,
     LoadingOutlined,
@@ -16,8 +17,10 @@ import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
 import {iosCopyToClipboard} from "../common/utils";
+import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
+import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 
-const Payment = () => {
+const Order = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -33,6 +36,10 @@ const Payment = () => {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });
+
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
 
     const onGoBackClick = () => {
       return navigate('/orders');
@@ -68,11 +75,22 @@ const Payment = () => {
                 </span>
     }
 
+    const memoOrder = useMemo(() => {
+        return orders.find((order) => order._id === orderId);
+    }, [orderId, orders])
+
+    const onGoToPaymentClick = (id) => {
+        return navigate(`/payment?id=${id}`);
+    }
+
     return (
         <Layout>
-            <div className="content-block-header">
-              <LeftOutlined onClick={onGoBackClick} />
-              Оплата <div />
+            <div className="content-block-header content-block-header-order">
+                <LeftOutlined onClick={onGoBackClick} />
+                Заказ № {orderId}
+                <CopyOutlined
+                onClick={() => copyToClickBord(paymentCostRef.current)}
+                />
             </div>
             {isLoadingOrders &&
                 <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
@@ -81,10 +99,23 @@ const Payment = () => {
             }
             {!isLoadingOrders &&
                 <div className="content-block">
-                    {[orders.find((order) => order._id === orderId)]?.map((el, i) => {
+                    {[memoOrder]?.map((el, i) => {
                         totalPrice = 0;
                         return <div key={i} className="cart-item">
                             <div className="cart-order-info">
+                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                    Статус заказа
+                                </div>
+                                <div className="status-block-wrapper">
+                                    <Tag color="blue" style={{width: 'fit-content', height: "fit-content"}}>
+                                        {PRODUCT_STATUS_DICTIONARY[el?.status] || 'Проверка'}
+                                    </Tag>
+                                    {el?.status === PRODUCT_STATUS.CREATED}
+                                    Сразу после подтверждения(~3мин) заказ станет доступным к оплате
+                                </div>
+
+                                <Divider style={{margin: '10px 0'}}></Divider>
+
                                 <div style={{display: "grid", gap: '7px'}}>
                                     {el?.products?.map((p, i) => {
                                         totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000);
@@ -109,8 +140,6 @@ const Payment = () => {
 
                                     <div className="total-price">Товары ₽{totalPrice}</div>
                                 </div>
-
-
                             </div>
                         </div>
                     })}
@@ -144,27 +173,34 @@ const Payment = () => {
                     <div className="cart-item">
                         <div className="cart-order-info">
                             <div style={{display: "grid", gap: '7px'}}>
-                                <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                    Перевод на карту
+                                <div style={{fontSize: '15px', fontWeight: '500', paddingBottom: '10px'}}>
+                                    Информация о заказе
                                 </div>
                                         <div className="cart-product-info-payment-card">
-                                            <div className="actions-way">
-                                                <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
-                                                <span>1. Скопируйте реквизиты</span>
-                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
-                                                <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
-
-                                            </div>
-                                            <div className="card">
-                                                <SberIcon></SberIcon>
-                                                <div>
-                                                    {getFormattedCardNumber(totalPrice + deliveryCost)}
+                                            <div className="order-info-block-item">
+                                                <ActiveProfileLargeIcon />
+                                                <div className="order-info-block-item-info">
+                                                    <div>Получатель</div>
+                                                    +{accountData?.account?.phone}
+                                                    <div>{memoOrder?.address?.fio || 'Маряшин Андрей Евгеньевич'}</div>
                                                 </div>
 
                                             </div>
+                                            <Divider style={{margin: '6px 0'}}></Divider>
+                                            <div className="order-info-block-item">
+                                                <CreditCardOutlined
+                                                    style={{fontSize: '28px'}}
+                                                />
+                                                <div className="order-info-block-item-info">
+                                                    <div>Не оплачено</div>
+                                                    <div>Товары <span className="total-price">₽{totalPrice}</span></div>
+                                                    <div>Доставка <span className="total-price">₽{799}</span></div>
+                                                    <div>Итого <span className="total-price">₽{totalPrice + 799}</span></div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                <div className="total-price">Итого ₽{totalPrice + 799}</div>
+
                             </div>
 
 
@@ -173,10 +209,15 @@ const Payment = () => {
                 </div>
             }
             <div className="cart-product-info-submit-btn-wrapper">
-                <Button type="primary" className="cart-product-info-submit-btn"
-                        onClick={() => {}}>
-                    Я оплатил
-                </Button>
+                {memoOrder?.status === PRODUCT_STATUS.APPROVED &&
+                    <Button
+                        type="primary"
+                        className="cart-product-info-submit-btn"
+                        onClick={() => onGoToPaymentClick(memoOrder?._id)}
+                    >
+                        Оплатить
+                    </Button>
+                }
             </div>
             <footer>
                 <div onClick={() => navigate('/products')}>
@@ -192,4 +233,4 @@ const Payment = () => {
         </Layout>
     );
 }
-export default Payment;
+export default Order;
