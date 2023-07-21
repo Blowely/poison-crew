@@ -69,8 +69,8 @@ const Orders = () => {
                 <div className="content-block">
                     {orders?.map((el, i) => {
                         totalPrice = 0;
-                        return <div key={i} className="cart-item" onClick={() => onGoOrderClick(el?._id)}>
-                            <div className="cart-order-info">
+                        return <div key={i} className="cart-item">
+                            <div className="cart-order-info" onClick={() => onGoOrderClick(el?._id)}>
                                 <div style={{display: "grid", gap: '7px'}}>
                                     <div style={{fontSize: '15px', fontWeight: '500'}}>
                                         <div>Заказ от {moment(el?.createdAt).format('lll')}</div>
@@ -103,15 +103,16 @@ const Orders = () => {
                                         )
                                     })}
                                     <div className="total-price">Итого ₽{totalPrice}</div>
-                                    <Button
-                                        disabled={el?.status !== PRODUCT_STATUS.APPROVED}
-                                        type="primary" size="small"
-                                        onClick={() => onGoToPaymentClick(el?._id, el?.status)}
-                                    >
-                                        Оплатить
-                                    </Button>
                                 </div>
                             </div>
+                            <Button
+                                disabled={el?.status !== PRODUCT_STATUS.APPROVED}
+                                type="primary"
+                                onClick={() => onGoToPaymentClick(el?._id, el?.status)}
+                                style={{width: '100%', marginTop:'10px'}}
+                            >
+                                Оплатить
+                            </Button>
                         </div>
                     })}
                 </div>
