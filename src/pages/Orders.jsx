@@ -20,6 +20,7 @@ import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
+import StatusTag from "../components/Status";
 
 const Orders = () => {
     const dispatch = useAppDispatch();
@@ -77,9 +78,7 @@ const Orders = () => {
                                     </div>
                                     <div>№ <a onClick={() => onGoOrderClick(el?._id)}>{el._id}</a></div>
                                     <Divider style={{margin: '6px 0'}}></Divider>
-                                    <Tag color="blue" style={{width: 'fit-content'}}>
-                                        {PRODUCT_STATUS_DICTIONARY[el?.status] || 'Проверка'}
-                                    </Tag>
+                                    <StatusTag status={el?.status}/>
 
                                     <div>Адрес: {el.address.address}</div>
                                     {el?.products?.map((p, i) => {

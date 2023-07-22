@@ -19,6 +19,8 @@ import SberIcon from "../assets/svg/payment/sber-icon";
 import {iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
+import StatusText from "../components/Status";
+import StatusTag from "../components/Status";
 
 const Order = () => {
     const dispatch = useAppDispatch();
@@ -107,11 +109,10 @@ const Order = () => {
                                     Статус заказа
                                 </div>
                                 <div className="status-block-wrapper">
-                                    <Tag color="blue" style={{width: 'fit-content', height: "fit-content"}}>
-                                        {PRODUCT_STATUS_DICTIONARY[el?.status] || 'Проверка'}
-                                    </Tag>
-                                    {el?.status === PRODUCT_STATUS.CREATED}
-                                    Сразу после подтверждения(~3мин) заказ станет доступным к оплате
+                                    <StatusTag status={el?.status}/>
+                                    {el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
+                                        'заказ станет доступным к оплате'
+                                    }
                                 </div>
 
                                 <Divider style={{margin: '10px 0'}}></Divider>

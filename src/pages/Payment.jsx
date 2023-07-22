@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Layout, message} from "antd";
+import {Button, Layout, message, Result} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
 import {
@@ -116,8 +116,6 @@ const Payment = () => {
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 }
@@ -153,8 +151,15 @@ const Payment = () => {
                 }
                 {step === 2 &&
                     <div className="loader-block">
-                        <LoadingOutlined style={{fontSize: '24px'}} spin />
-                        <span>Проверяем поступление оплаты...</span>
+                        <Result
+                            title="Проверям поступление платежа!"
+                            subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
+                            extra={[
+                                <Button type="primary" key="console" onClick={() => navigate('/orders')}>
+                                    Мои заказы
+                                </Button>,
+                            ]}
+                        />
                     </div>
                 }
             </div>
@@ -171,7 +176,6 @@ const Payment = () => {
                         Я оплатил
                     </Button>
                 }
-
             </div>
             <footer>
                 <div onClick={() => navigate('/products')}>
