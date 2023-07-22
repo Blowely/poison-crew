@@ -56,7 +56,7 @@ const Order = () => {
         message.success( 'Скопировано')
     }
 
-    const deliveryCost = 799;
+    const deliveryCost = 1399;
 
     const getFormattedCardNumber = () => {
         const number = '2202201875038123';
@@ -164,7 +164,7 @@ const Order = () => {
                                     </div>
                                 </div>
 
-                                <div className="total-price">Доставка {799} ₽</div>
+                                <div className="total-price">Доставка {1399} ₽</div>
                             </div>
 
 
@@ -194,8 +194,8 @@ const Order = () => {
                                                 <div className="order-info-block-item-info">
                                                     <div>Не оплачено</div>
                                                     <div>Товары <span className="total-price">{totalPrice} ₽</span></div>
-                                                    <div>Доставка <span className="total-price">{799} ₽</span></div>
-                                                    <div>Итого <span className="total-price">{totalPrice + 799} ₽</span></div>
+                                                    <div>Доставка <span className="total-price">{1399} ₽</span></div>
+                                                    <div>Итого <span className="total-price">{totalPrice + 1399} ₽</span></div>
                                                 </div>
                                             </div>
                                         </div>

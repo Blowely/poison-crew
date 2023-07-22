@@ -142,3 +142,17 @@
     font-size: 19px;
     font-weight: 400;
 }
+
+.loader-block {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    gap: 20px;
+    > span {
+        font-size: 18px;
+
+    }
+}

@@ -44,8 +44,6 @@ const Payment = () => {
       return navigate('/orders');
     }
 
-    let totalPrice = 0;
-
     const paymentNumberRef = useRef(null);
     const paymentCostRef = useRef(null);
 
@@ -55,7 +53,7 @@ const Payment = () => {
         message.success( 'Скопировано')
     }
 
-    const deliveryCost = 799;
+    const deliveryCost = 1399;
 
     const getFormattedCardNumber = () => {
         const number = '2202201875038123';
@@ -79,10 +77,8 @@ const Payment = () => {
     }, [orderId, orders])
 
     const memoTotalPricer = useMemo(() => {
-        console.log('memoOrder',memoOrder);
         let totalPrice = 0;
         memoOrder?.products?.map((p, i) => totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000));
-        console.log('totalPrice', totalPrice);
         return totalPrice;
     }, [memoOrder])
 
@@ -114,7 +110,7 @@ const Payment = () => {
                                     <div className="card">
                                         <SberIcon></SberIcon>
                                         <div>
-                                            {getFormattedCardNumber(totalPrice + deliveryCost)}
+                                            {getFormattedCardNumber()}
                                         </div>
 
                                     </div>
@@ -130,7 +126,7 @@ const Payment = () => {
                         <div className="cart-order-info">
                             <div style={{display: "grid", gap: '7px'}}>
                                 <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                    Скопируйте сумму платежа
+                                    Выполните перевод средств
                                 </div>
                                 <div className="cart-product-info-payment-card">
                                     <div className="order-info-block-item">
@@ -138,9 +134,14 @@ const Payment = () => {
                                             style={{fontSize: '28px'}}
                                         />
                                         <div className="order-info-block-item-info">
+                                            <input type="text" style={{display: 'none'}} ref={paymentCostRef}
+                                                   value={memoTotalPricer + deliveryCost}/>
                                             <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
-                                            <div>Доставка <span className="total-price">{799} ₽</span></div>
-                                            <span className="total-price">Итого {memoTotalPricer + 799} ₽</span>
+                                            <div>Доставка <span className="total-price">{1399} ₽</span></div>
+                                            <span className="total-price">Итого {memoTotalPricer + 1399} ₽
+                                                <CopyOutlined style={{marginLeft:'5px'}}
+                                                              onClick={() => copyToClickBord(paymentCostRef.current)}/>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -151,40 +152,12 @@ const Payment = () => {
                     </div>
                 }
                 {step === 2 &&
-                    <div className="cart-item">
-                        <div className="cart-order-info">
-                            <div style={{display: "grid", gap: '7px'}}>
-                                <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                    Перевод на карту
-                                </div>
-                                <div className="cart-product-info-payment-card">
-                                    <div className="actions-way">
-                                        <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
-                                        <span>1. Скопируйте реквизиты</span>
-                                        <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
-                                        <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
-
-                                    </div>
-                                    <div className="card">
-                                        <SberIcon></SberIcon>
-                                        <div>
-                                            {getFormattedCardNumber(totalPrice + deliveryCost)}
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="total-price">Итого ₽{totalPrice + 799}</div>
-                            </div>
-
-
-                        </div>
+                    <div className="loader-block">
+                        <LoadingOutlined style={{fontSize: '24px'}} spin />
+                        <span>Проверяем поступление оплаты...</span>
                     </div>
                 }
-
-
             </div>
-            }
             <div className="cart-product-info-submit-btn-wrapper">
                 {step === 0 &&
                     <Button type="primary" className="cart-product-info-submit-btn"
@@ -194,7 +167,7 @@ const Payment = () => {
                 }
                 {step === 1 &&
                     <Button type="primary" className="cart-product-info-submit-btn"
-                            onClick={() => {}}>
+                            onClick={() => setStep((prev) => ++prev)}>
                         Я оплатил
                     </Button>
                 }
