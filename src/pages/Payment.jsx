@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Button, Layout, message} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
@@ -72,6 +72,10 @@ const Payment = () => {
                 </span>
     }
 
+    const memoOrder = useMemo(() => {
+        return orders.find((order) => order._id === orderId);
+    }, [orderId, orders])
+
     return (
         <Layout>
             <div className="content-block-header">
@@ -83,98 +87,37 @@ const Payment = () => {
                     <LoadingOutlined style={{fontSize: '24px'}} spin />
                 </div>
             }
-            {!isLoadingOrders &&
-                <div className="content-block">
-                    {[orders.find((order) => order._id === orderId)]?.map((el, i) => {
-                        totalPrice = 0;
-                        return <div key={i} className="cart-item">
-                            <div className="cart-order-info">
-                                <div style={{display: "grid", gap: '7px'}}>
-                                    {el?.products?.map((p, i) => {
-                                        totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000);
-                                        return (
-                                            <div key={i} className="cart-product-info-payment">
-                                                <div style={{display: 'flex', gap: '7px'}}>
-                                                    <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
-                                                    <div>
-                                                        <div style={{fontSize: '16px'}}>{p?.title}</div>
-                                                        <div>размер: {p?.size}</div>
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <div style={{fontWeight: '500'}}>
-                                                        ₽{Math.ceil(Number(p?.price) * 11.9 + 1000)}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-
-                                    <div className="total-price">Товары ₽{totalPrice}</div>
-                                </div>
-
-
+            <div className="content-block">
+                <div className="cart-item">
+                    <div className="cart-order-info">
+                        <div style={{display: "grid", gap: '7px'}}>
+                            <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                Перевод на карту
                             </div>
-                        </div>
-                    })}
-                    <div className="cart-item">
-                        <div className="cart-order-info">
-                            <div style={{display: "grid", gap: '7px'}}>
-                                <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                    Доставка
-                                </div>
+                                    <div className="cart-product-info-payment-card">
+                                        <div className="actions-way">
+                                            <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
+                                            <span>1. Скопируйте реквизиты</span>
+                                            <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
+                                            <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
 
-                                <div className="cart-product-info-payment">
-                                    <div style={{display: 'flex', gap: '7px'}}>
-                                        <div>
-                                            <img src="https://storage.yandexcloud.net/boxberrysite-public/logo/logo-boxberry-mobile.png?v=3"
-                                                 style={{ height: '20px'}} alt=""/>
-                                            <div style={{fontSize: '16px'}}>BoxBerry</div>
-                                            <div>Пункт выдачи заказов</div>
-                                            <div>{orders[0]?.address?.address}</div>
-                                            <br/>
-                                            <div>Ожидаемое время доставки 16-18 дней</div>
+                                        </div>
+                                        <div className="card">
+                                            <SberIcon></SberIcon>
+                                            <div>
+                                                {getFormattedCardNumber(totalPrice + deliveryCost)}
+                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="total-price">Доставка ₽{799}</div>
-                            </div>
-
-
+                            <div className="total-price">Итого ₽{totalPrice + 799}</div>
                         </div>
-                    </div>
-                    <div className="cart-item">
-                        <div className="cart-order-info">
-                            <div style={{display: "grid", gap: '7px'}}>
-                                <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                    Перевод на карту
-                                </div>
-                                        <div className="cart-product-info-payment-card">
-                                            <div className="actions-way">
-                                                <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
-                                                <span>1. Скопируйте реквизиты</span>
-                                                <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
-                                                <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
-
-                                            </div>
-                                            <div className="card">
-                                                <SberIcon></SberIcon>
-                                                <div>
-                                                    {getFormattedCardNumber(totalPrice + deliveryCost)}
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                <div className="total-price">Итого ₽{totalPrice + 799}</div>
-                            </div>
 
 
-                        </div>
                     </div>
                 </div>
+            </div>
             }
             <div className="cart-product-info-submit-btn-wrapper">
                 <Button type="primary" className="cart-product-info-submit-btn"
