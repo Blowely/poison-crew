@@ -83,7 +83,7 @@ const Favorites = () => {
                         </div>
 
                         <div>
-                          <div style={{fontWeight: '500'}}>₽{el.price}</div>
+                          <div style={{fontWeight: '500'}}>{el.price} ₽</div>
                         </div>
                       </div>
                     </div>

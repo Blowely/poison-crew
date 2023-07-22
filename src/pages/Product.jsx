@@ -64,7 +64,7 @@ function Product({onAddToFavorite, isLoading}) {
               title="Выберите размер"
               open={isModalOpen}
               onOk={onAddToCart}
-              okText={"₽" + (Math.ceil(Number(choice.price) * 11.9 + 1000) || '--') }
+              okText={(Math.ceil(Number(choice.price) * 11.9 + 1000) || '--') + " ₽"}
               centered
               onCancel={() => {setModalOpen(false)}}
             >
@@ -72,7 +72,7 @@ function Product({onAddToFavorite, isLoading}) {
                 <img src={product?.images[0]} style={{width: '20%'}} alt=""/>
                 <div style={{display: "flex", flexDirection: 'column', justifyContent: 'space-between'}}>
                   <div style={{fontSize: '22px', fontWeight: '700', display:'flex', gap: '3px', alignItems: 'flex-end'}}>
-                      <span style={{fontSize: '19px'}}>₽</span>{Math.ceil(Number(choice.price) * 11.9 + 1000) || '--'}
+                      {Math.ceil(Number(choice.price) * 11.9 + 1000) || '--'}<span style={{fontSize: '19px'}}>₽</span>
                   </div>
                   <div style={{fontSize: '15px'}}>Размер: {choice.size}</div>
                 </div>
@@ -89,7 +89,7 @@ function Product({onAddToFavorite, isLoading}) {
                          onClick={() => onChangeChoiceHandler(el, i)} key={i}>
                       <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
                         <div style={{fontSize: '13px', textAlign: 'center', display: "flex", gap: '1.5px', justifyContent: "center"}}>
-                            <span style={{fontSize: '13px'}}>₽</span>{Math.ceil(el.price * 11.9 + 1000) || '--'}
+                            {Math.ceil(el.price * 11.9 + 1000) || '--'}<span style={{fontSize: '13px'}}>₽</span>
                         </div>
                     </div>
                   )
@@ -111,17 +111,17 @@ function Product({onAddToFavorite, isLoading}) {
                 />
                 <CarouselComponent images={product?.images} />
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
-                    <div style={{fontSize: '30px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
-                        <span style={{fontSize: '23px'}}>₽</span>{getTitlePrice(product?.price)  || '--'}
+                    <div style={{fontSize: '25px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
+                        {getTitlePrice(product?.price)  || '--'}<span style={{fontSize: '23px'}}>₽</span>
                     </div>
-                    <div style={{fontSize: '24px'}}>{product?.title}</div>
+                    <div style={{fontSize: '21px'}}>{product?.title}</div>
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px', display: "grid", gap: '10px'}}>
-                    <div style={{fontSize: '20px'}}>Описание</div>
+                    <div style={{fontSize: '19px'}}>Описание</div>
                     <div style={{fontSize: '16px'}}>- Страна-производитель: Китай.</div>
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px', display: "grid", gap: '10px'}}>
-                    <div style={{fontSize: '20px'}}>Информация о доставке</div>
+                    <div style={{fontSize: '19px'}}>Информация о доставке</div>
                     <div style={{fontSize: '16px'}}>- Boxberry</div>
                     <div style={{fontSize: '16px'}}>Среднее время доставки 16-18 дней</div>
                 </div>

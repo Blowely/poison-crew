@@ -3,7 +3,7 @@ import {Button, Layout, message} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
 import {
-    CopyOutlined,
+    CopyOutlined, CreditCardOutlined,
     DeleteOutlined,
     LeftOutlined,
     LoadingOutlined,
@@ -22,6 +22,8 @@ const Payment = () => {
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const [step, setStep] = useState(0);
+
     const from = searchParams.get('from');
     const orderId = searchParams.get('id');
     const token = localStorage.getItem('token');
@@ -76,6 +78,19 @@ const Payment = () => {
         return orders.find((order) => order._id === orderId);
     }, [orderId, orders])
 
+    const memoTotalPricer = useMemo(() => {
+        console.log('memoOrder',memoOrder);
+        let totalPrice = 0;
+        memoOrder?.products?.map((p, i) => totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000));
+        console.log('totalPrice', totalPrice);
+        return totalPrice;
+    }, [memoOrder])
+
+    const onNextStepClick = () => {
+        copyToClickBord(paymentNumberRef.current);
+        setStep((prevStep) => ++prevStep);
+    }
+
     return (
         <Layout>
             <div className="content-block-header">
@@ -88,42 +103,102 @@ const Payment = () => {
                 </div>
             }
             <div className="content-block">
-                <div className="cart-item">
-                    <div className="cart-order-info">
-                        <div style={{display: "grid", gap: '7px'}}>
-                            <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                Перевод на карту
-                            </div>
-                                    <div className="cart-product-info-payment-card">
-                                        <div className="actions-way">
-                                            <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
-                                            <span>1. Скопируйте реквизиты</span>
-                                            <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
-                                            <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
-
+                {step === 0 &&
+                    <div className="cart-item">
+                        <div className="cart-order-info">
+                            <div style={{display: "grid", gap: '7px'}}>
+                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                    Скопируйте реквизиты
+                                </div>
+                                <div className="cart-product-info-payment-card">
+                                    <div className="card">
+                                        <SberIcon></SberIcon>
+                                        <div>
+                                            {getFormattedCardNumber(totalPrice + deliveryCost)}
                                         </div>
-                                        <div className="card">
-                                            <SberIcon></SberIcon>
-                                            <div>
-                                                {getFormattedCardNumber(totalPrice + deliveryCost)}
-                                            </div>
 
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                }
+                {step === 1 &&
+                    <div className="cart-item">
+                        <div className="cart-order-info">
+                            <div style={{display: "grid", gap: '7px'}}>
+                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                    Скопируйте сумму платежа
+                                </div>
+                                <div className="cart-product-info-payment-card">
+                                    <div className="order-info-block-item">
+                                        <CreditCardOutlined
+                                            style={{fontSize: '28px'}}
+                                        />
+                                        <div className="order-info-block-item-info">
+                                            <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
+                                            <div>Доставка <span className="total-price">{799} ₽</span></div>
+                                            <span className="total-price">Итого {memoTotalPricer + 799} ₽</span>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
-                            <div className="total-price">Итого ₽{totalPrice + 799}</div>
+
                         </div>
-
-
                     </div>
-                </div>
+                }
+                {step === 2 &&
+                    <div className="cart-item">
+                        <div className="cart-order-info">
+                            <div style={{display: "grid", gap: '7px'}}>
+                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                    Перевод на карту
+                                </div>
+                                <div className="cart-product-info-payment-card">
+                                    <div className="actions-way">
+                                        <input type="text" style={{display: 'none'}} ref={paymentCostRef} value={totalPrice + deliveryCost}/>
+                                        <span>1. Скопируйте реквизиты</span>
+                                        <span>2. Сделайте перевод на <span style={{fontWeight: 500}}>{totalPrice + deliveryCost}</span> RUB(Сбер) <CopyOutlined onClick={() => copyToClickBord(paymentCostRef.current)}/></span>
+                                        <span>3. Нажмите кнопку "Я оплатил". Ожидайте обработки платежа</span>
+
+                                    </div>
+                                    <div className="card">
+                                        <SberIcon></SberIcon>
+                                        <div>
+                                            {getFormattedCardNumber(totalPrice + deliveryCost)}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div className="total-price">Итого ₽{totalPrice + 799}</div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                }
+
+
             </div>
             }
             <div className="cart-product-info-submit-btn-wrapper">
-                <Button type="primary" className="cart-product-info-submit-btn"
-                        onClick={() => {}}>
-                    Я оплатил
-                </Button>
+                {step === 0 &&
+                    <Button type="primary" className="cart-product-info-submit-btn"
+                            onClick={onNextStepClick}>
+                        Скопировать и продолжить
+                    </Button>
+                }
+                {step === 1 &&
+                    <Button type="primary" className="cart-product-info-submit-btn"
+                            onClick={() => {}}>
+                        Я оплатил
+                    </Button>
+                }
+
             </div>
             <footer>
                 <div onClick={() => navigate('/products')}>

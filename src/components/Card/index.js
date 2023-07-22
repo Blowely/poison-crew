@@ -60,7 +60,7 @@ function Card({
                   <div className="d-flex justify-between align-center">
                       <div className="d-flex flex-column ">
                           <b style={{fontSize: '15px', gap: '3px', display: 'flex'}}>
-                              <b style={{fontSize: '14px', color: 'black'}}>₽</b>{getPrice()}</b>
+                              <b style={{fontSize: '14px', color: 'black'}}></b>{getPrice()} ₽</b>
                       </div>
                   </div>
               </>

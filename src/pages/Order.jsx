@@ -131,14 +131,14 @@ const Order = () => {
 
                                                 <div>
                                                     <div style={{fontWeight: '500'}}>
-                                                        ₽{Math.ceil(Number(p?.price) * 11.9 + 1000)}
+                                                        {Math.ceil(Number(p?.price) * 11.9 + 1000)} ₽
                                                     </div>
                                                 </div>
                                             </div>
                                         )
                                     })}
 
-                                    <div className="total-price">Товары ₽{totalPrice}</div>
+                                    <div className="total-price">Товары {totalPrice} ₽</div>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@ const Order = () => {
                                     </div>
                                 </div>
 
-                                <div className="total-price">Доставка ₽{799}</div>
+                                <div className="total-price">Доставка {799} ₽</div>
                             </div>
 
 
@@ -193,9 +193,9 @@ const Order = () => {
                                                 />
                                                 <div className="order-info-block-item-info">
                                                     <div>Не оплачено</div>
-                                                    <div>Товары <span className="total-price">₽{totalPrice}</span></div>
-                                                    <div>Доставка <span className="total-price">₽{799}</span></div>
-                                                    <div>Итого <span className="total-price">₽{totalPrice + 799}</span></div>
+                                                    <div>Товары <span className="total-price">{totalPrice} ₽</span></div>
+                                                    <div>Доставка <span className="total-price">{799} ₽</span></div>
+                                                    <div>Итого <span className="total-price">{totalPrice + 799} ₽</span></div>
                                                 </div>
                                             </div>
                                         </div>

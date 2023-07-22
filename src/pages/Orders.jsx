@@ -96,13 +96,13 @@ const Orders = () => {
 
                                                 <div>
                                                     <div style={{fontWeight: '500'}}>
-                                                        ₽{Math.ceil(Number(p?.price) * 11.9 + 1000)}
+                                                        {Math.ceil(Number(p?.price) * 11.9 + 1000)} ₽
                                                     </div>
                                                 </div>
                                             </div>
                                         )
                                     })}
-                                    <div className="total-price">Итого ₽{totalPrice}</div>
+                                    <div className="total-price">Итого {totalPrice} ₽</div>
                                 </div>
                             </div>
                             <Button
