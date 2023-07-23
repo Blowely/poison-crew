@@ -60,23 +60,6 @@ const Order = () => {
 
     const deliveryCost = 1399;
 
-    const getFormattedCardNumber = () => {
-        const number = '2202201875038123';
-
-        return <span style={{display: "grid", gap: '8px'}}>
-                    <input type="text" style={{visibility: 'hidden'}} ref={paymentNumberRef} value={number}/>
-                    Номер карты
-                    <span className="formatted-card-number">
-                        <span>{number.substring(0,4)}</span>
-                        <span>{number.substring(4,8)}</span>
-                        <span>{number.substring(8,12)}</span>
-                        <span>{number.substring(12,16)}</span>
-                        <CopyOutlined onClick={() => copyToClickBord(paymentNumberRef.current)}/>
-                    </span>
-                    Андрей Евгеньевич М
-                </span>
-    }
-
     const memoOrder = useMemo(() => {
         return orders?.find((order) => order._id === orderId);
     }, [orderId, orders])
@@ -165,7 +148,7 @@ const Order = () => {
                                     </div>
                                 </div>
 
-                                <div className="total-price">Доставка {1399} ₽</div>
+                                <div className="total-price">Доставка {deliveryCost} ₽</div>
                             </div>
 
 
@@ -193,10 +176,14 @@ const Order = () => {
                                                     style={{fontSize: '28px'}}
                                                 />
                                                 <div className="order-info-block-item-info">
-                                                    <div>Не оплачено</div>
+                                                    <div>
+                                                        { memoOrder?.status === PRODUCT_STATUS.PAID
+                                                            ?  'Оплачено'
+                                                            : 'Не оплачено'}
+                                                    </div>
                                                     <div>Товары <span className="total-price">{totalPrice} ₽</span></div>
-                                                    <div>Доставка <span className="total-price">{1399} ₽</span></div>
-                                                    <div>Итого <span className="total-price">{totalPrice + 1399} ₽</span></div>
+                                                    <div>Доставка <span className="total-price">{deliveryCost} ₽</span></div>
+                                                    <div>Итого <span className="total-price">{totalPrice + deliveryCost} ₽</span></div>
                                                 </div>
                                             </div>
                                         </div>
