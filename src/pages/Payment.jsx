@@ -77,7 +77,7 @@ const Payment = () => {
     }
 
     const memoOrder = useMemo(() => {
-        return orders.find((order) => order._id === orderId);
+        return orders?.find((order) => order._id === orderId);
     }, [orderId, orders])
 
     const memoTotalPricer = useMemo(() => {
