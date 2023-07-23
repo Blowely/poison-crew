@@ -14,6 +14,14 @@ const StatusTag = ({status}) => {
                 data.color = 'blue';
                 data.text = 'Готов к оплате';
                 break;
+            case PRODUCT_STATUS.CANCELED:
+                data.color = 'red';
+                data.text = 'Отклонен';
+                break;
+            case PRODUCT_STATUS.APPROVED_WITH_CHANGES:
+                data.color = 'blue';
+                data.text = 'Готов к оплате. Цена изменилась';
+                break;
             case PRODUCT_STATUS.PAYMENT_CHECK:
                 data.color = 'blue';
                 data.text = 'Проверка платежа';

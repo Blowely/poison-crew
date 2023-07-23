@@ -44,7 +44,7 @@ const Orders = () => {
     }
 
     const onGoToPaymentClick = (id, status) => {
-        if (status !== PRODUCT_STATUS.APPROVED) {
+        if (status !== PRODUCT_STATUS.APPROVED && status !== PRODUCT_STATUS.APPROVED_WITH_CHANGES) {
             return;
         }
         return navigate(`/payment?id=${id}`);
@@ -103,7 +103,8 @@ const Orders = () => {
                                 </div>
                             </div>
                             <Button
-                                disabled={el?.status !== PRODUCT_STATUS.APPROVED}
+                                disabled={!(el?.status === PRODUCT_STATUS.APPROVED ||
+                                    el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES)}
                                 type="primary"
                                 onClick={() => onGoToPaymentClick(el?._id, el?.status)}
                                 style={{width: '100%', marginTop:'10px'}}

@@ -96,6 +96,17 @@ const Order = () => {
                                     {el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
                                         'заказ станет доступным к оплате'
                                     }
+                                    {el?.status === PRODUCT_STATUS.CANCELED && <>
+                                        Нет в наличии
+                                        <Button
+                                            size="small"
+                                            style={{marginLeft: '10px'}}
+                                            type="text"
+                                        >
+                                            Сменить размер
+                                        </Button>
+                                    </>
+                                    }
                                 </div>
 
                                 <Divider style={{margin: '10px 0'}}></Divider>
@@ -197,7 +208,8 @@ const Order = () => {
                 </div>
             }
             <div className="cart-product-info-submit-btn-wrapper">
-                {memoOrder?.status === PRODUCT_STATUS.APPROVED &&
+                {(memoOrder?.status === PRODUCT_STATUS.APPROVED
+                        || memoOrder?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES) &&
                     <Button
                         type="primary"
                         className="cart-product-info-submit-btn"
