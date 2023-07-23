@@ -49,8 +49,7 @@ const Order = () => {
 
     let totalPrice = 0;
 
-    const paymentNumberRef = useRef(null);
-    const paymentCostRef = useRef(null);
+    const orderNumberRef = useRef(null);
 
     const copyToClickBord = (el) => {
         iosCopyToClipboard(el);
@@ -71,10 +70,11 @@ const Order = () => {
     return (
         <Layout>
             <div className="content-block-header content-block-header-order">
+                <input type="text" style={{display: "none"}} value={orderId} ref={orderNumberRef}/>
                 <LeftOutlined onClick={onGoBackClick} />
                 Заказ № {orderId}
                 <CopyOutlined
-                onClick={() => copyToClickBord(paymentCostRef.current)}
+                onClick={() => copyToClickBord(orderNumberRef.current)}
                 />
             </div>
             {isLoadingOrders &&
@@ -198,10 +198,7 @@ const Order = () => {
                                                 </div>
                                             </div>
                                         </div>
-
-
                             </div>
-
 
                         </div>
                     </div>
