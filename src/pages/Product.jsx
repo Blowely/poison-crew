@@ -42,7 +42,7 @@ function Product({onAddToFavorite, isLoading}) {
 
     const getTitlePrice = (price) => {
         if (Number(price) > 0) {
-            return Math.ceil(product?.price * 11.9 + 1000);
+            return Math.ceil(product?.price * 13.3 + 1000);
         }
         return '--';
     }
@@ -64,7 +64,7 @@ function Product({onAddToFavorite, isLoading}) {
               title="Выберите размер"
               open={isModalOpen}
               onOk={onAddToCart}
-              okText={(Math.ceil(Number(choice.price) * 11.9 + 1000) || '--') + " ₽"}
+              okText={(Math.ceil(Number(choice.price) * 13.3 + 1000) || '--') + " ₽"}
               centered
               onCancel={() => {setModalOpen(false)}}
             >
@@ -72,7 +72,7 @@ function Product({onAddToFavorite, isLoading}) {
                 <img src={product?.images[0]} style={{width: '20%'}} alt=""/>
                 <div style={{display: "flex", flexDirection: 'column', justifyContent: 'space-between'}}>
                   <div style={{fontSize: '22px', fontWeight: '700', display:'flex', gap: '3px', alignItems: 'flex-end'}}>
-                      {Math.ceil(Number(choice.price) * 11.9 + 1000) || '--'}<span style={{fontSize: '19px'}}>₽</span>
+                      {Math.ceil(Number(choice.price) * 13.3 + 1000) || '--'}<span style={{fontSize: '19px'}}>₽</span>
                   </div>
                   <div style={{fontSize: '15px'}}>Размер: {choice.size}</div>
                 </div>
@@ -89,7 +89,7 @@ function Product({onAddToFavorite, isLoading}) {
                          onClick={() => onChangeChoiceHandler(el, i)} key={i}>
                       <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
                         <div style={{fontSize: '13px', textAlign: 'center', display: "flex", gap: '1.5px', justifyContent: "center"}}>
-                            {Math.ceil(el.price * 11.9 + 1000) || '--'}<span style={{fontSize: '13px'}}>₽</span>
+                            {Math.ceil(el.price * 13.3 + 1000) || '--'}<span style={{fontSize: '13px'}}>₽</span>
                         </div>
                     </div>
                   )

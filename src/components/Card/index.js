@@ -32,7 +32,7 @@ function Card({
         if (Number(price) < 1) {
             return '--';
         }
-        return Math.ceil(price * 11.9 + 1000);
+        return Math.ceil(price * 13.3 + 1000);
     }
 
 

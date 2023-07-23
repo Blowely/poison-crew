@@ -102,7 +102,7 @@ const Order = () => {
 
                                 <div style={{display: "grid", gap: '7px'}}>
                                     {el?.products?.map((p, i) => {
-                                        totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000);
+                                        totalPrice += Math.ceil(Number(p?.price) * 13.3 + 1000);
                                         return (
                                             <div key={i} className="cart-product-info-payment">
                                                 <div style={{display: 'flex', gap: '7px'}}>
@@ -114,8 +114,8 @@ const Order = () => {
                                                 </div>
 
                                                 <div>
-                                                    <div style={{fontWeight: '500'}}>
-                                                        {Math.ceil(Number(p?.price) * 11.9 + 1000)} ₽
+                                                    <div style={{fontWeight: '500', width: 'max-content'}}>
+                                                        {Math.ceil(Number(p?.price) * 13.3 + 1000)} ₽
                                                     </div>
                                                 </div>
                                             </div>

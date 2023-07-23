@@ -82,7 +82,7 @@ const Payment = () => {
 
     const memoTotalPricer = useMemo(() => {
         let totalPrice = 0;
-        memoOrder?.products?.map((p, i) => totalPrice += Math.ceil(Number(p?.price) * 11.9 + 1000));
+        memoOrder?.products?.map((p, i) => totalPrice += Math.ceil(Number(p?.price) * 13.3 + 1000));
         return totalPrice;
     }, [memoOrder])
 
