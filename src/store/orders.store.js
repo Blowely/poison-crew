@@ -18,10 +18,18 @@ export const ordersApi = createApi({
         body: JSON.stringify({clientId, products, address})
       })
     }),
+    updateStatus: builder.mutation({
+      query: ({clientId, orderId, status}) => ({
+        url: '/updateStatus',
+        method: 'POST',
+        body: JSON.stringify({clientId, orderId, status})
+      })
+    }),
   })
 })
 
 export const {
   useGetOrdersQuery,
   useAddOrderMutation,
+  useUpdateStatusMutation,
 } = ordersApi;

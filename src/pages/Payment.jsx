@@ -10,12 +10,13 @@ import {
 } from "@ant-design/icons";
 import {useAppDispatch} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
-import { useGetOrdersQuery} from "../store/orders.store";
+import {useAddOrderMutation, useGetOrdersQuery, useUpdateStatusMutation} from "../store/orders.store";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
 import {iosCopyToClipboard} from "../common/utils";
+import {PRODUCT_STATUS} from "./constants";
 
 const Payment = () => {
     const dispatch = useAppDispatch();
@@ -35,6 +36,9 @@ const Payment = () => {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });
+
+    const [updateOrderStatus, {isLoading: isLoadingAddOrder, error}] = useUpdateStatusMutation();
+
 
     useEffect(() => {
         window.scrollTo({top: 0})
@@ -85,6 +89,16 @@ const Payment = () => {
     const onNextStepClick = () => {
         copyToClickBord(paymentNumberRef.current);
         setStep((prevStep) => ++prevStep);
+    }
+
+    const onIPaidClick = () => {
+        try {
+            setStep((prev) => ++prev);
+            updateOrderStatus({clientId, orderId, status: PRODUCT_STATUS.PAYMENT_CHECK}).unwrap();
+        } catch (e) {
+            message.error('Произошла ошибка')
+        }
+
     }
 
     return (
@@ -172,7 +186,7 @@ const Payment = () => {
                 }
                 {step === 1 &&
                     <Button type="primary" className="cart-product-info-submit-btn"
-                            onClick={() => setStep((prev) => ++prev)}>
+                            onClick={onIPaidClick}>
                         Я оплатил
                     </Button>
                 }
