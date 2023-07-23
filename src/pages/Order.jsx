@@ -58,11 +58,11 @@ const Order = () => {
         message.success( 'Скопировано')
     }
 
-    const deliveryCost = 1399;
-
     const memoOrder = useMemo(() => {
         return orders?.find((order) => order._id === orderId);
     }, [orderId, orders])
+
+    const deliveryCost = 1399 * (memoOrder?.products?.length || 1);
 
     const onGoToPaymentClick = (id) => {
         return navigate(`/payment?id=${id}`);

@@ -82,7 +82,6 @@ const Orders = () => {
 
                                     <div>Адрес: {el.address.address}</div>
                                     {el?.products?.map((p, i) => {
-                                        totalPrice += Math.ceil(Number(p?.price) * 13.3 + 1000);
                                         return (
                                             <div key={i} className="cart-product-info">
                                                 <div style={{display: 'flex', gap: '7px'}}>
@@ -101,7 +100,6 @@ const Orders = () => {
                                             </div>
                                         )
                                     })}
-                                    <div className="total-price">Итого {totalPrice} ₽</div>
                                 </div>
                             </div>
                             <Button
