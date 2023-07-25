@@ -96,20 +96,6 @@ const Payment = () => {
         try {
             setStep((prev) => ++prev);
             updateOrderStatus({clientId, orderId, status: PRODUCT_STATUS.PAYMENT_CHECK}).unwrap();
-
-            axios.post('https://api.re-poizon.ru/api/newBotMessage', {
-                text:`
-                ---PAYMENT CHECK---\n
-                id: ${orderId}\n
-                ${memoOrder?.products?.map(el => {
-                            return `${el?.title} (${el?.size}) - ${el?.price} CNY;\n
-                    ${el?.src[0]}\n
-                  `;
-                        })} 
-                totalPrice(RUB): ${memoTotalPricer + deliveryCost}\n
-                https://api.re-poizon.ru/orders\n`
-            });
-
         } catch (e) {
             message.error('Произошла ошибка')
         }
