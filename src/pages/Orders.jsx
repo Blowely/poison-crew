@@ -49,6 +49,14 @@ const Orders = () => {
         }
         return navigate(`/payment?id=${id}`);
     }
+
+    const onGoToTraceClick = (id, status) => {
+        if (status !== PRODUCT_STATUS.APPROVED && status !== PRODUCT_STATUS.APPROVED_WITH_CHANGES) {
+            return;
+        }
+        return navigate(`/trace?id=${id}`);
+    }
+
     const onGoOrderClick = (id) => {
       return navigate(`/order?id=${id}`);
     }
@@ -102,15 +110,27 @@ const Orders = () => {
                                     })}
                                 </div>
                             </div>
-                            <Button
-                                disabled={!(el?.status === PRODUCT_STATUS.APPROVED ||
-                                    el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES)}
-                                type="primary"
-                                onClick={() => onGoToPaymentClick(el?._id, el?.status)}
-                                style={{width: '100%', marginTop:'10px'}}
-                            >
-                                Оплатить
-                            </Button>
+                            {el?.status === PRODUCT_STATUS.PAID
+                                ?
+                                <Button
+                                    type="primary"
+                                    onClick={() => onGoToTraceClick(el?._id, el?.status)}
+                                    style={{width: '100%', marginTop:'10px'}}
+                                >
+                                    Отследить
+                                </Button>
+                                :
+                                <Button
+                                    disabled={!(el?.status === PRODUCT_STATUS.APPROVED ||
+                                        el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES)}
+                                    type="primary"
+                                    onClick={() => onGoToPaymentClick(el?._id, el?.status)}
+                                    style={{width: '100%', marginTop:'10px'}}
+                                >
+                                    Оплатить
+                                </Button>
+                            }
+
                         </div>
                     })}
                 </div>

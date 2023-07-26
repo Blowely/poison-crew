@@ -215,6 +215,15 @@ const Order = () => {
                         Оплатить
                     </Button>
                 }
+                {memoOrder?.status === PRODUCT_STATUS.PAID &&
+                    <Button
+                        type="primary"
+                        className="cart-product-info-submit-btn"
+                        onClick={() => onGoToPaymentClick(memoOrder?._id)}
+                    >
+                        Отследить
+                    </Button>
+                }
             </div>
             <footer>
                 <div onClick={() => navigate('/products')}>
