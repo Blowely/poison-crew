@@ -64,21 +64,23 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
           notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
         }
 
-        const addOrderBody = {
-          clientId: accountData?.account?._id,
-          products: cartItems || [],
-          address: activeAddr,
-        }
+        let requests = cartItems.map(el => {
+          const addOrderBody = {
+              clientId: accountData?.account?._id,
+              products: [el],
+              address: activeAddr,
+          }
 
-        const res = await addOrder(addOrderBody);
+          return addOrder(addOrderBody);
+        })
 
-        if (res.data.status === 'ok') {
-            dispatch(clearCart())
-            return navigate('/orders');
-        } else {
-          notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
-        }
-
+        Promise.all(requests)
+          .then(responses => {
+              dispatch(clearCart());
+              return navigate('/orders');
+          }).catch((err) => notification.open(
+              {duration: 2, type: 'error', message:'Ошибка оформления заказа'}
+        ));
       } catch (e) {
         notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
       }
