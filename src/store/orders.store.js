@@ -11,6 +11,10 @@ export const ordersApi = createApi({
       query: (clientId) => `/orders?clientId=${clientId}`,
       invalidatesTags: (result, error, arg) => [{type: 'Order', id: arg}],
     }),
+    getOrder: builder.query({
+      query: (orderId,clientId) => `/orders?id=${orderId}&clientId=${clientId}`,
+      invalidatesTags: (result, error, arg) => [{type: 'Order', id: arg}],
+    }),
     addOrder: builder.mutation({
       query: ({clientId, products, address}) => ({
         url: '/orders',
@@ -29,6 +33,7 @@ export const ordersApi = createApi({
 })
 
 export const {
+  useGetOrderQuery,
   useGetOrdersQuery,
   useAddOrderMutation,
   useUpdateStatusMutation,
