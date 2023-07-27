@@ -50,10 +50,7 @@ const Orders = () => {
         return navigate(`/payment?id=${id}`);
     }
 
-    const onGoToTraceClick = (id, status) => {
-        if (status !== PRODUCT_STATUS.APPROVED && status !== PRODUCT_STATUS.APPROVED_WITH_CHANGES) {
-            return;
-        }
+    const onGoToTraceClick = (id) => {
         return navigate(`/trace?id=${id}`);
     }
 

@@ -12,6 +12,7 @@ import Favorites from "./pages/Favorites";
 import Information from "./pages/Information";
 import Payment from "./pages/Payment";
 import Order from "./pages/Order";
+import Trace from "./pages/Trace";
 
 export const PrivateAppRouter = ({
                                    products,
@@ -44,8 +45,9 @@ export const PrivateAppRouter = ({
         <Route path="/address" element={<Address />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/Order" element={<Order />} />
+        <Route path="/order" element={<Order />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/trace" element={<Trace />} />
         <Route path="/visited" element={<VisitedProducts />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/info" element={<Information />} />

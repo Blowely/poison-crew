@@ -67,6 +67,10 @@ const Order = () => {
         return navigate(`/payment?id=${id}`);
     }
 
+    const onGoToTraceClick = (id) => {
+        return navigate(`/trace?id=${id}`);
+    }
+
     return (
         <Layout>
             <div className="content-block-header content-block-header-order">
@@ -219,7 +223,7 @@ const Order = () => {
                     <Button
                         type="primary"
                         className="cart-product-info-submit-btn"
-                        onClick={() => onGoToPaymentClick(memoOrder?._id)}
+                        onClick={() => onGoToTraceClick(memoOrder?._id)}
                     >
                         Отследить
                     </Button>
