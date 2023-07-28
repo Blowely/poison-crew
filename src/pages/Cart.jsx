@@ -58,10 +58,10 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const onOkHandler = async () => {
       try {
         if (!addresses.length && !accountData?.account?.addresses?.length) {
-          notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
+          return notification.open({duration: 2, type: 'error', message:'Не выбран адрес доставки'})
         }
         if (!cartItems.length) {
-          notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
+          return notification.open({duration: 2, type: 'error', message:'Товары не выбраны'})
         }
 
         let requests = cartItems.map(el => {
@@ -82,7 +82,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
               {duration: 2, type: 'error', message:'Ошибка оформления заказа'}
         ));
       } catch (e) {
-        notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
+        return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
       }
     }
 

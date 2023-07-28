@@ -24,11 +24,26 @@ export const PRODUCT_STATUS_DICTIONARY = {
 }
 
 
-export const PRODUCT_SERVICE_STATUS = {
-    REGISTERED: 'registered',
-    SEND_TO_CHINESE_DELIVERY: 'send_to_chinese_delivery',
-    SORT_RUSSIA: 'sort_russia',
-    SENT_TO_PVZ: 'sent_to_pvz',
-    ARRIVED_IN_PVZ: 'pvz_arrived',
-    RECEIVED: 'received'
+export const PRODUCT_DELIVERY_STATUS = {
+    CREATED: 'created',
+    POIZON_BOUGHT: 'poizon_bought',
+    DELIVERY_TO_CHI_DEL_STR: 'delivery_to_chi_del_str',
+    SORT_CHI_DEL_STR: 'sort_chi_del_str',
+    DELIVERY_TO_RU_DEL_STR: 'delivery_to_ru_del_str',
+    ARRIVED_RU_DEL_STR: 'arrived_ru_del_str',
+    DELIVERY_CONSUMER_PVZ: 'delivery_consumer_pvz',
+    ARRIVED_CONSUMER_PVZ: 'arrived_consumer_pvz',
+    RECEIVED: 'received',
+}
+
+export const PRODUCT_DELIVERY_STATUS_DICTIONARY = {
+    created: {title: 'Заказ создан', description: ''},
+    poizon_bought: {title: 'Выкуплен c POIZON', description: 'Товар выкуплен с Poizon'},
+    delivery_to_chi_del_str: {title: 'Доставка по Китаю', description: 'Отправлен на склад сервиса доставки в Китае'},
+    sort_chi_del_str: {title: 'Сортировка', description: 'Сортировка на складе в Китае'},
+    delivery_to_ru_del_str: {title: 'Отправлен в Россию', description: 'Отправлен на склад сервиса доставки в России'},
+    arrived_ru_del_str: {title: 'Сортировка', description: 'Сортировка на складе в России'},
+    delivery_consumer_pvz: {title: 'Отправлен в ПВЗ', description: 'Отправлен в выбранный ПВЗ'},
+    arrived_consumer_pvz: {title: 'Готово к выдаче', description: 'Готов к выдаче в выбранном ПВЗ'},
+    received: {title: 'Получен', description: ''},
 }

@@ -15,7 +15,7 @@ import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
 import {iosCopyToClipboard} from "../common/utils";
-import {PRODUCT_STATUS} from "./constants";
+import {PRODUCT_DELIVERY_STATUS, PRODUCT_DELIVERY_STATUS_DICTIONARY, PRODUCT_STATUS} from "./constants";
 import axios from "axios";
 import moment from "moment";
 
@@ -51,17 +51,26 @@ const Trace = () => {
         message.success( 'Скопировано')
     }
 
-    const [deliveryStatus, setDeliveryStatus] = useState(null);
+    const [deliveryStatusKey, setDeliveryStatusKey] = useState(0);
 
 
     const memoOrder = useMemo(() => {
         const order = orders?.find((order) => order._id === orderId);
-        setDeliveryStatus(order?.deliveryStatus);
+        const activeDeliveryKey = Object.values(PRODUCT_DELIVERY_STATUS)
+            .findIndex((el) => el === order?.delivery_status);
+
+        setDeliveryStatusKey(activeDeliveryKey >= 0 ? activeDeliveryKey : 0);
 
         return order;
     }, [orderId, orders])
 
     const createdAtAdded20Days = moment(memoOrder?.createdAt).add(20, "days").format('ll');
+
+    const deliverySteps = Object.values(PRODUCT_DELIVERY_STATUS_DICTIONARY).map((el) => (
+        {
+            title: el.title,
+            description: el.description
+        }));
 
     return (
         <Layout>
@@ -74,25 +83,13 @@ const Trace = () => {
                     <LoadingOutlined style={{fontSize: '24px'}} spin />
                 </div>
             }
+
             <div className="content-block">
                 <div className="cart-item">
                     <div className="cart-order-info">
                         <div style={{display: 'flex', alignItems: "center", gap: '10px'}}>
                             <img src={memoOrder?.products[0]?.images[0]} style={{width: '70px'}} alt=""/>
                             <span style={{minWidth: "30%", fontWeight: '500'}}>Ожидается <br/>{createdAtAdded20Days}</span>
-                            <Steps
-                                size="small"
-                                current={1}
-                                style={{paddingTop: '15px', height: '100px'}}
-                                items={[
-                                    {
-                                        title: 'Finished',
-                                    },
-                                    {
-                                        title: 'In Progress',
-                                    },
-                                ]}
-                            />
                         </div>
                         <Divider style={{margin: '6px 0'}}></Divider>
                         <div style={{display: 'flex', gap: '7px'}}>
@@ -114,30 +111,9 @@ const Trace = () => {
                     <div className="cart-order-info">
                         <Steps
                             progressDot
-                            current={1}
+                            current={deliveryStatusKey}
                             direction="vertical"
-                            items={[
-                                {
-                                    title: 'Заказ создан',
-                                    description: 'Заказ обработан и подтвержден менеджером',
-                                },
-                                {
-                                    title: 'Выкуплен в POIZON',
-                                    description: 'This is a description. This is a description.',
-                                },
-                                {
-                                    title: 'In Progress',
-                                    description: 'This is a description. This is a description.',
-                                },
-                                {
-                                    title: 'Waiting',
-                                    description: 'This is a description.',
-                                },
-                                {
-                                    title: 'Waiting',
-                                    description: 'This is a description.',
-                                },
-                            ]}
+                            items={deliverySteps}
                         />
                     </div>
                 </div>
