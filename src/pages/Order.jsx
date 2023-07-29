@@ -181,7 +181,7 @@ const Order = () => {
                                                 <div className="order-info-block-item-info">
                                                     <div>Получатель</div>
                                                     +{accountData?.account?.phone}
-                                                    <div>{memoOrder?.address?.fio || 'Маряшин Андрей Евгеньевич'}</div>
+                                                    <div>{memoOrder?.address?.fio}</div>
                                                 </div>
 
                                             </div>
