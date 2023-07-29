@@ -28,19 +28,16 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
   const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: phone});
-  //const {data: cdekOffices, isLoadinCdekgOffices, error: cdekOfficesError} = useGetCdekOfficesQuery();
-  const {data: BBoffices, isLoadingBBOffices, error: BBofficesError} = useGetBBOfficesQuery();
+
   const [updateActiveAddress, {isLoading: isLoadingUpdateActiveAddress, activeAddressError}] = useUpdateActiveAddressMutation();
-  console.log('BBoffices',BBoffices);
+
   const remotePhone = accountData?.account?.phone;
 
   const {values, setValues, setFieldValue, errors, submitForm} = useFormik({
       initialValues: {
         fio: '',
         phone: (phone || remotePhone)?.substring(1) || '',
-        city: '',
         address: '',
-        postalCode: '',
       },
       onSubmit(body) {
         addAccountAddress({token: token, address: body}).then(async (res) => {
@@ -78,6 +75,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
   }
 
   const onChangeBoxBerry = (res) => {
+    setFieldValue('address', res.address);
     console.log('res=',res);
   }
 
@@ -87,15 +85,6 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
             <LeftOutlined onClick={onGoBackClick} />
             Добавление нового адреса <div /></div>
           <div className="content-address-block">
-
-            <a href="#" onClick={() => window?.boxberry?.open(
-                onChangeBoxBerry,
-                '1$12260ab6f8bcb87d221c63845f48029d',
-                'Москва','', 1000, 500,0, 50, 50, 50)}
-            >
-              Выбрать пункт выдачи на карте
-            </a>
-
             <div className="address-item">
               <div className="field-name">ФИО получателя</div>
               <Input value={values.fio} onChange={(ev) => setFieldValue('fio',ev.target.value)} />
@@ -104,17 +93,19 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
               <div className="field-name">Номер получателя</div>
               <Input prefix="+7" type="number" value={values.phone} onChange={(ev) => phoneInputHandler(ev.target.value)} />
             </div>
-            <div className="address-item">
-              <div className="field-name">Город в России</div>
-              <Input value={values.city} onChange={(ev) => setFieldValue('city',ev.target.value)} />
-            </div>
+
             <div className="address-item">
               <div className="field-name">Адрес</div>
-              <Input value={values.address} onChange={(ev) => setFieldValue('address',ev.target.value)} />
-            </div>
-            <div className="address-item">
-              <div className="field-name">Почтовый индекс</div>
-              <Input value={values.postalCode} onChange={(ev) => setFieldValue('postalCode',ev.target.value)} />
+              <a href="#" onClick={() => window?.boxberry?.open(
+                  onChangeBoxBerry,
+                  '1$12260ab6f8bcb87d221c63845f48029d',
+                  'Москва','', 1000, 500,0, 50, 50, 50)}
+              >
+                Выбрать пункт выдачи на карте
+              </a>
+              <br/>
+              <br/>
+              <Input value={values.address}/>
             </div>
           </div>
           <div className="cart-product-info-submit-btn-wrapper">
