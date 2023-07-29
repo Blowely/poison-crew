@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Button, Divider, Dropdown, Input, message, Modal, notification, Radio} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -8,7 +8,7 @@ import {
   useLazyGetCodeQuery,
   useAddCodeMutation,
   useUpdateActiveAddressMutation,
-  useAddAddressMutation
+  useAddAddressMutation, useDeleteActiveAddressMutation, useDeleteAddressMutation
 } from "../store/accounts.store";
 import FormItem from "antd/es/form/FormItem";
 import {useAppDispatch, useAppSelector} from "../store";
@@ -27,6 +27,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
   const [getCode, {codeData, isLoadingCode} ] = useLazyGetCodeQuery();
   const [sendCode, {isLoading: isLoadingPostCode, error}] = useAddCodeMutation({},{refetchOnMountOrArgChange: true});
   const [updateActiveAddress] = useUpdateActiveAddressMutation();
+  const [deleteAddress] = useDeleteAddressMutation();
   const [addAccountAddress, {isLoading: isLoadingAddress, AccError}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
 
   const token = localStorage.getItem('token');
@@ -41,14 +42,39 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     }
   }
 
+  const currentBtnMenu = useRef(null);
+
+  const onMenuBtnClick = (id) => {
+    currentBtnMenu.current = id;
+  }
+
+  const deleteRemoteAdr = async () => {
+    try {
+      if (!currentBtnMenu.current) {
+        return;
+      }
+
+      if (!token) {
+        return notification.open({duration: 1.5, type: "error", message: 'Неавторизированный запрос'})
+      }
+
+      const res = await deleteAddress({token, addressId: currentBtnMenu.current}).unwrap();
+
+      if (res?.status === 'ok') {
+        notification.open({duration: 1.5, type: "success", message: 'Адрес удален'})
+        refetchAcc();
+      }
+
+    } catch (e) {
+      return notification.error({content: "Ошибка удаления"});
+    }
+  }
+
   const items = [
     {
-      label: 'Редактировать',
-      key: '1',
-    },
-    {
       label: <span style={{color: 'red'}}>Удалить</span>,
-      key: '2',
+      key: '1',
+      onClick: () => deleteRemoteAdr()
     },
   ];
 
@@ -72,8 +98,8 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     }
   }
 
-  const addressSettingsBtn = () => (<Dropdown menu={{ items }} placement="bottomLeft">
-    <Button style={{backgroundColor: 'unset', border: 'none'}}><DotsIcon/></Button>
+  const addressSettingsBtn = (id) => (<Dropdown menu={{ items }} placement="bottomLeft">
+    <Button style={{backgroundColor: 'unset', border: 'none'}} onClick={() => onMenuBtnClick(id)}><DotsIcon/></Button>
   </Dropdown>)
 
   const [activeAddressCheckboxIndex, setActiveAddressCheckboxIndex] = useState([]);
@@ -82,7 +108,6 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
     const foundIndex = addresses?.findIndex((el) => el?._id === activeAddr?._id);
     setActiveAddressCheckboxIndex(foundIndex)
   },[addresses, activeAddr])
-
 
   const renderModalContent = useCallback(() => {
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
@@ -103,9 +128,13 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
             <div style={{fontSize: '15px'}}>Выберете адрес, чтобы увидеть условия доставки</div>
             <Radio.Group name="radiogroup" className="address-items-wrapper" value={activeAddressCheckboxIndex}>
               {addresses?.map((adr, i) => {
+                if (adr.isArchived) {
+                  return;
+                }
+
                 return <div className="address-item-wrapper" key={i}>
                   <Radio checked={adr?._id === activeAddr._id} value={i} onClick={() => onChangeActiveAddress(adr)}/>
-                  <div className="address-item-wrapper-data">{adr?.address} {addressSettingsBtn()} </div>
+                  <div className="address-item-wrapper-data">{adr?.address} {addressSettingsBtn(adr._id)} </div>
                 </div>
               })}
             </Radio.Group>

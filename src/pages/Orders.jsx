@@ -85,7 +85,7 @@ const Orders = () => {
                                     <Divider style={{margin: '6px 0'}}></Divider>
                                     <StatusTag status={el?.status}/>
 
-                                    <div>Адрес: {el.address.address}</div>
+                                    {/*<div>Адрес: {el.address.address}</div>*/}
                                     {el?.products?.map((p, i) => {
                                         return (
                                             <div key={i} className="cart-product-info">
