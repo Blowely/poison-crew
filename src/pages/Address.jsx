@@ -14,6 +14,7 @@ import {useGetOfficesQuery as useGetBBOfficesQuery} from "../store/boxBerry.stor
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
+import axios from "axios";
 
 function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
   const [addAccountAddress, {isLoading: isLoadingAddress, error}] = useAddAddressMutation({},{refetchOnMountOrArgChange: true});
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: phone});
-  const {data: cdekOffices, isLoadinCdekgOffices, error: cdekOfficesError} = useGetCdekOfficesQuery();
+  //const {data: cdekOffices, isLoadinCdekgOffices, error: cdekOfficesError} = useGetCdekOfficesQuery();
   const {data: BBoffices, isLoadingBBOffices, error: BBofficesError} = useGetBBOfficesQuery();
   const [updateActiveAddress, {isLoading: isLoadingUpdateActiveAddress, activeAddressError}] = useUpdateActiveAddressMutation();
   console.log('BBoffices',BBoffices);

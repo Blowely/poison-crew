@@ -168,9 +168,8 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
   }
 
   const onOkHandler = async () => {
-    window?.boxberry?.open(onChangeBoxBerry)
-
-    //navigate('/address');
+    navigate('/address');
+    //window?.boxberry?.open(onChangeBoxBerry)
   }
 
 
