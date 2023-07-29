@@ -88,7 +88,13 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
             Добавление нового адреса <div /></div>
           <div className="content-address-block">
 
-            <a href="#" onClick={() => window?.boxberry?.open(onChangeBoxBerry)}>Выбрать пункт выдачи на карте</a>
+            <a href="#" onClick={() => window?.boxberry?.open(
+                onChangeBoxBerry,
+                '333d8a0ba433f89a5b8b7f313b654f9c',
+                'Москва')}
+            >
+              Выбрать пункт выдачи на карте
+            </a>
 
             <div className="address-item">
               <div className="field-name">ФИО получателя</div>
