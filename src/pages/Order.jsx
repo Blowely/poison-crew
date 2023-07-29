@@ -61,7 +61,7 @@ const Order = () => {
         return orders?.find((order) => order._id === orderId);
     }, [orderId, orders])
 
-    const deliveryCost = 1399 * (memoOrder?.products?.length || 1);
+    const deliveryCost = 1700 * (memoOrder?.products?.length || 1);
 
     const onGoToPaymentClick = (id) => {
         return navigate(`/payment?id=${id}`);

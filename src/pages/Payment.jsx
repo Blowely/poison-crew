@@ -58,7 +58,7 @@ const Payment = () => {
         message.success( 'Скопировано')
     }
 
-    const deliveryCost = 1399;
+    const deliveryCost = 1700;
 
     const getFormattedCardNumber = () => {
         const number = '2202201875038123';
@@ -150,8 +150,8 @@ const Payment = () => {
                                             <input type="text" style={{display: 'none'}} ref={paymentCostRef}
                                                    value={memoTotalPricer + deliveryCost}/>
                                             <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
-                                            <div>Доставка <span className="total-price">{1399} ₽</span></div>
-                                            <span className="total-price">Итого {memoTotalPricer + 1399} ₽
+                                            <div>Доставка <span className="total-price">{1700} ₽</span></div>
+                                            <span className="total-price">Итого {memoTotalPricer + 1700} ₽
                                                 <CopyOutlined style={{marginLeft:'5px'}}
                                                               onClick={() => copyToClickBord(paymentCostRef.current)}/>
                                             </span>
