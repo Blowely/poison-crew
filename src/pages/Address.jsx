@@ -91,7 +91,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
             <a href="#" onClick={() => window?.boxberry?.open(
                 onChangeBoxBerry,
                 '1$12260ab6f8bcb87d221c63845f48029d',
-                'Москва')}
+                'Москва','', 1000, 500,0, 50, 50, 50)}
             >
               Выбрать пункт выдачи на карте
             </a>
