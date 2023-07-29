@@ -38,6 +38,8 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
         fio: '',
         phone: (phone || remotePhone)?.substring(1) || '',
         address: '',
+        workschedule: '',
+        type: 'BB_PVZ',
       },
       onSubmit(body) {
         addAccountAddress({token: token, address: body}).then(async (res) => {
@@ -76,6 +78,7 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
 
   const onChangeBoxBerry = (res) => {
     setFieldValue('address', res.address);
+    setFieldValue('workschedule', res.workschedule);
     console.log('res=',res);
   }
 
