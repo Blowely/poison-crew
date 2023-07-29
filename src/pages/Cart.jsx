@@ -57,7 +57,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
     const onOkHandler = async () => {
       try {
-        if (!addresses.length && !accountData?.account?.addresses?.length) {
+        if (!accountData?.account?.activeAddressId) {
           return notification.open({duration: 2, type: 'error', message:'Не выбран адрес доставки'})
         }
         if (!cartItems.length) {
