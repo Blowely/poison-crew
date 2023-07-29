@@ -39,6 +39,10 @@ const Trace = () => {
         refetchOnMountOrArgChange: true
     });
 
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
+
     const onGoBackClick = () => {
       return navigate('/orders');
     }
