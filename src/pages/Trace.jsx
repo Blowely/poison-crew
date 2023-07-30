@@ -5,7 +5,7 @@ import {
     CopyOutlined, CreditCardOutlined,
     DeleteOutlined,
     LeftOutlined,
-    LoadingOutlined,
+    LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
 import {useAppDispatch} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
@@ -79,8 +79,9 @@ const Trace = () => {
     return (
         <Layout>
             <div className="content-block-header">
-              <LeftOutlined onClick={onGoBackClick} />
-              Отслеживание <div />
+                <LeftOutlined onClick={onGoBackClick} />
+                Отслеживание
+                <ReloadOutlined onClick={() => refetch()}/>
             </div>
             {isLoadingOrders &&
                 <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
