@@ -126,7 +126,9 @@ function Product({onAddToFavorite, isLoading}) {
                     <div style={{fontSize: '16px'}}>Среднее время доставки 16-18 дней</div>
                 </div>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px',
-                    display: "flex", justifyContent: "space-between", height: '70px', alignItems: "center"}}>
+                    display: "flex", justifyContent: "space-between", height: '70px', alignItems: "center"}}
+                    onClick={() => navigate('/products')}
+                >
                     <div style={{display:"flex", gap: '10px', width: '50%'}}>
                         <AdidasIcon  />
                         <div style={{fontSize: '24px'}}>adidas</div>

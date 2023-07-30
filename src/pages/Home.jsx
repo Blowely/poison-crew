@@ -127,7 +127,7 @@ function Home({onAddToFavorite, onAddToCart}) {
       <Header/>
       <div className="content">
         <div className="brands-section-wrapper">
-          <div className="brands-section-wrapper_card" >
+          <div className="brands-section-wrapper_card" onClick={() => navigate('/products')}>
             <div className="brands-section-wrapper_card-icon">
               <AdidasIcon  />
             </div>
