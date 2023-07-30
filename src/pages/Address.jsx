@@ -79,7 +79,6 @@ function Address({onAddToFavorite, onAddToCart, isLoading}) {
   const onChangeBoxBerry = (res) => {
     setFieldValue('address', res.address);
     setFieldValue('workschedule', res.workschedule);
-    console.log('res=',res);
   }
 
   return (

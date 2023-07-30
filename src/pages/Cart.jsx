@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal, notification} from "antd";
+import {Button, Layout, Modal, notification, Result} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
@@ -35,6 +35,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
     const [phone, setPhone] = useState('');
+    const [step, setStep] = useState(0);
 
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
@@ -77,7 +78,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         Promise.all(requests)
           .then(responses => {
               dispatch(clearCart());
-              return navigate('/orders');
+              return setStep(1);
           }).catch((err) => notification.open(
               {duration: 2, type: 'error', message:'Ошибка оформления заказа'}
         ));
@@ -128,47 +129,66 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             }
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
-              Корзина <div /></div>
-            <div className="content-block">
-
-                <div className="cart-item redirect" onClick={onAddressClick}>
-                  {activeAddr?.address ??
-                    'Необходимо заполнить адрес доставки'} <RightOutlined />
-                </div>
-                {cartItems.map((el, i) => {
-                    return <div key={i} className="cart-item">
-                      <div className="cart-product-info">
-                        <div style={{display: 'flex', gap: '7px'}}>
-                          <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
-                          <div>
-                            <div style={{fontSize: '16px'}}>{el.title}</div>
-                            <div>размер: {el.size}</div>
-                          </div>
-                        </div>
-
-                        <div className="cart-product-info-third-column">
-                          <div style={{fontWeight: '500'}}>{Math.ceil(Number(el.price) * 13.3 + 1000)} ₽</div>
-                          <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
-                              <DeleteOutlined />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                })}
+              Корзина <div />
             </div>
+                <div className="content-block">
+                    {step === 0 &&
+                        <>
+                            <div className="cart-item redirect" onClick={onAddressClick}>
+                                {activeAddr?.address ??
+                                    'Необходимо заполнить адрес доставки'} <RightOutlined />
+                            </div>
+                            {cartItems.map((el, i) => {
+                                return <div key={i} className="cart-item">
+                                    <div className="cart-product-info">
+                                        <div style={{display: 'flex', gap: '7px'}}>
+                                            <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
+                                            <div>
+                                                <div style={{fontSize: '16px'}}>{el.title}</div>
+                                                <div>размер: {el.size}</div>
+                                            </div>
+                                        </div>
 
-            <div className="cart-product-info-submit-btn-wrapper">
-                <div className="cart-product-info-submit-confirm-oferta">
-                    Нажимая на кнопку "Подтвердить заказ", Вы принимаете {' '}
-                    <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
-                        Условия оферты
-                    </a>
+                                        <div className="cart-product-info-third-column">
+                                            <div style={{fontWeight: '500'}}>{Math.ceil(Number(el.price) * 13.3 + 1000)} ₽</div>
+                                            <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
+                                                <DeleteOutlined />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            })}
+
+                            <div className="cart-product-info-submit-btn-wrapper">
+                                <div className="cart-product-info-submit-confirm-oferta">
+                                    Нажимая на кнопку "Подтвердить заказ", Вы принимаете {' '}
+                                    <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                                        Условия оферты
+                                    </a>
+                                </div>
+                                <Button type="primary" className="cart-product-info-submit-btn"
+                                        onClick={onOkHandler}>
+                                    Подтвердить заказ
+                                </Button>
+                            </div>
+                        </>
+                    }
+                    {step === 1 &&
+                        <div className="loader-block">
+                            <Result
+                                title="Проверка товара!"
+                                subTitle="Как только проверим товар, поменяем статус заказа. Обычно занимает не более 2 минут"
+                                extra={[
+                                    <Button type="primary" key="console" onClick={() => navigate('/orders')}>
+                                        Мои заказы
+                                    </Button>,
+                                ]}
+                            />
+                        </div>
+                    }
                 </div>
-              <Button type="primary" className="cart-product-info-submit-btn"
-                      onClick={onOkHandler}>
-                Подтвердить заказ
-              </Button>
-            </div>
+
+
 
             <footer>
                 <div onClick={() => navigate('/products')}>
