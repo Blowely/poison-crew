@@ -20,6 +20,7 @@
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.4",
+    "react-error-overlay": "^6.0.11",
     "react-modal": "^3.16.1",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
@@ -33,6 +34,7 @@
   "scripts": {
     "start": "set PORT=3006 && react-scripts start",
     "build": "react-scripts build",
+    "build:prod": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
