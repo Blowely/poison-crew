@@ -36,9 +36,10 @@ const Profile = () => {
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
   const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
-  const onAddMoney = () => {
-    window.open(`https://new.donatepay.ru/@re-poizon?name=${accountData?.account?.phone}`);
-  }
+
+  useEffect(() => {
+    window.scrollTo({top: 0})
+  }, [])
 
   return (
     <Layout>

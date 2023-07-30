@@ -28,6 +28,11 @@ function Product({onAddToFavorite, isLoading}) {
     const productId = searchParams.get('productId');
 
     const { data: product, isLoading: isLoadingProduct } = useGetProductQuery({productId, token});
+
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
+
     const onAddToCart = () => {
         if (!choice?.price) {
             return;

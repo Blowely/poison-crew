@@ -46,6 +46,10 @@ const Orders = () => {
         setLoading(false);
     },[orders])
 
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
+
     const onGoBackClick = () => {
       return navigate('/profile');
     }

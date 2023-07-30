@@ -43,8 +43,11 @@ const Order = () => {
 
     useEffect(() => {
         setLoading(false);
-        window.scrollTo({top: 0})
     },[orders])
+
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
 
     const onGoBackClick = () => {
       return navigate('/orders');

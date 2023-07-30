@@ -46,6 +46,10 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const {data: accountData, isLoadingAcc, error: accError, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
     const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
+
     const onGoBackClick = () => {
         if (from) {
             return navigate('/products');
