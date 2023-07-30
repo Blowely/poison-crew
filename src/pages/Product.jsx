@@ -9,6 +9,7 @@ import AuthModal from "./AuthModal";
 import {useAppDispatch} from "../store";
 import {addToCart} from "../common/cartSlice";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
+import {getCheapestPriceOfSize} from "../common/utils";
 
 function Product({onAddToFavorite, isLoading}) {
     const dispatch = useAppDispatch();
@@ -42,7 +43,7 @@ function Product({onAddToFavorite, isLoading}) {
 
     const getTitlePrice = (price) => {
         if (Number(price) > 0) {
-            return Math.ceil(product?.price * 13.3 + 1000);
+            return Math.ceil(price * 13.3 + 1000);
         }
         return '--';
     }
@@ -113,7 +114,9 @@ function Product({onAddToFavorite, isLoading}) {
                 <CarouselComponent images={product?.images} />
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
                     <div style={{fontSize: '25px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
-                        {getTitlePrice(product?.price)  || '--'}<span style={{fontSize: '23px'}}>₽</span>
+                        {getTitlePrice(
+                            getCheapestPriceOfSize(product?.price,product?.properties?.sizes || [])
+                        )  || '--'}<span style={{fontSize: '23px'}}>₽</span>
                     </div>
                     <div style={{fontSize: '21px'}}>{product?.title}</div>
                 </div>

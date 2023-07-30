@@ -72,3 +72,17 @@ export const getCurrentPriceOfSize = (size, sizes) => {
 
   return Number(sizes[foundSizeIndex].price);
 }
+
+export const getCheapestPriceOfSize = (price, sizes) => {
+  let cheapestPrice = price || 1000000;
+
+  sizes.map((s) => {
+    const newPrice = Number(s?.price);
+
+    if (newPrice < cheapestPrice) {
+      cheapestPrice = newPrice;
+    }
+  })
+
+  return cheapestPrice;
+}
