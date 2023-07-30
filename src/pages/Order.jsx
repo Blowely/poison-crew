@@ -74,7 +74,7 @@ const Order = () => {
         return navigate(`/trace?id=${id}`);
     }
 
-    const priceChangesTooltipText = `1. Цена изменилась на POIZON. \n  2. Изменился курс`
+    const priceChangesTooltipText = `1. Цена изменилась на POIZON \n  2. Изменился курс`
 
     return (
         <Layout>
