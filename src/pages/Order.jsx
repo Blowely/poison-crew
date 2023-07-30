@@ -39,9 +39,12 @@ const Order = () => {
         refetchOnMountOrArgChange: true
     });
 
+    const [isLoading, setLoading] = useState(true);
+
     useEffect(() => {
+        setLoading(false);
         window.scrollTo({top: 0})
-    }, [])
+    },[orders])
 
     const onGoBackClick = () => {
       return navigate('/orders');
@@ -81,12 +84,12 @@ const Order = () => {
                 onClick={() => copyToClickBord(orderNumberRef.current)}
                 />
             </div>
-            {isLoadingOrders &&
+            {(isLoading || isLoadingOrders) &&
                 <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
                     <LoadingOutlined style={{fontSize: '24px'}} spin />
                 </div>
             }
-            {!isLoadingOrders &&
+            {!isLoading &&
                 <div className="content-block">
                     {[memoOrder]?.map((el, i) => {
                         totalPrice = 0;
@@ -96,7 +99,11 @@ const Order = () => {
                                     Статус заказа
                                     <ReloadOutlined
                                         style={{fontSize: '20px'}}
-                                        onClick={() => refetch()}
+                                        onClick={async () => {
+                                            setLoading(true);
+                                            await refetch();
+                                            setLoading(false);
+                                        }}
                                     />
                                 </div>
                                 <div className="status-block-wrapper">

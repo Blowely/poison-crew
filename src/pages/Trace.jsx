@@ -39,14 +39,11 @@ const Trace = () => {
         refetchOnMountOrArgChange: true
     });
 
-    /*useEffect(() => {
-        window.scrollTo({top: 0})
-    }, [])*/
-
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(false);
+        window.scrollTo({top: 0})
     },[orders]);
 
     const onGoBackClick = () => {
