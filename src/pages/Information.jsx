@@ -54,6 +54,7 @@ const Information = () => {
                     <div className="cart-order-info">
                         <div style={{display: "grid", gap: '7px'}}>
                             <h3>Телефоны и e-mail</h3>
+                            <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
                             <div style={{fontSize: '16px'}}>8-920-297-2447</div>
                             с 10.00 до 19.00 (пнд-пятница)
                             <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
