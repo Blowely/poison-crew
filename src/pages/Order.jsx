@@ -1,11 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Divider, Layout, message, Tag} from "antd";
+import {Button, Divider, Layout, message, Tag, Tooltip} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./payment.scss";
 import "./order.scss";
 import {
     CopyOutlined, CreditCardOutlined,
-    DeleteOutlined,
+    DeleteOutlined, InfoCircleOutlined,
     LeftOutlined,
     LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
@@ -74,6 +74,8 @@ const Order = () => {
         return navigate(`/trace?id=${id}`);
     }
 
+    const priceChangesTooltipText = `1. Цена изменилась на POIZON. \n  2. Изменился курс`
+
     return (
         <Layout>
             <div className="content-block-header content-block-header-order">
@@ -121,6 +123,11 @@ const Order = () => {
                                             Сменить размер
                                         </Button>
                                     </>
+                                    }
+                                    {el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES &&
+                                        <Tooltip title={priceChangesTooltipText}>
+                                            <InfoCircleOutlined style={{fontSize: '20px'}}/>
+                                        </Tooltip>
                                     }
                                 </div>
 

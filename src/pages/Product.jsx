@@ -78,7 +78,8 @@ function Product({onAddToFavorite, isLoading}) {
                 </div>
 
               </div>
-              <div style={{display: 'flex', padding: '15px',paddingRight: '25px', justifyContent: 'space-between'}}>
+              <div style={{display: 'flex', padding: '15px',paddingRight: '25px', justifyContent: 'space-between'}}
+                   onClick={() => {}}>
                 <span>Таблица размеров</span>
                 >
               </div>
