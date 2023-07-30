@@ -4,12 +4,12 @@ import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
-  DeleteOutlined,
-  LeftOutlined,
-  LoadingOutlined,
-  RightOutlined,
-  ShoppingCartOutlined,
-  UserOutlined
+    DeleteOutlined,
+    LeftOutlined,
+    LoadingOutlined, ReloadOutlined,
+    RightOutlined,
+    ShoppingCartOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/active-bag-icon";
@@ -63,8 +63,9 @@ const Orders = () => {
     return (
         <Layout>
             <div className="content-block-header">
-              <LeftOutlined onClick={onGoBackClick} />
-              Заказы <div />
+                <LeftOutlined onClick={onGoBackClick} />
+                Заказы
+                <ReloadOutlined onClick={() => refetch()}/>
             </div>
             {isLoadingOrders &&
                 <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>

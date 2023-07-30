@@ -7,7 +7,7 @@ import {
     CopyOutlined, CreditCardOutlined,
     DeleteOutlined,
     LeftOutlined,
-    LoadingOutlined,
+    LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
 import {useAppDispatch} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
@@ -92,8 +92,12 @@ const Order = () => {
                         totalPrice = 0;
                         return <div key={i} className="cart-item">
                             <div className="cart-order-info">
-                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                <div style={{fontSize: '15px', fontWeight: '500', display: "flex", justifyContent: 'space-between'}}>
                                     Статус заказа
+                                    <ReloadOutlined
+                                        style={{fontSize: '20px'}}
+                                        onClick={() => refetch()}
+                                    />
                                 </div>
                                 <div className="status-block-wrapper">
                                     <StatusTag status={el?.status}/>
