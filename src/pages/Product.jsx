@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal} from "antd";
+import {Button, Input, Layout, Modal} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import CarouselComponent from "../components/Carousel/Carousel";
@@ -9,6 +9,7 @@ import AuthModal from "./AuthModal";
 import {useAppDispatch} from "../store";
 import {addToCart} from "../common/cartSlice";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
+import MeasureTableIcon from "../assets/svg/measure-table-icon";
 import {getCheapestPriceOfSize} from "../common/utils";
 
 function Product({onAddToFavorite, isLoading}) {
@@ -19,6 +20,7 @@ function Product({onAddToFavorite, isLoading}) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
     const [choice, setChoice] = useState({});
+    const [measureOpen, setMeasureOpen] = useState(false);
     const [phone, setPhone] = useState('');
 
     const token = localStorage.getItem('token');
@@ -48,58 +50,81 @@ function Product({onAddToFavorite, isLoading}) {
         return '--';
     }
 
+    const onMeasureOpenClick = () => {
+        setMeasureOpen(true);
+    }
+
     return (
         <Layout style={{position: 'relative'}}>
-          {!token &&
-            <AuthModal
-                open={isModalOpen}
-                setRemotePhone={setPhone}
-                setModalOpen={setModalOpen}
-                onCancel={() => {setModalOpen(false); setCodeModalOpen(false)}}
-                isCodeModalOpen={isCodeModalOpen}
-                setCodeModalOpen={setCodeModalOpen}
-            />
-          }
-          {token &&
-            <Modal
-              title="Выберите размер"
-              open={isModalOpen}
-              onOk={onAddToCart}
-              okText={(Math.ceil(Number(choice.price) * 13.3 + 1000) || '--') + " ₽"}
-              centered
-              onCancel={() => {setModalOpen(false)}}
-            >
-              <div style={{display: "flex",padding: '15px', borderBottom: '1px solid #ececec', gap: '20px'}}>
-                <img src={product?.images[0]} style={{width: '20%'}} alt=""/>
-                <div style={{display: "flex", flexDirection: 'column', justifyContent: 'space-between'}}>
-                  <div style={{fontSize: '22px', fontWeight: '700', display:'flex', gap: '3px', alignItems: 'flex-end'}}>
-                      {Math.ceil(Number(choice.price) * 13.3 + 1000) || '--'}<span style={{fontSize: '19px'}}>₽</span>
-                  </div>
-                  <div style={{fontSize: '15px'}}>Размер: {choice.size}</div>
-                </div>
-
-              </div>
-              <div style={{display: 'flex', padding: '15px',paddingRight: '25px', justifyContent: 'space-between'}}
-                   onClick={() => {}}>
-                <span>Таблица размеров</span>
+            {!token &&
+                <AuthModal
+                    open={isModalOpen}
+                    setRemotePhone={setPhone}
+                    setModalOpen={setModalOpen}
+                    onCancel={() => {setModalOpen(false); setCodeModalOpen(false)}}
+                    isCodeModalOpen={isCodeModalOpen}
+                    setCodeModalOpen={setCodeModalOpen}
+                />
+            }
+            {token &&
+                <Modal
+                  title="Выберите размер"
+                  open={isModalOpen}
+                  onOk={onAddToCart}
+                  okText={(Math.ceil(Number(choice.price) * 13.3 + 1000) || '--') + " ₽"}
+                  centered
+                  onCancel={() => {setModalOpen(false)}}
                 >
-              </div>
-              <div className="content-size-wrapper">
-                {product?.properties?.sizes.map((el, i) => {
-                  return (
-                    <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
-                         onClick={() => onChangeChoiceHandler(el, i)} key={i}>
-                      <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
-                        <div style={{fontSize: '13px', textAlign: 'center', display: "flex", gap: '1.5px', justifyContent: "center"}}>
-                            {Math.ceil(el.price * 13.3 + 1000) || '--'}<span style={{fontSize: '13px'}}>₽</span>
-                        </div>
+                  <div style={{display: "flex",padding: '15px', borderBottom: '1px solid #ececec', gap: '20px'}}>
+                    <img src={product?.images[0]} style={{width: '20%'}} alt=""/>
+                    <div style={{display: "flex", flexDirection: 'column', justifyContent: 'space-between'}}>
+                      <div style={{fontSize: '22px', fontWeight: '700', display:'flex', gap: '3px', alignItems: 'flex-end'}}>
+                          {Math.ceil(Number(choice.price) * 13.3 + 1000) || '--'}<span style={{fontSize: '19px'}}>₽</span>
+                      </div>
+                      <div style={{fontSize: '15px'}}>Размер: {choice.size}</div>
                     </div>
-                  )
-                }).reverse()}
-              </div>
 
-            </Modal>
-          }
+                  </div>
+                  <div style={{display: 'flex', padding: '15px',paddingRight: '25px', justifyContent: 'space-between'}}
+                       onClick={onMeasureOpenClick}>
+                    <span>Таблица размеров</span>
+                    >
+                  </div>
+                  <div className="content-size-wrapper">
+                    {product?.properties?.sizes.map((el, i) => {
+                      return (
+                        <div className={i === choice.index ? "size-wrapper gap-2 selected" : "size-wrapper gap-2"}
+                             onClick={() => onChangeChoiceHandler(el, i)} key={i}>
+                          <div style={{fontSize: '17px', fontWeight: '600', textAlign: 'center'}}>{el.size}</div>
+                            <div style={{fontSize: '13px', textAlign: 'center', display: "flex", gap: '1.5px', justifyContent: "center"}}>
+                                {Math.ceil(el.price * 13.3 + 1000) || '--'}<span style={{fontSize: '13px'}}>₽</span>
+                            </div>
+                        </div>
+                      )
+                    }).reverse()}
+                  </div>
+
+                </Modal>
+            }
+            {(token && measureOpen) &&
+                <Modal
+                    title="Таблица размеров"
+                    open={measureOpen}
+                    onOk={() => {
+                        setMeasureOpen(false);
+                    }}
+                    centered
+                    onCancel={() => {
+                        setMeasureOpen(false);
+                    }}
+                >
+                    <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
+                        <div style={{fontSize: '22px', fontWeight: '500'}}>Таблица размеров</div>
+                        <MeasureTableIcon  />
+                    </div>
+
+                </Modal>
+            }
           {isLoadingProduct &&
             <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
               <LoadingOutlined style={{fontSize: '24px'}} spin />
