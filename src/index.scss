@@ -16,7 +16,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
 }
-
+/*
+//comment in production
+body > iframe {
+  display: none;
+}*/
 
 .App {
   width: 100%;
