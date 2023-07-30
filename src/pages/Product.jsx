@@ -93,7 +93,7 @@ function Product({onAddToFavorite, isLoading}) {
                         </div>
                     </div>
                   )
-                })}
+                }).reverse()}
               </div>
 
             </Modal>
