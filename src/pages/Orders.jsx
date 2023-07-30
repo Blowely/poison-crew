@@ -34,10 +34,16 @@ const Orders = () => {
 
     const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
-    const {data: orders, isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
+    const {data: orders = [], isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });
+
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(false);
+    },[orders])
 
     const onGoBackClick = () => {
       return navigate('/profile');
@@ -65,14 +71,18 @@ const Orders = () => {
             <div className="content-block-header">
                 <LeftOutlined onClick={onGoBackClick} />
                 Заказы
-                <ReloadOutlined onClick={() => refetch()}/>
+                <ReloadOutlined onClick={async () => {
+                    setLoading(true);
+                    await refetch()
+                    setLoading(false);
+                }}/>
             </div>
-            {isLoadingOrders &&
+            {(isLoading || isLoadingOrders) &&
                 <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
                     <LoadingOutlined style={{fontSize: '24px'}} spin />
                 </div>
             }
-            {!isLoadingOrders &&
+            {!isLoading &&
                 <div className="content-block">
                     {orders?.map((el, i) => {
                         totalPrice = 0;

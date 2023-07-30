@@ -39,9 +39,15 @@ const Trace = () => {
         refetchOnMountOrArgChange: true
     });
 
-    useEffect(() => {
+    /*useEffect(() => {
         window.scrollTo({top: 0})
-    }, [])
+    }, [])*/
+
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(false);
+    },[orders]);
 
     const onGoBackClick = () => {
       return navigate('/orders');
@@ -55,7 +61,7 @@ const Trace = () => {
         message.success( 'Скопировано')
     }
 
-    const [deliveryStatusKey, setDeliveryStatusKey] = useState(0);
+    const deliveryStatusKey = useRef(0);
 
 
     const memoOrder = useMemo(() => {
@@ -63,8 +69,7 @@ const Trace = () => {
         const activeDeliveryKey = Object.values(PRODUCT_DELIVERY_STATUS)
             .findIndex((el) => el === order?.delivery_status);
 
-        setDeliveryStatusKey(activeDeliveryKey >= 0 ? activeDeliveryKey : 0);
-
+        deliveryStatusKey.current = activeDeliveryKey >= 0 ? activeDeliveryKey : 0
         return order;
     }, [orderId, orders])
 
@@ -81,48 +86,53 @@ const Trace = () => {
             <div className="content-block-header">
                 <LeftOutlined onClick={onGoBackClick} />
                 Отслеживание
-                <ReloadOutlined onClick={() => refetch()}/>
+                <ReloadOutlined onClick={async () => {
+                    setLoading(true);
+                    await refetch();
+                    setLoading(false);
+                }}/>
             </div>
-            {isLoadingOrders &&
+            {(isLoading || isLoadingOrders) &&
                 <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
                     <LoadingOutlined style={{fontSize: '24px'}} spin />
                 </div>
             }
-
-            <div className="content-block">
-                <div className="cart-item">
-                    <div className="cart-order-info">
-                        <div style={{display: 'flex', alignItems: "center", gap: '10px'}}>
-                            <img src={memoOrder?.products[0]?.images[0]} style={{width: '70px'}} alt=""/>
-                            <span style={{minWidth: "30%", fontWeight: '500'}}>Ожидается <br/>{createdAtAdded20Days}</span>
-                        </div>
-                        <Divider style={{margin: '6px 0'}}></Divider>
-                        <div style={{display: 'flex', gap: '7px'}}>
-                            <div style={{display: 'flex', gap: '7px'}}>
-                                <span style={{fontSize: '14px', width: 'auto'}}>Трек-номер:</span>
-                                <span>{memoOrder?.trace_number || ''}</span>
-
+            {!isLoading &&
+                <div className="content-block">
+                    <div className="cart-item">
+                        <div className="cart-order-info">
+                            <div style={{display: 'flex', alignItems: "center", gap: '10px'}}>
+                                <img src={memoOrder?.products[0]?.images[0]} style={{width: '70px'}} alt=""/>
+                                <span style={{minWidth: "30%", fontWeight: '500'}}>Ожидается <br/>{createdAtAdded20Days}</span>
                             </div>
-                            {memoOrder?.trace_number &&
-                                <CopyOutlined style={{marginLeft:'5px'}}
-                                              onClick={() => copyToClickBord(traceNumberRef.current)}/>
-                            }
-                            <input type="text" style={{display: 'none'}} ref={traceNumberRef} value={memoOrder?.trace_number}/>
-                        </div>
+                            <Divider style={{margin: '6px 0'}}></Divider>
+                            <div style={{display: 'flex', gap: '7px'}}>
+                                <div style={{display: 'flex', gap: '7px'}}>
+                                    <span style={{fontSize: '14px', width: 'auto'}}>Трек-номер:</span>
+                                    <span>{memoOrder?.trace_number || ''}</span>
 
+                                </div>
+                                {memoOrder?.trace_number &&
+                                    <CopyOutlined style={{marginLeft:'5px'}}
+                                                  onClick={() => copyToClickBord(traceNumberRef.current)}/>
+                                }
+                                <input type="text" style={{display: 'none'}} ref={traceNumberRef} value={memoOrder?.trace_number}/>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div className="cart-item">
+                        <div className="cart-order-info">
+                            <Steps
+                                progressDot
+                                current={deliveryStatusKey.current}
+                                direction="vertical"
+                                items={deliverySteps}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className="cart-item">
-                    <div className="cart-order-info">
-                        <Steps
-                            progressDot
-                            current={deliveryStatusKey}
-                            direction="vertical"
-                            items={deliverySteps}
-                        />
-                    </div>
-                </div>
-            </div>
+            }
             <footer>
                 <div onClick={() => navigate('/products')}>
                     <NonActiveBagIcon/>
