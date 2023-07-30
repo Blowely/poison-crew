@@ -66,12 +66,12 @@ const Profile = () => {
             <div className="cart-item redirect borderless" onClick={() => navigate('/orders')}>
               Мои заказы <RightOutlined />
             </div>
-            <div className="cart-item redirect borderless" onClick={() => navigate('/visited')}>
+            {/*<div className="cart-item redirect borderless" onClick={() => navigate('/visited')}>
               Просмотренные товары <RightOutlined />
             </div>
             <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
               Избранное <RightOutlined />
-            </div>
+            </div>*/}
           </div>
           <div>
             <div className="cart-item redirect borderless" onClick={() => navigate('/info')}>
