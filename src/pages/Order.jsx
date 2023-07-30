@@ -16,7 +16,7 @@ import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
-import {iosCopyToClipboard} from "../common/utils";
+import {getCurrentPriceOfSize, iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import StatusText from "../components/Status";
@@ -135,7 +135,7 @@ const Order = () => {
 
                                 <div style={{display: "grid", gap: '7px'}}>
                                     {el?.products?.map((p, i) => {
-                                        totalPrice += Math.ceil(Number(p?.price) * 13.3 + 1000);
+                                        totalPrice += Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000);
                                         return (
                                             <div key={i} className="cart-product-info-payment">
                                                 <div style={{display: 'flex', gap: '7px'}}>
@@ -148,7 +148,7 @@ const Order = () => {
 
                                                 <div>
                                                     <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                        {Math.ceil(Number(p?.price) * 13.3 + 1000)} ₽
+                                                        {Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000)} ₽
                                                     </div>
                                                 </div>
                                             </div>

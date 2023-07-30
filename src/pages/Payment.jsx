@@ -15,7 +15,7 @@ import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
-import {iosCopyToClipboard} from "../common/utils";
+import {getCurrentPriceOfSize, iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS} from "./constants";
 import axios from "axios";
 
@@ -83,7 +83,7 @@ const Payment = () => {
 
     const memoTotalPricer = useMemo(() => {
         let totalPrice = 0;
-        memoOrder?.products?.map((p, i) => totalPrice += Math.ceil(Number(p?.price) * 13.3 + 1000));
+        memoOrder?.products?.map((p, i) => totalPrice += Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000));
         return totalPrice;
     }, [memoOrder])
 

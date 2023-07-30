@@ -62,3 +62,13 @@ export function iosCopyToClipboard(el) {
 
   document.execCommand('copy');
 }
+
+export const getCurrentPriceOfSize = (size, sizes) => {
+  const foundSizeIndex = sizes.findIndex(s => s.size === size);
+
+  if (foundSizeIndex < 0) {
+    return null;
+  }
+
+  return Number(sizes[foundSizeIndex].price);
+}

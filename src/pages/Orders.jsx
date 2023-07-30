@@ -21,6 +21,7 @@ import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
 import StatusTag from "../components/Status";
+import {getCurrentPriceOfSize} from "../common/utils";
 
 const Orders = () => {
     const dispatch = useAppDispatch();
@@ -94,9 +95,9 @@ const Orders = () => {
                                     </div>
                                     <div>№ <a onClick={() => onGoOrderClick(el?._id)}>{el._id}</a></div>
                                     <Divider style={{margin: '6px 0'}}></Divider>
-                                    <StatusTag status={el?.status}/>
-
-                                    {/*<div>Адрес: {el.address.address}</div>*/}
+                                    <div  style={{paddingBottom: '10px'}}>
+                                        <StatusTag status={el?.status}/>
+                                    </div>
                                     {el?.products?.map((p, i) => {
                                         return (
                                             <div key={i} className="cart-product-info">
@@ -110,7 +111,7 @@ const Orders = () => {
 
                                                 <div>
                                                     <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                        {Math.ceil(Number(p?.price) * 13.3 + 1000)} ₽
+                                                        {Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000)} ₽
                                                     </div>
                                                 </div>
                                             </div>
