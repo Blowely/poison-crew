@@ -114,7 +114,7 @@ const ChoiceAddressModal = ({addresses, open, onCancel, isChoiceAddressModalOpen
       {!isChoiceAddressModalOpen &&
           <>
             <div style={{fontSize: '22px', fontWeight: '500'}}>Вход по номеру телефона</div>
-            <div style={{fontSize: '15px'}}>Незарегистрированные номера будут автоматически зарегетрированы</div>
+            <div style={{fontSize: '15px'}}>Незарегистрированные номера будут автоматически зарегистрированы</div>
 
             <Input prefix="+7" type="number" value={phone} placeholder="Пожалуйста введите ваш номер телефона"
                    onChange={(ev) => phoneInputHandler(ev.target.value)} />
