@@ -5,6 +5,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import './header.styles.scss';
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
+import RePoizonMainLogo from "../../assets/svg/re-poizon-main-logo.js"
 
 const Header = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -66,6 +67,7 @@ const Header = () => {
 
     return (
         <header className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20">
+            {/*<RePoizonMainLogo />*/}
             <Input placeholder="Я ищу..." allowClear
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
