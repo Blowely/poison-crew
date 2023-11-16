@@ -75,7 +75,6 @@
 
 .main-logo-line {
   border-bottom: 2px solid black;
-  width: calc((100vw - 226px - 40px) / 2 );
   @media (max-width: 430px) {
     border-bottom: 1px solid black;
   }

@@ -33,7 +33,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   const search = searchParams.get('search');
   const collection = searchParams.get('collName') || 'personal';
-  const offset = searchParams.get('offset');
+  let offset = searchParams.get('offset');
   const type = searchParams.get('type');
 
   const buildRequest = () => {
@@ -115,8 +115,7 @@ function Home({onAddToFavorite, onAddToCart}) {
         refetch();
 
         if (products.items.length === limit) {
-          let prevOffset = Number(offset);
-          searchParams.set('offset', (prevOffset += 20).toString())
+          searchParams.set('offset', (offset += 20).toString())
         }
       }
     } catch (e) {
@@ -129,13 +128,22 @@ function Home({onAddToFavorite, onAddToCart}) {
   return (
     <Layout style={{backgroundColor: 'white'}}>
         <div className="main-logo-wrapper">
-          <div className="main-logo-line"></div>
+          <div className="main-logo-line"
+               style={{width: isDesktopScreen
+                   ? "calc((100vw - 226px - 40px) / 2 )"
+                   : "calc((100vw - 158px - 40px) / 2 )"
+          }}
+          />
           {isDesktopScreen
             ? <RePoizonMainLogo/>
             : <RePoizonMainMiddleLogo/>
           }
 
-          <div className="main-logo-line"></div>
+          <div className="main-logo-line"
+               style={{width: isDesktopScreen
+                   ? "calc((100vw - 226px - 40px) / 2 )"
+                   : "calc((100vw - 158px - 40px) / 2 )"}}
+          />
         </div>
       <Header/>
       <div className="content">
