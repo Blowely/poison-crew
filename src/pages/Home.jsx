@@ -83,7 +83,7 @@ function Home({onAddToFavorite, onAddToCart}) {
   }, [products?.items])
 
   const renderItems = () => {
-      return (isLoading ? [...Array(8)] : productsSlice[trimCollectionValue] || []).map((item, index) => (
+      return (isLoading ? [...Array(15)] : productsSlice[trimCollectionValue] || []).map((item, index) => (
           <Card
               id={item?._id}
               key={index}

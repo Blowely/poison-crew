@@ -40,19 +40,21 @@ function Card({
       setLoadingImg(false)
     }
 
+    const isDesktopScreen = window.screen.availWidth > 600;
 
-    return (
+
+  return (
       <div className={styles.card} onClick={() => navigate(`/products/view?productId=${id}`)}>
           {loading ? (
               <ContentLoader
                   speed={2}
-                  width={160}
+                  width={isDesktopScreen ? 230 : 160}
                   height={265}
-                  viewBox="0 0 160 265"
+                  viewBox={`0 0 ${isDesktopScreen ? 230 : 160} 265`}
                   backgroundColor="#f3f3f3"
                   foregroundColor="#ecebeb"
               >
-                  <rect x="1" y="0" rx="10" ry="10" width="160" height="155" />
+                  <rect x="1" y="0" rx="10" ry="10" width={isDesktopScreen ? "200" : "160"} height="155" />
                   <rect x="0" y="167" rx="5" ry="5" width="160" height="15" />
                   <rect x="0" y="187" rx="5" ry="5" width="100" height="15" />
                   <rect x="1" y="234" rx="5" ry="5" width="80" height="25" />
@@ -63,13 +65,13 @@ function Card({
                   {loadingImg &&
                     <ContentLoader
                       speed={2}
-                      width={160}
+                      width={isDesktopScreen ? 230 : 160}
                       height={265}
-                      viewBox="0 0 160 265"
+                      viewBox={`0 0 ${isDesktopScreen ? 230 : 160} 265`}
                       backgroundColor="#f3f3f3"
                       foregroundColor="#ecebeb"
                     >
-                      <rect x="1" y="0" rx="10" ry="10" width="160" height="155" />
+                      <rect x="1" y="0" rx="10" ry="10" width={isDesktopScreen ? "200" : "160"} height="155" />
                       <rect x="0" y="167" rx="5" ry="5" width="160" height="15" />
                       <rect x="0" y="187" rx="5" ry="5" width="100" height="15" />
                       <rect x="1" y="234" rx="5" ry="5" width="80" height="25" />
