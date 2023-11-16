@@ -67,14 +67,21 @@ const Header = () => {
 
     return (
         <header className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20">
-            {/*<RePoizonMainLogo />*/}
+            <div className="main-logo-wrapper">
+                <div className="main-logo-line"></div>
+                <RePoizonMainLogo/>
+                <div className="main-logo-line"></div>
+
+            </div>
             <Input placeholder="Я ищу..." allowClear
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
                    onPressEnter={onSearch}
                    prefix={<SearchOutlined />}
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
-                                 onClick={onSearch}>Найти</span>} />
+                                 onClick={onSearch}>Найти</span>}
+                   style={{marginTop: '20px'}}
+            />
             <Segmented className="header-segmented mt-15 w100p" onChange={onChangeCollection} options={['Для Вас', 'Популярное', ...collectionsNames]} />
             {/*<Link to="/">
                 <div className="d-flex align-center">

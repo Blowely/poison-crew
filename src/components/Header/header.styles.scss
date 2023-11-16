@@ -57,3 +57,17 @@
   color: black!important;
   font-size: small;
 }
+
+.main-logo-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main-logo-line {
+  border-bottom: 2px solid black;
+  width: calc((100vw - 226px - 40px) / 2 );
+  @media (max-width: 445px) {
+    border-bottom: 1px solid black;
+  }
+}
