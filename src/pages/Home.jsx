@@ -90,7 +90,7 @@ function Home({onAddToFavorite, onAddToCart}) {
               onFavorite={(obj) => onAddToFavorite(obj)}
               onPlus={(obj) => onAddToCart(obj)}
               loading={isLoading}
-              imageUrl={item?.images[0]}
+              images={item?.images}
               price={item?.price}
               {...item}
           />

@@ -22,6 +22,7 @@ function Product({onAddToFavorite, isLoading}) {
     const [choice, setChoice] = useState({});
     const [measureOpen, setMeasureOpen] = useState(false);
     const [phone, setPhone] = useState('');
+    const [isLoadingImages, setIsLoadingImages] = useState(true);
 
     const token = localStorage.getItem('token');
 
@@ -57,6 +58,13 @@ function Product({onAddToFavorite, isLoading}) {
 
     const onMeasureOpenClick = () => {
         setMeasureOpen(true);
+    }
+
+    const onLoadCarousel = () => {
+        if (!isLoadingImages) {
+            return null;
+        }
+        setIsLoadingImages(false);
     }
 
     return (
@@ -130,8 +138,9 @@ function Product({onAddToFavorite, isLoading}) {
 
                 </Modal>
             }
-          {isLoadingProduct &&
-            <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+          {(isLoadingProduct || isLoadingImages) &&
+            <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center',
+                alignItems:'center', position: "absolute", background: "white" }}>
               <LoadingOutlined style={{fontSize: '24px'}} spin />
             </div>
           }
@@ -141,7 +150,7 @@ function Product({onAddToFavorite, isLoading}) {
                     style={{zIndex: '99', position: 'fixed', padding: '15px', marginTop: '10px', fontSize: '25px'}}
                     onClick={() => navigate('/products')}
                 />
-                <CarouselComponent images={product?.images} />
+                <CarouselComponent images={product?.images} onLoad={onLoadCarousel} onError={onLoadCarousel}/>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
                     <div style={{fontSize: '25px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
                         {getTitlePrice(

@@ -3,12 +3,13 @@ import React, {useState} from "react";
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 import {useNavigate} from "react-router-dom";
+import CarouselComponent from "../Carousel/Carousel";
 
 function Card({
                   id,
                   onFavorite,
                   title,
-                  imageUrl,
+                images,
                   price,
                   onPlus,
                   favorited = false,
@@ -20,11 +21,11 @@ function Card({
     const [isFavorite, setIsFavorite] = React.useState(favorited);
 
     const onClickPlus = () => {
-      onPlus({ id, title, imageUrl, price });
+      onPlus({ id, title, images, price });
     };
 
     const onClickFavorite = () => {
-      onFavorite({ id, title, imageUrl, price });
+      onFavorite({ id, title, images, price });
       setIsFavorite(!isFavorite);
     };
 
@@ -37,6 +38,9 @@ function Card({
     }
 
     const onLoadedIcon = () => {
+      if (!loadingImg) {
+        return null;
+      }
       setLoadingImg(false)
     }
 
@@ -78,8 +82,9 @@ function Card({
                       <rect x="118" y="230" rx="10" ry="10" width="32" height="32" />
                     </ContentLoader>
                   }
-                  <img style={{width: "100%", display: loadingImg ? "none" : "block"}}
-                       src={imageUrl} alt="Sneakers" onLoad={onLoadedIcon}/>
+                  <div style={{display: loadingImg ? "none" : "block"}}>
+                    <CarouselComponent images={images} onLoad={onLoadedIcon} onError={onLoadedIcon}/>
+                  </div>
                   {!loadingImg &&
                     <>
                       <div style={{fontSize: '15px', paddingTop: '10px', paddingBottom: '10px'}}>{title}</div>
