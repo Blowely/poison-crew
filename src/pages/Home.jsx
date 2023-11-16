@@ -124,13 +124,13 @@ function Home({onAddToFavorite, onAddToCart}) {
     }
   }, false);
 
-  const availWidth = window.screen.availWidth;
+  const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
     <Layout style={{backgroundColor: 'white'}}>
         <div className="main-logo-wrapper">
           <div className="main-logo-line"></div>
-          {availWidth > 600
+          {isDesktopScreen
             ? <RePoizonMainLogo/>
             : <RePoizonMainMiddleLogo/>
           }
