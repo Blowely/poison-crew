@@ -18,6 +18,7 @@ import {addProducts} from "../common/productsSlice";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
@@ -123,11 +124,17 @@ function Home({onAddToFavorite, onAddToCart}) {
     }
   }, false);
 
+  const availWidth = window.screen.availWidth;
+
   return (
     <Layout style={{backgroundColor: 'white'}}>
         <div className="main-logo-wrapper">
           <div className="main-logo-line"></div>
-          <RePoizonMainLogo/>
+          {availWidth > 600
+            ? <RePoizonMainLogo/>
+            : <RePoizonMainMiddleLogo/>
+          }
+
           <div className="main-logo-line"></div>
         </div>
       <Header/>
