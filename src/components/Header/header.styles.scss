@@ -6,6 +6,14 @@
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 20px;
+  position: sticky;
+  top: 0;
+}
+
+.header-input-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 6px;
 }
 
 .header-segmented {
@@ -62,6 +70,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 20px 20px 0px 20px;
 }
 
 .main-logo-line {

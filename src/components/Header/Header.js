@@ -1,7 +1,7 @@
 import {Link, useSearchParams} from "react-router-dom";
-import {Input, Segmented} from "antd";
-import React, {useMemo, useState} from "react";
-import {SearchOutlined} from "@ant-design/icons";
+import {Button, Input, Segmented} from "antd";
+import React, {useEffect, useMemo, useState} from "react";
+import {FilterOutlined, SearchOutlined} from "@ant-design/icons";
 import './header.styles.scss';
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
@@ -66,13 +66,10 @@ const Header = () => {
     });
 
     return (
-        <header className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20">
-            <div className="main-logo-wrapper">
-                <div className="main-logo-line"></div>
-                <RePoizonMainLogo/>
-                <div className="main-logo-line"></div>
-
-            </div>
+        <header
+          className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
+        >
+        <div className="header-input-wrapper">
             <Input placeholder="Я ищу..." allowClear
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
@@ -80,10 +77,12 @@ const Header = () => {
                    prefix={<SearchOutlined />}
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
                                  onClick={onSearch}>Найти</span>}
-                   style={{marginTop: '20px'}}
             />
-            <Segmented className="header-segmented mt-15 w100p" onChange={onChangeCollection} options={['Для Вас', 'Популярное', ...collectionsNames]} />
-            {/*<Link to="/">
+            <Button><FilterOutlined /></Button>
+        </div>
+
+        <Segmented className="header-segmented mt-15 w100p" onChange={onChangeCollection} options={['Для Вас', 'Популярное', ...collectionsNames]} />
+        {/*<Link to="/">
                 <div className="d-flex align-center">
                     <svg width={40} height={40} src="svg/logo.png" alt="Logo" />
                     <div>
@@ -92,7 +91,7 @@ const Header = () => {
                     </div>
                 </div>
             </Link>*/}
-            {/*<ul className="d-flex">
+        {/*<ul className="d-flex">
                 <li onClick={props.onClickCart} className="mr-30 cu-p">
                     <svg width={18} height={18} src="svg/cart.svg" alt="trashcan" />
                     <span>1205 eur.</span>
@@ -106,7 +105,7 @@ const Header = () => {
                     <svg width={18} height={18} src="svg/user.svg" alt="user" />
                 </li>
             </ul>*/}
-        </header>
+    </header>
     );
 }
 export default Header;

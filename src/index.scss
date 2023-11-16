@@ -32,7 +32,7 @@ body > iframe {
 
 header {
   z-index: 2;
-  position: fixed;
+  //position: fixed;
 
   width: 100%;
   background-color: #fff;
@@ -48,7 +48,6 @@ header {
 
 .content {
   width: 100%;
-  padding-top: 98px!important;
   z-index: 1;
   margin: 0 auto;
   h1 {

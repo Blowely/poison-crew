@@ -17,6 +17,7 @@ import {addAddress} from "../common/accountSlice";
 import {addProducts} from "../common/productsSlice";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
+import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
@@ -124,6 +125,11 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   return (
     <Layout style={{backgroundColor: 'white'}}>
+        <div className="main-logo-wrapper">
+          <div className="main-logo-line"></div>
+          <RePoizonMainLogo/>
+          <div className="main-logo-line"></div>
+        </div>
       <Header/>
       <div className="content">
         <div className="brands-section-wrapper">
