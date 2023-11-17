@@ -12,6 +12,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import MeasureTableIcon from "../assets/svg/measure-table-icon";
 import {getCheapestPriceOfSize} from "../common/utils";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
+import loadingPanda from "../assets/loading-panda.gif";
 
 function Product({onAddToFavorite, isLoading}) {
     const dispatch = useAppDispatch();
@@ -141,8 +142,9 @@ function Product({onAddToFavorite, isLoading}) {
             }
           {(isLoadingProduct || isLoadingImages) &&
             <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center',
-                alignItems:'center', position: "absolute", background: "white" }}>
-              <LoadingOutlined style={{fontSize: '24px'}} spin />
+                alignItems:'center', position: "absolute", background: "white" }}
+            >
+                <img src={loadingPanda} alt="PANDA"/>
             </div>
           }
           {!isLoadingProduct &&
