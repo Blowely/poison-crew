@@ -87,8 +87,8 @@ function Home({onAddToFavorite, onAddToCart}) {
       console.log(products);
       if (!products?.length && !isLoading) {
         return <Empty
-          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-          imageStyle={{ height: 60 }}
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          imageStyle={{ height: 100, paddingTop: "20px" }}
           description="Ничего не найдено"/>
       }
 
@@ -110,7 +110,7 @@ function Home({onAddToFavorite, onAddToCart}) {
           ))
         }
       </div>
-  }, [productsSlice, isLoading])
+  }, [products?.items, productsSlice, isLoading])
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
 

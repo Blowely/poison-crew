@@ -32,6 +32,11 @@
   background: #a1dfe1;
 }
 
+:where(.css-dev-only-do-not-override-15rg2km).ant-btn-default:not(:disabled):hover {
+  color: rgb(1, 194, 195);
+  border-color: rgb(1, 194, 195);
+}
+
 .swiper-pagination-bullet {
   width: 6px!important;
   height: 6px!important;
