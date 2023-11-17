@@ -17,7 +17,7 @@ const SwiperCarousel = ({images, onLoad, onError, limit}) => {
 
 
   return (
-    <Swiper pagination={true} modules={[Pagination]} className="mySwiper" lazyPreloadPrevNext={limit}>
+    <Swiper pagination={true} modules={[Pagination]} className="mySwiper" lazyPreloadPrevNext={limit} loop={true}>
       {images?.map((image, index) => {
         return (
           <SwiperSlide key={index}>
