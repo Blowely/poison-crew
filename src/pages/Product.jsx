@@ -11,6 +11,7 @@ import {addToCart} from "../common/cartSlice";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import MeasureTableIcon from "../assets/svg/measure-table-icon";
 import {getCheapestPriceOfSize} from "../common/utils";
+import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 
 function Product({onAddToFavorite, isLoading}) {
     const dispatch = useAppDispatch();
@@ -150,7 +151,7 @@ function Product({onAddToFavorite, isLoading}) {
                     style={{zIndex: '99', position: 'fixed', padding: '15px', marginTop: '10px', fontSize: '25px'}}
                     onClick={() => navigate('/products')}
                 />
-                <CarouselComponent images={product?.images} onLoad={onLoadCarousel} onError={onLoadCarousel}/>
+                <SwiperCarousel images={product?.images} onLoad={onLoadCarousel} onError={onLoadCarousel}/>
                 <div style={{backgroundColor: 'white', margin: '10px', padding: '10px'}}>
                     <div style={{fontSize: '25px', fontWeight: '600', display: "flex", gap: '2px', alignItems: 'center'}}>
                         {getTitlePrice(
