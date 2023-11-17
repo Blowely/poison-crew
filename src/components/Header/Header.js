@@ -20,11 +20,14 @@ const Header = () => {
             setSearchParams(searchParams);
         }
         setSearchValue(value);
+        onSearch(value);
     }
 
-    const onSearch = () => {
+    const onSearch = (value) => {
         window.scrollTo({top: 0})
-        searchParams.set('search', searchValue);
+        console.log('value =', value);
+        console.log('searchValue =', searchValue);
+        searchParams.set('search', typeof value  === "string" ? value : searchValue);
         setSearchParams(searchParams);
     }
 
@@ -81,7 +84,8 @@ const Header = () => {
             <Button><FilterOutlined /></Button>
         </div>
 
-        <Segmented className="header-segmented mt-15 w100p" onChange={onChangeCollection} options={['Для Вас', 'Популярное', ...collectionsNames]} />
+        <Segmented className="header-segmented mt-15 w100p"
+                   onChange={onChangeCollection} options={['Для Вас', 'Популярное', ...collectionsNames]} />
         {/*<Link to="/">
                 <div className="d-flex align-center">
                     <svg width={40} height={40} src="svg/logo.png" alt="Logo" />

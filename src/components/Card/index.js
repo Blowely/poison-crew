@@ -4,6 +4,7 @@ import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 import {useNavigate} from "react-router-dom";
 import CarouselComponent from "../Carousel/Carousel";
+import SwiperCarousel from "../Carousel/SwiperCarousel";
 
 function Card({
                   id,
@@ -17,7 +18,7 @@ function Card({
                   loading = false,
               }) {
     const navigate = useNavigate();
-    const [loadingImg, setLoadingImg] = useState(true);
+    const [loadingImg, setLoadingImg] = useState(false);
     const [isFavorite, setIsFavorite] = React.useState(favorited);
 
     const onClickPlus = () => {
@@ -48,7 +49,9 @@ function Card({
 
 
   return (
-      <div className={styles.card} onClick={() => navigate(`/products/view?productId=${id}`)}>
+      <a href={`/products/view?productId=${id}`} className={styles.card}
+        style={{color: "black"}}
+      >
           {loading ? (
               <ContentLoader
                   speed={2}
@@ -83,7 +86,8 @@ function Card({
                     </ContentLoader>
                   }
                   <div style={{display: loadingImg ? "none" : "block"}}>
-                    <CarouselComponent images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} limit={3}/>
+                    <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon}/>
+                   {/* <CarouselComponent images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} limit={3}/>*/}
                   </div>
                   {!loadingImg &&
                     <>
@@ -99,7 +103,7 @@ function Card({
 
               </>
           )}
-      </div>
+      </a>
     );
 }
 export default Card;

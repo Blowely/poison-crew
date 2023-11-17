@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {Suspense, useCallback, useEffect, useMemo, useState} from "react";
 import Card from "../components/Card";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import CoachIcon from "../assets/svg/brands/coach-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import {Layout, Pagination} from "antd";
+import {Empty, Layout, Pagination} from "antd";
 import Header from "../components/Header/Header";
 import {useGetProductsQuery} from "../store/products.store";
 import "../index.scss"
@@ -38,7 +38,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   const buildRequest = () => {
     let obj = {
-      limit: 20,
+      limit: 2,
       search: search?.toLowerCase(),
       collName: 'personal',
     }
@@ -83,18 +83,33 @@ function Home({onAddToFavorite, onAddToCart}) {
   }, [products?.items])
 
   const renderItems = () => {
-      return (isLoading ? [...Array(15)] : productsSlice[trimCollectionValue] || []).map((item, index) => (
-          <Card
-              id={item?._id}
-              key={index}
-              onFavorite={(obj) => onAddToFavorite(obj)}
-              onPlus={(obj) => onAddToCart(obj)}
-              loading={isLoading}
-              images={item?.images}
-              price={item?.price}
-              {...item}
-          />
-      ));
+      const products = isLoading ? [...Array(15)] : productsSlice[trimCollectionValue] || [];
+    console.log(products);
+      if (!products?.length && !isLoading) {
+        return <Empty
+          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          imageStyle={{ height: 60 }}
+          description="Ничего не найдено"/>
+      }
+
+      return <div className="cards-section-wrapper">
+        {
+          products.map((item, index) => (
+            <Suspense fallback={<div>Loading...</div>} key={index}>
+              <Card
+                id={item?._id}
+                key={index}
+                onFavorite={(obj) => onAddToFavorite(obj)}
+                onPlus={(obj) => onAddToCart(obj)}
+                loading={isLoading}
+                images={item?.images}
+                price={item?.price}
+                {...item}
+              />
+            </Suspense>
+          ))
+        }
+      </div>
   }
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
@@ -173,7 +188,10 @@ function Home({onAddToFavorite, onAddToCart}) {
             <div style={{fontWeight: "bold", fontSize:'10px'}}>Больше</div>
           </div>
         </div>
-        <div className="cards-section-wrapper">{renderItems()}</div>
+        <Suspense fallback={<div>Loading...</div>}>
+          {renderItems()}
+        </Suspense>
+
       </div>
       <footer>
         <div onClick={() => navigate('/products')}><ActiveBagIcon/></div>

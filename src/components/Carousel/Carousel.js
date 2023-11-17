@@ -1,7 +1,5 @@
 import {Carousel} from "antd";
-import ContentLoader from "react-content-loader";
-import React, {useEffect, useState} from "react";
-import NoPhoto from "../../assets/svg/no-photo";
+import React from "react";
 
 const CarouselComponent = ({images, onLoad, onError, limit}) => {
   const contentStyle = {
@@ -15,18 +13,22 @@ const CarouselComponent = ({images, onLoad, onError, limit}) => {
 
 
   return (
-    <Carousel afterChange={() => {}} >
-      {images?.map((el, i) => {
+    <Carousel afterChange={() => {}}>
+      {images?.map((image, index) => {
 
-
-        if (i + 1 > limit) {
+        if (index + 1 > limit) {
           return null;
         }
+
         return (
-          <div key={i}>
+          <div key={index}>
             <h3 style={contentStyle}>
-              <img style={{ width: '-webkit-fill-available'}} src={el} alt="no photo" onLoad={onLoad}
-                   onError={onError}/>
+              <img
+                style={{ width: '-webkit-fill-available'}}
+                src={image}
+                onLoad={onLoad}
+                alt={`Image ${index + 1}`}
+                onError={onError}/>
             </h3>
           </div>
         );
