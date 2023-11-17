@@ -12,6 +12,8 @@ import ErrorHandler from "./common/ErrorHandler";
 import {PrivateAppRouter} from "./PrivateAppRouter";
 import moment from "moment";
 import 'moment/locale/ru';
+import "./components/InitAnimation/InitAnimation";
+import "./components/InitAnimation/InitAnimation.styles.scss";
 
 moment.locale('ru');
 
@@ -81,6 +83,18 @@ const Root = () => {
 
   return (
       <Layout className="App">
+
+        <div className="loader">
+          <div className="loader-box-wrapper">
+            <div className="loader-box loader-box_black">
+              <div className='loader-box__item loader__item_left'>POIZON</div>
+            </div>
+            <div className="loader-box loader-box_white">
+              <div className='loader-box__item loader__item_right'>RE</div>
+            </div>
+          </div>
+        </div>
+
         {cartOpened && (
           <Drawer
             items={[]}
@@ -101,7 +115,6 @@ const Root = () => {
             />
           </ErrorHandler>
         </ErrorBoundary>
-
       </Layout>
   );
 }

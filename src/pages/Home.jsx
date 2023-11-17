@@ -84,7 +84,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   const renderItems = useMemo(() => {
       const products = isLoading ? [...Array(15)] : productsSlice[trimCollectionValue] || [];
-      console.log(products);
+
       if (!products?.length && !isLoading) {
         return <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
