@@ -18,7 +18,7 @@ function Card({
                   loading = false,
               }) {
     const navigate = useNavigate();
-    const [loadingImg, setLoadingImg] = useState(false);
+    const [loadingImg, setLoadingImg] = useState(true);
     const [isFavorite, setIsFavorite] = React.useState(favorited);
 
     const onClickPlus = () => {
@@ -85,10 +85,10 @@ function Card({
                       <rect x="118" y="230" rx="10" ry="10" width="32" height="32" />
                     </ContentLoader>
                   }
-                  <div style={{display: loadingImg ? "none" : "block"}}>
-                    <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon}/>
-                   {/* <CarouselComponent images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} limit={3}/>*/}
+                  <div style={{opacity: loadingImg ? "0" : "1"}}>
+                    <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} limit={0}/>
                   </div>
+
                   {!loadingImg &&
                     <>
                       <div style={{fontSize: '15px', paddingTop: '10px', paddingBottom: '10px'}}>{title}</div>

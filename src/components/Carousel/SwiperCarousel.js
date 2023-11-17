@@ -1,9 +1,5 @@
-import {Carousel} from "antd";
-import ContentLoader from "react-content-loader";
 import React, {useEffect, useRef, useState} from "react";
 import { Pagination } from 'swiper/modules';
-
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -21,13 +17,8 @@ const SwiperCarousel = ({images, onLoad, onError, limit}) => {
 
 
   return (
-    <Swiper pagination={true} modules={[Pagination]} className="mySwiper" lazyPreloadPrevNext={0}>
+    <Swiper pagination={true} modules={[Pagination]} className="mySwiper" lazyPreloadPrevNext={limit}>
       {images?.map((image, index) => {
-
-        if (index + 1 > limit) {
-          return null;
-        }
-
         return (
           <SwiperSlide key={index}>
             <h3 style={contentStyle}>
