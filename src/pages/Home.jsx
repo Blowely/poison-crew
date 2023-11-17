@@ -38,7 +38,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   const buildRequest = () => {
     let obj = {
-      limit: 2,
+      limit: 20,
       search: search?.toLowerCase(),
       collName: 'personal',
     }
@@ -82,9 +82,9 @@ function Home({onAddToFavorite, onAddToCart}) {
     }
   }, [products?.items])
 
-  const renderItems = () => {
+  const renderItems = useMemo(() => {
       const products = isLoading ? [...Array(15)] : productsSlice[trimCollectionValue] || [];
-    console.log(products);
+      console.log(products);
       if (!products?.length && !isLoading) {
         return <Empty
           image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
@@ -110,7 +110,7 @@ function Home({onAddToFavorite, onAddToCart}) {
           ))
         }
       </div>
-  }
+  }, [productsSlice, isLoading])
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
 
@@ -130,7 +130,8 @@ function Home({onAddToFavorite, onAddToCart}) {
         refetch();
 
         if (products.items.length === limit) {
-          searchParams.set('offset', (offset += 20).toString())
+          const prevOffset = 20 + Number(offset);
+          searchParams.set('offset', prevOffset.toString())
         }
       }
     } catch (e) {
@@ -189,7 +190,7 @@ function Home({onAddToFavorite, onAddToCart}) {
           </div>
         </div>
         <Suspense fallback={<div>Loading...</div>}>
-          {renderItems()}
+          {renderItems}
         </Suspense>
 
       </div>

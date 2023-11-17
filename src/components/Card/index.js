@@ -86,7 +86,7 @@ function Card({
                     </ContentLoader>
                   }
                   <div style={{opacity: loadingImg ? "0" : "1"}}>
-                    <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} limit={0}/>
+                    <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
                   </div>
 
                   {!loadingImg &&
