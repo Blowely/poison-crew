@@ -83,7 +83,7 @@ function Card({
                     </ContentLoader>
                   }
                   <div style={{display: loadingImg ? "none" : "block"}}>
-                    <CarouselComponent images={images} onLoad={onLoadedIcon} onError={onLoadedIcon}/>
+                    <CarouselComponent images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} limit={3}/>
                   </div>
                   {!loadingImg &&
                     <>
