@@ -1,3 +1,4 @@
+/*
 import anime from 'animejs/lib/anime.es.js';
 
 window.onload = () => {
@@ -93,3 +94,4 @@ window.onload = () => {
   }, 1000);
 }
 
+*/
