@@ -87,7 +87,10 @@ const Root = () => {
         <div className="loader">
           <div className="loader-box-wrapper">
             <div className="loader-box loader-box_black">
-              <div className='loader-box__item loader__item_left'>POIZON</div>
+              <div className="loader__item_left_partition"/>
+              <div className='loader-box__item loader__item_left'>
+                POIZON
+              </div>
             </div>
             <div className="loader-box loader-box_white">
               <div className='loader-box__item loader__item_right'>RE</div>

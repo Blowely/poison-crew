@@ -24,6 +24,7 @@
   display: flex;
   justify-content: flex-start;
   color: white;
+  position: absolute;
 }
 
 .loader__item_right {
@@ -74,8 +75,8 @@
 .loader-box_white {
   font-family: Bebas Neue, sans-serif!important;
   opacity: 0;
-  width: 105px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   display: flex;
   background-color: #6decfb;
   position: absolute;
@@ -84,10 +85,19 @@
   font-size: 3.8rem;
   padding: 10px 20px 5px 20px;
   overflow: hidden;
-  border-bottom: 5px solid black;
-  border-left: 50px solid black;
-  border-top: 5px solid black;
+  box-shadow: -62px 8px 0px 67px rgba(0,0,0,1);
+  -webkit-box-shadow: -62px 8px 0px 67px rgba(0,0,0,1);
+  -moz-box-shadow: -62px 8px 0px 67px rgba(0,0,0,1);
   margin-right: 140px;
+}
+
+.loader__item_left_partition {
+  position: absolute;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  background: black;
+  margin-bottom: 5px;
 }
 
 .loader-box_black-wrapper {
@@ -110,6 +120,7 @@
   border-bottom: 2px solid white;
   padding: 8px 10px 3px 10px;
   overflow: hidden;
+  margin-right: 330px;
 }
 
 .loader-box__item {
