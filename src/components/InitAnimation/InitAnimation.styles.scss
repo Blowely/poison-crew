@@ -27,6 +27,7 @@
 }
 
 .loader__item_right {
+  position: absolute;
   font-family: Bebas Neue, sans-serif;
   display: flex;
   justify-content: flex-end;
@@ -71,23 +72,36 @@
     overflow: hidden;
 }*/
 
+
+.loader-box_white_wrapper {
+  font-family: Bebas Neue, sans-serif!important;
+  opacity: 0;
+  width: 125px;
+  height: 65px;
+  display: flex;
+  background-color: gray;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px 5px 20px;
+  overflow: hidden;
+  margin-right: 140px;
+  z-index: 1;
+}
+
 .loader-box_white {
   font-family: Bebas Neue, sans-serif!important;
   opacity: 0;
-  width: 105px;
-  height: 65px;
+  width: 85px;
+  height: 55px;
   display: flex;
   background-color: #6decfb;
-  position: absolute;
+  z-index: 2;
   justify-content: center;
   align-items: center;
-  font-size: 3.8rem;
-  padding: 10px 20px 5px 20px;
+  font-size: 1.4rem;
+  padding: 10px 20px 10px 20px;
   overflow: hidden;
-  border-bottom: 5px solid black;
-  border-left: 50px solid black;
-  border-top: 5px solid black;
-  margin-right: 140px;
+  margin-right: 0px;
 }
 
 .loader-box_black-wrapper {

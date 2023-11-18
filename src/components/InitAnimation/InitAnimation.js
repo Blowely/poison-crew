@@ -2,13 +2,15 @@ import anime from 'animejs/lib/anime.es.js';
 
 window.onload = () => {
   let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
+  let loaderBoxWhiteWrapper = document.getElementsByClassName("loader-box_white_wrapper");
   let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
   let loader__item_right = document.getElementsByClassName("loader__item_right");
   let loader__item_left = document.getElementsByClassName("loader__item_left");
   let loader = document.getElementsByClassName("loader");
 
+
   anime({
-    targets: loaderBoxWhite,
+    targets: loaderBoxWhiteWrapper,
     opacity: 1,
     scale: 3,
     translateX: [
@@ -19,10 +21,17 @@ window.onload = () => {
     easing: 'easeInOutExpo'
   })
   anime({
+    targets: loaderBoxWhite,
+    opacity: 1,
+    scale: 3,
+    duration: 800,
+    easing: 'easeInOutExpo'
+  })
+  anime({
     targets: loaderBoxBlack,
     opacity: [
       {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: 1, duration: 800, delay: 0, elasticity: 0}
+      {value: 1, duration: 0, delay: 800, elasticity: 0}
     ],
     scale: 3,
     translateX: [
