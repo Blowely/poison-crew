@@ -92,9 +92,12 @@ const Root = () => {
                 POIZON
               </div>
             </div>
-            <div className="loader-box loader-box_white">
-              <div className='loader-box__item loader__item_right'>RE</div>
+            <div className="loader-box_white_wrapper">
+              <div className="loader-box loader-box_white">
+                  <div className='loader-box__item loader__item_right'>RE</div>
+              </div>
             </div>
+
           </div>
         </div>
 
