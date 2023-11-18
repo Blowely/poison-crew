@@ -5,6 +5,8 @@
   height: 100%;
   width: 100%;
   z-index: 6;
+  visibility: visible;
+  opacity: 1;
 }
 
 .loader__item {
@@ -85,9 +87,9 @@
   font-size: 3.8rem;
   padding: 10px 20px 5px 20px;
   overflow: hidden;
-  box-shadow: -62px 8px 0px 67px rgba(0,0,0,1);
-  -webkit-box-shadow: -62px 8px 0px 67px rgba(0,0,0,1);
-  -moz-box-shadow: -62px 8px 0px 67px rgba(0,0,0,1);
+  box-shadow: -60px 8px 0px 67px rgb(0, 0, 0);
+  -webkit-box-shadow: -60px 8px 0px 67px rgb(0, 0, 0);
+  -moz-box-shadow: -60px 8px 0px 67px rgb(0, 0, 0);
   margin-right: 140px;
 }
 

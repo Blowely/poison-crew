@@ -144,7 +144,7 @@ function Home({onAddToFavorite, onAddToCart}) {
   return (
     <Layout style={{backgroundColor: 'white'}}>
         <div className="main-logo-wrapper">
-          <div className="main-logo-line"
+          <div className="main-logo-line main-logo-line-left"
                style={{width: isDesktopScreen
                    ? "calc((100vw - 226px - 40px) / 2 )"
                    : "calc((100vw - 158px - 40px) / 2 )"
@@ -155,7 +155,7 @@ function Home({onAddToFavorite, onAddToCart}) {
             : <RePoizonMainMiddleLogo/>
           }
 
-          <div className="main-logo-line"
+          <div className="main-logo-line main-logo-line-right"
                style={{width: isDesktopScreen
                    ? "calc((100vw - 226px - 40px) / 2 )"
                    : "calc((100vw - 158px - 40px) / 2 )"}}

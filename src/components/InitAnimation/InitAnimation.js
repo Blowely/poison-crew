@@ -1,44 +1,42 @@
 import anime from 'animejs/lib/anime.es.js';
 
 window.onload = () => {
+  let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
   let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
-  let loaderBoxWhiteWrapper = document.getElementsByClassName("loader-box_white_wrapper");
   let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
   let loader__item_right = document.getElementsByClassName("loader__item_right");
   let loader__item_left = document.getElementsByClassName("loader__item_left");
   let loader__item_left_partition = document.getElementsByClassName("loader__item_left_partition");
   let loader = document.getElementsByClassName("loader");
 
+  let mainLogoLineLeft = document.getElementsByClassName("main-logo-line-left");
+  let mainLogoLineRight = document.getElementsByClassName("main-logo-line-right");
 
-  anime({
-    targets: loaderBoxWhiteWrapper,
-    opacity: 1,
-    scale: 3,
-    translateX: [
-      {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: -30, duration: 800, delay: 0, elasticity: 0}
-    ],
-    duration: 800,
-    easing: 'easeInOutExpo'
-  })
+  const isDesktopScreen = window.screen.availWidth > 600;
+
   anime({
     targets: loaderBoxWhite,
     opacity: 1,
-    scale: 3,
+    translateX: [
+      {value: 0, duration: 800, delay: 0, elasticity: 0},
+      {value: -123, duration: 800, delay: 0, elasticity: 0},
+    ],
+    scale: isDesktopScreen ? 3 : 1.7,
     duration: 800,
     easing: 'easeInOutExpo'
   })
   anime({
     targets: loaderBoxBlack,
     opacity: [
-      {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: 1, duration: 0, delay: 800, elasticity: 0}
+      {value: 0, duration: 1000, delay: 0, elasticity: 0},
+      {value: 1, duration: 0, delay: 1000, elasticity: 0}
     ],
-    scale: 3,
+    scale: isDesktopScreen ? 3 : 1.7,
     translateX: [
       {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: 100, duration: 800, delay: 0, elasticity: 0}
+      {value: 87, duration: 800, delay: 0, elasticity: 0},
     ],
+
     backgroundColor: '#000',
     duration: 800,
     easing: 'easeInOutExpo'
@@ -48,16 +46,11 @@ window.onload = () => {
     translateX: 50,
     duration: 800,
     delay: 1000,
-    transition: "all 800ms cubic-bezier(0.200, 1.035, 0.395, 0.900)",
-    transitionTimingFunction: "cubic-bezier(0.200, 1.035, 0.395, 0.900)"
-    //easing: 'cubicBezier(.5, .05, .1, .3)'
+    transition: "all 800ms cubic-bezier(0.245, 1.060, 0.590, 0.885)",
+    transitionTimingFunction: "cubic-bezier(0.245, 1.060, 0.590, 0.885)"
   })
   anime({
     targets: loader__item_left,
-    /*boxShadow: [
-      {value: "0px 166px 0px 0px rgba(252,47,47,1) inset", duration: 1200, delay: 0, elasticity: 0},
-      {value: "0px 0px 0px 0px rgba(252,47,47,1) inset", duration: 1200, delay: 160000000, elasticity: 0}
-    ],*/
     duration: 800,
     delay: 800,
     easing: 'easeInOutExpo'
@@ -65,25 +58,55 @@ window.onload = () => {
   anime({
     targets: loader__item_left_partition,
     marginBottom: [
-      {value: "120px", duration: 1200, delay: 800, velocity: 200}
+      {value: "120px", duration: 1200, delay: 1200, velocity: 200}
     ],
     duration: 800,
-    delay: 800,
-    easing: 'easeInOutExpo'
+    delay: 1000,
+    transition: "all 800ms cubic-bezier(0.385, 1.015, 0.705, 0.780)",
+    transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
   })
+
+  anime({
+    targets: loaderBoxWrapper,
+    translateY: [
+      {value: 0, duration: 0, delay: 0},
+      {value: -422, duration: 1200, delay: 1800}
+    ],
+    scale: 0.4,
+    duration: 1200,
+    delay: 1800,
+    transition: "all 800ms cubic-bezier(0.385, 1.015, 0.705, 0.780)",
+    transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
+  })
+
   anime({
     targets: loader,
-    translateY: -1200,
+    visibility: "hidden",
+    opacity: 0,
+    transition: "visibility 0s 2s, opacity 2s linear",
     position: 'center',
-    duration: 800,
-    delay: 220000000,
+    duration: 400,
+    delay: 2000,
     easing: 'easeInOutExpo'
   })
 
+  anime({
+    targets: mainLogoLineLeft,
+    translateX: [
+      {value: 450, duration: 0, delay: 0},
+      {value: 0, duration: 1500, delay: 2050}
+    ],
+    transition: "all 2000ms cubic-bezier(0.245, 1.060, 0.590, 0.885)",
+    transitionTimingFunction: "cubic-bezier(0.245, 1.060, 0.590, 0.885)"
+  })
 
-  /*etTimeout(() => {
-    if (window.scrollY) {
-      window.scroll(0, 0);
-    }
-  }, 1000);*/
+  anime({
+    targets: mainLogoLineRight,
+    translateX: [
+      {value: -450, duration: 0, delay: 0},
+      {value: 0, duration: 1500, delay: 2050}
+    ],
+    transition: "all 2000ms cubic-bezier(0.245, 1.060, 0.590, 0.885)",
+    transitionTimingFunction: "cubic-bezier(0.245, 1.060, 0.590, 0.885)"
+  })
 }
