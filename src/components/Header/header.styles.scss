@@ -74,8 +74,10 @@
 }
 
 .main-logo-line {
-  border-bottom: 2px solid black;
   @media (max-width: 430px) {
     border-bottom: 1px solid black;
   }
+  z-index: 0;
+  border-bottom: 2px solid;
+  border-color: rgb(255, 255, 255);
 }

@@ -9,6 +9,7 @@ window.onload = () => {
   let loader__item_left_partition = document.getElementsByClassName("loader__item_left_partition");
   let loader = document.getElementsByClassName("loader");
 
+  let mainLogoLine = document.getElementsByClassName("main-logo-line");
   let mainLogoLineLeft = document.getElementsByClassName("main-logo-line-left");
   let mainLogoLineRight = document.getElementsByClassName("main-logo-line-right");
 
@@ -19,7 +20,7 @@ window.onload = () => {
     opacity: 1,
     translateX: [
       {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: -123, duration: 800, delay: 0, elasticity: 0},
+      {value: -130, duration: 800, delay: 0, elasticity: 0},
     ],
     scale: isDesktopScreen ? 3 : 1.7,
     duration: 800,
@@ -34,7 +35,7 @@ window.onload = () => {
     scale: isDesktopScreen ? 3 : 1.7,
     translateX: [
       {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: 87, duration: 800, delay: 0, elasticity: 0},
+      {value: 85, duration: 800, delay: 0, elasticity: 0},
     ],
 
     backgroundColor: '#000',
@@ -70,43 +71,56 @@ window.onload = () => {
     targets: loaderBoxWrapper,
     translateY: [
       {value: 0, duration: 0, delay: 0},
-      {value: -422, duration: 1200, delay: 1800}
+      {value: -422, duration: 400, delay: 1800}
     ],
     scale: 0.4,
-    duration: 1200,
+    duration: 800,
     delay: 1800,
-    transition: "all 800ms cubic-bezier(0.385, 1.015, 0.705, 0.780)",
-    transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
+    transition: "all 400ms cubic-bezier(0.080, 0.600, 0.730, 0.960)",
+    transitionTimingFunction: "cubic-bezier(0.420, 0.650, 0.730, 0.960)"
+  })
+
+  anime({
+    targets: mainLogoLineLeft,
+    translateX: [
+      {value: "-110%", duration: 0, delay: 0},
+      {value: 0, duration: 1100, delay: 1800}
+    ],
+    zIndex: 6,
+    transition: "all 1100ms cubic-bezier(0.310, 0.645, 0.730, 0.960)",
+    transitionTimingFunction: "cubic-bezier(0.310, 0.645, 0.730, 0.960)"
+  })
+
+  anime({
+    targets: mainLogoLineRight,
+    translateX: [
+      {value: "110%", duration: 0, delay: 0},
+      {value: 0, duration: 1100, delay: 1800}
+    ],
+    zIndex: 6,
+    transition: "all 1100ms cubic-bezier(0.310, 0.645, 0.730, 0.960)",
+    transitionTimingFunction: "cubic-bezier(0.310, 0.645, 0.730, 0.960)"
+  })
+
+  anime({
+    targets: mainLogoLine,
+    borderColor: [
+      {value: "rgb(0,0,0)", duration: 400, delay: 3000}
+    ],
+    easing: "easeInOutExpo",
   })
 
   anime({
     targets: loader,
     visibility: "hidden",
     opacity: 0,
-    transition: "visibility 0s 2s, opacity 2s linear",
+    transition: "visibility 0s 0.4s, opacity 0.4s linear",
     position: 'center',
     duration: 400,
-    delay: 2000,
-    easing: 'easeInOutExpo'
-  })
-
-  anime({
-    targets: mainLogoLineLeft,
-    translateX: [
-      {value: 450, duration: 0, delay: 0},
-      {value: 0, duration: 1500, delay: 2050}
-    ],
-    transition: "all 2000ms cubic-bezier(0.245, 1.060, 0.590, 0.885)",
-    transitionTimingFunction: "cubic-bezier(0.245, 1.060, 0.590, 0.885)"
-  })
-
-  anime({
-    targets: mainLogoLineRight,
-    translateX: [
-      {value: -450, duration: 0, delay: 0},
-      {value: 0, duration: 1500, delay: 2050}
-    ],
-    transition: "all 2000ms cubic-bezier(0.245, 1.060, 0.590, 0.885)",
-    transitionTimingFunction: "cubic-bezier(0.245, 1.060, 0.590, 0.885)"
+    delay: 3000,
+    easing: 'easeInOutExpo',
+    complete: function(anim) {
+      loader[0].remove();
+    }
   })
 }
