@@ -91,6 +91,10 @@
   -webkit-box-shadow: -60px 8px 0px 67px rgb(0, 0, 0);
   -moz-box-shadow: -60px 8px 0px 67px rgb(0, 0, 0);
   margin-right: 140px;
+
+  @media (max-width: 600px) {
+    margin-right: 0;
+  }
 }
 
 .loader__item_left_partition {

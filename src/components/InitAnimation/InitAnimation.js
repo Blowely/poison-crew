@@ -20,9 +20,9 @@ window.onload = () => {
     opacity: 1,
     translateX: [
       {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: -130, duration: 800, delay: 0, elasticity: 0},
+      {value: isDesktopScreen ? -130 : -109, duration: 800, delay: 0, elasticity: 0},
     ],
-    scale: isDesktopScreen ? 3 : 1.7,
+    scale: isDesktopScreen ? 3 : 1.6,
     duration: 800,
     easing: 'easeInOutExpo'
   })
@@ -32,10 +32,10 @@ window.onload = () => {
       {value: 0, duration: 1000, delay: 0, elasticity: 0},
       {value: 1, duration: 0, delay: 1000, elasticity: 0}
     ],
-    scale: isDesktopScreen ? 3 : 1.7,
+    scale: isDesktopScreen ? 3 : 1.6,
     translateX: [
       {value: 0, duration: 800, delay: 0, elasticity: 0},
-      {value: 85, duration: 800, delay: 0, elasticity: 0},
+      {value: isDesktopScreen ? 85 : 134, duration: 800, delay: 0, elasticity: 0},
     ],
 
     backgroundColor: '#000',
@@ -71,9 +71,9 @@ window.onload = () => {
     targets: loaderBoxWrapper,
     translateY: [
       {value: 0, duration: 0, delay: 0},
-      {value: -422, duration: 400, delay: 1800}
+      {value: isDesktopScreen ? -422 : -376, duration: 400, delay: 1800}
     ],
-    scale: 0.4,
+    scale: isDesktopScreen ? 0.4: 0.52,
     duration: 800,
     delay: 1800,
     transition: "all 400ms cubic-bezier(0.080, 0.600, 0.730, 0.960)",
