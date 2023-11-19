@@ -15,7 +15,6 @@ import Order from "./pages/Order";
 import Trace from "./pages/Trace";
 
 export const PrivateAppRouter = ({
-                                   products,
                                    searchValue,
                                    setSearchValue,
                                    cartItems,
@@ -29,7 +28,6 @@ export const PrivateAppRouter = ({
       <Route path="/" element={<Navigate to="/products" />} replace />
       <Route path="/products" element={
         <Home
-          products={products}
           cartItems={cartItems}
           searchValue={searchValue}
           setSearchValue={setSearchValue}

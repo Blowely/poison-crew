@@ -12,7 +12,7 @@ import ErrorHandler from "./common/ErrorHandler";
 import {PrivateAppRouter} from "./PrivateAppRouter";
 import moment from "moment";
 import 'moment/locale/ru';
-import "./components/InitAnimation/InitAnimation";
+//import "./components/InitAnimation/InitAnimation";
 import "./components/InitAnimation/InitAnimation.styles.scss";
 import {useFirstRender} from "./common/utils";
 
