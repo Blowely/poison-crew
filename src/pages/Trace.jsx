@@ -18,6 +18,8 @@ import {iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_DELIVERY_STATUS, PRODUCT_DELIVERY_STATUS_DICTIONARY, PRODUCT_STATUS} from "./constants";
 import axios from "axios";
 import moment from "moment";
+import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
+import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 
 
 const Trace = () => {
@@ -138,10 +140,10 @@ const Trace = () => {
                     <NonActiveBagIcon/>
                 </div>
                 <div onClick={() => navigate('/cart?from=products') }>
-                    <ActiveCartIcon style={{ fontSize: '30px'}} />
+                    <NonActiveCartIcon style={{ fontSize: '30px'}} />
                 </div>
                 <div onClick={() => navigate('/profile')}>
-                    <NonActiveProfileIcon style={{ fontSize: '30px'}} />
+                    <ActiveProfileIcon style={{ fontSize: '30px'}} />
                 </div>
             </footer>
         </Layout>
