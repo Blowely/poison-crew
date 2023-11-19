@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 
 const SwiperCarousel = (props) => {
   const {images, onLoad, onError, lazyPreloadPrevNext, loop} = props;
+  const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
     <Swiper pagination={true} modules={[Pagination]} className="mySwiper" lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}>
@@ -15,7 +16,7 @@ const SwiperCarousel = (props) => {
         return (
           <SwiperSlide key={index}>
             <img
-              style={{ width: '-webkit-fill-available', height: '-webkit-fill-available'}}
+              style={{ width: '-webkit-fill-available', height: `${isDesktopScreen && "164px"}`}}
               src={image}
               onLoad={onLoad}
               onLoadedData={onLoad}

@@ -49,9 +49,7 @@ function Card({
 
 
   return (
-      <a href={`/products/view?productId=${id}`} className={styles.card}
-        style={{color: "black"}}
-      >
+      <a href={`/products/view?productId=${id}`} className={styles.card}>
           {loading ? (
               <ContentLoader
                   speed={2}

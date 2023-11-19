@@ -37,6 +37,10 @@
   border-color: rgb(1, 194, 195);
 }
 
+:where(.css-dev-only-do-not-override-15rg2km) a:hover {
+  color: black;
+}
+
 .swiper-pagination-bullet {
   width: 6px!important;
   height: 6px!important;
