@@ -1,3 +1,5 @@
+import {useRef} from "react";
+
 export const collectionQueryProps = (type) => ({
   providesTags: (result) => result.items.map(({_id}) => ({type, id: _id})),
   transformResponse: (response, meta) => ({
@@ -85,4 +87,11 @@ export const getCheapestPriceOfSize = (price, sizes) => {
   })
 
   return cheapestPrice;
+}
+
+export const useFirstRender = () => {
+  const ref = useRef(true);
+  const firstRender = ref.current;
+  ref.current = false;
+  return firstRender;
 }

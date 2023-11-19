@@ -120,7 +120,7 @@ window.onload = () => {
     delay: 3000,
     easing: 'easeInOutExpo',
     complete: function(anim) {
-      loader[0].remove();
+      loader[0]?.remove();
     }
   })
 }

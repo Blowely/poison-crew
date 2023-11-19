@@ -14,6 +14,7 @@ import moment from "moment";
 import 'moment/locale/ru';
 import "./components/InitAnimation/InitAnimation";
 import "./components/InitAnimation/InitAnimation.styles.scss";
+import {useFirstRender} from "./common/utils";
 
 moment.locale('ru');
 
@@ -81,22 +82,26 @@ const Root = () => {
     )
   }
 
+  const isFirstRender = useFirstRender();
+
   return (
       <Layout className="App">
 
-        <div className="loader">
-          <div className="loader-box-wrapper">
-            <div className="loader-box loader-box_black">
-              <div className="loader__item_left_partition"/>
-              <div className='loader-box__item loader__item_left'>
-                POIZON
+        {window.location.href.endsWith('/products') && isFirstRender && (
+          <div className="loader">
+            <div className="loader-box-wrapper">
+              <div className="loader-box loader-box_black">
+                <div className="loader__item_left_partition"/>
+                <div className='loader-box__item loader__item_left'>
+                  POIZON
+                </div>
+              </div>
+              <div className="loader-box loader-box_white">
+                  <div className='loader-box__item loader__item_right'>RE</div>
               </div>
             </div>
-            <div className="loader-box loader-box_white">
-                <div className='loader-box__item loader__item_right'>RE</div>
-            </div>
           </div>
-        </div>
+        )}
 
         {cartOpened && (
           <Drawer
