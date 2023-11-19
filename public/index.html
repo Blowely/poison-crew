@@ -34,7 +34,6 @@
   You need to enable JavaScript to run this app.
 </noscript>
 <div id="root"></div>
-<script async src="anime.min.js"></script>
 <script async src="//points.boxberry.ru/js/boxberry.js"></script>
 <script>
   if (!window.location.href.startsWith('http://localhost')) {
@@ -46,8 +45,9 @@
     });
   }
 </script>
+<script src="js/anime.min.js"></script>
 <script>
-  window.onload = () => {
+  window.onload = function() {
     let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
     let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
     let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
