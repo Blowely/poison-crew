@@ -67,7 +67,7 @@ function Card({
               </ContentLoader>
           ) : (
               <>
-                  {loadingImg &&
+                  {/*{loadingImg &&
                     <ContentLoader
                       speed={2}
                       width={isDesktopScreen ? 230 : 160}
@@ -85,9 +85,10 @@ function Card({
                   }
                   <div style={{opacity: loadingImg ? "0" : "1"}}>
                     <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
-                  </div>
+                  </div>*/}
+                  <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
 
-                  {!loadingImg &&
+                  {/*{!loadingImg &&
                     <>
                       <div style={{fontSize: '15px', paddingTop: '10px', paddingBottom: '10px'}}>{title}</div>
                       <div className="d-flex justify-between align-center">
@@ -97,8 +98,15 @@ function Card({
                         </div>
                       </div>
                     </>
-                  }
+                  }*/}
 
+                  <div style={{fontSize: '15px', paddingTop: '10px', paddingBottom: '10px'}}>{title}</div>
+                  <div className="d-flex justify-between align-center">
+                    <div className="d-flex flex-column ">
+                      <b style={{fontSize: '15px', gap: '3px', display: 'flex'}}>
+                        <b style={{fontSize: '14px', color: 'black'}}></b>{getPrice()} ₽</b>
+                    </div>
+                  </div>
               </>
           )}
       </a>
