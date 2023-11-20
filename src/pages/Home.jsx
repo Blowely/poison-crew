@@ -82,7 +82,7 @@ function Home({onAddToFavorite, onAddToCart}) {
     }
   }, [products?.items])
 
-  const renderItems = useMemo(() => {
+  const renderItems = () => {
       const products = isLoading ? [...Array(15)] : productsSlice[trimCollectionValue] || [];
 
       if (!products?.length && !isLoading) {
@@ -110,7 +110,7 @@ function Home({onAddToFavorite, onAddToCart}) {
           ))
         }
       </div>
-  }, [products?.items, productsSlice, isLoading])
+  }
 
   const docElements = document.getElementsByClassName('cards-section-wrapper');
 
@@ -190,7 +190,7 @@ function Home({onAddToFavorite, onAddToCart}) {
           </div>
         </div>
         <Suspense fallback={<div>Loading...</div>}>
-          {renderItems}
+          {renderItems()}
         </Suspense>
 
       </div>
