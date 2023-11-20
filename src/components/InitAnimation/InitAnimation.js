@@ -1,4 +1,4 @@
-//import anime from 'animejs/lib/anime.es.js';
+import anime from "animejs";
 
 window.onload = () => {
   let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
@@ -15,7 +15,7 @@ window.onload = () => {
 
   const isDesktopScreen = window.screen.availWidth > 600;
   console.log('anime',window.anime);
-  window.anime({
+  anime({
     targets: loaderBoxWhite,
     opacity: 1,
     translateX: [
@@ -26,7 +26,7 @@ window.onload = () => {
     duration: 800,
     easing: 'easeInOutExpo'
   })
-  window.anime({
+  anime({
     targets: loaderBoxBlack,
     opacity: [
       {value: 0, duration: 1000, delay: 0, elasticity: 0},
@@ -42,7 +42,7 @@ window.onload = () => {
     duration: 800,
     easing: 'easeInOutExpo'
   })
-  window.anime({
+  anime({
     targets: loader__item_right,
     translateX: 50,
     duration: 800,
@@ -50,13 +50,13 @@ window.onload = () => {
     transition: "all 800ms cubic-bezier(0.245, 1.060, 0.590, 0.885)",
     transitionTimingFunction: "cubic-bezier(0.245, 1.060, 0.590, 0.885)"
   })
-  window.anime({
+  anime({
     targets: loader__item_left,
     duration: 800,
     delay: 800,
     easing: 'easeInOutExpo'
   })
-  window.anime({
+  anime({
     targets: loader__item_left_partition,
     marginBottom: [
       {value: "120px", duration: 1200, delay: 1200, velocity: 200}
@@ -67,7 +67,7 @@ window.onload = () => {
     transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
   })
 
-  window.anime({
+  anime({
     targets: loaderBoxWrapper,
     translateY: [
       {value: 0, duration: 0, delay: 0},
@@ -80,7 +80,7 @@ window.onload = () => {
     transitionTimingFunction: "cubic-bezier(0.420, 0.650, 0.730, 0.960)"
   })
 
-  window.anime({
+  anime({
     targets: mainLogoLineLeft,
     translateX: [
       {value: "-110%", duration: 0, delay: 0},
@@ -91,7 +91,7 @@ window.onload = () => {
     transitionTimingFunction: "cubic-bezier(0.310, 0.645, 0.730, 0.960)"
   })
 
-  window.anime({
+  anime({
     targets: mainLogoLineRight,
     translateX: [
       {value: "110%", duration: 0, delay: 0},
@@ -102,7 +102,7 @@ window.onload = () => {
     transitionTimingFunction: "cubic-bezier(0.310, 0.645, 0.730, 0.960)"
   })
 
-  window.anime({
+  anime({
     targets: mainLogoLine,
     borderColor: [
       {value: "rgb(0,0,0)", duration: 400, delay: 3000}
@@ -110,7 +110,7 @@ window.onload = () => {
     easing: "easeInOutExpo",
   })
 
-  window.anime({
+  anime({
     targets: loader,
     visibility: "hidden",
     opacity: 0,
