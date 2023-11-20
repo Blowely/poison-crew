@@ -146,19 +146,7 @@ function Home({onAddToFavorite, onAddToCart}) {
   return (
     <Layout style={{backgroundColor: 'white'}}>
 
-        <div className="loader">
-          <div className="loader-box-wrapper">
-            <div className="loader-box loader-box_black">
-              <div className="loader__item_left_partition"/>
-              <div className='loader-box__item loader__item_left'>
-                POIZON
-              </div>
-            </div>
-            <div className="loader-box loader-box_white">
-              <div className='loader-box__item loader__item_right'>RE</div>
-            </div>
-          </div>
-        </div>
+
 
         <div className="main-logo-wrapper">
           <div className="main-logo-line main-logo-line-left"

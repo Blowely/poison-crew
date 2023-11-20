@@ -24,8 +24,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <link rel="icon" type="image/x-icon" href="/re.png">
+  <link rel="stylesheet" type="text/css" href="/MyAnimation/InitAnimation.styles.scss">
  <!-- <script type="text/javascript" src="//points.boxberry.ru/js/boxberry.js"></script>-->
 </head>
 
@@ -34,6 +35,19 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+  <div class="loader">
+    <div class="loader-box-wrapper">
+      <div class="loader-box loader-box_black">
+        <div class="loader__item_left_partition"></div>
+        <div class='loader-box__item loader__item_left'>
+          POIZON
+        </div>
+      </div>
+      <div class="loader-box loader-box_white">
+        <div class='loader-box__item loader__item_right'>RE</div>
+      </div>
+    </div>
+  </div>
   <script async src="//points.boxberry.ru/js/boxberry.js"></script>
   <script>
     if (!window.location.href.startsWith('http://localhost')) {
@@ -45,7 +59,7 @@
       });
     }
   </script>
-  <script src="src/components/InitAnimation/InitAnimation.js"></script>
+  <script src="MyAnimation/InitAnimation.js"></script>
 </body>
 
 </html>
