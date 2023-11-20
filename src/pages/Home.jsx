@@ -19,8 +19,6 @@ import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
-import "../components/InitAnimation/InitAnimation";
-import "../components/InitAnimation/InitAnimation.styles.scss";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
