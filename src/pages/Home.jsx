@@ -122,7 +122,7 @@ function Home({onAddToFavorite, onAddToCart}) {
 
   window.addEventListener("scroll", function(event) {
     try {
-      const lastEl = docElements[0]?.children[docElements[0]?.children?.length - 1]?.offsetTop - 1600;
+      const lastEl = docElements[0]?.children[docElements[0]?.children?.length - 1]?.offsetTop - 800;
       const windowPageYOffset = window.pageYOffset;
 
       if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {

@@ -55,6 +55,12 @@
     }
 
   }
+
+  .contentLoader {
+    position: relative;
+    width: 100%;
+    height: calc(100vw / 6 + 20px);
+  }
 }
 
 

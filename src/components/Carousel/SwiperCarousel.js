@@ -16,7 +16,7 @@ const SwiperCarousel = (props) => {
         return (
           <SwiperSlide key={index}>
             <img
-              style={{ width: '-webkit-fill-available', maxHeight: `${!isDesktopScreen && "250px"}`}}
+              style={{width: "inherit"}}
               src={image}
               onLoad={onLoad}
               onLoadedData={onLoad}
