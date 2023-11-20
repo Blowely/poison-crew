@@ -47,18 +47,20 @@
   </script>
   <script>
     function loader() {
-      let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
-      console.log('loaderBoxWrapper',loaderBoxWrapper);
-      let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
-      let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
-      let loader__item_right = document.getElementsByClassName("loader__item_right");
-      let loader__item_left = document.getElementsByClassName("loader__item_left");
-      let loader__item_left_partition = document.getElementsByClassName("loader__item_left_partition");
+      let loaderBoxWrapper = ".loader-box-wrapper";
+      let loaderBoxWrapperTest = document.getElementsByClassName("loader-box-wrapper");
+      console.log('loaderBoxWrapperTest',loaderBoxWrapperTest);
+
+      let loaderBoxWhite = ".loader-box_white";
+      let loaderBoxBlack = ".loader-box_black";
+      let loader__item_right = ".loader__item_right";
+      let loader__item_left = ".loader__item_left";
+      let loader__item_left_partition = ".loader__item_left_partition";
       let loader = document.getElementsByClassName("loader");
 
-      let mainLogoLine = document.getElementsByClassName("main-logo-line");
-      let mainLogoLineLeft = document.getElementsByClassName("main-logo-line-left");
-      let mainLogoLineRight = document.getElementsByClassName("main-logo-line-right");
+      let mainLogoLine = ".main-logo-line";
+      let mainLogoLineLeft = ".main-logo-line-left";
+      let mainLogoLineRight = ".main-logo-line-right";
 
       const isDesktopScreen = window.screen.availWidth > 600;
 
