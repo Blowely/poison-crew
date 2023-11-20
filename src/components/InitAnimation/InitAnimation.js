@@ -1,6 +1,5 @@
 import anime from "animejs";
 
-window.onload = () => {
   let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
   let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
   let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
@@ -123,4 +122,3 @@ window.onload = () => {
       loader[0]?.remove();
     }
   })
-}
