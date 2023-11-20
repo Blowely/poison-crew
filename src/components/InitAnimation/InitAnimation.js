@@ -14,7 +14,7 @@ window.onload = () => {
   let mainLogoLineRight = document.getElementsByClassName("main-logo-line-right");
 
   const isDesktopScreen = window.screen.availWidth > 600;
-
+  console.log('anime',anime);
   anime({
     targets: loaderBoxWhite,
     opacity: 1,
