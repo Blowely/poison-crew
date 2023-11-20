@@ -46,38 +46,37 @@ function Card({
     }
 
     const isDesktopScreen = window.screen.availWidth > 600;
-  console.log('loading',loading)
-  console.log('loadingImg',loadingImg)
-
-  return (
-      <a href={`/products/view?productId=${id}`} className={styles.card}>
-        <ContentLoader
-          speed={2}
-          backgroundColor="#f3f3f3"
-          foregroundColor="#ecebeb"
-          style={{display: (loading || loadingImg) ? "block" : "none"}}
-          className={styles.contentLoader}
-        >
-          <rect x="1" y="0" rx="10" ry="10" style={{width:'100%', height: '100%'}} />
-        </ContentLoader>
 
 
-        <div style={{display: loadingImg ? "none" : "block"}}>
-          <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
+    return (
+        <a href={`/products/view?productId=${id}`} className={styles.card}>
+          <ContentLoader
+            speed={2}
+            backgroundColor="#f3f3f3"
+            foregroundColor="#ecebeb"
+            style={{display: (loading || loadingImg) ? "block" : "none"}}
+            className={styles.contentLoader}
+          >
+            <rect x="1" y="0" rx="10" ry="10" style={{width:'100%', height: '100%'}} />
+          </ContentLoader>
 
-          {!loadingImg &&
-            <>
-              <div className={styles.cardText} style={{}}>{title}</div>
-              <div className="d-flex justify-between align-center">
-                <div className="d-flex flex-column ">
-                  <b style={{fontSize: '15px', gap: '3px', display: 'flex'}}>
-                    <b style={{fontSize: '14px', color: 'black'}}></b>{getPrice()} ₽</b>
+
+          <div style={{display: loadingImg ? "none" : "block"}}>
+            <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
+
+            {!loadingImg &&
+              <>
+                <div className={styles.cardText} style={{}}>{title}</div>
+                <div className="d-flex justify-between align-center">
+                  <div className="d-flex flex-column ">
+                    <b style={{fontSize: '15px', gap: '3px', display: 'flex'}}>
+                      <b style={{fontSize: '14px', color: 'black'}}></b>{getPrice()} ₽</b>
+                  </div>
                 </div>
-              </div>
-            </>
-          }
-        </div>
-      </a>
-    );
+              </>
+            }
+          </div>
+        </a>
+      );
 }
 export default Card;
