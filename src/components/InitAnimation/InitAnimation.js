@@ -65,7 +65,10 @@ export const startLoaderAnimation = () => {
     transition: "all 800ms cubic-bezier(0.385, 1.015, 0.705, 0.780)",
     transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
   })
+  console.log('window.outerHeight',window.outerHeight)
 
+  const calcTranslateY = isDesktopScreen ? ((window.outerHeight / 2 - 57) * -1) : ((window.outerHeight / 2 - 45) * -1)
+  console.log('calcTranslateY',calcTranslateY);
   anime({
     targets: loaderBoxWrapper,
     /*translateY: [
@@ -73,7 +76,8 @@ export const startLoaderAnimation = () => {
       {value: isDesktopScreen ? "calc((100dvh / 2 - 57px) * -1)" : "calc((100dvh / 2 - 45px) * -1)", duration: 400, delay: 1800}
     ],*/
     top: [
-      {value: isDesktopScreen ? "calc((100dvh / 2 - 57px) * -1)" : "calc((100dvh / 2 - 45px) * -1)", duration: 400, delay: 1800}
+      {value: calcTranslateY,
+        duration: 400, delay: 1800}
     ],
     scale: isDesktopScreen ? 0.4: 0.52,
     duration: 400,
