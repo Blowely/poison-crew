@@ -1,12 +1,13 @@
 import anime from "animejs";
 export const startLoaderAnimation = () => {
+  let loader = document.getElementsByClassName("loader");
+  console.log('loader',loader);
   let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
   let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
   let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
   let loader__item_right = document.getElementsByClassName("loader__item_right");
   let loader__item_left = document.getElementsByClassName("loader__item_left");
   let loader__item_left_partition = document.getElementsByClassName("loader__item_left_partition");
-  let loader = document.getElementsByClassName("loader");
 
   let mainLogoLine = document.getElementsByClassName("main-logo-line");
   let mainLogoLineLeft = document.getElementsByClassName("main-logo-line-left");
@@ -67,7 +68,7 @@ export const startLoaderAnimation = () => {
   })
   console.log('document.body.clientHeight',document.body.clientHeight)
 
-  const calcTranslateY = isDesktopScreen ? ((document.body.clientHeight / 2 - 57) * -1) : ((document.body.clientHeight / 2 - 45) * -1)
+  const calcTranslateY = isDesktopScreen ? ((loader[0].clientHeight / 2 - 57) * -1) : ((loader[0].clientHeight / 2 - 45) * -1)
   console.log('calcTranslateY',calcTranslateY);
   anime({
     targets: loaderBoxWrapper,
