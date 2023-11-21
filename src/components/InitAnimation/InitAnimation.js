@@ -118,7 +118,7 @@ export const startLoaderAnimation = () => {
     transition: "visibility 0s 0.4s, opacity 0.4s linear",
     position: 'center',
     duration: 400,
-    delay: 3000000,
+    delay: 3000,
     easing: 'easeInOutExpo',
     complete: function(anim) {
       loader[0]?.remove();
