@@ -1,7 +1,7 @@
 import anime from "animejs";
 export const startLoaderAnimation = () => {
   let loader = document.getElementsByClassName("loader");
-  console.log('loader',loader);
+
   let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
   let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
   let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
@@ -66,19 +66,13 @@ export const startLoaderAnimation = () => {
     transition: "all 800ms cubic-bezier(0.385, 1.015, 0.705, 0.780)",
     transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
   })
-  console.log('document.body.clientHeight',document.body.clientHeight)
 
-  const calcTranslateY = isDesktopScreen ? ((loader[0].clientHeight / 2 - 57) * -1) : ((loader[0].clientHeight / 2 - 45) * -1)
-  console.log('calcTranslateY',calcTranslateY);
+  const calcTranslateY = isDesktopScreen ? ((loader[0].clientHeight / 2 - 57) * -1) : ((loader[0].clientHeight / 2 - 46) * -1)
+
   anime({
     targets: loaderBoxWrapper,
-    /*translateY: [
-      {value: 0, duration: 0, delay: 0},
-      {value: isDesktopScreen ? "calc((100dvh / 2 - 57px) * -1)" : "calc((100dvh / 2 - 45px) * -1)", duration: 400, delay: 1800}
-    ],*/
     top: [
-      {value: calcTranslateY,
-        duration: 400, delay: 1800}
+      {value: calcTranslateY, duration: 400, delay: 1800}
     ],
     scale: isDesktopScreen ? 0.4: 0.52,
     duration: 400,
@@ -124,7 +118,7 @@ export const startLoaderAnimation = () => {
     transition: "visibility 0s 0.4s, opacity 0.4s linear",
     position: 'center',
     duration: 400,
-    delay: 3000,
+    delay: 3000000,
     easing: 'easeInOutExpo',
     complete: function(anim) {
       loader[0]?.remove();
