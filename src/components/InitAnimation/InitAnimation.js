@@ -70,7 +70,7 @@ export const startLoaderAnimation = () => {
     targets: loaderBoxWrapper,
     translateY: [
       {value: 0, duration: 0, delay: 0},
-      {value: isDesktopScreen ? "calc((100vh / 2 - 57px) * -1)" : "calc((100vh / 2 - 45px) * -1)", duration: 400, delay: 1800}
+      {value: isDesktopScreen ? "calc((100dvh / 2 - 57px) * -1)" : "calc((100dvh / 2 - 45px) * -1)", duration: 400, delay: 1800}
     ],
     scale: isDesktopScreen ? 0.4: 0.52,
     duration: 800,
