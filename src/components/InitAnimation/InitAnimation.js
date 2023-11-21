@@ -65,9 +65,9 @@ export const startLoaderAnimation = () => {
     transition: "all 800ms cubic-bezier(0.385, 1.015, 0.705, 0.780)",
     transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
   })
-  console.log('window.outerHeight',window.outerHeight)
+  console.log('document.body.clientHeight',document.body.clientHeight)
 
-  const calcTranslateY = isDesktopScreen ? ((window.outerHeight / 2 - 57) * -1) : ((window.outerHeight / 2 - 45) * -1)
+  const calcTranslateY = isDesktopScreen ? ((document.body.clientHeight / 2 - 57) * -1) : ((document.body.clientHeight / 2 - 45) * -1)
   console.log('calcTranslateY',calcTranslateY);
   anime({
     targets: loaderBoxWrapper,
