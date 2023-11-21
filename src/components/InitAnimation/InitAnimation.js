@@ -68,12 +68,15 @@ export const startLoaderAnimation = () => {
 
   anime({
     targets: loaderBoxWrapper,
-    translateY: [
+    /*translateY: [
       {value: 0, duration: 0, delay: 0},
+      {value: isDesktopScreen ? "calc((100dvh / 2 - 57px) * -1)" : "calc((100dvh / 2 - 45px) * -1)", duration: 400, delay: 1800}
+    ],*/
+    top: [
       {value: isDesktopScreen ? "calc((100dvh / 2 - 57px) * -1)" : "calc((100dvh / 2 - 45px) * -1)", duration: 400, delay: 1800}
     ],
     scale: isDesktopScreen ? 0.4: 0.52,
-    duration: 800,
+    duration: 400,
     delay: 1800,
     transition: "all 400ms cubic-bezier(0.080, 0.600, 0.730, 0.960)",
     transitionTimingFunction: "cubic-bezier(0.420, 0.650, 0.730, 0.960)"
