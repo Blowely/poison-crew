@@ -59,7 +59,7 @@
   .contentLoader {
     position: relative;
     width: 100%;
-    height: calc(100vw / 6 + 20px);
+    height: calc(100vw / 6 + 18px);
     @media (max-width: 600px) {
       height: calc((100vw / 6 + 20px) * 2 + 45px);
     }

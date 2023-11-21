@@ -19,6 +19,8 @@ import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
+import "../components/InitAnimation/InitAnimation.styles.scss";
+import {startLoaderAnimation} from "../components/InitAnimation/InitAnimation";
 
 
 function Home({onAddToFavorite, onAddToCart}) {
@@ -35,6 +37,10 @@ function Home({onAddToFavorite, onAddToCart}) {
   const collection = searchParams.get('collName') || 'personal';
   let offset = searchParams.get('offset');
   const type = searchParams.get('type');
+
+  useEffect(() => {
+    startLoaderAnimation();
+  }, [])
 
   const buildRequest = () => {
     let obj = {
@@ -144,6 +150,19 @@ function Home({onAddToFavorite, onAddToCart}) {
   return (
     <Layout style={{backgroundColor: 'white'}}>
 
+        <div className="loader">
+          <div className="loader-box-wrapper">
+            <div className="loader-box loader-box_black">
+              <div className="loader__item_left_partition"></div>
+              <div className='loader-box__item loader__item_left'>
+                POIZON
+              </div>
+            </div>
+            <div className="loader-box loader-box_white">
+              <div className='loader-box__item loader__item_right'>RE</div>
+            </div>
+          </div>
+        </div>
 
 
         <div className="main-logo-wrapper">

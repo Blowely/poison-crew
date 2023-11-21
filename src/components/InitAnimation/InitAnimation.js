@@ -1,5 +1,5 @@
 import anime from "animejs";
-
+export const startLoaderAnimation = () => {
   let loaderBoxWrapper = document.getElementsByClassName("loader-box-wrapper");
   let loaderBoxWhite = document.getElementsByClassName("loader-box_white");
   let loaderBoxBlack = document.getElementsByClassName("loader-box_black");
@@ -122,3 +122,4 @@ import anime from "animejs";
       loader[0]?.remove();
     }
   })
+}
