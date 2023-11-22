@@ -71,7 +71,7 @@ export const startLoaderAnimation = () => {
 
   anime({
     targets: loaderBoxWrapper,
-    top: [
+    translateY: [
       {value: calcTranslateY, duration: 800, delay: 1800}
     ],
     scale: isDesktopScreen ? 0.4: 0.52,
