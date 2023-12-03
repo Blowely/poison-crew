@@ -22,6 +22,7 @@ const SwiperCarousel = (props) => {
               onLoadedData={onLoad}
               alt={`Image ${index + 1}`}
               onError={onError}
+              loading="lazy"
             />
           </SwiperSlide>
         );

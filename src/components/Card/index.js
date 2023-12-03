@@ -61,7 +61,6 @@ function Card({
           </ContentLoader>
 
 
-          <div style={{display: loadingImg ? "none" : "block"}}>
             <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
 
             {!loadingImg &&
@@ -75,7 +74,6 @@ function Card({
                 </div>
               </>
             }
-          </div>
         </a>
       );
 }
