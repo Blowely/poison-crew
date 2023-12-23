@@ -60,8 +60,14 @@ function Card({
             <rect x="1" y="0" rx="10" ry="10" style={{width:'100%', height: '100%'}} />
           </ContentLoader>
 
-
-            <SwiperCarousel images={images} onLoad={onLoadedIcon} onError={onLoadedIcon} lazyPreloadPrevNext={1} loop={false}/>
+          <img
+            style={{width:"-webkit-fill-available"}}
+            src={images?.[0]}
+            onLoad={onLoadedIcon}
+            onLoadedData={onLoadedIcon}
+            loading="lazy"
+            onError={() => this.src = images?.[0]}
+          />
 
             {!loadingImg &&
               <>
