@@ -3,8 +3,6 @@ import React, {useState} from "react";
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 import {useNavigate} from "react-router-dom";
-import CarouselComponent from "../Carousel/Carousel";
-import SwiperCarousel from "../Carousel/SwiperCarousel";
 
 function Card({
                   id,
@@ -30,14 +28,12 @@ function Card({
       setIsFavorite(!isFavorite);
     };
 
-
     const getPrice = () => {
         if (Number(price) < 1) {
             return '--';
         }
         return Math.ceil(price * 13.3 + 1000);
     }
-
     const onLoadedIcon = () => {
       if (!loadingImg) {
         return null;

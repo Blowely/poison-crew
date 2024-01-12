@@ -1,27 +1,28 @@
-import {createApi} from "@reduxjs/toolkit/query/react";
-import {baseQuery} from "../common/baseQuery";
-import {collectionQueryProps, customUrlBuilder} from "../common/utils";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "../common/baseQuery";
+import { collectionQueryProps, customUrlBuilder } from "../common/utils";
 
 export const productsApi = createApi({
-  reducerPath: 'productsApi',
-  tagTypes: ['Product'],
-  baseQuery: baseQuery('https://api.re-poizon.ru/api'),
-  //baseQuery: baseQuery('http://localhost:3000/api'),
+  reducerPath: "productsApi",
+  tagTypes: ["Product"],
+  baseQuery: baseQuery("https://api.re-poizon.ru/api"),
+  // baseQuery: baseQuery('http://localhost:3000/api'),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: (params) => customUrlBuilder('/products', params),
-      ...collectionQueryProps('Product'),
+      query: (params) => customUrlBuilder("/products", params),
+      ...collectionQueryProps("Product")
     }),
     getProduct: builder.query({
-      query: ({productId, token}) => `/products?id=${productId}&token=${token}`,
-      invalidatesTags: (result, error, arg) => [{type: 'Product', id: arg}],
+      query: ({ productId, token }) =>
+        `/products?id=${productId}&token=${token}`,
+      invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }]
     }),
     getCartProducts: builder.query({
       query: (token) => `/products?token${token}`,
-      ...collectionQueryProps('Product'),
-    }),
+      ...collectionQueryProps("Product")
+    })
   })
-})
+});
 
 export const {
   useGetProductsQuery,
