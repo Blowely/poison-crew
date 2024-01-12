@@ -1,6 +1,6 @@
-import {Suspense} from "react";
-import {AppLoading} from "./common/AppLoading";
-import {Navigate, Route, Routes} from "react-router-dom";
+import React, { Suspense } from "react";
+import { AppLoading } from "./common/AppLoading";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Product from "./pages/product/Product";
 import Cart from "./pages/Cart";
@@ -14,29 +14,33 @@ import Payment from "./pages/Payment";
 import Order from "./pages/Order";
 import Trace from "./pages/Trace";
 
-export const PrivateAppRouter = ({
-                                   searchValue,
-                                   setSearchValue,
-                                   cartItems,
-                                   onChangeSearchInput,
-                                   onAddToFavorite,
-                                   onAddToCart,
-                                   isLoading,
-                                 }) => (
-  <Suspense fallback={<AppLoading />}>
-    <Routes>
-      <Route path="/" element={<Navigate to="/products" />} replace />
-      <Route path="/products" element={
-        <Home
-          cartItems={cartItems}
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          onChangeSearchInput={onChangeSearchInput}
-          onAddToFavorite={onAddToFavorite}
-          onAddToCart={onAddToCart}
-          isLoading={isLoading}
+export function PrivateAppRouter({
+  searchValue,
+  setSearchValue,
+  cartItems,
+  onChangeSearchInput,
+  onAddToFavorite,
+  onAddToCart,
+  isLoading
+}) {
+  return (
+    <Suspense fallback={<AppLoading />}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/products" />} replace />
+        <Route
+          path="/products"
+          element={
+            <Home
+              cartItems={cartItems}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+              isLoading={isLoading}
+            />
+          }
         />
-      } />
         <Route path="/products/*" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/*" element={<Cart />} />
@@ -50,6 +54,7 @@ export const PrivateAppRouter = ({
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/info" element={<Information />} />
         <Route path="*" element={<Navigate to="/products" />} replace />
-    </Routes>
-  </Suspense>
-)
+      </Routes>
+    </Suspense>
+  );
+}

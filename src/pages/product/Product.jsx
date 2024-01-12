@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Button, Input, Layout, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery } from "../../store/products.store";
-import CarouselComponent from "../../components/Carousel/Carousel";
 import "./product.scss";
 import styles from "./index.module.scss";
-import {
-  LeftOutlined,
-  LoadingOutlined,
-  RightOutlined
-} from "@ant-design/icons";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import AuthModal from "../AuthModal";
 import { useAppDispatch } from "../../store";
 import { addToCart } from "../../common/cartSlice";
