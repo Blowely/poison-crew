@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Button, Input, Layout, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetProductQuery } from "../../store/products.store";
+import { useGetProductQuery } from "../store/products.store";
 import "./product.scss";
-import styles from "./index.module.scss";
+import styles from "./product.module.scss";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import AuthModal from "../AuthModal";
-import { useAppDispatch } from "../../store";
-import { addToCart } from "../../common/cartSlice";
-import AdidasIcon from "../../assets/svg/brands/adidas-icon";
-import MeasureTableIcon from "../../assets/svg/measure-table-icon";
-import { getCheapestPriceOfSize } from "../../common/utils";
-import SwiperCarousel from "../../components/Carousel/SwiperCarousel";
-import loadingPanda from "../../assets/loading-panda.gif";
+import AuthModal from "./AuthModal";
+import { useAppDispatch } from "../store";
+import { addToCart } from "../common/cartSlice";
+import AdidasIcon from "../assets/svg/brands/adidas-icon";
+import MeasureTableIcon from "../assets/svg/measure-table-icon";
+import { getCheapestPriceOfSize } from "../common/utils";
+import SwiperCarousel from "../components/Carousel/SwiperCarousel";
+import loadingPanda from "../assets/loading-panda.gif";
 
 function Product({ onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ function Product({ onAddToFavorite, isLoading }) {
 
   const { data: product, isLoading: isLoadingProduct } = useGetProductQuery({
     productId,
-    token
+    token,
   });
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function Product({ onAddToFavorite, isLoading }) {
     }
 
     dispatch(
-      addToCart({ ...product, size: choice?.size, price: choice?.price })
+      addToCart({ ...product, size: choice?.size, price: choice?.price }),
     );
     navigate("/cart");
   };
@@ -105,7 +105,7 @@ function Product({ onAddToFavorite, isLoading }) {
               display: "flex",
               padding: "15px",
               borderBottom: "1px solid #ececec",
-              gap: "20px"
+              gap: "20px",
             }}
           >
             <img src={product?.images[0]} style={{ width: "20%" }} alt="" />
@@ -113,7 +113,7 @@ function Product({ onAddToFavorite, isLoading }) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
               }}
             >
               <div
@@ -122,7 +122,7 @@ function Product({ onAddToFavorite, isLoading }) {
                   fontWeight: "700",
                   display: "flex",
                   gap: "3px",
-                  alignItems: "flex-end"
+                  alignItems: "flex-end",
                 }}
               >
                 {Math.ceil(Number(choice.price) * 13.3 + 1000) || "--"}
@@ -136,7 +136,7 @@ function Product({ onAddToFavorite, isLoading }) {
               display: "flex",
               padding: "15px",
               paddingRight: "25px",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
             onClick={onMeasureOpenClick}
             role="presentation"
@@ -160,7 +160,7 @@ function Product({ onAddToFavorite, isLoading }) {
                     style={{
                       fontSize: "17px",
                       fontWeight: "600",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     {el.size}
@@ -171,7 +171,7 @@ function Product({ onAddToFavorite, isLoading }) {
                       textAlign: "center",
                       display: "flex",
                       gap: "1.5px",
-                      justifyContent: "center"
+                      justifyContent: "center",
                     }}
                   >
                     {Math.ceil(el.price * 13.3 + 1000) || "--"}
@@ -200,7 +200,7 @@ function Product({ onAddToFavorite, isLoading }) {
               display: "grid",
               padding: "15px",
               borderBottom: "1px solid #ececec",
-              gap: "15px"
+              gap: "15px",
             }}
           >
             <div style={{ fontSize: "22px", fontWeight: "500" }}>
@@ -219,7 +219,7 @@ function Product({ onAddToFavorite, isLoading }) {
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-            background: "white"
+            background: "white",
           }}
         >
           <img src={loadingPanda} alt="PANDA" />
@@ -233,7 +233,7 @@ function Product({ onAddToFavorite, isLoading }) {
               position: "fixed",
               padding: "15px",
               marginTop: "10px",
-              fontSize: "25px"
+              fontSize: "25px",
             }}
             onClick={() => navigate("/products")}
           />
@@ -250,7 +250,7 @@ function Product({ onAddToFavorite, isLoading }) {
                 style={{
                   backgroundColor: "white",
                   margin: "10px",
-                  padding: "10px"
+                  padding: "10px",
                 }}
               >
                 <div
@@ -259,14 +259,14 @@ function Product({ onAddToFavorite, isLoading }) {
                     fontWeight: "600",
                     display: "flex",
                     gap: "2px",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
                 >
                   {getTitlePrice(
                     getCheapestPriceOfSize(
                       product?.price,
-                      product?.properties?.sizes || []
-                    )
+                      product?.properties?.sizes || [],
+                    ),
                   ) || "--"}
                   <span style={{ fontSize: "23px" }}>₽</span>
                 </div>
@@ -278,7 +278,7 @@ function Product({ onAddToFavorite, isLoading }) {
                   margin: "10px",
                   padding: "10px",
                   display: "grid",
-                  gap: "10px"
+                  gap: "10px",
                 }}
               >
                 <div style={{ fontSize: "19px" }}>Описание</div>
@@ -292,7 +292,7 @@ function Product({ onAddToFavorite, isLoading }) {
                   margin: "10px",
                   padding: "10px",
                   display: "grid",
-                  gap: "10px"
+                  gap: "10px",
                 }}
               >
                 <div style={{ fontSize: "19px" }}>Информация о доставке</div>
@@ -309,7 +309,7 @@ function Product({ onAddToFavorite, isLoading }) {
                   display: "flex",
                   justifyContent: "space-between",
                   height: "70px",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
                 onClick={() => navigate("/products")}
                 role="presentation"
@@ -331,7 +331,7 @@ function Product({ onAddToFavorite, isLoading }) {
               height: "90px",
               padding: 10,
               backgroundColor: "white",
-              borderTop: "1px solid #f9f9f9"
+              borderTop: "1px solid #f9f9f9",
             }}
           >
             <Button
@@ -340,7 +340,7 @@ function Product({ onAddToFavorite, isLoading }) {
                 width: "100%",
                 height: "100%",
                 fontSize: "20px",
-                fontWeight: "400"
+                fontWeight: "400",
               }}
               onClick={() => setModalOpen(true)}
             >

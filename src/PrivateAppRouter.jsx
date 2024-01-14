@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { AppLoading } from "./common/AppLoading";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Product from "./pages/product/Product";
+import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Address from "./pages/Address";
 import Profile from "./pages/Profile";
