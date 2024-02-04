@@ -237,8 +237,8 @@ function Product({ onAddToFavorite, isLoading }) {
             }}
             onClick={() => navigate("/products")}
           />
-          <div className={styles.contentWrapper}>
-            <div className={styles.carouselWrapper}>
+          <div className={"content-wrapper"}>
+            <div className={"carousel-wrapper"}>
               <SwiperCarousel
                 images={product?.images}
                 onLoad={onLoadCarousel}
