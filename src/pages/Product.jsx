@@ -210,7 +210,8 @@ function Product({ onAddToFavorite, isLoading }) {
           </div>
         </Modal>
       )}
-      {(isLoadingProduct || isLoadingImages) && (
+      {isLoadingProduct &
+      (
         <div
           style={{
             width: "100vw",
