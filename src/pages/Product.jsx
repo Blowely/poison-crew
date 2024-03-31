@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Layout, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery } from "../store/products.store";
@@ -13,6 +13,8 @@ import MeasureTableIcon from "../assets/svg/measure-table-icon";
 import { getCheapestPriceOfSize } from "../common/utils";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import loadingPanda from "../assets/loading-panda.gif";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useTimer } from "use-timer";
 
 function Product({ onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
@@ -25,15 +27,44 @@ function Product({ onAddToFavorite, isLoading }) {
   const [measureOpen, setMeasureOpen] = useState(false);
   const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
-
-  const token = localStorage.getItem("token");
+  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(true);
 
   const productId = searchParams.get("productId");
 
-  const { data: product, isLoading: isLoadingProduct } = useGetProductQuery({
-    productId,
-    token,
+  const token = localStorage.getItem("token");
+  const productIdUpdatedAt = localStorage.getItem(productId);
+  const prevUpdatedAtRef = useRef(null);
+
+  const { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
+    {
+      productId,
+      token,
+    },
+    { pollingInterval: 10000 },
+  );
+
+  const { time, start, pause, reset, status } = useTimer({
+    initialTime: 10,
+    endTime: 0,
+    timerType: 'DECREMENTAL',
   });
+
+  useEffect(() => {
+    const itemIndex = product?.sizesAndPrices?.findIndex((el) => el?.price === product?.cheapestPrice);
+    setChoice({
+      price: product?.sizesAndPrices[itemIndex]?.price,
+      size: product?.sizesAndPrices[itemIndex]?.size,
+      index: itemIndex,
+    })
+
+    if (!prevUpdatedAtRef.current) {
+      start();
+      prevUpdatedAtRef.current = product?.updatedAt;
+    } else if (prevUpdatedAtRef.current !== product?.updatedAt) {
+      prevUpdatedAtRef.current = product?.updatedAt;
+      setDisabledBuyBtn(false);
+    }
+  }, [product]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -58,8 +89,20 @@ function Product({ onAddToFavorite, isLoading }) {
 
   const getTitlePrice = (price) => {
     if (Number(price) > 0) {
-      return Math.ceil(price * 13.3 + 1000);
+      return Math.ceil(price / 100);
     }
+    return "--";
+  };
+
+  const getBtnPrice = (price) => {
+    if (isDisabledBuyBtn) {
+      return `Обновление цен ${time}`
+    }
+
+    if (Number(price) > 0) {
+      return Math.ceil(price / 100);
+    }
+
     return "--";
   };
 
@@ -94,7 +137,12 @@ function Product({ onAddToFavorite, isLoading }) {
           title="Выберите размер"
           open={isModalOpen}
           onOk={onAddToCart}
-          okText={`${Math.ceil(Number(choice.price) * 13.3 + 1000) || "--"} ₽`}
+          okText={<>{getBtnPrice(choice?.price) || "--"}
+            <span style={{ fontSize: "19px" }}>{isDisabledBuyBtn ? '' : ' ₽'}</span></>}
+          okButtonProps={{
+            disabled: isDisabledBuyBtn,
+            loading: isDisabledBuyBtn,
+          }}
           centered
           onCancel={() => {
             setModalOpen(false);
@@ -125,7 +173,7 @@ function Product({ onAddToFavorite, isLoading }) {
                   alignItems: "flex-end",
                 }}
               >
-                {Math.ceil(Number(choice.price) * 13.3 + 1000) || "--"}
+                {getTitlePrice(choice.price) || "--"}
                 <span style={{ fontSize: "19px" }}>₽</span>
               </div>
               <div style={{ fontSize: "15px" }}>Размер: {choice.size}</div>
@@ -144,7 +192,7 @@ function Product({ onAddToFavorite, isLoading }) {
             <span>Таблица размеров</span>
           </div>
           <div className="content-size-wrapper">
-            {product?.properties?.sizes
+            {product?.sizesAndPrices
               .map((el, i) => (
                 <div
                   className={
@@ -174,7 +222,7 @@ function Product({ onAddToFavorite, isLoading }) {
                       justifyContent: "center",
                     }}
                   >
-                    {Math.ceil(el.price * 13.3 + 1000) || "--"}
+                    {getTitlePrice(el.price) || "--"}
                     <span style={{ fontSize: "13px" }}>₽</span>
                   </div>
                 </div>
@@ -263,12 +311,7 @@ function Product({ onAddToFavorite, isLoading }) {
                     alignItems: "center",
                   }}
                 >
-                  {getTitlePrice(
-                    getCheapestPriceOfSize(
-                      product?.price,
-                      product?.properties?.sizes || [],
-                    ),
-                  ) || "--"}
+                  {getTitlePrice(product?.cheapestPrice) || "--"}
                   <span style={{ fontSize: "23px" }}>₽</span>
                 </div>
                 <div style={{ fontSize: "21px" }}>{product?.title}</div>

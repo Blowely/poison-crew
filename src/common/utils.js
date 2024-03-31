@@ -1,17 +1,21 @@
-import {useRef} from "react";
+import { useRef } from "react";
 
 export const collectionQueryProps = (type) => ({
-  providesTags: (result) => result.items.map(({_id}) => ({type, id: _id})),
+  providesTags: (result) => result?.items.map(({ _id }) => ({ type, id: _id })),
   transformResponse: (response, meta) => ({
-    items: response.items || response || [],
-    totalCount: Number(meta?.response?.headers?.get('X-Total-Count') || response.total_count || 0),
-  })
-})
+    items: response?.items || response || [],
+    totalCount: Number(
+      meta?.response?.headers?.get("X-Total-Count") ||
+        response?.total_count ||
+        0,
+    ),
+  }),
+});
 
 export const customUrlBuilder = (url, params) => {
   const searchParams = new URLSearchParams(params);
   let newUrl = `${url}?`;
-  const arrayParams= [];
+  const arrayParams = [];
   Object.entries(params).forEach(([key, value]) => {
     if (value instanceof Array) {
       searchParams.delete(key);
@@ -25,7 +29,7 @@ export const customUrlBuilder = (url, params) => {
       searchParams.delete(key);
     }
   });
-  newUrl += arrayParams.join('&');
+  newUrl += arrayParams.join("&");
 
   const searchString = searchParams.toString();
 
@@ -35,19 +39,19 @@ export const customUrlBuilder = (url, params) => {
     result.push(decodeURIComponent(searchParams.toString()));
   }
 
-  return result.join('&');
+  return result.join("&");
 };
 
 export const getMultipleRandom = (arr, num) => {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
   return shuffled.slice(0, num);
-}
+};
 
 export function iosCopyToClipboard(el) {
   var oldContentEditable = el.contentEditable,
-      oldReadOnly = el.readOnly,
-      range = document.createRange();
+    oldReadOnly = el.readOnly,
+    range = document.createRange();
 
   el.contentEditable = true;
   el.readOnly = false;
@@ -62,18 +66,18 @@ export function iosCopyToClipboard(el) {
   el.contentEditable = oldContentEditable;
   el.readOnly = oldReadOnly;
 
-  document.execCommand('copy');
+  document.execCommand("copy");
 }
 
 export const getCurrentPriceOfSize = (size, sizes) => {
-  const foundSizeIndex = sizes.findIndex(s => s.size === size);
+  const foundSizeIndex = sizes.findIndex((s) => s.size === size);
 
   if (foundSizeIndex < 0) {
     return null;
   }
 
   return Number(sizes[foundSizeIndex].price);
-}
+};
 
 export const getCheapestPriceOfSize = (price, sizes) => {
   let cheapestPrice = price || 1000000;
@@ -84,14 +88,14 @@ export const getCheapestPriceOfSize = (price, sizes) => {
     if (newPrice < cheapestPrice) {
       cheapestPrice = newPrice;
     }
-  })
+  });
 
   return cheapestPrice;
-}
+};
 
 export const useFirstRender = () => {
   const ref = useRef(true);
   const firstRender = ref.current;
   ref.current = false;
   return firstRender;
-}
+};
