@@ -108,8 +108,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const renderItems = () => {
     const products = isLoading
-      ? [...Array(15)]
-      : productsSlice[trimCollectionValue] || [];
+      ? [...Array(20)]
+      : productsSlice[trimCollectionValue].concat([...Array(20)]) || [];
 
     if (!products?.length && !isLoading) {
       return (
@@ -155,7 +155,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       try {
         const lastEl =
           docElements[0]?.children[docElements[0]?.children?.length - 1]
-            ?.offsetTop - 800;
+            ?.offsetTop - 2000;
         const windowPageYOffset = window.pageYOffset;
 
         if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {

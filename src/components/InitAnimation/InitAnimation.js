@@ -67,7 +67,7 @@ export const startLoaderAnimation = () => {
     transitionTimingFunction: "cubic-bezier(0.385, 1.015, 0.705, 0.780)"
   })
 
-  const calcTranslateY = isDesktopScreen ? ((loader[0].clientHeight / 2 - 57) * -1) : ((loader[0].clientHeight / 2 - 46) * -1)
+  const calcTranslateY = isDesktopScreen ? ((loader[0]?.clientHeight / 2 - 57) * -1) : ((loader[0]?.clientHeight / 2 - 46) * -1)
 
   anime({
     targets: loaderBoxWrapper,

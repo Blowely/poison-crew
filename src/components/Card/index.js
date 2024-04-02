@@ -45,7 +45,7 @@ function Card({
 
   return (
     <a href={`/products/view?productId=${id}`} className={styles.card}>
-      <ContentLoader
+      {/*<ContentLoader
         speed={2}
         backgroundColor="#f3f3f3"
         foregroundColor="#ecebeb"
@@ -59,7 +59,7 @@ function Card({
           ry="10"
           style={{ width: "100%", height: "100%" }}
         />
-      </ContentLoader>
+      </ContentLoader>*/}
 
       <img
         style={{ width: "-webkit-fill-available" }}
