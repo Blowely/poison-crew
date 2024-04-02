@@ -27,6 +27,7 @@ import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
+import ContentLoader from "react-content-loader";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -107,13 +108,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products?.items]);
 
   const renderItems = () => {
-    const products = isLoading
+    const productsItems = isLoading
       ? [...Array(20)]
-      : productsSlice[trimCollectionValue]?.length >= 20
-        ? productsSlice[trimCollectionValue]?.concat([...Array(20)])
-        : productsSlice[trimCollectionValue] || [];
+      : productsSlice[trimCollectionValue] || [];
 
-    if (!products?.length && !isLoading) {
+    if (!productsItems?.length && !isLoading) {
       return (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -125,7 +124,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     return (
       <div className="cards-section-wrapper">
-        {products.map((item, index) => (
+        {productsItems.map((item, index) => (
           <Suspense fallback={<div>Loading...</div>} key={index}>
             <Card
               id={item?._id}
