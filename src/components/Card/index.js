@@ -18,6 +18,7 @@ function Card({
   const navigate = useNavigate();
   const [loadingImg, setLoadingImg] = useState(true);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
+  const imgElement = React.useRef(null);
 
   const onClickPlus = () => {
     onPlus({ id, title, images, price });
@@ -34,7 +35,12 @@ function Card({
     }
     return Math.ceil(price / 100);
   };
+
+  const isSquare = imgElement?.current?.naturalHeight === imgElement?.current?.naturalWidth;
+
   const onLoadedIcon = () => {
+    console.log(imgElement.current.naturalHeight)
+    console.log(imgElement.current.naturalWidth)
     if (!loadingImg) {
       return null;
     }
@@ -42,6 +48,9 @@ function Card({
   };
 
   const isDesktopScreen = window.screen.availWidth > 600;
+
+
+
 
   return (
     <a href={`/products/view?productId=${id}`} className={styles.card}>
@@ -62,7 +71,8 @@ function Card({
       </ContentLoader>*/}
 
       <img
-        style={{ width: "-webkit-fill-available" }}
+        style={{ width: `${isSquare ? '64%' : "-webkit-fill-available"}` }}
+        ref={imgElement}
         src={images?.[0]}
         onLoad={onLoadedIcon}
         onLoadedData={onLoadedIcon}

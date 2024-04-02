@@ -109,7 +109,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const renderItems = () => {
     const products = isLoading
       ? [...Array(20)]
-      : productsSlice[trimCollectionValue].concat([...Array(20)]) || [];
+      : productsSlice[trimCollectionValue]?.length >= 20
+        ? productsSlice[trimCollectionValue]?.concat([...Array(20)])
+        : productsSlice[trimCollectionValue] || [];
 
     if (!products?.length && !isLoading) {
       return (
@@ -212,7 +214,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>
       <Header />
       <div className="content">
-        <div className="brands-section-wrapper">
+        {/*<div className="brands-section-wrapper">
           <div
             className="brands-section-wrapper_card"
             onClick={() => navigate("/products")}
@@ -240,7 +242,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
           </div>
-        </div>
+        </div>*/}
         <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
       </div>
       <footer>
