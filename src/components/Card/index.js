@@ -39,8 +39,6 @@ function Card({
   const isSquare = imgElement?.current?.naturalHeight === imgElement?.current?.naturalWidth;
 
   const onLoadedIcon = () => {
-    console.log(imgElement.current.naturalHeight)
-    console.log(imgElement.current.naturalWidth)
     if (!loadingImg) {
       return null;
     }
