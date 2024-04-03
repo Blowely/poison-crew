@@ -175,7 +175,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     false,
   );
 
-  const isDesktopScreen = window.screen.availWidth > 600;
+  const isDesktopScreen = window?.innerWidth > 600;
 
   return (
     <Layout style={{ backgroundColor: "white" }}>
@@ -244,17 +244,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
         </div>*/}
         <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
       </div>
-      <footer>
-        <div onClick={() => navigate("/products")}>
-          <ActiveBagIcon />
-        </div>
-        <div onClick={() => navigate("/cart?from=products")}>
-          <NonActiveCartIcon />
-        </div>
-        <div onClick={() => navigate("/profile")}>
-          <NonActiveProfileIcon />
-        </div>
-      </footer>
+      {!isDesktopScreen &&
+        <footer>
+          <div onClick={() => navigate("/products")}>
+            <ActiveBagIcon />
+          </div>
+          <div onClick={() => navigate("/cart?from=products")}>
+            <NonActiveCartIcon />
+          </div>
+          <div onClick={() => navigate("/profile")}>
+            <NonActiveProfileIcon />
+          </div>
+        </footer>
+      }
     </Layout>
   );
 }
