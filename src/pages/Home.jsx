@@ -175,7 +175,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     false,
   );
 
-  const isDesktopScreen = window?.innerWidth > 600;
+  const isDesktopScreen = window?.innerWidth > 768;
 
   return (
     <Layout style={{ backgroundColor: "white" }}>

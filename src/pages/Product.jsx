@@ -15,6 +15,8 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import loadingPanda from "../assets/loading-panda.gif";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useTimer } from "use-timer";
+import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 
 function Product({ onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
@@ -35,13 +37,108 @@ function Product({ onAddToFavorite, isLoading }) {
   const productIdUpdatedAt = localStorage.getItem(productId);
   const prevUpdatedAtRef = useRef(null);
 
-  const { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
+  let { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
     {
       productId,
       token,
     },
-    { pollingInterval: 10000 },
+    //{ pollingInterval: 10000 },
   );
+
+  product = {
+    "_id": "65f760e38233854452e00c4e",
+    "titleDescription": "【定制球鞋】 Nike Court Borough Low 2 奶咖 高街风 双勾 简约 百搭 低帮 板鞋 GS 灰白",
+    "src": "https://dw4.co/t/A/1qrA2oXE",
+    "images": [
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/1c33ce84d1194090b84a827035194bbf.jpg",
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/1f780e1cf2ce4ab39ef16696da40ed99.jpg",
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/e20e0a56570846a2a7d4aa83f6c33558.jpg",
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/0e1f918091cd416a949fc034fc575f86.jpg",
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/6fc922945b604ac2ba72a38372479fb8.jpg",
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/cc1b3314b56c463dac1b39192a161747.jpg",
+      "https://cdn.poizon.com/pro-img/origin-img/20231018/fa189b3796c74a5ca76bdee8c287216a.png"
+    ],
+    "createdAt": "2024-03-17T21:30:11.692Z",
+    "updatedAt": "2024-03-31T16:22:11.617Z",
+    "__v": 0,
+    "category": "66029ec83d545163a2435edb",
+    "cheapestPrice": 1210610,
+    "sizesAndPrices": [
+      {
+        "skuId": 636448108,
+        "price": 1210610,
+        "size": "35.5"
+      },
+      {
+        "skuId": 636448109,
+        "price": 1210610,
+        "size": "36"
+      },
+      {
+        "skuId": 636448110,
+        "price": 1210610,
+        "size": "36.5"
+      },
+      {
+        "skuId": 636448111,
+        "price": 1210610,
+        "size": "37.5"
+      },
+      {
+        "skuId": 636448112,
+        "price": 1210610,
+        "size": "38"
+      },
+      {
+        "skuId": 636448113,
+        "price": 1210610,
+        "size": "38.5"
+      },
+      {
+        "skuId": 636448114,
+        "price": 1210610,
+        "size": "39"
+      },
+      {
+        "skuId": 636448115,
+        "price": 1210610,
+        "size": "40"
+      }
+    ],
+    "title": "【定制球鞋】 Nike Court Borough Low 2 奶咖 高街风 双勾 简约 百搭 低帮 板鞋 GS 灰白",
+    "sizeInfoList": [
+      {
+        "sizeKey": "欧码EU",
+        "sizeValue": "35.5,36,36.5,37.5,38,38.5,39,40,40.5,41,42,42.5,43,44,44.5,45,45.5,46,47,47.5,48,48.5,49,50"
+      },
+      {
+        "sizeKey": "US美码",
+        "sizeValue": "5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,14.5,15,15.5,16,16.5"
+      },
+      {
+        "sizeKey": "UK英码",
+        "sizeValue": "2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14"
+      },
+      {
+        "sizeKey": "JP日本码",
+        "sizeValue": "22,22.5,23,23.5,24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,30.5,31,31.5,32,32.5,33,33.5"
+      },
+      {
+        "sizeKey": "KR韩国码",
+        "sizeValue": "220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,305,310,315,320,325,330,335"
+      },
+      {
+        "sizeKey": "适合脚长",
+        "sizeValue": "22,22.5,23,23.5,24,24.5,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,30.5,31,31.5,32,32.5,33,33.5"
+      },
+      {
+        "sizeKey": "内长（MM）",
+        "sizeValue": "220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,305,310,315,320,325,330,335"
+      }
+    ],
+    "spuId": 6741950,
+    "isDeleted": false
+  };
 
   const { time, start, pause, reset, status } = useTimer({
     initialTime: 10,
@@ -116,6 +213,9 @@ function Product({ onAddToFavorite, isLoading }) {
     }
     setIsLoadingImages(false);
   };
+
+  const isDesktopScreen = window?.innerWidth > 768;
+
 
   return (
     <Layout style={{ position: "relative" }}>
@@ -258,22 +358,29 @@ function Product({ onAddToFavorite, isLoading }) {
           </div>
         </Modal>
       )}
-      {isLoadingProduct &
-      (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "absolute",
-            background: "white",
-          }}
-        >
-          <img src={loadingPanda} alt="PANDA" />
+      {false &&
+        <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+          <LoadingOutlined style={{fontSize: '24px'}} spin />
         </div>
-      )}
+      }
+      {isDesktopScreen &&
+        <div className="main-logo-wrapper">
+          <div
+            className="main-logo-line black main-logo-line-left"
+            style={{
+              width: "calc((100vw - 226px - 40px) / 2 )"
+            }}
+          />
+          {<RePoizonMainLogo />}
+
+          <div
+            className="main-logo-line black main-logo-line-right"
+            style={{
+              width: "calc((100vw - 226px - 40px) / 2 )"
+            }}
+          />
+        </div>
+      }
       {!isLoadingProduct && (
         <div style={{ paddingBottom: "140px" }}>
           <LeftOutlined
@@ -286,15 +393,18 @@ function Product({ onAddToFavorite, isLoading }) {
             }}
             onClick={() => navigate("/products")}
           />
-          <div className={"content-wrapper"}>
-            <div className={"carousel-wrapper"}>
+
+          <div className={"content-wrapper"} style={{gridTemplateColumns: `${isDesktopScreen ? '50% 50%' : ''}`}}>
+            <div style={{width: '30%'}}>
               <SwiperCarousel
                 images={product?.images}
                 onLoad={onLoadCarousel}
                 onError={onLoadCarousel}
+                style={{width: `${isDesktopScreen ? '30%' : '30%'}`}}
               />
             </div>
-            <div>
+
+            <div style={{padding: '10px'}}>
               <div
                 style={{
                   backgroundColor: "white",
@@ -364,33 +474,58 @@ function Product({ onAddToFavorite, isLoading }) {
                 </div>
                 <RightOutlined />
               </div>
+              {isDesktopScreen &&
+                <div
+                  style={{
+                    width: "100%",
+                    height: "90px",
+                    margin: 10,
+                  }}
+                >
+                  <Button
+                    type="primary"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      fontSize: "20px",
+                      fontWeight: "400",
+                    }}
+                    onClick={() => setModalOpen(true)}
+                  >
+                    Выбрать размер
+                  </Button>
+                </div>
+              }
             </div>
           </div>
 
-          <div
-            style={{
-              position: "fixed",
-              bottom: "0",
-              width: "100%",
-              height: "90px",
-              padding: 10,
-              backgroundColor: "white",
-              borderTop: "1px solid #f9f9f9",
-            }}
-          >
-            <Button
-              type="primary"
+          {!isDesktopScreen &&
+            <div
               style={{
+                position: "fixed",
+                bottom: "0",
                 width: "100%",
-                height: "100%",
-                fontSize: "20px",
-                fontWeight: "400",
+                height: "90px",
+                padding: 10,
+                backgroundColor: "white",
+                borderTop: "1px solid #f9f9f9",
               }}
-              onClick={() => setModalOpen(true)}
             >
-              Выбрать размер
-            </Button>
-          </div>
+              <Button
+                type="primary"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  fontSize: "20px",
+                  fontWeight: "400",
+                }}
+                onClick={() => setModalOpen(true)}
+              >
+                Выбрать размер
+              </Button>
+            </div>
+          }
+
         </div>
       )}
     </Layout>
