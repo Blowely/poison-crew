@@ -122,7 +122,7 @@ function Product({ onAddToFavorite, isLoading }) {
 
 
   return (
-    <Layout style={{ position: "relative" }}>
+    <div style={{ position: "relative" }}>
       {!token && (
         <AuthModal
           open={isModalOpen}
@@ -359,7 +359,7 @@ function Product({ onAddToFavorite, isLoading }) {
           </div>
         </div>
       )}
-    </Layout>
+    </div>
   );
 }
 export default Product;

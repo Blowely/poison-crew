@@ -84,13 +84,8 @@ function Card({
           <div className={styles.cardText} style={{}}>
             {title}
           </div>
-          <div className="d-flex justify-between align-center">
-            <div className="d-flex flex-column ">
-              <b style={{ fontSize: "15px", gap: "3px", display: "flex" }}>
-                <b style={{ fontSize: "14px", color: "black" }}></b>
-                {getPrice()} ₽
-              </b>
-            </div>
+          <div className={styles.price}>
+            <span>{getPrice()} ₽</span>
           </div>
         </>
       )}
