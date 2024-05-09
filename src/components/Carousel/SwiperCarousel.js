@@ -11,18 +11,18 @@ const SwiperCarousel = (props) => {
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <Swiper pagination={true} modules={[Pagination]} className="mySwiper" lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}>
+    <Swiper pagination={true} modules={[Pagination]} style={{width:'100%'}} lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}>
       {images?.map((image, index) => {
         return (
           <SwiperSlide key={index}>
             <img
-              style={{width: "inherit"}}
               src={image}
               onLoad={onLoad}
               onLoadedData={onLoad}
               alt={`Image ${index + 1}`}
               onError={onError}
               loading="lazy"
+              style={{width: '100%'}}
             />
           </SwiperSlide>
         );

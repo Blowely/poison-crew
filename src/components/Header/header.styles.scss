@@ -89,3 +89,11 @@
 .border-bottom_black {
   z-index: 0;
 }
+
+.go-back-btn {
+  z-index: 99;
+  position: fixed;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 25px;
+}
