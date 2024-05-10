@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Input, Layout, Modal } from "antd";
+import { Button, Divider, Input, Layout, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery } from "../store/products.store";
 import "./product.scss";
@@ -17,6 +17,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
+import MeasureTable from "../components/MeasureTable/MeasureTable";
 
 function Product({ onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
@@ -29,7 +30,7 @@ function Product({ onAddToFavorite, isLoading }) {
   const [measureOpen, setMeasureOpen] = useState(false);
   const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
-  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(true);
+  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
 
   const productId = searchParams.get("productId");
 
@@ -52,6 +53,8 @@ function Product({ onAddToFavorite, isLoading }) {
 
   useEffect(() => {
     const itemIndex = product?.sizesAndPrices?.findIndex((el) => el?.price === product?.cheapestPrice);
+    console.log('itemIndex =',itemIndex);
+    console.log('product =',product);
     setChoice({
       price: product?.sizesAndPrices[itemIndex]?.price,
       size: product?.sizesAndPrices[itemIndex]?.size,
@@ -65,7 +68,7 @@ function Product({ onAddToFavorite, isLoading }) {
       prevUpdatedAtRef.current = product?.updatedAt;
       setDisabledBuyBtn(false);
     }
-  }, []);
+  }, [product]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -258,7 +261,7 @@ function Product({ onAddToFavorite, isLoading }) {
             <div style={{ fontSize: "22px", fontWeight: "500" }}>
               Таблица размеров
             </div>
-            <MeasureTableIcon />
+            <MeasureTable sizeInfoList={product?.sizeInfoList} />
           </div>
         </Modal>
       )}
@@ -292,9 +295,12 @@ function Product({ onAddToFavorite, isLoading }) {
             className="go-back-btn"
             onClick={() => navigate("/products")}
           />
-          <div className={'layout-wrapper'}>
-            <div className={"content-wrapper"}>
-              <div className={"carousel-wrapper"}>
+          <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px 0 20px' : '0'}}>
+            <div className={"content-wrapper"} style={{flexDirection: isDesktopScreen ? 'row' : 'column'}}>
+              <div className={"carousel-wrapper"} style={{
+                maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
+                marginTop: isDesktopScreen ? '40px' : '0'
+              }}>
                 <SwiperCarousel
                   style={{width: '100%'}}
                   images={product?.images}
@@ -303,27 +309,93 @@ function Product({ onAddToFavorite, isLoading }) {
                 />
               </div>
 
-              <div className={"product-info-wrapper"}>
+              <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
                 <div className="product-info__item title">
                   {product?.title}
                 </div>
-                <div className="product-info__item">
+                <div className="product-info__item poizon_auth">
+                  <img className="product-info__item poizon_auth pzn_img"
+                       src="https://cdn-img.poizonapp.com/node-common/e9004fdc-f3f9-1e94-d275-0965f2da9ee4-192-117.png?x-oss-process=image/format,webp/resize,w_100"
+                       alt="100% authenticated" />
+                  <div className="sm_divider">|</div>
+                  <div className="product-info__item poizon_auth main-txt">ВЕРЕФИЦИРОВАНО ЭКСПЕРТАМИ</div>
+                  <div className="product-info__item poizon_auth second-txt">5-шаговая аутентификация</div>
+                  <div>
+                    <img className="PoizonImage_img__BNSaU"
+                         src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
+                  </div>
                 </div>
-                <div className="product-info__item">
-                </div>
+                <Divider></Divider>
 
                 {isDesktopScreen &&
-                  <Button
-                    type="primary"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    className={"btn"}
-                    onClick={() => setModalOpen(true)}
-                  >
-                    Выбрать размер
-                  </Button>
+                  <div className="product-info__item">
+                    <div className="label">
+                      <div className="label_wrap">
+                        <div className="size_label">
+                          <div>Размер: EU</div>
+                        </div>
+                      </div>
+                      <div className="size_guide" onClick={onMeasureOpenClick}>
+                        Таблица размеров
+                        <img className="PoizonImage_img__BNSaU"
+                             src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="list">
+                      {product?.sizesAndPrices
+                        .map((el, i) => (
+                          <div
+                            className={
+                              i === choice.index
+                                ? "size-wrapper gap-2 selected"
+                                : "size-wrapper gap-2"
+                            }
+                            onClick={() => onChangeChoiceHandler(el, i)}
+                            key={i}
+                            role="presentation"
+                          >
+                            <div
+                              style={{
+                                fontSize: "17px",
+                                fontWeight: "600",
+                                textAlign: "center",
+                              }}
+                            >
+                              {el.size}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: "13px",
+                                textAlign: "center",
+                                display: "flex",
+                                gap: "1.5px",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {getTitlePrice(el.price) || "--"}
+                              <span style={{ fontSize: "13px" }}>₽</span>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                }
+
+
+                {isDesktopScreen &&
+                  <div className="btn_wrapper">
+                    <Button
+                      type="primary"
+                      className={"btn"}
+                      onClick={() => setModalOpen(true)}
+                      disabled={isDisabledBuyBtn}
+                      loading={isDisabledBuyBtn}
+                    >
+                      <>{getBtnPrice(choice?.price) || "--"}
+                        <span>{isDisabledBuyBtn ? '' : ' ₽'}</span></>
+                    </Button>
+                  </div>
+
                 }
               </div>
 
@@ -343,12 +415,7 @@ function Product({ onAddToFavorite, isLoading }) {
               >
                 <Button
                   type="primary"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    fontSize: "20px",
-                    fontWeight: "400",
-                  }}
+                  className={"btn"}
                   onClick={() => setModalOpen(true)}
                 >
                   Выбрать размер
