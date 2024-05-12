@@ -1,22 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Divider, Input, Layout, Modal } from "antd";
+import { Button, Divider, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery } from "../store/products.store";
 import "./product.scss";
-import styles from "./product.module.scss";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { LeftOutlined } from "@ant-design/icons";
 import AuthModal from "./AuthModal";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
-import AdidasIcon from "../assets/svg/brands/adidas-icon";
-import MeasureTableIcon from "../assets/svg/measure-table-icon";
-import { getCheapestPriceOfSize } from "../common/utils";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
-import loadingPanda from "../assets/loading-panda.gif";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
-import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 
 function Product({ onAddToFavorite, isLoading }) {
