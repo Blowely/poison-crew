@@ -179,7 +179,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   return (
     <Layout style={{ backgroundColor: "white" }}>
-      <div className="loader">
+      {/*<div className="loader">
         <div className="loader-box-wrapper">
           <div className="loader-box loader-box_black">
             <div className="loader__item_left_partition"></div>
@@ -189,7 +189,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             <div className="loader-box__item loader__item_right">RE</div>
           </div>
         </div>
-      </div>
+      </div>*/}
 
       <div className="main-logo-wrapper">
         <div

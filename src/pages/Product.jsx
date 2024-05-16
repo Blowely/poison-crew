@@ -115,8 +115,11 @@ function Product({ onAddToFavorite, isLoading }) {
     setIsLoadingImages(false);
   };
 
-  const isDesktopScreen = window?.innerWidth > 768;
+  const getClearTitle = (str) => {
+    return str.replace(/[^a-zA-Z\s]/g, '');
+  }
 
+  const isDesktopScreen = window?.innerWidth > 768;
 
   return (
     <div style={{ position: "relative" }}>
@@ -305,7 +308,7 @@ function Product({ onAddToFavorite, isLoading }) {
 
               <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
                 <div className="product-info__item title">
-                  {product?.title}
+                  {getClearTitle(product?.title)}
                 </div>
                 <div className="product-info__item poizon_auth">
                   <img className="product-info__item poizon_auth pzn_img"
@@ -381,7 +384,7 @@ function Product({ onAddToFavorite, isLoading }) {
                     <Button
                       type="primary"
                       className={"btn"}
-                      onClick={() => setModalOpen(true)}
+                      onClick={onAddToCart}
                       disabled={isDisabledBuyBtn}
                       loading={isDisabledBuyBtn}
                     >
