@@ -74,12 +74,14 @@ const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpe
     }
   }
 
+  const isDesktopScreen = window?.innerWidth > 768;
+
   return (
     <Modal
       open={open}
       onOk={onOkHandler}
       okText={!isCodeModalOpen ? "Получить код подтверждения" : 'Подтвердить'}
-      centered
+      centered={!isDesktopScreen}
       onCancel={onCancel}
     >
 

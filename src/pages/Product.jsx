@@ -147,7 +147,7 @@ function Product({ onAddToFavorite, isLoading }) {
             disabled: isDisabledBuyBtn,
             loading: isDisabledBuyBtn,
           }}
-          centered
+          centered={!isDesktopScreen}
           onCancel={() => {
             setModalOpen(false);
           }}
@@ -242,7 +242,7 @@ function Product({ onAddToFavorite, isLoading }) {
           onOk={() => {
             setMeasureOpen(false);
           }}
-          centered
+          centered={!isDesktopScreen}
           onCancel={() => {
             setMeasureOpen(false);
           }}

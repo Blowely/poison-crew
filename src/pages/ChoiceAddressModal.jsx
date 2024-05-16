@@ -279,13 +279,15 @@ function ChoiceAddressModal({
     // window?.boxberry?.open(onChangeBoxBerry)
   };
 
+  const isDesktopScreen = window?.innerWidth > 768;
+
   return (
     <Modal
       open={open}
       onOk={onOkHandler}
       okText="Добавить адрес доставки"
-      centered
       onCancel={onCancel}
+      centered={!isDesktopScreen}
     >
       {renderModalContent()}
     </Modal>
