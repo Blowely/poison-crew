@@ -24,7 +24,7 @@ function Product({ onAddToFavorite, isLoading }) {
   const [measureOpen, setMeasureOpen] = useState(false);
   const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
-  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
+  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(true);
 
   const productId = searchParams.get("productId");
 
@@ -36,11 +36,11 @@ function Product({ onAddToFavorite, isLoading }) {
       productId,
       token,
     },
-    //{ pollingInterval: 10000 },
+    { pollingInterval: 15000 },
   );
 
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: 10,
+    initialTime: 15,
     endTime: 0,
     timerType: 'DECREMENTAL',
   });
@@ -116,14 +116,14 @@ function Product({ onAddToFavorite, isLoading }) {
   };
 
   const getClearTitle = (str) => {
-    return str.replace(/[^a-zA-Z\s]/g, '');
+    return str?.replace(/[^a-zA-Z\s]/g, '');
   }
 
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
     <div style={{ position: "relative" }}>
-      {!token && (
+      {/*{!token && (
         <AuthModal
           open={isModalOpen}
           setRemotePhone={setPhone}
@@ -135,8 +135,8 @@ function Product({ onAddToFavorite, isLoading }) {
           isCodeModalOpen={isCodeModalOpen}
           setCodeModalOpen={setCodeModalOpen}
         />
-      )}
-      {token && (
+      )}*/}
+      {true && (
         <Modal
           title="Выберите размер"
           open={isModalOpen}
