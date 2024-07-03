@@ -67,7 +67,7 @@ function Card({
       )}
 
       <img
-        style={{ width: `${isSquare ? '64%' : "-webkit-fill-available"}` }}
+        style={{ width: `${isSquare ? '64%' : "-webkit-fill-available"}`, height: 'auto' }}
         ref={imgElement}
         src={images?.[0]}
         onLoad={onLoadedIcon}

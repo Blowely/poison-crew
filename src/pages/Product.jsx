@@ -12,6 +12,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
+import { getIntPrice } from "../common/utils";
 
 function Product({ onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
@@ -98,7 +99,7 @@ function Product({ onAddToFavorite, isLoading }) {
     }
 
     if (Number(price) > 0) {
-      return Math.ceil(price / 100);
+      return getIntPrice(price);
     }
 
     return "--";

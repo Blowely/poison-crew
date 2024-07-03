@@ -99,3 +99,11 @@ export const useFirstRender = () => {
   ref.current = false;
   return firstRender;
 };
+
+export const getIntPrice = (price) => {
+  if (!price) {
+    return "";
+  }
+  const str = price.toString() || ""
+  return str.slice(0,price.length - 2);
+}

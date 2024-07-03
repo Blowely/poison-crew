@@ -24,6 +24,7 @@ import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses, removeAddress} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
 import {clearCart, removeFromCart} from "../common/cartSlice";
+import { getIntPrice } from "../common/utils";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -154,7 +155,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                                         </div>
 
                                         <div className="cart-product-info-third-column">
-                                            <div style={{fontWeight: '500'}}>{el.price} ₽</div>
+                                            <div style={{fontWeight: '500'}}>{getIntPrice(el.price)} ₽</div>
                                             <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
                                                 <DeleteOutlined />
                                             </div>
