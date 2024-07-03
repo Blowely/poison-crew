@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Divider, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery } from "../store/products.store";
@@ -51,7 +51,7 @@ function Product({ onAddToFavorite, isLoading }) {
     console.log('itemIndex =',itemIndex);
     console.log('product =',product);
     setChoice({
-      price: product?.sizesAndPrices[itemIndex]?.price,
+      price: product?.sizesAndPrices[itemIndex]?.price.toString(),
       size: product?.sizesAndPrices[itemIndex]?.size,
       index: itemIndex,
     })
@@ -82,28 +82,32 @@ function Product({ onAddToFavorite, isLoading }) {
 
   const onChangeChoiceHandler = (el, i) => {
     if (Number(el.price) > 0) {
-      setChoice({ size: el.size, price: el.price, index: i });
+      setChoice({ size: el.size, price: el.price.toString(), index: i });
     }
   };
 
   const getTitlePrice = (price) => {
-    if (Number(price) > 0) {
-      return Math.ceil(price / 100);
+    if (!price) {
+      return "--";
     }
-    return "--";
+    const str = JSON.stringify(price);
+    console.log('price=',price);
+    return str?.substring(0, str?.length - 2);
   };
 
-  const getBtnPrice = (price) => {
+  const getBtnPrice = useCallback((price) => {
     if (isDisabledBuyBtn) {
       return `Обновление цен ${time}`
     }
 
-    if (Number(price) > 0) {
-      return getIntPrice(price);
+    if (!price) {
+      return "--";
     }
 
-    return "--";
-  };
+    console.log('price=',price);
+    return price.substring(0, price?.length - 2);
+
+  },[choice, isDisabledBuyBtn, time]);
 
   const onMeasureOpenClick = () => {
     setMeasureOpen(true);
@@ -121,6 +125,8 @@ function Product({ onAddToFavorite, isLoading }) {
   }
 
   const isDesktopScreen = window?.innerWidth > 768;
+
+
 
   return (
     <div style={{ position: "relative" }}>
@@ -227,7 +233,7 @@ function Product({ onAddToFavorite, isLoading }) {
                       justifyContent: "center",
                     }}
                   >
-                    {getTitlePrice(el.price) || "--"}
+                    {getTitlePrice(el.price.toString()) || "--"}
                     <span style={{ fontSize: "13px" }}>₽</span>
                   </div>
                 </div>
@@ -389,7 +395,7 @@ function Product({ onAddToFavorite, isLoading }) {
                       disabled={isDisabledBuyBtn}
                       loading={isDisabledBuyBtn}
                     >
-                      <>{getBtnPrice(choice?.price) || "--"}
+                      <>{getBtnPrice(choice?.price)}
                         <span>{isDisabledBuyBtn ? '' : ' ₽'}</span></>
                     </Button>
                   </div>
