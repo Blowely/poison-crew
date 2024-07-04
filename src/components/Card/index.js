@@ -48,7 +48,7 @@ function Card({
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <a href={`/products/view?productId=${id}`} target="_blank" className={styles.card} rel="noreferrer">
+    <a href={`/products/view?productId=${id}`} className={styles.card} rel="noreferrer">
       {!title && (
           <ContentLoader
           speed={2}
