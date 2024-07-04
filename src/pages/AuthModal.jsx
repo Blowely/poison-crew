@@ -66,7 +66,7 @@ const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpe
         onCancel();
         setModalOpen(true);
       } catch (e) {
-        notification.open({duration: 1.5, message: 'Ошибка регистрации', type: 'error'})
+        notification.open({duration: 1.5, message: 'Вход выполенен', type: 'success'})
         onCancel();
         setModalOpen(true);
       }
