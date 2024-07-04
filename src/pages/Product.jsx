@@ -241,7 +241,7 @@ function Product({ onAddToFavorite, isLoading }) {
           </div>
         </Modal>
       )}
-      {token && measureOpen && (
+      {measureOpen && (
         <Modal
           title="Таблица размеров"
           open={measureOpen}
