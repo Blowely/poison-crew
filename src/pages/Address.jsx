@@ -145,7 +145,7 @@ function Address({ onAddToFavorite, onAddToCart, isLoading }) {
             onClick={() =>
               window?.boxberry?.open(
                 onChangeBoxBerry,
-                "1$12260ab6f8bcb87d221c63845f48029d",
+                "333d8a0ba433f89a5b8b7f313b654f9c",
                 "Москва",
                 "",
                 1000,
