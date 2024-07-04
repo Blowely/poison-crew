@@ -115,7 +115,7 @@ const Orders = () => {
 
                                                 <div>
                                                     <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                        {Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000)} ₽
+                                                        {p?.price.toString().substring(0, p?.price?.length - 2)} ₽
                                                     </div>
                                                 </div>
                                             </div>
