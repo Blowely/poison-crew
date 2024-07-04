@@ -199,7 +199,7 @@ function Product({ onAddToFavorite, isLoading }) {
             onClick={onMeasureOpenClick}
             role="presentation"
           >
-            <span>Таблица размеров</span>
+            <span>Таблица размеров</span><span>></span>
           </div>
           <div className="content-size-wrapper">
             {product?.sizesAndPrices
