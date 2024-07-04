@@ -5,8 +5,8 @@ import { API_URL } from "../bootstrap";
 export const ordersApi = createApi({
   reducerPath: "ordersApi",
   tagTypes: ["Order"],
-  baseQuery: baseQuery("http://185.164.172.242:3001/api"),
-  //baseQuery: baseQuery('http://localhost:3000/api'),
+  baseQuery: baseQuery("https://api.re-poizon.ru/api"),
+  //baseQuery: baseQuery('http://localhost:3001/api'),
   endpoints: (builder) => ({
     getOrders: builder.query({
       query: (clientId) => `/orders?clientId=${clientId}`,

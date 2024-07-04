@@ -104,7 +104,6 @@ function Product({ onAddToFavorite, isLoading }) {
       return "--";
     }
 
-    console.log('price=',price);
     return price.substring(0, price?.length - 2);
 
   },[choice, isDisabledBuyBtn, time]);
@@ -184,7 +183,7 @@ function Product({ onAddToFavorite, isLoading }) {
                   alignItems: "flex-end",
                 }}
               >
-                {getTitlePrice(choice.price) || "--"}
+                {choice?.price?.substring(0, choice.price.length - 2) || "--"}
                 <span style={{ fontSize: "19px" }}>₽</span>
               </div>
               <div style={{ fontSize: "15px" }}>Размер: {choice.size}</div>
@@ -233,7 +232,7 @@ function Product({ onAddToFavorite, isLoading }) {
                       justifyContent: "center",
                     }}
                   >
-                    {getTitlePrice(el.price.toString()) || "--"}
+                    {getTitlePrice(el.price) || "--"}
                     <span style={{ fontSize: "13px" }}>₽</span>
                   </div>
                 </div>

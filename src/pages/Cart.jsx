@@ -155,7 +155,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                                         </div>
 
                                         <div className="cart-product-info-third-column">
-                                            <div style={{fontWeight: '500'}}>{getIntPrice(el.price)} ₽</div>
+                                            <div style={{fontWeight: '500'}}>{el?.price?.substring(0, el?.price?.length - 2)} ₽</div>
                                             <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
                                                 <DeleteOutlined />
                                             </div>
