@@ -236,8 +236,7 @@ function Product({ onAddToFavorite, isLoading }) {
                     <span style={{ fontSize: "13px" }}>₽</span>
                   </div>
                 </div>
-              ))
-              .reverse()}
+              ))}
           </div>
         </Modal>
       )}
