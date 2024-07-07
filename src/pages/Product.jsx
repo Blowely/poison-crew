@@ -42,11 +42,11 @@ function Product({ onAddToFavorite, isLoading }) {
       productId,
       token,
     },
-    { pollingInterval: 15000 },
+    { pollingInterval: 13000 },
   );
 
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: 15,
+    initialTime: 13,
     endTime: 0,
     timerType: 'DECREMENTAL',
   });
