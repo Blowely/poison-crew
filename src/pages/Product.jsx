@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Divider, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetProductQuery } from "../store/products.store";
+import { useGetProductQuery, useParseProductQuery } from "../store/products.store";
 import "./product.scss";
 import { LeftOutlined } from "@ant-design/icons";
 import AuthModal from "./AuthModal";
@@ -31,6 +31,11 @@ function Product({ onAddToFavorite, isLoading }) {
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
+
+  useParseProductQuery({
+    productId,
+    token,
+  });
 
   let { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
     {

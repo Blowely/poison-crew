@@ -9,6 +9,11 @@ export const productsApi = createApi({
   baseQuery: baseQuery("https://api.re-poizon.ru/api"),
   //baseQuery: baseQuery("http://localhost:3000/api"),
   endpoints: (builder) => ({
+    parseProduct: builder.query({
+      query: ({ productId, token }) =>
+        `/productsV3?id=${productId}&token=${token}&parse=true`,
+      invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
+    }),
     getProducts: builder.query({
       query: (params) => customUrlBuilder("/productsV3", params),
       ...collectionQueryProps("Product"),
@@ -26,6 +31,7 @@ export const productsApi = createApi({
 });
 
 export const {
+  useParseProductQuery,
   useGetProductsQuery,
   useGetProductQuery,
   useGetCartProductsQuery,
