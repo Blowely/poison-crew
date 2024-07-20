@@ -25,17 +25,17 @@ function Product({ onAddToFavorite, isLoading }) {
   const [measureOpen, setMeasureOpen] = useState(false);
   const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
-  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(true);
+  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
 
   const productId = searchParams.get("productId");
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
 
-  useParseProductQuery({
+  /*useParseProductQuery({
     productId,
     token,
-  });
+  });*/
 
   let { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
     {
@@ -46,7 +46,8 @@ function Product({ onAddToFavorite, isLoading }) {
   );
 
   const { time, start, pause, reset, status } = useTimer({
-    initialTime: 13,
+    //initialTime: 13,
+    initialTime: 0,
     endTime: 0,
     timerType: 'DECREMENTAL',
   });
@@ -66,7 +67,7 @@ function Product({ onAddToFavorite, isLoading }) {
       prevUpdatedAtRef.current = product?.updatedAt;
     } else if (prevUpdatedAtRef.current !== product?.updatedAt) {
       prevUpdatedAtRef.current = product?.updatedAt;
-      setDisabledBuyBtn(false);
+      //setDisabledBuyBtn(false);
     }
   }, [product]);
 
