@@ -23,7 +23,7 @@ export const ErrorFallback = ({ error, resetErrorBoundary }) => {
   );
 };
 
-export const API_URL = "http://185.164.172.242:3001/api";
+export const API_URL = "https://api.re-poizon.ru/api";
 
 const Index = () => {
   return (
