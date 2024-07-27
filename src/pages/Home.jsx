@@ -243,7 +243,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         </div>*/}
         <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
       </div>
-      {!isDesktopScreen &&
+      {/*{!isDesktopScreen &&
         <footer>
           <div onClick={() => navigate("/products")}>
             <ActiveBagIcon />
@@ -255,7 +255,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             <NonActiveProfileIcon />
           </div>
         </footer>
-      }
+      }*/}
     </Layout>
   );
 }
