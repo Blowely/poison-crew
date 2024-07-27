@@ -52,7 +52,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     let obj = {
       limit: 20,
       search: search?.toLowerCase(),
-      collName: "personal",
     };
 
     if (collection) {

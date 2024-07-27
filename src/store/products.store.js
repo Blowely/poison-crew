@@ -11,11 +11,11 @@ export const productsApi = createApi({
   endpoints: (builder) => ({
     parseProduct: builder.query({
       query: ({ productId, token }) =>
-        `/productsV3?id=${productId}&token=${token}&parse=true`,
+        `/productsV4?id=${productId}&token=${token}&parse-auth=true`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getProducts: builder.query({
-      query: (params) => customUrlBuilder("/productsV3", params),
+      query: (params) => customUrlBuilder("/productsV4", params),
       ...collectionQueryProps("Product"),
     }),
     getProduct: builder.query({
