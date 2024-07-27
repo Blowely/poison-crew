@@ -123,7 +123,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     return (
       <div className="cards-section-wrapper">
-        {productsItems.map((item, index) => (
+        {productsItems.filter((product) => !product?.isDeleted).map((item, index) => (
           <Suspense fallback={<div>Loading...</div>} key={index}>
             <Card
               id={item?.spuId}
