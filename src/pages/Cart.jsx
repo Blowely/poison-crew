@@ -55,7 +55,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         if (from) {
             return navigate('/products');
         } else if (cartItems[0]?._id) {
-            return navigate(`/products/view?productId=${cartItems[0]?._id}`);
+            return navigate(`/products/view?spuId=${cartItems[0]?._id}`);
         } else {
             return navigate('/products');
         }

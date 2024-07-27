@@ -40,7 +40,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [test, setTest] = useState([]);
 
   const search = searchParams.get("search");
-  const collection = searchParams.get("collName") || "personal";
+  const collection = searchParams.get("collName") || "";
   let offset = searchParams.get("offset");
   const type = searchParams.get("type");
 
@@ -126,7 +126,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         {productsItems.map((item, index) => (
           <Suspense fallback={<div>Loading...</div>} key={index}>
             <Card
-              id={item?._id}
+              id={item?.spuId}
               key={index}
               onFavorite={(obj) => onAddToFavorite(obj)}
               onPlus={(obj) => onAddToCart(obj)}

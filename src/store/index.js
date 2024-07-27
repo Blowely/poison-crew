@@ -18,7 +18,6 @@ export const reducers = {
   [accountsApi.reducerPath]: accountsApi.reducer,
   [ordersApi.reducerPath]: ordersApi.reducer,
   [collectionsApi.reducerPath]: collectionsApi.reducer,
-  [cdekApi.reducerPath]: cdekApi.reducer,
   [boxBerryApi.reducerPath]: boxBerryApi.reducer,
   [cartSlice.name]: cartSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,

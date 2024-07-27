@@ -5,7 +5,7 @@ import ContentLoader from "react-content-loader";
 import { useNavigate } from "react-router-dom";
 
 function Card({
-  id,
+  spuId,
   onFavorite,
   title,
   images,
@@ -21,11 +21,11 @@ function Card({
   const imgElement = React.useRef(null);
 
   const onClickPlus = () => {
-    onPlus({ id, title, images, price });
+    onPlus({ spuId, title, images, price });
   };
 
   const onClickFavorite = () => {
-    onFavorite({ id, title, images, price });
+    onFavorite({ spuId, title, images, price });
     setIsFavorite(!isFavorite);
   };
 
@@ -48,7 +48,7 @@ function Card({
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <a href={`/products/view?productId=${id}`} className={styles.card} rel="noreferrer">
+    <a href={`/products/view?spuId=${spuId}`} className={styles.card} rel="noreferrer">
       {!title && (
           <ContentLoader
           speed={2}

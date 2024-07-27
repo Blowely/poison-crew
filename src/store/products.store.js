@@ -10,8 +10,8 @@ export const productsApi = createApi({
   //baseQuery: baseQuery("http://localhost:3000/api"),
   endpoints: (builder) => ({
     parseProduct: builder.query({
-      query: ({ productId, token }) =>
-        `/productsV4?id=${productId}&token=${token}&parse-auth=true`,
+      query: ({ spuId, token }) =>
+        `/productsV4?spuId=${spuId}&token=${token}&update=true`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getProducts: builder.query({
@@ -19,12 +19,12 @@ export const productsApi = createApi({
       ...collectionQueryProps("Product"),
     }),
     getProduct: builder.query({
-      query: ({ productId, token }) =>
-        `/productsV3?id=${productId}&token=${token}`,
+      query: ({ spuId, token }) =>
+        `/productsV4?spuId=${spuId}&token=${token}`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getCartProducts: builder.query({
-      query: (token) => `/productsV3?token${token}`,
+      query: (token) => `/productsV4?token${token}`,
       ...collectionQueryProps("Product"),
     }),
   }),

@@ -27,19 +27,19 @@ function Product({ onAddToFavorite, isLoading }) {
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
 
-  const productId = searchParams.get("productId");
+  const spuId = searchParams.get("spuId");
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
 
-  /*useParseProductQuery({
-    productId,
+  useParseProductQuery({
+    spuId,
     token,
-  });*/
+  });
 
   let { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
     {
-      productId,
+      spuId,
       token,
     },
     { pollingInterval: 13000 },
@@ -97,7 +97,7 @@ function Product({ onAddToFavorite, isLoading }) {
       return "--";
     }
     const str = JSON.stringify(price);
-    console.log('price=',price);
+
     return str?.substring(0, str?.length - 2);
   };
 
