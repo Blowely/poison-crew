@@ -57,11 +57,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
     var page = document.getElementById('productWrapper');
 
     if (spuId) {
+      page.style.display = 'block'
       page.style.transition = 'right 0.2s ease-in-out'
       page.style.right = '0';
       page.style.transition = 'unset';
+    } else {
+      page.style.display = 'none';
     }
-
   }, [spuId])
 
   const buildRequest = () => {
