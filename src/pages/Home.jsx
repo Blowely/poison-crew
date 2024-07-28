@@ -53,16 +53,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     startLoaderAnimation();
   }, []);
 
-  useEffect(() => {
-    var page = document.getElementById('productWrapper');
-
-    if (spuId) {
-      page.style.right = '0';
-    } else {
-      page.style.display = 'none';
-    }
-  }, [spuId])
-
   const buildRequest = () => {
     let obj = {
       limit: 20,
@@ -198,9 +188,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
-      <div className="productWrapper" id="productWrapper">
+      {spuId && <div className="productWrapper" id="productWrapper">
         <Product selectedProduct={selectedProduct}/>
       </div>
+      }
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
           {/*<div
