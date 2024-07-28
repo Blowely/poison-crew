@@ -23,13 +23,6 @@ function Card({
   const [isFavorite, setIsFavorite] = React.useState(favorited);
   const imgElement = React.useRef(null);
 
-
-  const onCardClickHandler = (spuId) => {
-    /*searchParams.set('spuId', spuId);
-    setSearchParams(searchParams);*/
-    localStorage.setItem('product', JSON.stringify(item));
-  }
-
   const onClickPlus = () => {
     onPlus({ spuId, title, images, price });
   };
@@ -58,7 +51,7 @@ function Card({
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <a href={`/products?spuId=${spuId}`} className={styles.card} onClick={() => onCardClickHandler(spuId)} rel="noreferrer">
+    <div className={styles.card}/* onClick={() => onCardClickHandler(spuId)} */ rel="noreferrer">
       {!title && (
           <ContentLoader
           speed={2}
@@ -95,7 +88,7 @@ function Card({
           </div>
         </>
       )}
-    </a>
+    </div>
   );
 }
 export default Card;
