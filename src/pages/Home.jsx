@@ -46,6 +46,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
 
+  const isDesktopScreen = window?.innerWidth > 768;
+
   useEffect(() => {
     startLoaderAnimation();
   }, []);
@@ -55,8 +57,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     if (spuId) {
       console.log('page',productWrapper);
       productWrapper.classList.toggle('show');
-
-    } else {
+    } else if (isDesktopScreen) {
       productWrapper.classList.remove('show');
     }
   },[spuId])
@@ -193,8 +194,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     },
     false,
   );
-
-  const isDesktopScreen = window?.innerWidth > 768;
 
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
