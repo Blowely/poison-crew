@@ -46,6 +46,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
 
+  var page = document.getElementById('productWrapper');
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   useEffect(() => {
@@ -53,20 +55,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   useEffect(() => {
-    let productWrapper = document.getElementById('productWrapper');
-    if (spuId) {
-      console.log('page',productWrapper);
-      productWrapper.classList.toggle('show');
+    if (location.hash === '#open') {
+      page?.classList.add('show');
+      history.replaceState({ page: 'open' }, 'Open', '#open');
     } else {
-      if (isDesktopScreen) {
-        return productWrapper.classList.remove('show');
-      }
-
-      productWrapper.style.transition = 'unset';
-      productWrapper.classList.remove('show');
-
+      history.replaceState({ page: 'closed' }, 'Closed', '#closed');
     }
-  },[spuId])
+  },[page])
 
   const buildRequest = () => {
     let obj = {
@@ -126,6 +121,22 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products?.items]);
 
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.page === 'closed') {
+      page?.classList.remove('show');
+    } else if (event.state && event.state.page === 'open') {
+      page?.classList.add('show');
+    }
+  });
+
+  window.addEventListener('hashchange', function() {
+    if (location.hash === '#open') {
+      page?.classList.add('show');
+    } else {
+      page?.classList.remove('show');
+    }
+  });
+
   const renderItems = () => {
     const productsItems = isLoading
       ? [...Array(20)]
@@ -142,6 +153,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const onCardClickHandler = (item) => {
+      page.classList.add('show');
+      // eslint-disable-next-line no-restricted-globals
+      history.pushState({ page: 'open' }, 'Open', '#open');
+
       setSelectedProduct(item);
       searchParams.set('spuId', item.spuId);
       setSearchParams(searchParams);
