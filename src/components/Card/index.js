@@ -58,7 +58,7 @@ function Card({
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <div className={styles.card} onClick={() => onCardClickHandler(spuId)} rel="noreferrer">
+    <div className={styles.card} rel="noreferrer">
       {!title && (
           <ContentLoader
           speed={2}

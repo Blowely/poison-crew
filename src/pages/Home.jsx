@@ -122,10 +122,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
+    const onCardClickHandler = (spuId) => {
+      searchParams.set('spuId', spuId);
+      setSearchParams(searchParams);
+      localStorage.setItem('product', JSON.stringify(item));
+    }
+
     return (
       <div className="cards-section-wrapper">
         {productsItems.filter((product) => !product?.isDeleted).map((item, index) => (
-          <Suspense fallback={<div>Loading...</div>} key={index}>
+          <div onClick={() => onCardClickHandler(item)}>
             <Card
               id={item?.spuId}
               key={index}
@@ -137,7 +143,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
               item={item}
               {...item}
             />
-          </Suspense>
+          </div>
         ))}
       </div>
     );
