@@ -28,13 +28,13 @@ import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import ContentLoader from "react-content-loader";
+import Product from "./Product";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const productsSlice = useAppSelector((state) => state.products);
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const productsSlice = useAppSelector((state) => state.products);
 
   const [limit, setLimit] = useState(20);
   const [test, setTest] = useState([]);
@@ -43,6 +43,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const collection = searchParams.get("collName") || "";
   let offset = searchParams.get("offset");
   const type = searchParams.get("type");
+  const spuId = searchParams.get("spuId");
 
   useEffect(() => {
     startLoaderAnimation();
@@ -179,20 +180,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   return (
     <Layout style={{ backgroundColor: "white" }}>
-      {/*<div className="loader">
-        <div className="loader-box-wrapper">
-          <div className="loader-box loader-box_black">
-            <div className="loader__item_left_partition"></div>
-            <div className="loader-box__item loader__item_left">POIZON</div>
-          </div>
-          <div className="loader-box loader-box_white">
-            <div className="loader-box__item loader__item_right">RE</div>
-          </div>
-        </div>
-      </div>*/}
-
-      <div className="main-logo-wrapper">
-        {/*<div
+      {spuId
+        ? <Product />
+        : <div>
+          <div className="main-logo-wrapper">
+            {/*<div
           className="main-logo-line main-logo-line-left"
           style={{
             width: isDesktopScreen
@@ -200,9 +192,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
               : "calc((100vw - 158px - 40px) / 2 )",
           }}
         />*/}
-        {isDesktopScreen ? <RePoizonMainLogo /> : <RePoizonMainMiddleLogo />}
+            {isDesktopScreen ? <RePoizonMainLogo /> : <RePoizonMainMiddleLogo />}
 
-        {/*<div
+            {/*<div
           className="main-logo-line main-logo-line-right"
           style={{
             width: isDesktopScreen
@@ -210,10 +202,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
               : "calc((100vw - 158px - 40px) / 2 )",
           }}
         />*/}
-      </div>
-      <Header />
-      <div className="content">
-        {/*<div className="brands-section-wrapper">
+          </div>
+          <Header />
+          <div className="content">
+            {/*<div className="brands-section-wrapper">
           <div
             className="brands-section-wrapper_card"
             onClick={() => navigate("/products")}
@@ -242,8 +234,23 @@ function Home({ onAddToFavorite, onAddToCart }) {
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
           </div>
         </div>*/}
-        <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
-      </div>
+            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+          </div>
+        </div>
+      }
+      {/*<div className="loader">
+        <div className="loader-box-wrapper">
+          <div className="loader-box loader-box_black">
+            <div className="loader__item_left_partition"></div>
+            <div className="loader-box__item loader__item_left">POIZON</div>
+          </div>
+          <div className="loader-box loader-box_white">
+            <div className="loader-box__item loader__item_right">RE</div>
+          </div>
+        </div>
+      </div>*/}
+
+
       {!isDesktopScreen &&
         <footer>
           <div onClick={() => navigate("/products")}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Card({
   spuId,
@@ -17,11 +17,16 @@ function Card({
   loading = false,
 }) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [loadingImg, setLoadingImg] = useState(true);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
   const imgElement = React.useRef(null);
 
-  const onCardClickHandler = () => {
+
+  const onCardClickHandler = (spuId) => {
+    searchParams.set('spuId', spuId);
+    setSearchParams(searchParams);
     localStorage.setItem('product', JSON.stringify(item));
   }
 
@@ -53,7 +58,7 @@ function Card({
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <a href={`/products/view?spuId=${spuId}`} className={styles.card} onClick={onCardClickHandler} rel="noreferrer">
+    <div className={styles.card} onClick={() => onCardClickHandler(spuId)} rel="noreferrer">
       {!title && (
           <ContentLoader
           speed={2}
@@ -90,7 +95,7 @@ function Card({
           </div>
         </>
       )}
-    </a>
+    </div>
   );
 }
 export default Card;
