@@ -122,8 +122,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
-    const onCardClickHandler = (spuId) => {
-      searchParams.set('spuId', spuId);
+    const onCardClickHandler = (item) => {
+      searchParams.set('spuId', item.spuId);
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
     }
