@@ -148,7 +148,7 @@ function Product({ onAddToFavorite, isLoading }) {
 
 
   return (
-    <div style={{ position: "relative" }}>
+    <div>
       {/*{!token && (
         <AuthModal
           open={isModalOpen}

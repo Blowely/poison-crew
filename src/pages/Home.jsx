@@ -185,12 +185,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
-    <Layout style={{ backgroundColor: "white" }}>
-      {spuId
-        ? <Product />
-        : <div>
-          <div className="main-logo-wrapper">
-            {/*<div
+    <Layout style={{ backgroundColor: "white", position: "relative" }}>
+      {spuId && <div className="productWrapper"><Product /></div>}
+      <div className="productsListWrapper">
+        <div className="main-logo-wrapper">
+          {/*<div
           className="main-logo-line main-logo-line-left"
           style={{
             width: isDesktopScreen
@@ -198,9 +197,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
               : "calc((100vw - 158px - 40px) / 2 )",
           }}
         />*/}
-            {isDesktopScreen ? <RePoizonMainLogo /> : <RePoizonMainMiddleLogo />}
+          {isDesktopScreen ? <RePoizonMainLogo /> : <RePoizonMainMiddleLogo />}
 
-            {/*<div
+          {/*<div
           className="main-logo-line main-logo-line-right"
           style={{
             width: isDesktopScreen
@@ -208,10 +207,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
               : "calc((100vw - 158px - 40px) / 2 )",
           }}
         />*/}
-          </div>
-          <Header />
-          <div className="content">
-            {/*<div className="brands-section-wrapper">
+        </div>
+        <Header />
+        <div className="content">
+          {/*<div className="brands-section-wrapper">
           <div
             className="brands-section-wrapper_card"
             onClick={() => navigate("/products")}
@@ -240,23 +239,22 @@ function Home({ onAddToFavorite, onAddToCart }) {
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
           </div>
         </div>*/}
-            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
-          </div>
-          {!isDesktopScreen &&
-            <footer>
-              <div onClick={() => navigate("/products")}>
-                <ActiveBagIcon />
-              </div>
-              <div onClick={() => navigate("/cart?from=products")}>
-                <NonActiveCartIcon />
-              </div>
-              <div onClick={() => navigate("/profile")}>
-                <NonActiveProfileIcon />
-              </div>
-            </footer>
-          }
+          <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
         </div>
-      }
+        {!isDesktopScreen &&
+          <footer>
+            <div onClick={() => navigate("/products")}>
+              <ActiveBagIcon />
+            </div>
+            <div onClick={() => navigate("/cart?from=products")}>
+              <NonActiveCartIcon />
+            </div>
+            <div onClick={() => navigate("/profile")}>
+              <NonActiveProfileIcon />
+            </div>
+          </footer>
+        }
+      </div>
       {/*<div className="loader">
         <div className="loader-box-wrapper">
           <div className="loader-box loader-box_black">
