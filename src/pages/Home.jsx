@@ -57,9 +57,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     if (spuId) {
       console.log('page',productWrapper);
       productWrapper.classList.toggle('show');
-      document.body.classList.toggle('no-scroll');
     } else {
-      document.body.classList.remove('no-scroll');
       if (isDesktopScreen) {
         productWrapper.classList.remove('show');
       }
