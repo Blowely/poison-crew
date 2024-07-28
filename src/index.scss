@@ -315,3 +315,7 @@ footer {
   transition: right 0.2s ease-in-out;
   right: -100%;
 }
+
+.no-scroll {
+  overflow: hidden;
+}
