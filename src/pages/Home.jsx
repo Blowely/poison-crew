@@ -54,7 +54,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   useEffect(() => {
-    var page = document.getElementById('productWrapper');
+    var page = document.getElementById('#productWrapper');
 
     if (spuId) {
       page.style.right = '0';

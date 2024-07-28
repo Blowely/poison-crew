@@ -301,8 +301,11 @@ footer {
   height: 100%;
 }
 
+.productWrapper.show {
+  right: 0;
+}
+
 .productWrapper {
-  display: block;
   z-index: 3;
   position: fixed;
   width: 100%;
