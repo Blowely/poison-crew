@@ -18,6 +18,8 @@ function Product({ onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const parsedProduct = JSON.parse(localStorage.getItem('product'));
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [isModalOpen, setModalOpen] = useState(false);
   const [isCodeModalOpen, setCodeModalOpen] = useState(false);
@@ -26,6 +28,8 @@ function Product({ onAddToFavorite, isLoading }) {
   const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
+  const [product, setProduct] = useState(parsedProduct);
+
 
   const spuId = searchParams.get("spuId");
 
@@ -36,8 +40,8 @@ function Product({ onAddToFavorite, isLoading }) {
     spuId,
     token,
   });
-
-  let { data: product, isLoading: isLoadingProduct } = useGetProductQuery(
+  const isLoadingProduct = false;
+  let { data: remoteProduct/*, isLoading: isLoadingProduct*/ } = useGetProductQuery(
     {
       spuId,
       token,
@@ -53,23 +57,33 @@ function Product({ onAddToFavorite, isLoading }) {
   });
 
   useEffect(() => {
-    const itemIndex = product?.sizesAndPrices?.findIndex((el) => el?.price === product?.cheapestPrice);
+    const strProduct = JSON.stringify(product);
+    const strRemoteProduct = JSON.stringify(product);
+
+    let currentProduct = product;
+
+    if (strProduct !== strRemoteProduct) {
+      setProduct(remoteProduct);
+      currentProduct = remoteProduct
+    }
+
+    const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => el?.price === currentProduct?.cheapestPrice);
     console.log('itemIndex =',itemIndex);
-    console.log('product =',product);
+    console.log('remoteProduct =',remoteProduct);
     setChoice({
-      price: product?.sizesAndPrices[itemIndex]?.price.toString(),
-      size: product?.sizesAndPrices[itemIndex]?.size,
+      price: currentProduct?.sizesAndPrices[itemIndex]?.price.toString(),
+      size: currentProduct?.sizesAndPrices[itemIndex]?.size,
       index: itemIndex,
     })
 
     if (!prevUpdatedAtRef.current) {
       start();
-      prevUpdatedAtRef.current = product?.updatedAt;
-    } else if (prevUpdatedAtRef.current !== product?.updatedAt) {
-      prevUpdatedAtRef.current = product?.updatedAt;
+      prevUpdatedAtRef.current = currentProduct?.updatedAt;
+    } else if (prevUpdatedAtRef.current !== currentProduct?.updatedAt) {
+      prevUpdatedAtRef.current = currentProduct?.updatedAt;
       //setDisabledBuyBtn(false);
     }
-  }, [product]);
+  }, [remoteProduct]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -148,104 +162,101 @@ function Product({ onAddToFavorite, isLoading }) {
           setCodeModalOpen={setCodeModalOpen}
         />
       )}*/}
-      {true && (
-        <Modal
-          title="Выберите размер"
-          open={isModalOpen}
-          onOk={onAddToCart}
-          okText={<>{getBtnPrice(choice?.price) || "--"}
-            <span style={{ fontSize: "19px" }}>{isDisabledBuyBtn ? '' : ' ₽'}</span></>}
-          okButtonProps={{
-            disabled: isDisabledBuyBtn,
-            loading: isDisabledBuyBtn,
-          }}
-          centered={!isDesktopScreen}
-          onCancel={() => {
-            setModalOpen(false);
+      <Modal
+        title="Выберите размер"
+        open={isModalOpen}
+        onOk={onAddToCart}
+        okText={<>{getBtnPrice(choice?.price) || "--"}
+          <span style={{ fontSize: "19px" }}>{isDisabledBuyBtn ? '' : ' ₽'}</span></>}
+        okButtonProps={{
+          disabled: isDisabledBuyBtn,
+          loading: isDisabledBuyBtn,
+        }}
+        centered={!isDesktopScreen}
+        onCancel={() => {
+          setModalOpen(false);
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            padding: "15px",
+            borderBottom: "1px solid #ececec",
+            gap: "20px",
           }}
         >
+          <img src={product?.images?.[0]} style={{ width: "20%" }} alt="" />
           <div
             style={{
               display: "flex",
-              padding: "15px",
-              borderBottom: "1px solid #ececec",
-              gap: "20px",
-            }}
-          >
-            <img src={product?.images[0]} style={{ width: "20%" }} alt="" />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "22px",
-                  fontWeight: "700",
-                  display: "flex",
-                  gap: "3px",
-                  alignItems: "flex-end",
-                }}
-              >
-                {choice?.price?.substring(0, choice.price.length - 2) || "--"}
-                <span style={{ fontSize: "19px" }}>₽</span>
-              </div>
-              <div style={{ fontSize: "15px" }}>Размер: {choice.size}</div>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              padding: "15px",
-              paddingRight: "25px",
+              flexDirection: "column",
               justifyContent: "space-between",
             }}
-            onClick={onMeasureOpenClick}
-            role="presentation"
           >
-            <span>Таблица размеров</span><span>></span>
+            <div
+              style={{
+                fontSize: "22px",
+                fontWeight: "700",
+                display: "flex",
+                gap: "3px",
+                alignItems: "flex-end",
+              }}
+            >
+              {choice?.price?.substring(0, choice.price.length - 2) || "--"}
+              <span style={{ fontSize: "19px" }}>₽</span>
+            </div>
+            <div style={{ fontSize: "15px" }}>Размер: {choice.size}</div>
           </div>
-          <div className="content-size-wrapper">
-            {product?.sizesAndPrices
-              .map((el, i) => (
+        </div>
+        <div
+          style={{
+            display: "flex",
+            padding: "15px",
+            paddingRight: "25px",
+            justifyContent: "space-between",
+          }}
+          onClick={onMeasureOpenClick}
+          role="presentation"
+        >
+          <span>Таблица размеров</span><span>></span>
+        </div>
+        <div className="content-size-wrapper">
+          {product?.sizesAndPrices?.map((el, i) => (
+              <div
+                className={
+                  i === choice.index
+                    ? "size-wrapper gap-2 selected"
+                    : "size-wrapper gap-2"
+                }
+                onClick={() => onChangeChoiceHandler(el, i)}
+                key={i}
+                role="presentation"
+              >
                 <div
-                  className={
-                    i === choice.index
-                      ? "size-wrapper gap-2 selected"
-                      : "size-wrapper gap-2"
-                  }
-                  onClick={() => onChangeChoiceHandler(el, i)}
-                  key={i}
-                  role="presentation"
+                  style={{
+                    fontSize: "17px",
+                    fontWeight: "600",
+                    textAlign: "center",
+                  }}
                 >
-                  <div
-                    style={{
-                      fontSize: "17px",
-                      fontWeight: "600",
-                      textAlign: "center",
-                    }}
-                  >
-                    {el.size}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      textAlign: "center",
-                      display: "flex",
-                      gap: "1.5px",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {getTitlePrice(el.price) || "--"}
-                    <span style={{ fontSize: "13px" }}>₽</span>
-                  </div>
+                  {el.size}
                 </div>
-              ))}
-          </div>
-        </Modal>
-      )}
+                <div
+                  style={{
+                    fontSize: "13px",
+                    textAlign: "center",
+                    display: "flex",
+                    gap: "1.5px",
+                    justifyContent: "center",
+                  }}
+                >
+                  {getTitlePrice(el.price) || "--"}
+                  <span style={{ fontSize: "13px" }}>₽</span>
+                </div>
+              </div>
+            ))}
+        </div>
+      </Modal>
       {measureOpen && (
         <Modal
           title="Таблица размеров"
@@ -350,8 +361,7 @@ function Product({ onAddToFavorite, isLoading }) {
                       </div>
                     </div>
                     <div className="list">
-                      {product?.sizesAndPrices
-                        .map((el, i) => (
+                      {product?.sizesAndPrices?.map((el, i) => (
                           <div
                             className={
                               i === choice.index
