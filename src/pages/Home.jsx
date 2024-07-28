@@ -122,15 +122,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products?.items]);
 
-  window.addEventListener('hashchange', function() {
-    // eslint-disable-next-line no-restricted-globals
-    if (location.hash === '#open') {
-      page?.classList.add('show');
-    } else {
-      page?.classList.remove('show');
-    }
-  });
-
   const renderItems = () => {
     const productsItems = isLoading
       ? [...Array(20)]
