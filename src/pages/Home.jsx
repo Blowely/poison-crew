@@ -240,7 +240,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
           </div>
         </div>*/}
-            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+            {renderItems()}
           </div>
           {!isDesktopScreen &&
             <footer>
