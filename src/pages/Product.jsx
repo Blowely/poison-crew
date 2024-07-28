@@ -311,7 +311,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
         <div>
           <LeftOutlined
             className="go-back-btn"
-            onClick={() => navigate("/products")}
+            onClick={() => window.history.go(-1)}
           />
           <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px 0 20px' : '0'}}>
             <div className={"content-wrapper"} style={{flexDirection: isDesktopScreen ? 'row' : 'column'}}>
