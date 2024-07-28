@@ -236,6 +236,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
         </div>*/}
             <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
           </div>
+          {!isDesktopScreen &&
+            <footer>
+              <div onClick={() => navigate("/products")}>
+                <ActiveBagIcon />
+              </div>
+              <div onClick={() => navigate("/cart?from=products")}>
+                <NonActiveCartIcon />
+              </div>
+              <div onClick={() => navigate("/profile")}>
+                <NonActiveProfileIcon />
+              </div>
+            </footer>
+          }
         </div>
       }
       {/*<div className="loader">
@@ -251,19 +264,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>*/}
 
 
-      {!isDesktopScreen &&
-        <footer>
-          <div onClick={() => navigate("/products")}>
-            <ActiveBagIcon />
-          </div>
-          <div onClick={() => navigate("/cart?from=products")}>
-            <NonActiveCartIcon />
-          </div>
-          <div onClick={() => navigate("/profile")}>
-            <NonActiveProfileIcon />
-          </div>
-        </footer>
-      }
+
     </Layout>
   );
 }
