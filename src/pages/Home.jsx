@@ -38,6 +38,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const [limit, setLimit] = useState(20);
   const [test, setTest] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState({});
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
@@ -48,6 +49,17 @@ function Home({ onAddToFavorite, onAddToCart }) {
   useEffect(() => {
     startLoaderAnimation();
   }, []);
+
+  useEffect(() => {
+    let productWrapper = document.getElementById('productWrapper');
+    if (spuId) {
+      console.log('page',productWrapper);
+      productWrapper.classList.toggle('show');
+
+    } else {
+      productWrapper.classList.remove('show');
+    }
+  },[spuId])
 
   const buildRequest = () => {
     let obj = {
@@ -123,6 +135,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const onCardClickHandler = (item) => {
+      setSelectedProduct(item);
       searchParams.set('spuId', item.spuId);
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
@@ -131,10 +144,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
     return (
       <div className="cards-section-wrapper">
         {productsItems.filter((product) => !product?.isDeleted).map((item, index) => (
-          <div onClick={() => onCardClickHandler(item)}>
+          <div onClick={() => onCardClickHandler(item)} key={index}>
             <Card
               id={item?.spuId}
-              key={index}
               onFavorite={(obj) => onAddToFavorite(obj)}
               onPlus={(obj) => onAddToCart(obj)}
               loading={isLoading}
@@ -186,7 +198,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
-      {spuId && <div className="productWrapper"><Product /></div>}
+      <div className="productWrapper" id="productWrapper"><Product selectedProduct={selectedProduct}/></div>
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
           {/*<div

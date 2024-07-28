@@ -14,11 +14,11 @@ import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import { getIntPrice } from "../common/utils";
 
-function Product({ onAddToFavorite, isLoading }) {
+function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const parsedProduct = JSON.parse(localStorage.getItem('product'));
+  //const parsedProduct = JSON.parse(localStorage.getItem('product'));
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -28,7 +28,7 @@ function Product({ onAddToFavorite, isLoading }) {
   const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
-  const [product, setProduct] = useState(parsedProduct);
+  const [product, setProduct] = useState(selectedProduct);
 
 
   const spuId = searchParams.get("spuId");
@@ -39,14 +39,14 @@ function Product({ onAddToFavorite, isLoading }) {
   useParseProductQuery({
     spuId,
     token,
-  });
+  }, {skip: !spuId});
   const isLoadingProduct = false;
   let { data: remoteProduct/*, isLoading: isLoadingProduct*/ } = useGetProductQuery(
     {
       spuId,
       token,
     },
-    { pollingInterval: 13000 },
+    { pollingInterval: 13000, skip: !spuId },
   );
 
   const { time, start, pause, reset, status } = useTimer({
@@ -57,22 +57,21 @@ function Product({ onAddToFavorite, isLoading }) {
   });
 
   useEffect(() => {
-    const strProduct = JSON.stringify(product);
-    const strRemoteProduct = JSON.stringify(product);
-
-    let currentProduct = product;
-
-    if (strProduct !== strRemoteProduct) {
-      setProduct(remoteProduct);
-      currentProduct = remoteProduct
+    console.log('selectedProduct',selectedProduct);
+    if(!Object.keys(selectedProduct)?.length) {
+      return;
     }
+
+    setProduct(selectedProduct);
+
+    let currentProduct = selectedProduct;
 
     const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => el?.price === currentProduct?.cheapestPrice);
     console.log('itemIndex =',itemIndex);
     console.log('remoteProduct =',remoteProduct);
     setChoice({
-      price: currentProduct?.sizesAndPrices[itemIndex]?.price.toString(),
-      size: currentProduct?.sizesAndPrices[itemIndex]?.size,
+      price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
+      size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
       index: itemIndex,
     })
 
@@ -83,7 +82,7 @@ function Product({ onAddToFavorite, isLoading }) {
       prevUpdatedAtRef.current = currentProduct?.updatedAt;
       //setDisabledBuyBtn(false);
     }
-  }, [remoteProduct]);
+  }, [selectedProduct]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -102,7 +101,7 @@ function Product({ onAddToFavorite, isLoading }) {
 
   const onChangeChoiceHandler = (el, i) => {
     if (Number(el.price) > 0) {
-      setChoice({ size: el.size, price: el.price.toString(), index: i });
+      setChoice({ size: el.size, price: el.price?.toString(), index: i });
     }
   };
 

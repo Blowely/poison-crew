@@ -301,6 +301,10 @@ footer {
   height: 100%;
 }
 
+.productWrapper.show {
+  right: 0;
+}
+
 .productWrapper {
   z-index: 3;
   position: fixed;
@@ -308,4 +312,6 @@ footer {
   height: 100%;
   background-color: white;
   overflow: hidden;
+  transition: right 0.3s ease-in-out;
+  right: -100%;
 }
