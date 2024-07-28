@@ -59,8 +59,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
       productWrapper.classList.toggle('show');
     } else {
       if (isDesktopScreen) {
-        productWrapper.classList.remove('show');
+        return productWrapper.classList.remove('show');
       }
+
+      productWrapper.style.transition = 'unset';
+      productWrapper.classList.remove('show');
+
     }
   },[spuId])
 
@@ -199,7 +203,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
-      <div className="productWrapper" id="productWrapper"><Product selectedProduct={selectedProduct}/></div>
+      <div className="productWrapper" id="productWrapper">
+        <Product selectedProduct={selectedProduct}/>
+      </div>
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
           {/*<div
