@@ -55,10 +55,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line no-restricted-globals
     if (location.hash === '#open') {
       page?.classList.add('show');
+      // eslint-disable-next-line no-restricted-globals
       history.replaceState({ page: 'open' }, 'Open', '#open');
     } else {
+      // eslint-disable-next-line no-restricted-globals
       history.replaceState({ page: 'closed' }, 'Closed', '#closed');
     }
   },[page])
@@ -130,6 +133,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   });
 
   window.addEventListener('hashchange', function() {
+    // eslint-disable-next-line no-restricted-globals
     if (location.hash === '#open') {
       page?.classList.add('show');
     } else {
