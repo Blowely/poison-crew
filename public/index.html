@@ -41,14 +41,14 @@
 
   <script async src="//points.boxberry.ru/js/boxberry.js"></script>
   <script>
-    /*if (window.location.href.startsWith('http://localhost')) {
+    if (!window.location.href.startsWith('http://localhost')) {
       window.addEventListener('error', function(e){
         // prevent React's listener from firing
         e.stopImmediatePropagation();
         // prevent the browser's console error message
         e.preventDefault();
       });
-    }*/
+    }
   </script>
 </body>
 
