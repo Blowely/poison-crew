@@ -25,8 +25,8 @@ function Card({
 
 
   const onCardClickHandler = (spuId) => {
-    searchParams.set('spuId', spuId);
-    setSearchParams(searchParams);
+    /*searchParams.set('spuId', spuId);
+    setSearchParams(searchParams);*/
     localStorage.setItem('product', JSON.stringify(item));
   }
 
@@ -58,7 +58,7 @@ function Card({
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <div className={styles.card} rel="noreferrer">
+    <a href={`/products?spuId=${spuId}`} className={styles.card} onClick={() => onCardClickHandler(spuId)} rel="noreferrer">
       {!title && (
           <ContentLoader
           speed={2}
@@ -95,7 +95,7 @@ function Card({
           </div>
         </>
       )}
-    </div>
+    </a>
   );
 }
 export default Card;
