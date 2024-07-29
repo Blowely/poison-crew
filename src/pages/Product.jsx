@@ -341,6 +341,18 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   <span className="standart">{product?.title}</span>
                 </div>
                 <div className="product-info__item standart">
+                  <div className="label">
+                    <div className="label_wrap">
+                      <div className="size_label">
+                        <div>Размер: EU</div>
+                      </div>
+                    </div>
+                    <div className="size_guide" onClick={onMeasureOpenClick}>
+                      Таблица размеров
+                      <img className="PoizonImage_img__BNSaU"
+                           src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
+                    </div>
+                  </div>
                   <div className="list">
                     {product?.sizesAndPrices?.map((el, i) => (
                       <div
