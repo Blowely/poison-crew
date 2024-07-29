@@ -147,7 +147,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
 
   return (
-    <div>
+    <div style={{height: '100%'}}>
       {/*{!token && (
         <AuthModal
           open={isModalOpen}
@@ -308,7 +308,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       }
 
       {!isLoadingProduct && (
-        <div>
+        <div style={{height: '100%'}}>
           <LeftOutlined
             className="go-back-btn"
             onClick={() => window.history.go(-1)}
@@ -334,9 +334,51 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
               </div>
 
               <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
-                <div className="product-info__item title">
-                  {getClearTitle(product?.title)}
+                <div className="product-info__item standart">
+                  <div  className="title">
+                    {getIntPrice(choice?.price)}{` ₽`}
+                  </div>
+                  <span className="standart">{product?.title}</span>
                 </div>
+                <div className="product-info__item standart">
+                  <div className="list">
+                    {product?.sizesAndPrices?.map((el, i) => (
+                      <div
+                        className={
+                          i === choice.index
+                            ? "size-wrapper gap-2 selected"
+                            : "size-wrapper gap-2"
+                        }
+                        onClick={() => onChangeChoiceHandler(el, i)}
+                        key={i}
+                        role="presentation"
+                      >
+                        <div
+                          style={{
+                            fontSize: "17px",
+                            fontWeight: "600",
+                            textAlign: "center",
+                          }}
+                        >
+                          {el.size}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "13px",
+                            textAlign: "center",
+                            display: "flex",
+                            gap: "1.5px",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {getTitlePrice(el.price) || "--"}
+                          <span style={{ fontSize: "13px" }}>₽</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="product-info__item poizon_auth">
                   <img className="product-info__item poizon_auth pzn_img"
                        src="https://cdn-img.poizonapp.com/node-common/e9004fdc-f3f9-1e94-d275-0965f2da9ee4-192-117.png?x-oss-process=image/format,webp/resize,w_100"
@@ -349,7 +391,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                          src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
                   </div>
                 </div>
-                <Divider></Divider>
 
                 {isDesktopScreen &&
                   <div className="product-info__item">
@@ -434,14 +475,18 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   padding: 10,
                   backgroundColor: "white",
                   borderTop: "1px solid #f9f9f9",
+                  zIndex: 2,
                 }}
               >
                 <Button
                   type="primary"
                   className={"btn"}
-                  onClick={() => setModalOpen(true)}
+                  onClick={onAddToCart}
+                  disabled={isDisabledBuyBtn}
+                  loading={isDisabledBuyBtn}
                 >
-                  Выбрать размер
+                  <>{getBtnPrice(choice?.price)}
+                    <span>{isDisabledBuyBtn ? '' : ' ₽'}</span></>
                 </Button>
               </div>
             }
