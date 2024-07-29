@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import styles from "./index.module.scss"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -11,10 +12,11 @@ const SwiperCarousel = (props) => {
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (
-    <Swiper pagination={true} modules={[Pagination]} style={{width:'100%'}} lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}>
+    <Swiper pagination={true} modules={[Pagination]} style={{width:'100%'}}
+            lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}>
       {images?.map((image, index) => {
         return (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} className={!isDesktopScreen && styles.slide}>
             <img
               src={image}
               onLoad={onLoad}
@@ -22,7 +24,7 @@ const SwiperCarousel = (props) => {
               alt={`Image ${index + 1}`}
               onError={onError}
               loading="lazy"
-              style={{width: '100%'}}
+              style={{width: isDesktopScreen ? '100%' : '80%'}}
             />
           </SwiperSlide>
         );
