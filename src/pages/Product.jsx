@@ -3,7 +3,7 @@ import { Button, Divider, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery, useParseProductQuery } from "../store/products.store";
 import "./product.scss";
-import { LeftOutlined } from "@ant-design/icons";
+import { LeftOutlined, LinkOutlined } from "@ant-design/icons";
 import AuthModal from "./AuthModal";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
@@ -313,6 +313,12 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
             className="go-back-btn"
             onClick={() => window.history.go(-1)}
           />
+          <LinkOutlined
+            className="link-btn"
+            onClick={() => window.history.go(-1)}
+          />
+
+
           <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px 0 20px' : '0'}}>
             <div className={"content-wrapper"} style={{flexDirection: isDesktopScreen ? 'row' : 'column'}}>
               <div className={"carousel-wrapper"} style={{
