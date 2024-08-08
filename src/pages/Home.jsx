@@ -31,6 +31,8 @@ import ContentLoader from "react-content-loader";
 import Product from "./Product";
 import { Logger } from "sass";
 import Filters from "../components/Filters";
+import MlbIcon from "../assets/svg/brands/mlb-icon";
+import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -49,7 +51,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   let offset = searchParams.get("offset");
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
-  const filters = searchParams.get("filters");
   const filtersRef = useRef(null);
 
 
@@ -244,14 +245,24 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>ADIDAS</div>
           </div>
-
-          <div className="brands-section-wrapper_card"
-               onClick={() => navigate("/products?search=coach")}>
+          <div
+            className="brands-section-wrapper_card"
+            onClick={() => navigate("/products?search=new+balance")}
+          >
             <div className="brands-section-wrapper_card-icon">
-              <CoachIcon />
+              <NewBalanceIcon />
             </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>COACH</div>
+            <div style={{ fontWeight: "bold", fontSize: "10px" }}>NEW BALANCE</div>
           </div>
+          {isDesktopScreen &&
+            <div className="brands-section-wrapper_card"
+                 onClick={() => navigate("/products?search=coach")}>
+              <div className="brands-section-wrapper_card-icon">
+                <CoachIcon />
+              </div>
+              <div style={{ fontWeight: "bold", fontSize: "10px" }}>COACH</div>
+            </div>
+          }
           <div className="brands-section-wrapper_card"
                onClick={() => console.log('more')}>
             <div className="brands-section-wrapper_card-icon">

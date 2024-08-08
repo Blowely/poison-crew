@@ -33,6 +33,9 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 8px;
+  > span {
+    border-radius: 8px!important;
+  }
 }
 
 .list {
@@ -45,9 +48,9 @@
 .size-wrapper {
   background-color: white;
   padding: 10px;
-  border-radius: 2px;
   cursor: pointer;
   border: solid #f1f1f5 1px;
+  border-radius: 5px;
   &.selected {
     box-sizing: border-box;
     border: solid #000000 1px;
