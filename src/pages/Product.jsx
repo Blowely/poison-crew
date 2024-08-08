@@ -340,56 +340,58 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   </div>
                   <span className="standart">{product?.title}</span>
                 </div>
-                <div className="product-info__item standart">
-                  <div className="label">
-                    <div className="label_wrap">
-                      <div className="size_label">
-                        <div>Размер: EU</div>
-                      </div>
-                    </div>
-                    <div className="size_guide" onClick={onMeasureOpenClick}>
-                      Таблица размеров
-                      <img className="PoizonImage_img__BNSaU"
-                           src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
-                    </div>
-                  </div>
-                  <div className="list">
-                    {product?.sizesAndPrices?.map((el, i) => (
-                      <div
-                        className={
-                          i === choice.index
-                            ? "size-wrapper gap-2 selected"
-                            : "size-wrapper gap-2"
-                        }
-                        onClick={() => onChangeChoiceHandler(el, i)}
-                        key={i}
-                        role="presentation"
-                      >
-                        <div
-                          style={{
-                            fontSize: "17px",
-                            fontWeight: "600",
-                            textAlign: "center",
-                          }}
-                        >
-                          {el.size}
-                        </div>
-                        <div
-                          style={{
-                            fontSize: "13px",
-                            textAlign: "center",
-                            display: "flex",
-                            gap: "1.5px",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {getTitlePrice(el.price) || "--"}
-                          <span style={{ fontSize: "13px" }}>₽</span>
+                {!isDesktopScreen &&
+                  <div className="product-info__item standart">
+                    <div className="label">
+                      <div className="label_wrap">
+                        <div className="size_label">
+                          <div>Размер: EU</div>
                         </div>
                       </div>
-                    ))}
+                      <div className="size_guide" onClick={onMeasureOpenClick}>
+                        Таблица размеров
+                        <img className="PoizonImage_img__BNSaU"
+                             src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="list">
+                      {product?.sizesAndPrices?.map((el, i) => (
+                        <div
+                          className={
+                            i === choice.index
+                              ? "size-wrapper gap-2 selected"
+                              : "size-wrapper gap-2"
+                          }
+                          onClick={() => onChangeChoiceHandler(el, i)}
+                          key={i}
+                          role="presentation"
+                        >
+                          <div
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: "600",
+                              textAlign: "center",
+                            }}
+                          >
+                            {el.size}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "13px",
+                              textAlign: "center",
+                              display: "flex",
+                              gap: "1.5px",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {getTitlePrice(el.price) || "--"}
+                            <span style={{ fontSize: "13px" }}>₽</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                }
 
                 <div className="product-info__item poizon_auth">
                   <img className="product-info__item poizon_auth pzn_img"
