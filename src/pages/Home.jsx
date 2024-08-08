@@ -45,6 +45,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
   const [filtersWidth, setFilterWidth] = useState(0);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState('');
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
