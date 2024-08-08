@@ -70,8 +70,10 @@ const Header = ({showFilters, setShowFilters}) => {
     });
 
     const filtersBtnHandler = () => {
-        setShowFilters(!showFilters);
+        setShowFilters(true);
     }
+
+    const isDesktopScreen = window?.innerWidth > 768;
 
     return (
         <header
@@ -87,12 +89,11 @@ const Header = ({showFilters, setShowFilters}) => {
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
                                  onClick={onSearch}>Найти</span>}
             />
-            <Button onClick={filtersBtnHandler}>
-                {showFilters
-                  ? <FilterFilled />
-                  : <FilterOutlined />
-                }
-            </Button>
+            {!isDesktopScreen &&
+              <Button onClick={filtersBtnHandler}>
+                <FilterOutlined />
+              </Button>
+            }
         </div>
 
         {/*<Segmented className="header-segmented mt-15 w100p"

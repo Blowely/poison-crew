@@ -49,6 +49,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   let offset = searchParams.get("offset");
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
+  const filters = searchParams.get("filters");
   const filtersRef = useRef(null);
 
 
@@ -197,6 +198,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <Product selectedProduct={selectedProduct}/>
       </div>
       }
+      {showFilters &&
+        <div className="filters-phone-wrapper"
+             ref={filtersRef}>
+          <Filters setShowFilters={setShowFilters} />
+        </div>
+      }
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
           {/*<div
@@ -254,15 +261,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
         </div>
         <div className="filters-content-wrapper">
-          {isDesktopScreen
-            ? <div className="filters-wrapper"
-                  ref={filtersRef}><Filters /></div>
-            : <div className="filters-phone-wrapper"
-                   style={{
-                     opacity: showFilters ? '1':'0',
-                   }}
-                   ref={filtersRef}><Filters /></div>
-          }
+          {isDesktopScreen && (
+            <div className="filters-wrapper" ref={filtersRef}>
+              <Filters />
+            </div>
+          )}
 
           <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
         </div>

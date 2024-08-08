@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import "./Filters.scss";
 import { Input } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+import { useSearchParams } from "react-router-dom";
 
 
-function Filters() {
+function Filters({setShowFilters}) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [choice, setChoice] = useState({});
   const [sizes, setSizes] = useState([]);
 
@@ -25,46 +29,59 @@ function Filters() {
     setChoice(el);
   };
 
+  const closeClickHandler = () => {
+    setShowFilters(false);
+  }
+
   return (
-    <div className="params-wrapper">
-      <div className="params-item-wrapper">
-        <div className="param-title">
-          Цена, RUB
+    <div className="filters-component-wrapper">
+      {!isDesktopScreen && (
+        <div className="filters-phone-headers">
+          <CloseOutlined onClick={closeClickHandler}/>
         </div>
+      )}
 
-        <div className="inputs-wrapper">
-          <Input size="large" placeholder="3020" prefix="от" suffix="₽" />
-          <Input size="large" placeholder="520433" prefix="до" suffix="₽" />
-        </div>
-      </div>
-      <div className="params-item-wrapper">
-        <div className="param-title">
-          Размеры, EU
-        </div>
+      <div className="params-wrapper">
 
-        <div className="list">
-          {sizes?.map((el, i) => (
-            <div
-              className={
-                el === choice
-                  ? "size-wrapper gap-2 selected"
-                  : "size-wrapper gap-2"
-              }
-              onClick={() => onChangeChoiceHandler(el)}
-              key={i}
-              role="presentation"
-            >
+        <div className="params-item-wrapper">
+          <div className="param-title">
+            Цена, RUB
+          </div>
+
+          <div className="inputs-wrapper">
+            <Input size="large" placeholder="3020" prefix="от" suffix="₽" />
+            <Input size="large" placeholder="520433" prefix="до" suffix="₽" />
+          </div>
+        </div>
+        <div className="params-item-wrapper">
+          <div className="param-title">
+            Размеры, EU
+          </div>
+
+          <div className="list">
+            {sizes?.map((el, i) => (
               <div
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "400",
-                  textAlign: "center",
-                }}
+                className={
+                  el === choice
+                    ? "size-wrapper gap-2 selected"
+                    : "size-wrapper gap-2"
+                }
+                onClick={() => onChangeChoiceHandler(el)}
+                key={i}
+                role="presentation"
               >
-                {el}
+                <div
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: "400",
+                    textAlign: "center",
+                  }}
+                >
+                  {el}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
