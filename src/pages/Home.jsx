@@ -2,8 +2,8 @@ import React, {
   Suspense,
   useCallback,
   useEffect,
-  useMemo,
-  useState,
+  useMemo, useRef,
+  useState
 } from "react";
 import Card from "../components/Card";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
@@ -29,6 +29,8 @@ import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import ContentLoader from "react-content-loader";
 import Product from "./Product";
+import { Logger } from "sass";
+import Filters from "../components/Filters";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -39,12 +41,15 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [limit, setLimit] = useState(20);
   const [test, setTest] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [showFilters, setShowFilters] = useState(false);
+  const [filtersWidth, setFilterWidth] = useState(0);
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
   let offset = searchParams.get("offset");
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
+  const filtersRef = useRef(null);
 
 
   const isDesktopScreen = window?.innerWidth > 768;
@@ -135,7 +140,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     return (
       <div className="cards-section-wrapper">
-        {productsItems.filter((product) => !product?.isDeleted).map((item, index) => (
+        {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => (
           <div onClick={() => onCardClickHandler(item)} key={index}>
             <Card
               id={item?.spuId}
@@ -213,38 +218,54 @@ function Home({ onAddToFavorite, onAddToCart }) {
           }}
         />*/}
         </div>
-        <Header />
+        <Header showFilters={showFilters} setShowFilters={setShowFilters}/>
         <div className="content">
-          {/*<div className="brands-section-wrapper">
+          <div className="brands-section-wrapper">
+            <div className="brands-section-wrapper_card"
+                 onClick={() => navigate("/products?search=nike")}>
+              <div className="brands-section-wrapper_card-icon">
+                <NikeIcon />
+              </div>
+              <div style={{ fontWeight: "bold", fontSize: "10px" }}>NIKE</div>
+            </div>
           <div
             className="brands-section-wrapper_card"
-            onClick={() => navigate("/products")}
+            onClick={() => navigate("/products?search=adidas")}
           >
             <div className="brands-section-wrapper_card-icon">
               <AdidasIcon />
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>ADIDAS</div>
           </div>
-          <div className="brands-section-wrapper_card">
-            <div className="brands-section-wrapper_card-icon">
-              <NikeIcon />
-            </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>NIKE</div>
-          </div>
-          <div className="brands-section-wrapper_card">
+
+          <div className="brands-section-wrapper_card"
+               onClick={() => navigate("/products?search=coach")}>
             <div className="brands-section-wrapper_card-icon">
               <CoachIcon />
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>COACH</div>
           </div>
-          <div className="brands-section-wrapper_card">
+          <div className="brands-section-wrapper_card"
+               onClick={() => console.log('more')}>
             <div className="brands-section-wrapper_card-icon">
               <MoreIcon />
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
           </div>
-        </div>*/}
+        </div>
+        <div className="filters-content-wrapper">
+          {isDesktopScreen
+            ? <div className="filters-wrapper"
+                  ref={filtersRef}><Filters /></div>
+            : <div className="filters-phone-wrapper"
+                   style={{
+                     opacity: showFilters ? '1':'0',
+                   }}
+                   ref={filtersRef}><Filters /></div>
+          }
+
           <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+        </div>
         </div>
         {!isDesktopScreen &&
           <footer>

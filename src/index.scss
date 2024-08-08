@@ -54,7 +54,7 @@ header {
 }
 
 .cards-section-wrapper {
-  width: 100%;
+  width: calc(100vw - 300px);
   display: grid;
   grid-template-columns: 50% 50%;
   padding-top: 15px;
@@ -65,15 +65,15 @@ header {
   }
 
   @media (min-width: 900px) {
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 33% 33% 33%;
   }
 
   @media (min-width: 1200px) {
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 25% 25% 25% 25%;
   }
 
   @media (min-width: 1400px) {
-    grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
   }
 
 }
@@ -264,7 +264,7 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  cursor: pointer;
 }
 
 .brands-section-wrapper_card-icon{
@@ -272,8 +272,39 @@ header {
   justify-content: center;
   align-items: center;
   height: inherit;
-  background-color: #ffffff;
+  background-color: #f8f8f8;
   width: 100%;
+}
+
+.filters-content-wrapper {
+  display: flex;
+  margin-top: 20px;
+}
+
+.filters-wrapper {
+  margin-top: 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: inherit;
+  min-width: 300px;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    height: 100vh;
+    width: 80%;
+    margin-top: 0;
+    top:0
+  }
+}
+
+.filters-phone-wrapper {
+  position: absolute;
+  height: 100vh;
+  width: 80%;
+  margin-top: 0;
+  top:0
 }
 
 footer {

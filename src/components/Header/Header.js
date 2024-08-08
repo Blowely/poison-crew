@@ -1,17 +1,18 @@
 import {Link, useSearchParams} from "react-router-dom";
 import {Button, Input, Segmented} from "antd";
 import React, {useEffect, useMemo, useState} from "react";
-import {FilterOutlined, SearchOutlined} from "@ant-design/icons";
+import { FilterFilled, FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import './header.styles.scss';
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 import RePoizonMainLogo from "../../assets/svg/re-poizon-main-logo.js"
 
-const Header = () => {
+const Header = ({showFilters, setShowFilters}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const search = searchParams.get('search');
 
     const [searchValue, setSearchValue] = useState(search || '');
+
 
     const onChange = (value) => {
         if (search && !value) {
@@ -68,12 +69,17 @@ const Header = () => {
         return el?.name;
     });
 
+    const filtersBtnHandler = () => {
+        setShowFilters(!showFilters);
+    }
+
     return (
         <header
           className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
         >
         <div className="header-input-wrapper">
-            <Input placeholder="Я ищу..." allowClear
+            <Input placeholder="Я ищу..."
+                   allowClear
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
                    onPressEnter={onSearch}
@@ -81,7 +87,12 @@ const Header = () => {
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
                                  onClick={onSearch}>Найти</span>}
             />
-            {/*<Button><FilterOutlined /></Button>*/}
+            <Button onClick={filtersBtnHandler}>
+                {showFilters
+                  ? <FilterFilled />
+                  : <FilterOutlined />
+                }
+            </Button>
         </div>
 
         {/*<Segmented className="header-segmented mt-15 w100p"
