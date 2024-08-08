@@ -6,7 +6,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 
 
-function Filters({setShowFilters}) {
+function Filters({setShowFilters, setMaxPrice, setMinPrice, setSize}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [choice, setChoice] = useState({});
@@ -25,13 +25,23 @@ function Filters({setShowFilters}) {
   },[sizes?.length])
 
   const onChangeChoiceHandler = (el) => {
-    console.log('el=',el);
     setChoice(el);
+    setSize(el.toString());
   };
 
   const closeClickHandler = () => {
     setShowFilters(false);
   }
+
+  const minPriceHandler = (e) => {
+    setMinPrice(`${e.target.value}00`);
+  }
+
+  const maxPriceHandler = (e) => {
+    console.log('e',e);
+    setMaxPrice(`${e.target.value}99`);
+  }
+
 
   return (
     <div className="filters-component-wrapper">
@@ -49,8 +59,8 @@ function Filters({setShowFilters}) {
           </div>
 
           <div className="inputs-wrapper">
-            <Input size="large" placeholder="3020" prefix="от" suffix="₽" />
-            <Input size="large" placeholder="520433" prefix="до" suffix="₽" />
+            <Input size="large" placeholder="3020" prefix="от" suffix="₽" onChange={minPriceHandler} />
+            <Input size="large" placeholder="520433" prefix="до" suffix="₽"  onChange={maxPriceHandler}/>
           </div>
         </div>
         <div className="params-item-wrapper">

@@ -45,8 +45,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
   const [filtersWidth, setFilterWidth] = useState(0);
-  const [minPrice, setMinPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  const [size, setSize] = useState('');
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
@@ -76,6 +77,18 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.offset = offset;
     }
 
+    if (minPrice) {
+      obj.minPrice = minPrice;
+    }
+
+    if (maxPrice) {
+      obj.maxPrice = maxPrice;
+    }
+
+    if (size) {
+      obj.size = size;
+    }
+
     return obj;
   };
 
@@ -85,11 +98,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = search || collection;
+  const searchOrCollection = search || collection || size || minPrice || maxPrice;
   const prevCollectionValue = usePrevious(searchOrCollection);
-  const trimCollectionValue = searchOrCollection.replace(/ /g, "");
+  const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
   useEffect(() => {
+    console.log('products',products);
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
@@ -118,7 +132,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         console.log("e =", e);
       }
     }
-  }, [products?.items]);
+  }, [products]);
 
   const renderItems = () => {
     const productsItems = isLoading
@@ -204,7 +218,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
       {showFilters &&
         <div className="filters-phone-wrapper"
              ref={filtersRef}>
-          <Filters setShowFilters={setShowFilters} />
+          <Filters
+            setShowFilters={setShowFilters}
+            setSize={setSize}
+            setMinPrice={setMinPrice}
+            setMaxPrice={setMaxPrice}
+          />
         </div>
       }
       <div className="productsListWrapper">
@@ -276,7 +295,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <div className="filters-content-wrapper">
           {isDesktopScreen && (
             <div className="filters-wrapper" ref={filtersRef}>
-              <Filters />
+              <Filters
+                 setSize={setSize}
+                 setMinPrice={setMinPrice}
+                 setMaxPrice={setMaxPrice}
+              />
             </div>
           )}
 
