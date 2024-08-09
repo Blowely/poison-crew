@@ -111,7 +111,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     }
     const str = JSON.stringify(price);
 
-    return str?.substring(0, str?.length - 2);
+    const subStr = str.substring(0, str?.length - 2)
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
   };
 
   const getBtnPrice = useCallback((price) => {
@@ -122,8 +123,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     if (!price) {
       return "--";
     }
-
-    return price.substring(0, price?.length - 2);
+    const subStr = price.substring(0, price?.length - 2)
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
 
   },[choice, isDisabledBuyBtn, time]);
 
@@ -201,8 +202,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                 alignItems: "flex-end",
               }}
             >
-              {choice?.price?.substring(0, choice.price.length - 2) || "--"}
-              <span style={{ fontSize: "19px" }}>₽</span>
+              {getTitlePrice(choice?.price)|| "--"}
             </div>
             <div style={{ fontSize: "15px" }}>Размер: {choice.size}</div>
           </div>
@@ -250,7 +250,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   }}
                 >
                   {getTitlePrice(el.price) || "--"}
-                  <span style={{ fontSize: "13px" }}>₽</span>
                 </div>
               </div>
             ))}
@@ -335,10 +334,20 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
               <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
                 <div className="product-info__item standart">
-                  <div  className="title">
-                    {getIntPrice(choice?.price)}{` ₽`}
+                  {!isDesktopScreen &&
+                    <div  className="title">
+                      {getIntPrice(choice?.price)}{` ₽`}
+                    </div>
+                  }
+                  <div className="title-wrapper">
+                    <span className="standart">{product?.title}</span>
+                    {isDesktopScreen &&
+                      <div  className="title">
+                        {getIntPrice(choice?.price)}
+                      </div>
+                    }
                   </div>
-                  <span className="standart">{product?.title}</span>
+
                 </div>
                 {!isDesktopScreen &&
                   <div className="product-info__item standart">
@@ -385,7 +394,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                             }}
                           >
                             {getTitlePrice(el.price) || "--"}
-                            <span style={{ fontSize: "13px" }}>₽</span>
                           </div>
                         </div>
                       ))}
@@ -451,7 +459,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               }}
                             >
                               {getTitlePrice(el.price) || "--"}
-                              <span style={{ fontSize: "13px" }}>₽</span>
                             </div>
                           </div>
                         ))}
@@ -469,8 +476,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       disabled={isDisabledBuyBtn}
                       loading={isDisabledBuyBtn}
                     >
-                      <>{getBtnPrice(choice?.price)}
-                        <span>{isDisabledBuyBtn ? '' : ' ₽'}</span></>
+                      {getBtnPrice(choice?.price)}
+                      <span> {!isDisabledBuyBtn ? 'В корзину' : '₽'}</span>
                     </Button>
                   </div>
 
@@ -500,7 +507,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   loading={isDisabledBuyBtn}
                 >
                   <>{getBtnPrice(choice?.price)}
-                    <span>{isDisabledBuyBtn ? '' : ' ₽'}</span></>
+                    <span>{isDisabledBuyBtn ? '' : ' ₽'} В корзину</span></>
                 </Button>
               </div>
             }

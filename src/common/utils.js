@@ -105,6 +105,7 @@ export const getIntPrice = (price) => {
   if (!price) {
     return "";
   }
-  const str = price.toString() || ""
-  return str.slice(0,price.length - 2);
+  const subStr = price.toString().substring(0, price?.length - 2)
+  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
+
 }

@@ -127,7 +127,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    //gap: 24px;
+    gap: 24px;
     width: 100%;
 
     div.ant-divider {
@@ -147,6 +147,11 @@
     width: 100%;
 }
 
+.title-wrapper {
+    display: grid;
+    gap: 24px;
+}
+
 .title {
     font-size: 24px;
     font-weight: 700;
@@ -160,10 +165,13 @@
     min-height: 40px;
 
     &.standart {
-        padding: 10px;
         font-size: 20px;
         font-family: "Roboto Condensed";
         font-optical-sizing: auto;
+
+        @media (max-width: 768px) {
+            padding: 10px;
+        }
     }
 
     &.poizon_auth {
@@ -258,9 +266,14 @@
 .btn_wrapper {
     width: 100%;
     margin-top: 24px;
+
 }
 
 .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     z-index: 2;
     width: 100%;
     height: 100%;

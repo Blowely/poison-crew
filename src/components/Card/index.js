@@ -36,7 +36,12 @@ function Card({
     if (Number(price) < 1) {
       return "--";
     }
-    return Math.ceil(price / 100);
+
+    const str = JSON.stringify(price);
+
+    const subStr = str.substring(0, str?.length - 2)
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
+
   };
 
   const isSquare = imgElement?.current?.naturalHeight === imgElement?.current?.naturalWidth;
@@ -84,7 +89,7 @@ function Card({
             {title}
           </div>
           <div className={styles.price}>
-            <span>{getPrice()} ₽</span>
+            <span>{getPrice()}</span>
           </div>
         </>
       )}
