@@ -6,8 +6,11 @@
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 20px;
-  //position: sticky;
   top: 0;
+
+  @media (min-width: 768px) {
+    position: sticky;
+  }
 }
 
 .header-input-wrapper {

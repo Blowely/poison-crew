@@ -60,7 +60,7 @@ header {
   padding-top: 15px;
   padding-bottom: 40px;
 
-  @media (min-width: 600px) {
+  @media (min-width: 768px) {
     grid-template-columns: 33% 33% 33%;
     width: calc(100vw - 300px);
   }
@@ -281,6 +281,7 @@ header {
 .filters-content-wrapper {
   display: flex;
   margin-top: 20px;
+
 }
 
 .filters-wrapper {
