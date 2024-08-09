@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Divider, Modal } from "antd";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Button, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetProductQuery, useParseProductQuery } from "../store/products.store";
 import "./product.scss";
-import { LeftOutlined, LinkOutlined } from "@ant-design/icons";
-import AuthModal from "./AuthModal";
+import { LeftOutlined, LinkOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
-import { LoadingOutlined } from "@ant-design/icons";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
@@ -29,6 +27,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
   const [product, setProduct] = useState(selectedProduct);
+  const [lvl2Properties, setLvl2Properties] = useState({});
 
 
   const spuId = searchParams.get("spuId");
@@ -56,6 +55,23 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     timerType: 'DECREMENTAL',
   });
 
+  const findSkuPropertiesBySkuId = useCallback((skuId) => {
+    if (!selectedProduct || !selectedProduct?.skus?.length) {
+      return {};
+    }
+
+    const skuObj = selectedProduct.skus.find((el) => el.skuId === skuId);
+
+    if (skuObj?.properties?.length < 2) {
+      return {};
+    }
+
+    const secondPropertiesLevel = skuObj?.properties[skuObj?.properties.length - 2];
+    const propertyValueId = secondPropertiesLevel.propertyValueId;
+
+    return selectedProduct?.salePropertiesList.find(el => el.propertyValueId === propertyValueId);
+  },[selectedProduct])
+
   useEffect(() => {
     console.log('selectedProduct',selectedProduct);
     if(!Object.keys(selectedProduct)?.length) {
@@ -67,13 +83,28 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     let currentProduct = selectedProduct;
 
     const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => el?.price === currentProduct?.cheapestPrice);
-    console.log('itemIndex =',itemIndex);
+
     console.log('remoteProduct =',remoteProduct);
     setChoice({
       price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
       size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
       index: itemIndex,
     })
+
+    const temp2lvlProperties = {};
+
+    currentProduct?.sizesAndPrices.forEach((el) => {
+      const skuId = el.skuId;
+
+      if (temp2lvlProperties[skuId]) {
+        return;
+      }
+      const property = findSkuPropertiesBySkuId(skuId);
+      console.log('property',property);
+      temp2lvlProperties[property.propertyValueId] = property;
+    })
+    console.log('temp2lvlProperties',temp2lvlProperties);
+    setLvl2Properties(temp2lvlProperties);
 
     if (!prevUpdatedAtRef.current) {
       start();
@@ -143,9 +174,15 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     return str?.replace(/[^a-zA-Z\s]/g, '');
   }
 
+  const showPropertyValue = (value) => {
+    if (value?.includes('宽')) {
+      return value.replace('宽', ' ширина');
+    }
+
+    return value;
+  }
+
   const isDesktopScreen = window?.innerWidth > 768;
-
-
 
   return (
     <div style={{height: '100%'}}>
@@ -413,6 +450,47 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                          src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
                   </div>
                 </div>
+
+                {isDesktopScreen &&
+                  <div className="product-info__item">
+                    <div className="label">
+                      <div className="label_wrap">
+                        <div className="size_label">
+                          <div>Размер: EU</div>
+                        </div>
+                      </div>
+                      <div className="size_guide" onClick={onMeasureOpenClick}>
+                        Таблица размеров
+                        <img className="PoizonImage_img__BNSaU"
+                             src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="list">
+                      {Object.keys(lvl2Properties)?.map((key, i) => (
+                        <div
+                          className={
+                            i === choice.index
+                              ? "size-wrapper gap-2 selected"
+                              : "size-wrapper gap-2"
+                          }
+                          onClick={() => onChangeChoiceHandler(lvl2Properties[key], i)}
+                          key={i}
+                          role="presentation"
+                        >
+                          <div
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: "600",
+                              textAlign: "center",
+                            }}
+                          >
+                            {showPropertyValue(lvl2Properties[key]?.value)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                }
 
                 {isDesktopScreen &&
                   <div className="product-info__item">
