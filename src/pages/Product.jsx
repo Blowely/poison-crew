@@ -391,6 +391,42 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                     <div className="label">
                       <div className="label_wrap">
                         <div className="size_label">
+                          <div>Версия</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="list">
+                      {Object.keys(lvl2Properties)?.map((key, i) => (
+                        <div
+                          className={
+                            i === choice.index
+                              ? "size-wrapper gap-2 selected"
+                              : "size-wrapper gap-2"
+                          }
+                          onClick={() => onChangeChoiceHandler(lvl2Properties[key], i)}
+                          key={i}
+                          role="presentation"
+                        >
+                          <div
+                            style={{
+                              fontSize: "17px",
+                              fontWeight: "600",
+                              textAlign: "center",
+                            }}
+                          >
+                            {showPropertyValue(lvl2Properties[key]?.value)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                }
+
+                {!isDesktopScreen &&
+                  <div className="product-info__item standart">
+                    <div className="label">
+                      <div className="label_wrap">
+                        <div className="size_label">
                           <div>Размер: EU</div>
                         </div>
                       </div>
