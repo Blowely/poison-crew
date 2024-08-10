@@ -101,7 +101,9 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       }
       const property = findSkuPropertiesBySkuId(skuId);
       console.log('property',property);
-      temp2lvlProperties[property.propertyValueId] = property;
+      if (property?.propertyValueId) {
+        temp2lvlProperties[property.propertyValueId] = property;
+      }
     })
     console.log('temp2lvlProperties',temp2lvlProperties);
     setLvl2Properties(temp2lvlProperties);
@@ -174,7 +176,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     return str?.replace(/[^a-zA-Z\s]/g, '');
   }
 
-  const showPropertyValue = (value) => {
+  const showPropertyValue = (value, showValue) => {
+    if (!showValue) {
+      return '';
+    }
+
     if (value?.includes('宽')) {
       return value.replace('宽', ' ширина');
     }
@@ -386,7 +392,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   </div>
 
                 </div>
-                {!isDesktopScreen &&
+                {(!isDesktopScreen && !!(Object.keys(lvl2Properties)?.length)) &&
                   <div className="product-info__item standart">
                     <div className="label">
                       <div className="label_wrap">
@@ -414,10 +420,10 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               textAlign: "center",
                             }}
                           >
-                            {showPropertyValue(lvl2Properties[key]?.value)}
+                            {showPropertyValue(lvl2Properties[key].value, lvl2Properties[key]?.showValue)}
                           </div>
                         </div>
-                      ))}
+                      )).filter(el => el)}
                     </div>
                   </div>
                 }
@@ -487,12 +493,12 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   </div>
                 </div>
 
-                {isDesktopScreen &&
+                {(isDesktopScreen && !!(Object.keys(lvl2Properties)?.length)) &&
                   <div className="product-info__item">
                     <div className="label">
                       <div className="label_wrap">
                         <div className="size_label">
-                          <div>Размер: EU</div>
+                          <div>Версия</div>
                         </div>
                       </div>
                       <div className="size_guide" onClick={onMeasureOpenClick}>
@@ -520,7 +526,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               textAlign: "center",
                             }}
                           >
-                            {showPropertyValue(lvl2Properties[key]?.value)}
+                            {showPropertyValue(lvl2Properties[key].value, lvl2Properties[key]?.showValue)}
                           </div>
                         </div>
                       ))}
