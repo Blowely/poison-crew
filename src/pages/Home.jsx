@@ -151,7 +151,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     const onCardClickHandler = (item) => {
       setSelectedProduct(item);
-      searchParams.set('spuId', item.spuId);
+      searchParams.set('spuId', item?.spuId);
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
     }
