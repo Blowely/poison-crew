@@ -77,7 +77,7 @@ function Card({
       <img
         style={{ width: `${isSquare ? '64%' : "100%"}`}}
         ref={imgElement}
-        src={images?.[0]}
+        src={`https://image.unicorngo.ru/_next/image?url=${images?.[0]}&w=640&q=75`}
         onLoad={onLoadedIcon}
         onLoadedData={onLoadedIcon}
         loading="lazy"

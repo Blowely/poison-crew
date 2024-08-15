@@ -44,6 +44,16 @@ header {
   }
 }
 
+.loading-icon-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  position: absolute;
+  background: rgba(80,80,80, 0.08);
+  height: 100%;
+}
+
 .content {
   width: 100%;
   z-index: 1;

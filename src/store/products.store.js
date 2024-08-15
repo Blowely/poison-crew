@@ -7,7 +7,7 @@ export const productsApi = createApi({
   reducerPath: "productsApi",
   tagTypes: ["Product"],
   baseQuery: baseQuery("https://api.re-poizon.ru/api"),
-  //baseQuery: baseQuery("http://localhost:3000/api"),
+  //baseQuery: baseQuery("http://localhost:3001/api"),
   endpoints: (builder) => ({
     parseProduct: builder.query({
       query: ({ spuId, token }) =>

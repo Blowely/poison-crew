@@ -109,3 +109,26 @@ export const getIntPrice = (price) => {
   return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
 
 }
+
+const getLvl2Properties = (selectedProduct, el) => {
+  if (!selectedProduct?.arSkuIdRelation?.length) {
+    return;
+  }
+
+  const skuObj = selectedProduct.skus.find(({skuId}) => el.skuId === skuId);
+
+  if (skuObj?.properties?.length < 2) {
+    return {};
+  }
+
+  // for second level
+  const { propertyValueId } = skuObj?.properties[skuObj?.properties.length - 2];
+
+
+  const relationsOfSecondPropertyLevel = selectedProduct.arSkuIdRelation.filter((el) => el.propertyValueId === propertyValueId);
+  console.log('relationsOfSecondPropertyLevel=',relationsOfSecondPropertyLevel);
+
+  const propertyValueIdSkus = relationsOfSecondPropertyLevel.map((rel) => selectedProduct.skus.find(({skuId}) => skuId === rel.skuId));
+
+  console.log('propertyValueIdSkus',propertyValueIdSkus);
+}

@@ -14,7 +14,7 @@ import { Empty, Layout, Pagination } from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { LoadingOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import ActiveBagIcon from "../assets/svg/active-bag-icon.js";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
@@ -48,6 +48,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [size, setSize] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
@@ -64,6 +65,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   const buildRequest = () => {
+
     let obj = {
       limit: 20,
       search: search?.toLowerCase(),
@@ -97,12 +99,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
     isLoading,
     refetch,
   } = useGetProductsQuery(buildRequest());
+  console.log('isLoading',isLoading);
 
   const searchOrCollection = search || collection || size || minPrice || maxPrice;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
   useEffect(() => {
+    setLoading(false);
     console.log('products',products);
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
@@ -302,8 +306,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
               />
             </div>
           )}
-
-          <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+          {loading && (
+            <div className="loading-icon-wrapper">
+              <LoadingOutlined style={{ fontSize: "24px" }} spin />
+            </div>
+          )}
+          {!loading &&
+            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+          }
         </div>
         </div>
         {!isDesktopScreen &&
