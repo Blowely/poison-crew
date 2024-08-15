@@ -48,10 +48,8 @@ header {
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 2;
-  position: absolute;
   background: rgba(80,80,80, 0.08);
-  height: 100%;
+  height: calc(100vh - 237px);
 }
 
 .content {

@@ -48,7 +48,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [size, setSize] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
@@ -99,6 +99,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     isLoading,
     refetch,
   } = useGetProductsQuery(buildRequest());
+
   console.log('isLoading',isLoading);
 
   const searchOrCollection = search || collection || size || minPrice || maxPrice;
@@ -251,7 +252,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           }}
         />*/}
         </div>
-        <Header showFilters={showFilters} setShowFilters={setShowFilters}/>
+        <Header showFilters={showFilters} setLoading={setLoading} setShowFilters={setShowFilters}/>
         <div className="content">
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
