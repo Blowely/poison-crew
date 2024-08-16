@@ -204,11 +204,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
         if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
           currentPage = true;
-          refetch();
 
           if (products.items.length === limit) {
             const prevOffset = 20 + Number(offset);
             searchParams.set("offset", prevOffset.toString());
+            refetch();
           }
         }
       } catch (e) {
@@ -224,8 +224,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onSizeClick = (val) => {
+    window.scrollTo(0, 0);
     setLoading(true);
     setSize(val);
+    searchParams.set("offset", "0");
+    setSearchParams(searchParams);
   }
 
   const onMinPriceChange = (val) => {
