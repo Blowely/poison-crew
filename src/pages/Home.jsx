@@ -100,8 +100,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  console.log('isLoading',isLoading);
-
   const searchOrCollection = `${search}+${size}+${minPrice}+${maxPrice}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
@@ -144,9 +142,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
       ? [...Array(20)]
       : productsSlice[trimCollectionValue] || []
 
-    productsItems = [...productsItems, ...[...Array(20)]];
+    productsItems = [...productsItems, ...[...Array(15)]];
 
-    if (productsSlice[trimCollectionValue]?.length && productsSlice[trimCollectionValue]?.length < 20 && !isLoading && !loading) {
+    if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 20 && !isLoading && !loading) {
       productsItems = productsSlice[trimCollectionValue]
     }
 
@@ -220,6 +218,26 @@ function Home({ onAddToFavorite, onAddToCart }) {
     false,
   );
 
+  const onBrandClick = (brand) => {
+    setLoading(true);
+    navigate(`/products?search=${brand}`)
+  }
+
+  const onSizeClick = (val) => {
+    setLoading(true);
+    setSize(val);
+  }
+
+  const onMinPriceChange = (val) => {
+    setLoading(true);
+    setMinPrice(val);
+  }
+
+  const onMaxPriceChange = (val) => {
+    setLoading(true);
+    setMaxPrice(val);
+  }
+
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
       {spuId && <div className="productWrapper" id="productWrapper">
@@ -231,9 +249,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
              ref={filtersRef}>
           <Filters
             setShowFilters={setShowFilters}
-            setSize={setSize}
-            setMinPrice={setMinPrice}
-            setMaxPrice={setMaxPrice}
+            setSize={onSizeClick}
+            setMinPrice={onMinPriceChange}
+            setMaxPrice={onMaxPriceChange}
           />
         </div>
       }
@@ -262,7 +280,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <div className="content">
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
-                 onClick={() => navigate("/products?search=nike")}>
+                 onClick={() => onBrandClick('nike')}>
               <div className="brands-section-wrapper_card-icon">
                 <NikeIcon />
               </div>
@@ -270,7 +288,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
           <div
             className="brands-section-wrapper_card"
-            onClick={() => navigate("/products?search=adidas")}
+            onClick={() => onBrandClick('adidas')}
           >
             <div className="brands-section-wrapper_card-icon">
               <AdidasIcon />
@@ -279,7 +297,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
           <div
             className="brands-section-wrapper_card"
-            onClick={() => navigate("/products?search=new+balance")}
+            onClick={() => onBrandClick('new+balance')}
           >
             <div className="brands-section-wrapper_card-icon">
               <NewBalanceIcon />
@@ -288,7 +306,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
           {isDesktopScreen &&
             <div className="brands-section-wrapper_card"
-                 onClick={() => navigate("/products?search=coach")}>
+                 onClick={() => onBrandClick('coach')}>
               <div className="brands-section-wrapper_card-icon">
                 <CoachIcon />
               </div>
@@ -307,9 +325,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
           {isDesktopScreen && (
             <div className="filters-wrapper" ref={filtersRef}>
               <Filters
-                 setSize={setSize}
-                 setMinPrice={setMinPrice}
-                 setMaxPrice={setMaxPrice}
+                setSize={onSizeClick}
+                setMinPrice={onMinPriceChange}
+                setMaxPrice={onMaxPriceChange}
               />
             </div>
           )}

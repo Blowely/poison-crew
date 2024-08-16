@@ -12,9 +12,9 @@ import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import { getIntPrice } from "../common/utils";
 
-function Product({ onAddToFavorite, isLoading }) {
+function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
-  const selectedProduct = useMemo(() => ({
+ /* const selectedProduct = useMemo(() => ({
     "_id": "66ae2acd49e582bdeb1cf855",
     "spuId": 1164807,
     "images": [
@@ -662,7 +662,7 @@ function Product({ onAddToFavorite, isLoading }) {
         "skuId": 634101072
       }
     ]
-  }),[])
+  }),[])*/
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -777,13 +777,13 @@ function Product({ onAddToFavorite, isLoading }) {
 
     const tempAvailableSizesBy1lvlProps = {};
 
-    lvl2Properties?.map((sku) => {
+    /*lvl2Properties?.map((sku) => {
       if (!sku.properties[-2]) {
         return;
       }
       const lvl1Prop = sku.properties[-2];
       tempAvailableSizesBy1lvlProps[lvl1Prop.propertyValueId] = sku.properties[-1];
-    })
+    })*/
 
   },[lvl2Properties])
 
