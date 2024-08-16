@@ -1076,7 +1076,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                     </div>
                   }
                   <div className="title-wrapper">
-                    <span className="standart">{product?.title}</span>
+                    <span className="standart">{product?.clearTitle || product.title}</span>
                     {isDesktopScreen &&
                       <div  className="title">
                         {getIntPrice(choice?.price)}

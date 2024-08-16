@@ -9,6 +9,7 @@ function Card({
   spuId,
   onFavorite,
   title,
+  clearTitle,
   images,
   price,
   onPlus,
@@ -109,7 +110,7 @@ function Card({
       {!loadingImg && images?.[0] && (
         <>
           <div className={styles.cardText} style={{}}>
-            {title}
+            {clearTitle || title}
           </div>
           <div className={styles.price}>
             <span>{getPrice()}</span>
