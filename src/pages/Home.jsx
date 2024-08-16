@@ -232,13 +232,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onMinPriceChange = (val) => {
+    window.scrollTo(0, 0);
     setLoading(true);
-    setMinPrice(val);
+    setMinPrice(val !== '00' ? val : '');
+    searchParams.set("offset", "0");
+    setSearchParams(searchParams);
   }
 
   const onMaxPriceChange = (val) => {
+    window.scrollTo(0, 0);
     setLoading(true);
-    setMaxPrice(val);
+    setMaxPrice(val !== '99' ? val : '');
+    searchParams.set("offset", "0");
+    setSearchParams(searchParams);
   }
 
   return (
