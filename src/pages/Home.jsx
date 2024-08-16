@@ -102,7 +102,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   console.log('isLoading',isLoading);
 
-  const searchOrCollection = search || collection || size || minPrice || maxPrice;
+  const searchOrCollection = `${search}+${size}+${minPrice}+${maxPrice}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -141,12 +141,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const renderItems = () => {
     let productsItems = isLoading
-      ? [...Array(10)]
+      ? [...Array(20)]
       : productsSlice[trimCollectionValue] || []
 
-    productsItems = [...productsItems, ...[...Array(10)]];
+    productsItems = [...productsItems, ...[...Array(20)]];
 
-    if (productsSlice[trimCollectionValue]?.length && !isLoading && !loading) {
+    if (productsSlice[trimCollectionValue]?.length && productsSlice[trimCollectionValue]?.length < 20 && !isLoading && !loading) {
       productsItems = productsSlice[trimCollectionValue]
     }
 

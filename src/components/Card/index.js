@@ -95,8 +95,8 @@ function Card({
 
           <img
             ref={imgElement}
-            //src={`https://image.unicorngo.ru/_next/image?url=${images?.[0]}&w=640&q=75`}
-            src={images?.[0]}
+            src={`https://image.unicorngo.ru/_next/image?url=${images?.[0]}&w=640&q=75`}
+            //src={images?.[0]}
             onLoad={onLoadedIcon}
             onLoadedData={onLoadedIcon}
             loading="lazy"
