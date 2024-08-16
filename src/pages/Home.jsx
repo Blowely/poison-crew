@@ -140,15 +140,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
   const renderItems = () => {
-    const productsItems = isLoading
-      ? [...Array(20)]
-      : productsSlice[trimCollectionValue] || [];
+    let productsItems = isLoading
+      ? [...Array(10)]
+      : productsSlice[trimCollectionValue] || []
 
-    if (!productsItems?.length && !isLoading) {
+    productsItems = [...productsItems, ...[...Array(10)]];
+
+    if (productsSlice[trimCollectionValue]?.length && !isLoading && !loading) {
+      productsItems = productsSlice[trimCollectionValue]
+    }
+
+    if (!productsSlice[trimCollectionValue]?.length && !loading && !isLoading) {
       return (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
-          imageStyle={{ height: 100, paddingTop: "20px" }}
+          imageStyle={{ height: 100, paddingTop: "20px", width: '100%' }}
           description="Ничего не найдено"
         />
       );
@@ -307,14 +313,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
               />
             </div>
           )}
-          {loading && (
-            <div className="loading-icon-wrapper">
-              <LoadingOutlined style={{ fontSize: "24px" }} spin />
-            </div>
-          )}
-          {!loading &&
-            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
-          }
+          <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
         </div>
         </div>
         {!isDesktopScreen &&
