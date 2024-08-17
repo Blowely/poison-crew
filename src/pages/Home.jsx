@@ -40,23 +40,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const productsSlice = useAppSelector((state) => state.products);
 
-  const [limit, setLimit] = useState(20);
-  const [offset, setOffset] = useState(0);
-  const [test, setTest] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState({});
-  const [showFilters, setShowFilters] = useState(false);
-  const [isApplyFilters, setApplyFilters] = useState(false);
-  const [isCloseFilters, setCloseFilters] = useState(false);
-  const [filtersWidth, setFilterWidth] = useState(0);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [size, setSize] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const search = searchParams.get("search");
   const sizeParam = searchParams.get("size");
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
+
+  const [limit] = useState(20);
+  const [offset, setOffset] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [showFilters, setShowFilters] = useState(false);
+  const [minPrice, setMinPrice] = useState(minPriceParam || '');
+  const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
+  const [size, setSize] = useState(sizeParam || '');
+  const [loading, setLoading] = useState(false);
+
+  const search = searchParams.get("search");
+
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
@@ -248,7 +246,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setMaxPrice(val !== '99' ? val : '');
   }
 
-  const onApplyFilters = () => {
+  const applyFilters = () => {
     window.scrollTo(0, 0);
     setLoading(true);
     setOffset(0);
@@ -278,14 +276,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
             setSize={onSizeClick}
             setMinPrice={onMinPriceChange}
             setMaxPrice={onMaxPriceChange}
-            setCloseFilters={setCloseFilters}
           />
           {!isDesktopScreen &&
             <div className="filters-phone-apply-btn">
               <Button
                 type="primary"
                 className={"btn"}
-                onClick={onApplyFilters}
+                onClick={applyFilters}
               >
                 <span>Применить</span>
               </Button>
@@ -371,9 +368,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
           {isDesktopScreen && (
             <div className="filters-wrapper" ref={filtersRef}>
               <Filters
+                size={size}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
                 setSize={onSizeClick}
                 setMinPrice={onMinPriceChange}
                 setMaxPrice={onMaxPriceChange}
+                applyFilters={applyFilters}
               />
             </div>
           )}

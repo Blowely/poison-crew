@@ -14,7 +14,10 @@ const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isE
     const [searchValue, setSearchValue] = useState(search || '');
 
     useEffect(() => {
-        setSearchValue(search.replace('+',' '));
+        if (!search) {
+            setSearchValue('');
+        }
+        setSearchValue(search?.replace('+',' '));
     },[search])
 
     const onChange = (value) => {

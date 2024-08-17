@@ -15,7 +15,7 @@ function Filters(props) {
     setMaxPrice,
     setMinPrice,
     setSize,
-    setCloseFilters
+    applyFilters
   } = props
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,7 +46,6 @@ function Filters(props) {
 
   const closeClickHandler = () => {
     setShowFilters(false);
-    setCloseFilters(true);
     setSize("");
     setMinPrice("");
     setMaxPrice("");
@@ -76,6 +75,9 @@ function Filters(props) {
   }
 
   const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice);
+
+  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}`;
+  const currentLine = `${minPrice}+${maxPrice}+${size}`;
 
   return (
     <div className="filters-component-wrapper">
@@ -130,6 +132,18 @@ function Filters(props) {
             ))}
           </div>
         </div>
+        {isDesktopScreen &&
+          <div className="filters-apply-btn">
+            <Button
+              type="primary"
+              className={"btn default"}
+              onClick={applyFilters}
+              disabled={queryLine === currentLine}
+            >
+              <span>Применить</span>
+            </Button>
+          </div>
+        }
       </div>
     </div>
   );
