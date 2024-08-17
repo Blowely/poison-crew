@@ -10,8 +10,15 @@
 .filters-phone-headers {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   font-size: 25px;
+  padding-bottom: 10px;
+
+  button {
+    font-size: 13px;
+    border-radius: 8px;
+    padding: 0px 8px;
+  }
 }
 
 .params-wrapper {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./Filters.scss";
-import { Input } from "antd";
+import { Button, Input } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 
@@ -64,10 +64,24 @@ function Filters(props) {
     return price.substring(0, price.length - 2)
   }
 
+  const clearFilters = () => {
+    setMaxPrice('');
+    setMinPrice('');
+    setSize('');
+    setChoice(null);
+    searchParams.set('size', '');
+    searchParams.set('minPrice', '');
+    searchParams.set('maxPrice', '');
+    setSearchParams(searchParams);
+  }
+
+  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice);
+
   return (
     <div className="filters-component-wrapper">
       {!isDesktopScreen && (
         <div className="filters-phone-headers">
+          <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<CloseOutlined /></Button>
           <CloseOutlined onClick={closeClickHandler}/>
         </div>
       )}
