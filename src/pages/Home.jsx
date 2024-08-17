@@ -232,7 +232,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const onBrandClick = (brand) => {
     setLoading(true);
     setOffset(0);
-    navigate(`/products?search=${brand}`)
+    searchParams.set('search', brand);
+    setSearchParams(searchParams);
   }
 
   const onSizeClick = (val) => {
@@ -257,6 +258,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
     searchParams.set('maxPrice', maxPrice);
     setSearchParams(searchParams);
   }
+
+  const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizeParam);
 
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
@@ -311,7 +314,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
           }}
         />*/}
         </div>
-        <Header showFilters={showFilters} setOffset={setOffset} setLoading={setLoading} setShowFilters={setShowFilters}/>
+        <Header search={search}
+                showFilters={showFilters}
+                setOffset={setOffset}
+                setLoading={setLoading}
+                setShowFilters={setShowFilters}
+                isEnabledFilters={isEnabledFilters}
+        />
         <div className="content">
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
@@ -339,22 +348,24 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>NEW BALANCE</div>
           </div>
+
+          <div className="brands-section-wrapper_card"
+               onClick={() => onBrandClick('coach')}>
+            <div className="brands-section-wrapper_card-icon">
+              <CoachIcon />
+            </div>
+            <div style={{ fontWeight: "bold", fontSize: "10px" }}>COACH</div>
+          </div>
+
           {isDesktopScreen &&
             <div className="brands-section-wrapper_card"
-                 onClick={() => onBrandClick('coach')}>
+                 onClick={() => console.log('more')}>
               <div className="brands-section-wrapper_card-icon">
-                <CoachIcon />
+                <MoreIcon />
               </div>
-              <div style={{ fontWeight: "bold", fontSize: "10px" }}>COACH</div>
+              <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
             </div>
           }
-          <div className="brands-section-wrapper_card"
-               onClick={() => console.log('more')}>
-            <div className="brands-section-wrapper_card-icon">
-              <MoreIcon />
-            </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
-          </div>
         </div>
         <div className="filters-content-wrapper">
           {isDesktopScreen && (

@@ -7,12 +7,15 @@ import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 import RePoizonMainLogo from "../../assets/svg/re-poizon-main-logo.js"
 
-const Header = ({showFilters, setShowFilters, setOffset, setLoading}) => {
+const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isEnabledFilters}) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const search = searchParams.get('search');
 
+    console.log('search',search);
     const [searchValue, setSearchValue] = useState(search || '');
 
+    useEffect(() => {
+        setSearchValue(search.replace('+',' '));
+    },[search])
 
     const onChange = (value) => {
         if (search && !value) {
@@ -91,7 +94,7 @@ const Header = ({showFilters, setShowFilters, setOffset, setLoading}) => {
             />
             {!isDesktopScreen &&
               <Button onClick={filtersBtnHandler} style={{borderRadius: '8px'}}>
-                <FilterOutlined />
+                  {isEnabledFilters ? <FilterFilled /> : <FilterOutlined />}
               </Button>
             }
         </div>
