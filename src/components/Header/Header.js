@@ -92,7 +92,7 @@ const Header = ({showFilters, setShowFilters, setOffset, setLoading}) => {
                                  onClick={onSearch}>Найти</span>}
             />
             {!isDesktopScreen &&
-              <Button onClick={filtersBtnHandler}>
+              <Button onClick={filtersBtnHandler} style={{borderRadius: '8px'}}>
                 <FilterOutlined />
               </Button>
             }

@@ -326,6 +326,13 @@ header {
   z-index: 5
 }
 
+.filters-phone-apply-btn {
+  position: fixed;
+  width: 100%;
+  padding: 20px;
+  bottom: 0;
+}
+
 footer {
   position: fixed;
   z-index: 1;

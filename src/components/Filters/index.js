@@ -6,11 +6,26 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 
 
-function Filters({setShowFilters, setMaxPrice, setMinPrice, setSize}) {
+function Filters(props) {
+  const {
+    setShowFilters,
+    size,
+    minPrice,
+    maxPrice,
+    setMaxPrice,
+    setMinPrice,
+    setSize,
+    setCloseFilters
+  } = props
+
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [choice, setChoice] = useState({});
+  const [choice, setChoice] = useState(null);
   const [sizes, setSizes] = useState([]);
+
+  const sizeParam = searchParams.get("size") || "";
+  const minPriceParam = searchParams.get("minPrice") || "";
+  const maxPriceParam = searchParams.get("maxPrice") || "";
 
   const isDesktopScreen = window.screen.availWidth > 600;
 
@@ -31,6 +46,10 @@ function Filters({setShowFilters, setMaxPrice, setMinPrice, setSize}) {
 
   const closeClickHandler = () => {
     setShowFilters(false);
+    setCloseFilters(true);
+    setSize("");
+    setMinPrice("");
+    setMaxPrice("");
   }
 
   const minPriceHandler = (e) => {
@@ -38,10 +57,12 @@ function Filters({setShowFilters, setMaxPrice, setMinPrice, setSize}) {
   }
 
   const maxPriceHandler = (e) => {
-    console.log('e',e);
     setMaxPrice(`${e.target.value}99`);
   }
 
+  const getPrice = (price) => {
+    return price.substring(0, price.length - 2)
+  }
 
   return (
     <div className="filters-component-wrapper">
@@ -59,8 +80,10 @@ function Filters({setShowFilters, setMaxPrice, setMinPrice, setSize}) {
           </div>
 
           <div className="inputs-wrapper">
-            <Input size="large" placeholder="3020" prefix="от" suffix="₽" onChange={minPriceHandler} />
-            <Input size="large" placeholder="520433" prefix="до" suffix="₽"  onChange={maxPriceHandler}/>
+            <Input size="large" placeholder="3020" prefix="от" suffix="₽" type="number"
+                   value={getPrice(minPrice || minPriceParam)} onChange={minPriceHandler} />
+            <Input size="large" placeholder="520433" prefix="до" suffix="₽"
+                   value={getPrice(maxPrice || maxPriceParam)} onChange={maxPriceHandler}/>
           </div>
         </div>
         <div className="params-item-wrapper">
@@ -72,7 +95,7 @@ function Filters({setShowFilters, setMaxPrice, setMinPrice, setSize}) {
             {sizes?.map((el, i) => (
               <div
                 className={
-                  el === choice
+                  el === (choice || Number(sizeParam))
                     ? "size-wrapper gap-2 selected"
                     : "size-wrapper gap-2"
                 }

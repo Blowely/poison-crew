@@ -10,7 +10,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import CoachIcon from "../assets/svg/brands/coach-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import { Empty, Layout, Pagination } from "antd";
+import { Button, Empty, Layout, Pagination } from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
@@ -45,6 +45,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [test, setTest] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
+  const [isApplyFilters, setApplyFilters] = useState(false);
+  const [isCloseFilters, setCloseFilters] = useState(false);
   const [filtersWidth, setFilterWidth] = useState(0);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -52,6 +54,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
+  const sizeParam = searchParams.get("size");
+  const minPriceParam = searchParams.get("minPrice");
+  const maxPriceParam = searchParams.get("maxPrice");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
@@ -79,16 +84,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.offset = offset;
     }
 
-    if (minPrice) {
-      obj.minPrice = minPrice;
+    if (minPriceParam) {
+      obj.minPrice = minPriceParam;
     }
 
-    if (maxPrice) {
-      obj.maxPrice = maxPrice;
+    if (maxPriceParam) {
+      obj.maxPrice = maxPriceParam;
     }
 
-    if (size) {
-      obj.size = size;
+    if (sizeParam) {
+      obj.size = sizeParam;
     }
 
     return obj;
@@ -100,7 +105,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${search}+${size}+${minPrice}+${maxPrice}` || collection;
+  const searchOrCollection = `${search}+${sizeParam}+${minPriceParam}+${maxPriceParam}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -231,24 +236,26 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onSizeClick = (val) => {
-    window.scrollTo(0, 0);
-    setLoading(true);
     setSize(val);
-    setOffset(0);
   }
 
   const onMinPriceChange = (val) => {
-    window.scrollTo(0, 0);
-    setLoading(true);
     setMinPrice(val !== '00' ? val : '');
-    setOffset(0);
   }
 
   const onMaxPriceChange = (val) => {
+    setMaxPrice(val !== '99' ? val : '');
+  }
+
+  const onApplyFilters = () => {
     window.scrollTo(0, 0);
     setLoading(true);
-    setMaxPrice(val !== '99' ? val : '');
     setOffset(0);
+    setShowFilters(false);
+    searchParams.set('size', size);
+    searchParams.set('minPrice', minPrice);
+    searchParams.set('maxPrice', maxPrice);
+    setSearchParams(searchParams);
   }
 
   return (
@@ -262,10 +269,25 @@ function Home({ onAddToFavorite, onAddToCart }) {
              ref={filtersRef}>
           <Filters
             setShowFilters={setShowFilters}
+            size={size}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
             setSize={onSizeClick}
             setMinPrice={onMinPriceChange}
             setMaxPrice={onMaxPriceChange}
+            setCloseFilters={setCloseFilters}
           />
+          {!isDesktopScreen &&
+            <div className="filters-phone-apply-btn">
+              <Button
+                type="primary"
+                className={"btn"}
+                onClick={onApplyFilters}
+              >
+                <span>Применить</span>
+              </Button>
+            </div>
+          }
         </div>
       }
       <div className="productsListWrapper">
