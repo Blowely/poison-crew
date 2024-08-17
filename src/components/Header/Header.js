@@ -7,7 +7,7 @@ import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 import RePoizonMainLogo from "../../assets/svg/re-poizon-main-logo.js"
 
-const Header = ({showFilters, setShowFilters, setLoading}) => {
+const Header = ({showFilters, setShowFilters, setOffset, setLoading}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const search = searchParams.get('search');
 
@@ -31,6 +31,7 @@ const Header = ({showFilters, setShowFilters, setLoading}) => {
         console.log('searchValue =', searchValue);
         searchParams.set('search', typeof value  === "string" ? value : searchValue);
         setSearchParams(searchParams);
+        setOffset(0);
     }
 
     const onChangeCollection = (value) => {

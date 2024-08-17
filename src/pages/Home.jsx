@@ -41,6 +41,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const productsSlice = useAppSelector((state) => state.products);
 
   const [limit, setLimit] = useState(20);
+  const [offset, setOffset] = useState(0);
   const [test, setTest] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
@@ -52,7 +53,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const search = searchParams.get("search");
   const collection = searchParams.get("collName") || "";
-  let offset = searchParams.get("offset");
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
   const filtersRef = useRef(null);
@@ -106,7 +106,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     setLoading(false);
-    console.log('products',products);
+
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
@@ -154,6 +154,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           image={Empty.PRESENTED_IMAGE_SIMPLE}
           imageStyle={{ height: 100, paddingTop: "20px", width: '100%' }}
           description="Ничего не найдено"
+          className="empty"
         />
       );
     }
@@ -199,16 +200,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
       try {
         const lastEl =
           docElements[0]?.children[docElements[0]?.children?.length - 1]
-            ?.offsetTop - 2000;
+            ?.offsetTop - 3500;
         const windowPageYOffset = window.pageYOffset;
+
 
         if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
           currentPage = true;
 
           if (products.items.length === limit) {
-            const prevOffset = 20 + Number(offset);
-            searchParams.set("offset", prevOffset.toString());
-            refetch();
+            setOffset((prev) => {
+              if ((productsSlice?.[trimCollectionValue]?.length || 0) + 20 === prev + 20) {
+                return prev + 20;
+              }
+
+              return prev;
+            })
           }
         }
       } catch (e) {
@@ -220,6 +226,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const onBrandClick = (brand) => {
     setLoading(true);
+    setOffset(0);
     navigate(`/products?search=${brand}`)
   }
 
@@ -227,24 +234,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
     window.scrollTo(0, 0);
     setLoading(true);
     setSize(val);
-    searchParams.set("offset", "0");
-    setSearchParams(searchParams);
+    setOffset(0);
   }
 
   const onMinPriceChange = (val) => {
     window.scrollTo(0, 0);
     setLoading(true);
     setMinPrice(val !== '00' ? val : '');
-    searchParams.set("offset", "0");
-    setSearchParams(searchParams);
+    setOffset(0);
   }
 
   const onMaxPriceChange = (val) => {
     window.scrollTo(0, 0);
     setLoading(true);
     setMaxPrice(val !== '99' ? val : '');
-    searchParams.set("offset", "0");
-    setSearchParams(searchParams);
+    setOffset(0);
   }
 
   return (
@@ -285,7 +289,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           }}
         />*/}
         </div>
-        <Header showFilters={showFilters} setLoading={setLoading} setShowFilters={setShowFilters}/>
+        <Header showFilters={showFilters} setOffset={setOffset} setLoading={setLoading} setShowFilters={setShowFilters}/>
         <div className="content">
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"

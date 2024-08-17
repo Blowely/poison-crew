@@ -50,9 +50,6 @@ function Card({
   };
 
   const onLoadedIcon = () => {
-    if (!loadingImg) {
-      return null;
-    }
     setLoadingImg(false);
   };
 
@@ -99,7 +96,6 @@ function Card({
             src={`https://image.unicorngo.ru/_next/image?url=${images?.[0]}&w=640&q=75`}
             //src={images?.[0]}
             onLoad={onLoadedIcon}
-            onLoadedData={onLoadedIcon}
             loading="lazy"
           />
         </>
