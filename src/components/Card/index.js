@@ -93,8 +93,7 @@ function Card({
 
           <img
             ref={imgElement}
-            src={`https://image.unicorngo.ru/_next/image?url=${images?.[0]}&w=640&q=75`}
-            //src={images?.[0]}
+            src={`${images?.[0]}?x-oss-process=image/format,webp/resize,w_600`}
             onLoad={onLoadedIcon}
             loading="lazy"
           />

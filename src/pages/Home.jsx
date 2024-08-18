@@ -54,7 +54,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
-
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
