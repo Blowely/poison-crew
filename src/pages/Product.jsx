@@ -726,7 +726,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   },[selectedProduct])
 
   useEffect(() => {
-    console.log('selectedProduct',selectedProduct);
     if(!Object.keys(selectedProduct)?.length) {
       return;
     }
@@ -734,9 +733,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     setProduct(selectedProduct);
 
     let currentProduct = selectedProduct;
-
-
-    console.log('remoteProduct =',remoteProduct);
 
     if (sizeParam) {
       const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => {
