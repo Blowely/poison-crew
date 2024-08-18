@@ -6,33 +6,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
 
 function Card({
-  spuId,
-  onFavorite,
   title,
   clearTitle,
   images,
   price,
-  onPlus,
-  item,
-  favorited = false,
-  added = false,
-  loading = false,
 }) {
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const [loadingImg, setLoadingImg] = useState(true);
-  const [isFavorite, setIsFavorite] = React.useState(favorited);
   const imgElement = React.useRef(null);
-
-  const onClickPlus = () => {
-    onPlus({ spuId, title, images, price });
-  };
-
-  const onClickFavorite = () => {
-    onFavorite({ spuId, title, images, price });
-    setIsFavorite(!isFavorite);
-  };
 
   const getPrice = () => {
     if (Number(price) < 1) {

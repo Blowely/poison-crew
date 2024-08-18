@@ -170,20 +170,29 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     return (
       <div className="cards-section-wrapper">
-        {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => (
-          <div onClick={() => onCardClickHandler(item)} key={index}>
-            <Card
-              id={item?.spuId}
-              onFavorite={(obj) => onAddToFavorite(obj)}
-              onPlus={(obj) => onAddToCart(obj)}
-              loading={isLoading}
-              images={item?.images}
-              price={item?.cheapestPrice}
-              item={item}
-              {...item}
-            />
-          </div>
-        ))}
+        {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
+
+          let price = item?.cheapestPrice;
+
+          if (sizeParam && item?.sizesAndPrices?.length) {
+            const sku = item?.sizesAndPrices?.find((el) => el.size === sizeParam);
+            price = sku.price;
+          }
+
+          return(
+            <div onClick={() => onCardClickHandler(item)} key={index}>
+              <Card
+                id={item?.spuId}
+                onFavorite={(obj) => onAddToFavorite(obj)}
+                onPlus={(obj) => onAddToCart(obj)}
+                loading={isLoading}
+                images={item?.images}
+                price={price}
+                item={item}
+                {...item}
+              />
+            </div>
+        )})}
       </div>
     );
   };

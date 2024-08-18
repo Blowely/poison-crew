@@ -682,8 +682,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const [availableLvl1Properties, setAvailableLvl1Properties] = useState({});
   const [availableLvl2Properties, setAvailableLvl2Properties] = useState({});
 
-
   const spuId = searchParams.get("spuId");
+  const sizeParam = searchParams.get("size");
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
@@ -735,14 +735,33 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
     let currentProduct = selectedProduct;
 
-    const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => el?.price === currentProduct?.cheapestPrice);
 
     console.log('remoteProduct =',remoteProduct);
-    setChoice({
-      price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
-      size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
-      index: itemIndex,
-    })
+
+    if (sizeParam) {
+      const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => {
+        return el?.size === sizeParam
+      });
+
+      setChoice({
+        price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
+        size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
+        index: itemIndex,
+      })
+
+    } else {
+      const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => {
+        return el?.price === currentProduct?.cheapestPrice
+      });
+
+      setChoice({
+        price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
+        size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
+        index: itemIndex,
+      })
+    }
+
+
 
     const temp2lvlProperties = {};
 
