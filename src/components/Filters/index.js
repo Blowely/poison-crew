@@ -4,8 +4,8 @@ import "./Filters.scss";
 import { Button, Input } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
-import { useGetProductsQuery } from "../../store/products.store";
 import { useGetBrandsQuery } from "../../store/brands.store";
+import ImgList from "./ImgList/ImgList";
 
 
 function Filters(props) {
@@ -25,6 +25,7 @@ function Filters(props) {
 
   const [choice, setChoice] = useState(null);
   const [sizes, setSizes] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
 
   const sizeParam = searchParams.get("size") || "";
   const minPriceParam = searchParams.get("minPrice") || "";
@@ -49,6 +50,7 @@ function Filters(props) {
     isLoading,
     refetch,
   } = useGetBrandsQuery(buildRequest());
+
 
   useEffect(() => {
     if (!sizes?.length) {
@@ -152,6 +154,14 @@ function Filters(props) {
               </div>
             ))}
           </div>
+        </div>
+        <div className="params-item-wrapper">
+          <div className="param-title">
+            Бренды
+          </div>
+
+          <ImgList plainOptions={brands.items.map((el) => el?.originName)}
+                   selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands}/>
         </div>
         {isDesktopScreen &&
           <div className="filters-apply-btn">

@@ -24,8 +24,9 @@ export const reducers = {
   [cartSlice.name]: cartSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
   [productsSlice.name]: productsSlice.reducer,
-  [categoriesApi.name]: categoriesApi.reducer,
-  [brandsApi.name]: brandsApi.reducer,
+  [categoriesApi.reducerPath]: categoriesApi.reducer,
+  [brandsApi.reducerPath]: brandsApi.reducer,
+
 };
 
 const reducer = combineReducers(reducers);

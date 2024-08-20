@@ -148,7 +148,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     let productsItems = isLoading
       ? [...Array(20)]
       : productsSlice[trimCollectionValue] || []
-    console.log('trimCollectionValue',trimCollectionValue);
 
     productsItems = [...productsItems, ...[...Array(15)]];
 
