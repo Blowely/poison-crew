@@ -327,6 +327,10 @@ header {
   background-color: white;
   z-index: 5;
   overflow: auto;
+
+  > .filters-component-wrapper {
+    padding-bottom: 100px;
+  }
 }
 
 .filters-phone-apply-btn {
