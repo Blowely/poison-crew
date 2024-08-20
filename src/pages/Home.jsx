@@ -50,7 +50,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const search = searchParams.get("search");
   const brandId = searchParams.get("brandId");
-  const categoryId = searchParams.get("categoryId");
+  const categoryId = searchParams.get("categoryId") || '38';
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
@@ -303,6 +303,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           size={size}
           minPrice={minPrice}
           maxPrice={maxPrice}
+          categoryId={categoryId}
           setSize={onSizeClick}
           setMinPrice={onMinPriceChange}
           setMaxPrice={onMaxPriceChange}
@@ -401,6 +402,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 size={size}
                 minPrice={minPrice}
                 maxPrice={maxPrice}
+                categoryId={categoryId}
                 setSize={onSizeClick}
                 setMinPrice={onMinPriceChange}
                 setMaxPrice={onMaxPriceChange}

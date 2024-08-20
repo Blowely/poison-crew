@@ -12,6 +12,8 @@ import { collectionsApi } from "./collections.store";
 import { productsSlice } from "../common/productsSlice";
 import { cdekApi } from "./cdek.store";
 import { boxBerryApi } from "./boxBerry.store";
+import { categoriesApi } from "./categories.store";
+import { brandsApi } from "./brands.store";
 
 export const reducers = {
   [productsApi.reducerPath]: productsApi.reducer,
@@ -22,6 +24,8 @@ export const reducers = {
   [cartSlice.name]: cartSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
   [productsSlice.name]: productsSlice.reducer,
+  [categoriesApi.name]: categoriesApi.reducer,
+  [brandsApi.name]: brandsApi.reducer,
 };
 
 const reducer = combineReducers(reducers);
@@ -37,7 +41,9 @@ export default function configureStore() {
         .concat(ordersApi.middleware)
         .concat(collectionsApi.middleware)
         .concat(cdekApi.middleware)
-        .concat(boxBerryApi.middleware),
+        .concat(boxBerryApi.middleware)
+        .concat(categoriesApi.middleware)
+        .concat(brandsApi.middleware)
   });
 
   return store;

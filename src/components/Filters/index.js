@@ -4,6 +4,8 @@ import "./Filters.scss";
 import { Button, Input } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
+import { useGetProductsQuery } from "../../store/products.store";
+import { useGetBrandsQuery } from "../../store/brands.store";
 
 
 function Filters(props) {
@@ -12,6 +14,7 @@ function Filters(props) {
     size,
     minPrice,
     maxPrice,
+    categoryId,
     setMaxPrice,
     setMinPrice,
     setSize,
@@ -28,6 +31,24 @@ function Filters(props) {
   const maxPriceParam = searchParams.get("maxPrice") || "";
 
   const isDesktopScreen = window.screen.availWidth > 600;
+
+  const buildRequest = () => {
+    let obj = {
+      limit: 20,
+    };
+
+    if (categoryId) {
+      obj.categoryId = categoryId;
+    }
+
+    return obj;
+  };
+
+  const {
+    data: brands = { items: [], totalCount: 0 },
+    isLoading,
+    refetch,
+  } = useGetBrandsQuery(buildRequest());
 
   useEffect(() => {
     if (!sizes?.length) {
