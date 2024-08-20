@@ -1,8 +1,7 @@
 import React, {
   Suspense,
-  useCallback,
   useEffect,
-  useMemo, useRef,
+  useRef,
   useState
 } from "react";
 import Card from "../components/Card";
@@ -14,12 +13,10 @@ import { Button, Empty, Layout, Pagination } from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
-import { LoadingOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import ActiveBagIcon from "../assets/svg/active-bag-icon.js";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
-import { addAddress } from "../common/accountSlice";
 import { addProducts } from "../common/productsSlice";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
@@ -27,12 +24,10 @@ import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
-import ContentLoader from "react-content-loader";
 import Product from "./Product";
-import { Logger } from "sass";
 import Filters from "../components/Filters";
-import MlbIcon from "../assets/svg/brands/mlb-icon";
 import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
+import Categories from "../components/Categories/Categories";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -55,6 +50,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const search = searchParams.get("search");
   const brandId = searchParams.get("brandId");
+  const categoryId = searchParams.get("categoryId");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
@@ -76,6 +72,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     if (brandId) {
       obj.brandId = brandId;
+    }
+
+    if (categoryId) {
+      obj.categoryId = categoryId;
     }
 
     if (collection) {
@@ -107,7 +107,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${brandId}+${search}+${sizeParam}+${minPriceParam}+${maxPriceParam}` || collection;
+  const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}+${minPriceParam}+${maxPriceParam}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -273,37 +273,52 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizeParam);
 
+  const body = document.body;
+
+  /*fixedElement?.addEventListener('mouseenter', () => {
+    console.log('here =',fixedElement);
+    body.style.overflow = 'hidden';
+  });
+
+  fixedElement?.addEventListener('mouseleave', () => {
+    body.style.overflow = '';
+  });*/
+
+  if (showFilters || spuId) {
+    body.style.overflow = 'hidden';
+  } else {
+    body.style.overflow = '';
+  }
+
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
       {spuId && <div className="productWrapper" id="productWrapper">
         <Product selectedProduct={selectedProduct}/>
       </div>
       }
-      {showFilters &&
-        <div className="filters-phone-wrapper"
-             ref={filtersRef}>
-          <Filters
-            setShowFilters={setShowFilters}
-            size={size}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            setSize={onSizeClick}
-            setMinPrice={onMinPriceChange}
-            setMaxPrice={onMaxPriceChange}
-          />
-          {!isDesktopScreen &&
-            <div className="filters-phone-apply-btn">
-              <Button
-                type="primary"
-                className={"btn"}
-                onClick={applyFilters}
-              >
-                <span>Применить</span>
-              </Button>
-            </div>
-          }
-        </div>
-      }
+      <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
+           ref={filtersRef}>
+        <Filters
+          setShowFilters={setShowFilters}
+          size={size}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          setSize={onSizeClick}
+          setMinPrice={onMinPriceChange}
+          setMaxPrice={onMaxPriceChange}
+        />
+        {!isDesktopScreen &&
+          <div className="filters-phone-apply-btn">
+            <Button
+              type="primary"
+              className={"btn"}
+              onClick={applyFilters}
+            >
+              <span>Применить</span>
+            </Button>
+          </div>
+        }
+      </div>
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
           {/*<div
@@ -333,6 +348,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 isEnabledFilters={isEnabledFilters}
         />
         <div className="content">
+          <Categories setLoading={setLoading}/>
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
                  onClick={() => onBrandClick(144)}>

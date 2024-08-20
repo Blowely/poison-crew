@@ -1,0 +1,41 @@
+.card-wrapper {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
+  }
+
+}
+
+.cat-card {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  cursor: pointer;
+
+  img {
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+  }
+
+  > div {
+    display: flex;
+    justify-content: center;
+    padding-top: 1px;
+    font-weight: 300;
+    font-size: .8rem;
+    line-height: 18.75px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
