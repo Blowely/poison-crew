@@ -54,6 +54,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
+  const brandId = searchParams.get("brandId");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const spuId = searchParams.get("spuId");
@@ -72,6 +73,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
       limit: 20,
       search: search?.toLowerCase(),
     };
+
+    if (brandId) {
+      obj.brandId = brandId;
+    }
 
     if (collection) {
       obj.collName = collection;
@@ -102,13 +107,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${search}+${sizeParam}+${minPriceParam}+${maxPriceParam}` || collection;
+  const searchOrCollection = `${brandId}+${search}+${sizeParam}+${minPriceParam}+${maxPriceParam}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
   useEffect(() => {
     setLoading(false);
-
+    console.log('trimCollectionValue',trimCollectionValue);
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
@@ -143,6 +148,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     let productsItems = isLoading
       ? [...Array(20)]
       : productsSlice[trimCollectionValue] || []
+    console.log('trimCollectionValue',trimCollectionValue);
 
     productsItems = [...productsItems, ...[...Array(15)]];
 
@@ -238,7 +244,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const onBrandClick = (brand) => {
     setLoading(true);
     setOffset(0);
-    searchParams.set('search', brand);
+    searchParams.set('brandId', brand);
     setSearchParams(searchParams);
   }
 
@@ -329,7 +335,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <div className="content">
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
-                 onClick={() => onBrandClick('nike')}>
+                 onClick={() => onBrandClick(144)}>
               <div className="brands-section-wrapper_card-icon">
                 <NikeIcon />
               </div>
@@ -337,7 +343,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
           <div
             className="brands-section-wrapper_card"
-            onClick={() => onBrandClick('adidas')}
+            onClick={() => onBrandClick(10139)}
           >
             <div className="brands-section-wrapper_card-icon">
               <AdidasIcon />
@@ -346,7 +352,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
           <div
             className="brands-section-wrapper_card"
-            onClick={() => onBrandClick('new+balance')}
+            onClick={() => onBrandClick(4)}
           >
             <div className="brands-section-wrapper_card-icon">
               <NewBalanceIcon />
@@ -355,7 +361,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
 
           <div className="brands-section-wrapper_card"
-               onClick={() => onBrandClick('coach')}>
+               onClick={() => onBrandClick(10229)}>
             <div className="brands-section-wrapper_card-icon">
               <CoachIcon />
             </div>

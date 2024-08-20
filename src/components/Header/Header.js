@@ -10,7 +10,6 @@ import RePoizonMainLogo from "../../assets/svg/re-poizon-main-logo.js"
 const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isEnabledFilters}) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    console.log('search',search);
     const [searchValue, setSearchValue] = useState(search || '');
 
     useEffect(() => {
