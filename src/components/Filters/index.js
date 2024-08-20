@@ -18,14 +18,16 @@ function Filters(props) {
     setMaxPrice,
     setMinPrice,
     setSize,
-    applyFilters
+    applyFilters,
+    selectedBrands,
+    setSelectedBrands,
+    setLoading
   } = props
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [choice, setChoice] = useState(null);
   const [sizes, setSizes] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
 
   const sizeParam = searchParams.get("size") || "";
   const minPriceParam = searchParams.get("minPrice") || "";
@@ -160,8 +162,8 @@ function Filters(props) {
             Бренды
           </div>
 
-          <ImgList plainOptions={brands.items.map((el) => el?.originName)}
-                   selectedBrands={selectedBrands} setSelectedBrands={setSelectedBrands}/>
+          <ImgList data={brands?.items}
+                   setLoading={setLoading} setSelectedBrands={setSelectedBrands}/>
         </div>
         {isDesktopScreen &&
           <div className="filters-apply-btn">

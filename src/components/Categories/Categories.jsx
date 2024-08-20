@@ -34,8 +34,8 @@ const Categories = ({setLoading}) => {
     isOnlyDesktop: true
   }] : data
 
-  return <div className="card-wrapper">{data.map(el => {
-    return <CatCard title={el.title} img={el.img} categoryId={el.categoryId} setLoading={setLoading} />
+  return <div className="card-wrapper">{data.map((el,i) => {
+    return <div key={i}><CatCard title={el.title} img={el.img} categoryId={el.categoryId} setLoading={setLoading} /></div>
   })}</div>
 }
 

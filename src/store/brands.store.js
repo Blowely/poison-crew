@@ -5,8 +5,8 @@ import { collectionQueryProps, customUrlBuilder } from "../common/utils";
 export const brandsApi = createApi({
   reducerPath: "brandsApi",
   tagTypes: ["Brand"],
-  //baseQuery: baseQuery("https://api.re-poizon.ru/api"),
-  baseQuery: baseQuery("http://localhost:3001/api"),
+  baseQuery: baseQuery("https://api.re-poizon.ru/api"),
+  //baseQuery: baseQuery("http://localhost:3001/api"),
   endpoints: (builder) => ({
     getBrands: builder.query({
       query: (params) => customUrlBuilder("/brands", params),

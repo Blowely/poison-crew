@@ -46,6 +46,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
   const [size, setSize] = useState(sizeParam || '');
+  const [selectedBrands, setSelectedBrands] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
@@ -72,6 +74,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     if (brandId) {
       obj.brandId = brandId;
+    }
+
+    if (selectedBrands?.length) {
+      obj.brandIds = selectedBrands.map(({id}) => id).join(',');
     }
 
     if (categoryId) {
@@ -107,7 +113,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}+${minPriceParam}+${maxPriceParam}` || collection;
+  const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}`+
+    `+${minPriceParam}+${maxPriceParam}${selectedBrands.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -303,9 +310,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
           minPrice={minPrice}
           maxPrice={maxPrice}
           categoryId={categoryId}
+          selectedBrands={selectedBrands}
+          setSelectedBrands={setSelectedBrands}
           setSize={onSizeClick}
           setMinPrice={onMinPriceChange}
           setMaxPrice={onMaxPriceChange}
+          setLoading={setLoading}
         />
         {!isDesktopScreen &&
           <div className="filters-phone-apply-btn">
@@ -402,10 +412,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 minPrice={minPrice}
                 maxPrice={maxPrice}
                 categoryId={categoryId}
+                selectedBrands={selectedBrands}
+                setSelectedBrands={setSelectedBrands}
                 setSize={onSizeClick}
                 setMinPrice={onMinPriceChange}
                 setMaxPrice={onMaxPriceChange}
                 applyFilters={applyFilters}
+                setLoading={setLoading}
               />
             </div>
           )}

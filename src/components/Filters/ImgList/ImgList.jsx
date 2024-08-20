@@ -4,8 +4,9 @@ import { useState } from "react";
 
 const CheckboxGroup = Checkbox.Group;
 
-const ImgList = ({plainOptions, setLoading,selectedBrands, setSelectedBrands}) => {
-  console.log('plainOptions',plainOptions);
+const ImgList = ({data,setLoading, setSelectedBrands}) => {
+  const plainOptions = data.map((el) => el?.originName);
+
   const [checkedList, setCheckedList] = useState([]);
 
   const checkAll = plainOptions?.length === checkedList?.length;
@@ -13,16 +14,22 @@ const ImgList = ({plainOptions, setLoading,selectedBrands, setSelectedBrands}) =
 
   const onChange = (list) => {
     setCheckedList(list);
+    const items = list.map(el => data.find(({originName}) => originName === el));
+    setSelectedBrands(items);
+    setLoading(true);
   };
 
   const onCheckAllChange = (e) => {
     setCheckedList(e.target.checked ? plainOptions : []);
+    const items = (plainOptions || []).map(el => data.find(({originName}) => originName === el));
+    setSelectedBrands(items);
+    setLoading(true);
   };
 
   return (
     <div className="list-wrapper">
       <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
-        Check all
+        Выбрать все
       </Checkbox>
       <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
     </div>
