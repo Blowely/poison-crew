@@ -113,7 +113,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   useEffect(() => {
     setLoading(false);
-    console.log('trimCollectionValue',trimCollectionValue);
+
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
