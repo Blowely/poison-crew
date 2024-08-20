@@ -21,7 +21,7 @@ const Categories = ({setLoading}) => {
     title:'Очки',
     isOnlyDesktop: false
   },{
-    categoryId:38,
+    categoryId:51,
     img:'https://cdn-img.poizonapp.com/pro-img/cut-img/20230906/49de9366b9f74c51bc0f60237ca88b4c.jpg?x-oss-process=image/format,webp/resize,w_500',
     title:'Сумки',
     isOnlyDesktop: false
@@ -35,7 +35,7 @@ const Categories = ({setLoading}) => {
   }] : data
 
   return <div className="card-wrapper">{data.map(el => {
-    return <CatCard title={el.title} img={el.img} categoryId={el.categoryId} />
+    return <CatCard title={el.title} img={el.img} categoryId={el.categoryId} setLoading={setLoading} />
   })}</div>
 }
 
