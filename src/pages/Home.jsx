@@ -316,6 +316,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           setMinPrice={onMinPriceChange}
           setMaxPrice={onMaxPriceChange}
           setLoading={setLoading}
+          setOffset={setOffset}
         />
         {!isDesktopScreen &&
           <div className="filters-phone-apply-btn">
@@ -419,6 +420,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 setMaxPrice={onMaxPriceChange}
                 applyFilters={applyFilters}
                 setLoading={setLoading}
+                setOffset={setOffset}
               />
             </div>
           )}

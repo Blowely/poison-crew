@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const CheckboxGroup = Checkbox.Group;
 
-const ImgList = ({data,setLoading, setSelectedBrands}) => {
+const ImgList = ({data, setLoading, setOffset, setSelectedBrands}) => {
   const plainOptions = data.map((el) => el?.originName);
 
   const [checkedList, setCheckedList] = useState([]);
@@ -17,13 +17,14 @@ const ImgList = ({data,setLoading, setSelectedBrands}) => {
     const items = list.map(el => data.find(({originName}) => originName === el));
     setSelectedBrands(items);
     setLoading(true);
+    setOffset(0);
   };
 
   const onCheckAllChange = (e) => {
     setCheckedList(e.target.checked ? plainOptions : []);
     const items = (plainOptions || []).map(el => data.find(({originName}) => originName === el));
     setSelectedBrands(items);
-    setLoading(true);
+    setOffset(0);
   };
 
   return (

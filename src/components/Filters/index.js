@@ -21,7 +21,8 @@ function Filters(props) {
     applyFilters,
     selectedBrands,
     setSelectedBrands,
-    setLoading
+    setLoading,
+    setOffset,
   } = props
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +38,7 @@ function Filters(props) {
 
   const buildRequest = () => {
     let obj = {
-      limit: 20,
+      limit: 100,
     };
 
     if (categoryId) {
@@ -162,8 +163,8 @@ function Filters(props) {
             Бренды
           </div>
 
-          <ImgList data={brands?.items}
-                   setLoading={setLoading} setSelectedBrands={setSelectedBrands}/>
+          <ImgList data={brands?.items} setLoading={setLoading}
+                   setOffset={setOffset} setSelectedBrands={setSelectedBrands}/>
         </div>
         {isDesktopScreen &&
           <div className="filters-apply-btn">
