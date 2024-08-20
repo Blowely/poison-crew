@@ -4,7 +4,9 @@ import { useState } from "react";
 
 const CheckboxGroup = Checkbox.Group;
 
-const ImgList = ({data, setLoading, setOffset, setSelectedBrands}) => {
+const ImgList = (props) => {
+  const {data, setLoading, setOffset, setSelectedBrands} = props;
+
   const plainOptions = data.map((el) => el?.originName);
 
   const [checkedList, setCheckedList] = useState([]);
