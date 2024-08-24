@@ -19,14 +19,14 @@ const ImgList = (props) => {
     const items = list.map(el => data.find(({originName}) => originName === el));
     setSelectedBrands(items);
     setLoading(true);
-    setOffset(0);
+    setOffset(1);
   };
 
   const onCheckAllChange = (e) => {
     setCheckedList(e.target.checked ? plainOptions : []);
     const items = (plainOptions || []).map(el => data.find(({originName}) => originName === el));
     setSelectedBrands(items);
-    setOffset(0);
+    setOffset(1);
   };
 
   return (

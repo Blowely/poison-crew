@@ -2,14 +2,11 @@ import React, { useState } from "react";
 
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { LoadingOutlined } from "@ant-design/icons";
 
 function Card({
-  title,
-  clearTitle,
-  images,
+  image,
   price,
+  name
 }) {
 
   const [loadingImg, setLoadingImg] = useState(true);
@@ -40,7 +37,7 @@ function Card({
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
        rel="noreferrer">
-      {!title && (
+      {!name && (
         <ContentLoader
           speed={0.8}
           backgroundColor="#f3f3f3"
@@ -55,7 +52,7 @@ function Card({
         </ContentLoader>
       )}
 
-      {images?.[0] &&
+      {image &&
         <>
           {loadingImg &&
             <ContentLoader
@@ -74,7 +71,7 @@ function Card({
 
           <img
             ref={imgElement}
-            src={`${images?.[0]}?x-oss-process=image/format,webp/resize,w_600`}
+            src={`${image}/resize,w_600`}
             onLoad={onLoadedIcon}
             loading="lazy"
           />
@@ -83,10 +80,10 @@ function Card({
       }
 
 
-      {!loadingImg && images?.[0] && (
+      {!loadingImg && image && (
         <>
           <div className={styles.cardText} style={{}}>
-            {clearTitle || title}
+            {name}
           </div>
           <div className={styles.price}>
             <span>{getPrice()}</span>

@@ -34,7 +34,7 @@ const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isE
         window.scrollTo({top: 0})
         searchParams.set('search', typeof value  === "string" ? value : searchValue);
         setSearchParams(searchParams);
-        setOffset(0);
+        setOffset(1);
     }
 
     const onChangeCollection = (value) => {

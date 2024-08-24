@@ -39,8 +39,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
 
-  const [limit] = useState(20);
-  const [offset, setOffset] = useState(0);
+  const [limit] = useState(60);
+  const [offset, setOffset] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
@@ -55,7 +55,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const categoryId = searchParams.get("categoryId") || '38';
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
-  const spuId = searchParams.get("spuId");
+  const url = searchParams.get("url");
   const filtersRef = useRef(null);
 
 
@@ -89,7 +89,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     if (offset) {
-      obj.offset = offset;
+      obj.page = offset;
     }
 
     if (minPriceParam) {
@@ -153,12 +153,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const renderItems = () => {
     let productsItems = isLoading
-      ? [...Array(20)]
+      ? [...Array(60)]
       : productsSlice[trimCollectionValue] || []
 
     productsItems = [...productsItems, ...[...Array(15)]];
 
-    if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 20 && !isLoading && !loading) {
+    if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 60 && !isLoading && !loading) {
       productsItems = productsSlice[trimCollectionValue]
     }
 
@@ -175,7 +175,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     const onCardClickHandler = (item) => {
       setSelectedProduct(item);
-      searchParams.set('spuId', item?.spuId);
+      const url = item.url.split('/')[4];
+      console.log('url',url);
+      searchParams.set('url', url);
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
     }
@@ -194,14 +196,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
           return(
             <div onClick={() => onCardClickHandler(item)} key={index}>
               <Card
-                id={item?.spuId}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
                 loading={isLoading}
-                images={item?.images}
-                price={price}
+                image={item?.image}
+                price={item?.offers?.price * 90.98}
                 item={item}
-                {...item}
+                name={item?.name}
               />
             </div>
         )})}
@@ -232,11 +233,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
           if (products.items.length === limit) {
             setOffset((prev) => {
-              if ((productsSlice?.[trimCollectionValue]?.length || 0) + 20 === prev + 20) {
-                return prev + 20;
-              }
+              /*if ((productsSlice?.[trimCollectionValue]?.length || 1) + 1 === prev + 1) {
+                return prev + 1;
+              }*/
 
-              return prev;
+              return prev + 1;
             })
           }
         }
@@ -249,7 +250,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const onBrandClick = (brand) => {
     setLoading(true);
-    setOffset(0);
+    setOffset(1);
     searchParams.set('brandId', brand);
     setSearchParams(searchParams);
   }
@@ -269,7 +270,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const applyFilters = () => {
     window.scrollTo(0, 0);
     setLoading(true);
-    setOffset(0);
+    setOffset(1);
     setShowFilters(false);
     searchParams.set('size', size);
     searchParams.set('minPrice', minPrice);
@@ -290,7 +291,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     body.style.overflow = '';
   });*/
 
-  if (showFilters || spuId) {
+  if (showFilters || url) {
     body.style.overflow = 'hidden';
   } else {
     body.style.overflow = '';
@@ -298,7 +299,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
-      {spuId && <div className="productWrapper" id="productWrapper">
+      {url && <div className="productWrapper" id="productWrapper">
         <Product selectedProduct={selectedProduct}/>
       </div>
       }
