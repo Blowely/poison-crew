@@ -105,9 +105,8 @@ export const getIntPrice = (price) => {
   if (!price) {
     return "";
   }
-  const subStr = price.toString().substring(0, price?.length - 2)
-  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
 
+  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
 }
 
 const getLvl2Properties = (selectedProduct, el) => {

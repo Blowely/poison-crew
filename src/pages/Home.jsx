@@ -200,7 +200,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 onPlus={(obj) => onAddToCart(obj)}
                 loading={isLoading}
                 image={item?.image}
-                price={item?.offers?.price * 90.98}
+                price={item?.offers?.price * 100 * 102}
                 item={item}
                 name={item?.name}
               />

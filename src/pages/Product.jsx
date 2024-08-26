@@ -31,6 +31,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const [lvl2Properties, setLvl2Properties] = useState([]);
   const [availableLvl1Properties, setAvailableLvl1Properties] = useState({});
   const [availableLvl2Properties, setAvailableLvl2Properties] = useState({});
+  const [sizesAndPrices, setSizesAndPrices] = useState([]);
 
   const spuId = searchParams.get("spuId");
   const url = searchParams.get("url");
@@ -105,24 +106,31 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       })
     }
 
+    if (remoteProduct && currentProduct?.goodsDetail?.saleProperties.length) {
 
+      const skus = currentProduct?.goodsDetail?.skus || [];
+      const skuInfoList = currentProduct?.priceInfo.skuInfoList;
 
-    const temp2lvlProperties = {};
+      const saleProperty = currentProduct?.goodsDetail?.saleProperties[0];
+      const propertyMap = saleProperty.propertyMap['US Men'];
+      console.log('propertyMap',propertyMap);
+      const sizesAndPrices = skus.map((sku) => {
+        const sizeId = sku.properties[sku.properties.length - 1]?.propertyValueId;
+        console.log('sizeId=',sizeId);
+        const size = propertyMap?.find(el => el.propertyValueId === sizeId);
+        const price = skuInfoList?.find(el => el.skuId === sku.skuId);
 
-    currentProduct?.sizesAndPrices?.forEach((el) => {
-      const skuId = el.skuId;
+        return {
+          skuId: sku.skuId,
+          status: sku.status,
+          size,
+          price,
+          properties: sku.properties || []
+        }
+      })
 
-      if (temp2lvlProperties[skuId]) {
-        return;
-      }
-      const property = findSkuPropertiesBySkuId(skuId);
-      console.log('property',property);
-      if (property?.propertyValueId) {
-        temp2lvlProperties[property.propertyValueId] = property;
-      }
-    })
-    console.log('temp2lvlProperties',temp2lvlProperties);
-    setLvl2Properties(temp2lvlProperties);
+      setSizesAndPrices(sizesAndPrices);
+    }
 
     if (!prevUpdatedAtRef.current) {
       start();
@@ -166,11 +174,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   };
 
   const onChangeChoiceHandler = (el, i) => {
-    if (!Number(el.price)) {
+    if (!Number(el.price?.minPrice?.amountText)) {
       return;
     }
 
-    setChoice({ size: el.size, price: el.price?.toString(), index: i });
+    setChoice({ size: el.size.value, price: el.price?.minPrice?.amountText?.toString(), index: i });
 
     if (!selectedProduct?.arSkuIdRelation?.length) {
       return;
@@ -198,22 +206,16 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     if (!price) {
       return "--";
     }
-    const str = JSON.stringify(price);
 
-    const subStr = str.substring(0, str?.length - 2)
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
   };
 
   const getBtnPrice = useCallback((price) => {
-    if (isDisabledBuyBtn) {
-      return `Обновление цен ${time}`
-    }
-
     if (!price) {
       return "--";
     }
-    const subStr = price.substring(0, price?.length - 2)
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
+
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
 
   },[choice, isDisabledBuyBtn, time]);
 
@@ -245,6 +247,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   }
 
   const isDesktopScreen = window?.innerWidth > 768;
+
+  console.log(sizesAndPrices)
 
   return (
     <div style={{height: '100%'}}>
@@ -337,7 +341,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                     textAlign: "center",
                   }}
                 >
-                  {el.size}
+                  {el.size.value}
                 </div>
                 <div
                   style={{
@@ -348,7 +352,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                     justifyContent: "center",
                   }}
                 >
-                  {getTitlePrice(el.price) || "--"}
+                  {getTitlePrice(el.price?.minPrice?.amountText) || "--"}
                 </div>
               </div>
             ))}
@@ -501,7 +505,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       </div>
                     </div>
                     <div className="list">
-                      {product?.sizesAndPrices?.map((el, i) => (
+                      {sizesAndPrices?.map((el, i) => (
                         <div
                           className={
                             i === choice.index
@@ -519,7 +523,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               textAlign: "center",
                             }}
                           >
-                            {el.size}
+                            {el.size.value}
                           </div>
                           <div
                             style={{
@@ -530,7 +534,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               justifyContent: "center",
                             }}
                           >
-                            {getTitlePrice(el.price) || "--"}
+                            {getTitlePrice(el.price?.minPrice?.amountText) || "--"}
                           </div>
                         </div>
                       ))}
@@ -607,7 +611,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       </div>
                     </div>
                     <div className="list">
-                      {product?.sizesAndPrices?.map((el, i) => (
+                      {sizesAndPrices?.map((el, i) => (
                           <div
                             className={
                               i === choice.index
@@ -625,7 +629,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 textAlign: "center",
                               }}
                             >
-                              {el.size}
+                              {el.size.value}
                             </div>
                             <div
                               style={{
@@ -636,7 +640,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 justifyContent: "center",
                               }}
                             >
-                              {getTitlePrice(el.price) || "--"}
+                              {getTitlePrice(el?.price?.minPrice?.amountText) || "--"}
                             </div>
                           </div>
                         ))}
