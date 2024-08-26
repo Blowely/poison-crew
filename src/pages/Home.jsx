@@ -52,7 +52,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const search = searchParams.get("search");
   const brandId = searchParams.get("brandId");
-  const categoryId = searchParams.get("categoryId") || '38';
+  const categoryId = searchParams.get("categoryId");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const url = searchParams.get("url");
