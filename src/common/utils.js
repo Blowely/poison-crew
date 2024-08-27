@@ -80,11 +80,11 @@ export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
   return price.toString().substring(0, price?.length - 2);
 }
 
-export const getCheapestPriceOfSize = (price, sizes) => {
-  let cheapestPrice = price || 1000000;
+export const getCheapestPriceOfSize = (sizes = []) => {
+  let cheapestPrice = 1000000;
 
-  sizes.map((s) => {
-    const newPrice = Number(s?.price);
+  sizes.forEach((s) => {
+    const newPrice = Number(s?.price?.minPrice?.amountText);
 
     if (newPrice < cheapestPrice) {
       cheapestPrice = newPrice;
@@ -130,4 +130,8 @@ const getLvl2Properties = (selectedProduct, el) => {
   const propertyValueIdSkus = relationsOfSecondPropertyLevel.map((rel) => selectedProduct.skus.find(({skuId}) => skuId === rel.skuId));
 
   console.log('propertyValueIdSkus',propertyValueIdSkus);
+}
+
+export function keepNumbersAndSpecialChars(str) {
+  return str.replace(/[^\d\W_]/g, '');
 }

@@ -10,14 +10,12 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import { getIntPrice } from "../common/utils";
+import { getCheapestPriceOfSize, getIntPrice, keepNumbersAndSpecialChars } from "../common/utils";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  //const parsedProduct = JSON.parse(localStorage.getItem('product'));
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -78,9 +76,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   },[selectedProduct])
 
   useEffect(() => {
-
+    //const defaultPrice = selectedProduct
     let currentProduct = remoteProduct || selectedProduct;
-    console.log('remoteProduct',remoteProduct);
     setProduct(currentProduct);
 
     if (sizeParam) {
@@ -112,11 +109,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       const skuInfoList = currentProduct?.priceInfo.skuInfoList;
 
       const saleProperty = currentProduct?.goodsDetail?.saleProperties[0];
-      const propertyMap = saleProperty.propertyMap['US Men'];
-      console.log('propertyMap',propertyMap);
+      
+      const propertyMap = saleProperty.propertyMap[Object.keys(saleProperty.propertyMap)[0]];
+
       const sizesAndPrices = skus.map((sku) => {
         const sizeId = sku.properties[sku.properties.length - 1]?.propertyValueId;
-        console.log('sizeId=',sizeId);
         const size = propertyMap?.find(el => el.propertyValueId === sizeId);
         const price = skuInfoList?.find(el => el.skuId === sku.skuId);
 
@@ -128,6 +125,18 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
           properties: sku.properties || []
         }
       })
+        .filter(({ size, price }) => size && price?.minPrice?.amountText)
+        .sort((el, nextEl) =>
+          keepNumbersAndSpecialChars(el?.size?.value) - keepNumbersAndSpecialChars(nextEl?.size?.value));
+
+      const cheapestPriceOfSize = getCheapestPriceOfSize(sizesAndPrices);
+
+      const itemIndex = sizesAndPrices.findIndex((el) => Number(el?.price?.minPrice?.amountText) === cheapestPriceOfSize);
+        setChoice({
+         price: sizesAndPrices?.[itemIndex]?.price?.minPrice?.amountText?.toString(),
+         size: sizesAndPrices?.[itemIndex]?.size.value,
+         index: itemIndex,
+       })
 
       setSizesAndPrices(sizesAndPrices);
     }
@@ -178,6 +187,10 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       return;
     }
 
+    if (!el?.size?.value) {
+      return;
+    }
+
     setChoice({ size: el.size.value, price: el.price?.minPrice?.amountText?.toString(), index: i });
 
     if (!selectedProduct?.arSkuIdRelation?.length) {
@@ -195,11 +208,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
 
     const relationsOfSecondPropertyLevel = selectedProduct.arSkuIdRelation.filter((el) => el.propertyValueId === propertyValueId);
-    console.log('relationsOfSecondPropertyLevel=',relationsOfSecondPropertyLevel);
 
     const propertyValueIdSkus = relationsOfSecondPropertyLevel.map((rel) => selectedProduct.skus.find(({skuId}) => skuId === rel.skuId));
-
-    console.log('propertyValueIdSkus',propertyValueIdSkus);
   };
 
   const getTitlePrice = (price) => {
@@ -248,7 +258,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   const isDesktopScreen = window?.innerWidth > 768;
 
-  console.log(sizesAndPrices)
+  console.log(sizesAndPrices);
 
   return (
     <div style={{height: '100%'}}>
@@ -265,99 +275,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
           setCodeModalOpen={setCodeModalOpen}
         />
       )}*/}
-      <Modal
-        title="Выберите размер"
-        open={isModalOpen}
-        onOk={onAddToCart}
-        okText={<>{getBtnPrice(choice?.price) || "--"}
-          <span style={{ fontSize: "19px" }}>{isDisabledBuyBtn ? '' : ' ₽'}</span></>}
-        okButtonProps={{
-          disabled: isDisabledBuyBtn,
-          loading: isDisabledBuyBtn,
-        }}
-        centered={!isDesktopScreen}
-        onCancel={() => {
-          setModalOpen(false);
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            padding: "15px",
-            borderBottom: "1px solid #ececec",
-            gap: "20px",
-          }}
-        >
-          <img src={product?.images?.[0]} style={{ width: "20%" }} alt="" />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "22px",
-                fontWeight: "700",
-                display: "flex",
-                gap: "3px",
-                alignItems: "flex-end",
-              }}
-            >
-              {getTitlePrice(choice?.price)|| "--"}
-            </div>
-            <div style={{ fontSize: "15px" }}>Размер: {choice.size}</div>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            padding: "15px",
-            paddingRight: "25px",
-            justifyContent: "space-between",
-          }}
-          onClick={onMeasureOpenClick}
-          role="presentation"
-        >
-          <span>Таблица размеров</span><span>></span>
-        </div>
-        <div className="content-size-wrapper">
-          {product?.sizesAndPrices?.map((el, i) => (
-              <div
-                className={
-                  i === choice.index
-                    ? "size-wrapper gap-2 selected"
-                    : "size-wrapper gap-2"
-                }
-                onClick={() => onChangeChoiceHandler(el, i)}
-                key={i}
-                role="presentation"
-              >
-                <div
-                  style={{
-                    fontSize: "17px",
-                    fontWeight: "600",
-                    textAlign: "center",
-                  }}
-                >
-                  {el.size.value}
-                </div>
-                <div
-                  style={{
-                    fontSize: "13px",
-                    textAlign: "center",
-                    display: "flex",
-                    gap: "1.5px",
-                    justifyContent: "center",
-                  }}
-                >
-                  {getTitlePrice(el.price?.minPrice?.amountText) || "--"}
-                </div>
-              </div>
-            ))}
-        </div>
-      </Modal>
       {measureOpen && (
         <Modal
           title="Таблица размеров"
@@ -444,7 +361,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   }
                   <div className="title-wrapper">
                     <span className="standart" style={{minHeight: '24px'}}>
-                      {product?.goodsDetail?.detail?.title}
+                      {product?.name || product?.goodsDetail?.detail?.title}
                     </span>
                     {isDesktopScreen &&
                       <div  className="title">
@@ -523,7 +440,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               textAlign: "center",
                             }}
                           >
-                            {el.size.value}
+                            {el?.size?.value}
                           </div>
                           <div
                             style={{
@@ -629,7 +546,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 textAlign: "center",
                               }}
                             >
-                              {el.size.value}
+                              {el?.size?.value}
                             </div>
                             <div
                               style={{
