@@ -133,5 +133,8 @@ const getLvl2Properties = (selectedProduct, el) => {
 }
 
 export function keepNumbersAndSpecialChars(str) {
-  return str.replace(/[^\d\W_]/g, '');
+  if (!str) {
+    return str;
+  }
+  return str.toString().replace(/[^\d\W_]/g, '');
 }

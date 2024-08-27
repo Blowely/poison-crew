@@ -11,6 +11,7 @@ import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import { getCheapestPriceOfSize, getIntPrice, keepNumbersAndSpecialChars } from "../common/utils";
+import { usSizeConversionTable } from "./constants";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
@@ -120,12 +121,12 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
         return {
           skuId: sku.skuId,
           status: sku.status,
-          size,
+          size: {...size, value: usSizeConversionTable[size?.value]?.eu || size?.value},
           price,
           properties: sku.properties || []
         }
       })
-        .filter(({ size, price }) => size && price?.minPrice?.amountText)
+        .filter(({ size, price }) => size?.value && price?.minPrice?.amountText)
         .sort((el, nextEl) =>
           keepNumbersAndSpecialChars(el?.size?.value) - keepNumbersAndSpecialChars(nextEl?.size?.value));
 
@@ -183,7 +184,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   };
 
   const onChangeChoiceHandler = (el, i) => {
-    if (!Number(el.price?.minPrice?.amountText)) {
+    if (!el.price?.minPrice?.amountText) {
       return;
     }
 
@@ -191,7 +192,9 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       return;
     }
 
-    setChoice({ size: el.size.value, price: el.price?.minPrice?.amountText?.toString(), index: i });
+    const price = el.price?.minPrice?.amountText?.replace(",","");
+
+    setChoice({ size: el.size.value, price, index: i });
 
     if (!selectedProduct?.arSkuIdRelation?.length) {
       return;
@@ -212,18 +215,22 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     const propertyValueIdSkus = relationsOfSecondPropertyLevel.map((rel) => selectedProduct.skus.find(({skuId}) => skuId === rel.skuId));
   };
 
-  const getTitlePrice = (price) => {
-    if (!price) {
+  const getTitlePrice = (rawPrice) => {
+    if (!rawPrice) {
       return "--";
     }
+
+    const price = rawPrice.replace(",","");
 
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
   };
 
-  const getBtnPrice = useCallback((price) => {
-    if (!price) {
+  const getBtnPrice = useCallback((rawPrice) => {
+    if (!rawPrice) {
       return "--";
     }
+
+    const price = rawPrice.replace(",","");
 
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
 
@@ -298,7 +305,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
             <div style={{ fontSize: "22px", fontWeight: "500" }}>
               Таблица размеров
             </div>
-            <MeasureTable sizeInfoList={product?.sizeInfoList} />
+            <MeasureTable />
           </div>
         </Modal>
       )}
