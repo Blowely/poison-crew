@@ -22,8 +22,8 @@ function Card({
       return '--';
     }
 
-    const subStr = str.substring(0, str?.length - 2)
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(subStr);
+    //const subStr = str.substring(0, str?.length - 2)
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(str);
 
   };
 
@@ -71,7 +71,8 @@ function Card({
 
           <img
             ref={imgElement}
-            src={`${image}/resize,w_600`}
+            //src={`${image}/resize,w_600`}
+            src={`${image}`}
             onLoad={onLoadedIcon}
             loading="lazy"
           />

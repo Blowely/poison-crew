@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button, Modal } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetProductQuery, useParseProductQuery } from "../store/products.store";
+import {useGetPriceMutation, useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
 import { LeftOutlined, LinkOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../store";
@@ -39,11 +39,13 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
 
-  useParseProductQuery({
+  /*useParseProductQuery({
     url,
     token,
-  }, {skip: !spuId});
+  }, {skip: !spuId});*/
+
   const isLoadingProduct = false;
+
   let { data: remoteProduct } = useGetProductQuery(
     {
       url,
@@ -52,6 +54,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     { skip: !url },
   );
 
+  const [getPrice] = useGetPriceMutation();
+
   const { time, start, pause, reset, status } = useTimer({
     //initialTime: 13,
     initialTime: 0,
@@ -59,88 +63,63 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     timerType: 'DECREMENTAL',
   });
 
-  const findSkuPropertiesBySkuId = useCallback((skuId) => {
-    if (!selectedProduct || !selectedProduct?.skus?.length) {
-      return {};
-    }
-
-    const skuObj = selectedProduct.skus.find((el) => el.skuId === skuId);
-
-    if (skuObj?.properties?.length < 2) {
-      return {};
-    }
-
-    const secondPropertiesLevel = skuObj?.properties[skuObj?.properties.length - 2];
-    const propertyValueId = secondPropertiesLevel.propertyValueId;
-
-    return selectedProduct?.salePropertiesList.find(el => el.propertyValueId === propertyValueId);
-  },[selectedProduct])
 
   useEffect(() => {
     //const defaultPrice = selectedProduct
-    let currentProduct = remoteProduct || selectedProduct;
-    setProduct(currentProduct);
+    let currentProduct = selectedProduct;
+    // Исходные данные
+    const data = currentProduct;
 
-    if (sizeParam) {
-      const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => {
-        return el?.size === sizeParam
-      });
+// Создаем маппинг propertyValueId -> название размера
+    const sizeMap = {};
+    data.saleProperties.list.forEach((property) => {
+      if (property.name === "尺碼" && property.propertyValueId) {
+        sizeMap[property.propertyValueId] = property.value;
+      }
+    });
 
-      setChoice({
-        price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
-        size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
-        index: itemIndex,
-      })
+// Маппинг SKU -> итоговая структура
+    const mappedSkus = data.skus.map((sku) => {
+      // Проверяем наличие свойства "properties"
+      const sizeProperty = sku.properties?.find(
+          (prop) => sizeMap[prop.propertyValueId]
+      );
 
-    } else {
-      const itemIndex = currentProduct?.sizesAndPrices?.findIndex((el) => {
-        return el?.price === currentProduct?.cheapestPrice
-      });
+      return {
+        skuId: sku.skuId,           // ID параметра (размера)
+        spuId: sku.spuId,           // ID товара
+        propertyValueId: sizeProperty?.propertyValueId || null, // Значение propertyValueId
+        size: sizeProperty ? sizeMap[sizeProperty.propertyValueId] : null // Название размера
+      };
+    });
 
-      setChoice({
-        price: currentProduct?.sizesAndPrices?.[itemIndex]?.price?.toString(),
-        size: currentProduct?.sizesAndPrices?.[itemIndex]?.size,
-        index: itemIndex,
-      })
+    console.log(mappedSkus);
+
+// Пример псевдокода для обращения к бэку и добавления цены к структуре
+    async function fetchSkuPrices(skus) {
+      const prices = await Promise.all(
+          skus.map(async (sku) => {
+            try {
+              // Псевдозапрос к бэку для получения цены
+              const response = await getPrice(sku.skuId).unwrap();
+              console.log('response =',response);
+              if (!response.ok) throw new Error(`Error fetching price for skuId ${sku.skuId}`);
+              const { price } = await response.json();
+              return { ...sku, price };
+            } catch (error) {
+              console.error(error);
+              return { ...sku, price: null }; // Если произошла ошибка, цена будет null
+            }
+          })
+      );
+      return prices;
     }
 
-    if (remoteProduct && currentProduct?.goodsDetail?.saleProperties.length) {
+// Использование
+    fetchSkuPrices(mappedSkus.slice(0,1)).then((result) => {
+      console.log("Итоговая структура с ценами:", result);
+    });
 
-      const skus = currentProduct?.goodsDetail?.skus || [];
-      const skuInfoList = currentProduct?.priceInfo.skuInfoList;
-
-      const saleProperty = currentProduct?.goodsDetail?.saleProperties[0];
-      
-      const propertyMap = saleProperty.propertyMap[Object.keys(saleProperty.propertyMap)[0]];
-
-      const sizesAndPrices = skus.map((sku) => {
-        const sizeId = sku.properties[sku.properties.length - 1]?.propertyValueId;
-        const size = propertyMap?.find(el => el.propertyValueId === sizeId);
-        const price = skuInfoList?.find(el => el.skuId === sku.skuId);
-
-        return {
-          skuId: sku.skuId,
-          status: sku.status,
-          size: {...size, value: usSizeConversionTable[size?.value]?.eu || size?.value},
-          price,
-          properties: sku.properties || []
-        }
-      })
-        .filter(({ size, price }) => size?.value && price?.minPrice?.amountText)
-        .sort((el, nextEl) =>
-          keepNumbersAndSpecialChars(el?.size?.value) - keepNumbersAndSpecialChars(nextEl?.size?.value));
-
-      const cheapestPriceOfSize = getCheapestPriceOfSize(sizesAndPrices);
-
-      const itemIndex = sizesAndPrices.findIndex((el) => Number(el?.price?.minPrice?.amountText) === cheapestPriceOfSize);
-        setChoice({
-         price: sizesAndPrices?.[itemIndex]?.price?.minPrice?.amountText?.toString(),
-         size: sizesAndPrices?.[itemIndex]?.size.value,
-         index: itemIndex,
-       })
-
-      setSizesAndPrices(sizesAndPrices);
-    }
 
     if (!prevUpdatedAtRef.current) {
       start();
@@ -353,7 +332,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
               }}>
                 <SwiperCarousel
                   style={{width: '100%'}}
-                  images={product?.goodsDetail?.imageModels?.map(el => el?.url) || [product?.image]}
+                  images={product?.spuImage?.images?.map(el => el?.url) || [product?.image]}
                   onLoad={onLoadCarousel}
                   onError={onLoadCarousel}
                 />
@@ -368,7 +347,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   }
                   <div className="title-wrapper">
                     <span className="standart" style={{minHeight: '24px'}}>
-                      {product?.name || product?.goodsDetail?.detail?.title}
+                      {product?.detail?.title}
                     </span>
                     {isDesktopScreen &&
                       <div  className="title">

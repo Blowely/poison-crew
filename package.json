@@ -35,6 +35,7 @@
   },
   "scripts": {
     "start": "set PORT=3006 && react-scripts start",
+    "start_mac": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "build:prod": "react-scripts build",
     "test": "react-scripts test",
