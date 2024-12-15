@@ -13613,7 +13613,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       <div className="cards-section-wrapper">
         {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
 
-          console.log('item =',item)
           const image = item?.detail?.data?.detail?.logoUrl || '';
           const title = item?.detail?.data?.detail?.title || '';
           const price = item?.detail?.data?.item?.price || '';

@@ -10,7 +10,7 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import { getCheapestPriceOfSize, getIntPrice, keepNumbersAndSpecialChars } from "../common/utils";
+import {getCheapestElOfSize, getCheapestPriceOfSize, getIntPrice, keepNumbersAndSpecialChars} from "../common/utils";
 import { usSizeConversionTable } from "./constants";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
@@ -102,10 +102,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
             try {
               // Псевдозапрос к бэку для получения цены
               const response = await getPrice(sku.skuId).unwrap();
-              console.log('response =',response);
-              if (!response.ok) throw new Error(`Error fetching price for skuId ${sku.skuId}`);
-              const { price } = await response.json();
-              return { ...sku, price };
+
+              if (!response?.spuId) throw new Error(`Error fetching price for skuId ${sku.skuId}`);
+              const {detail} = response;
+              console.log('response',response);
+              return { ...sku, price: detail.data.verticals[detail.data.verticals.length - 1] };
             } catch (error) {
               console.error(error);
               return { ...sku, price: null }; // Если произошла ошибка, цена будет null
@@ -116,8 +117,12 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     }
 
 // Использование
-    fetchSkuPrices(mappedSkus.slice(0,1)).then((result) => {
+    fetchSkuPrices(mappedSkus.slice(0,3)).then((result) => {
       console.log("Итоговая структура с ценами:", result);
+      setSizesAndPrices(result);
+
+      const {size, price, index} = getCheapestElOfSize(result);
+      setChoice({ size, price, index });
     });
 
 
@@ -163,53 +168,31 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   };
 
   const onChangeChoiceHandler = (el, i) => {
-    if (!el.price?.minPrice?.amountText) {
+    if (!el.price) {
       return;
     }
 
-    if (!el?.size?.value) {
+    if (!el?.size) {
       return;
     }
 
-    const price = el.price?.minPrice?.amountText?.replace(",","");
+    const price = el?.price;
 
     setChoice({ size: el.size.value, price, index: i });
-
-    if (!selectedProduct?.arSkuIdRelation?.length) {
-      return;
-    }
-
-    const skuObj = selectedProduct.skus.find(({skuId}) => el.skuId === skuId);
-
-    if (skuObj?.properties?.length < 2) {
-      return {};
-    }
-
-    // for second level
-    const { propertyValueId } = skuObj?.properties[skuObj?.properties.length - 2];
-
-
-    const relationsOfSecondPropertyLevel = selectedProduct.arSkuIdRelation.filter((el) => el.propertyValueId === propertyValueId);
-
-    const propertyValueIdSkus = relationsOfSecondPropertyLevel.map((rel) => selectedProduct.skus.find(({skuId}) => skuId === rel.skuId));
   };
 
-  const getTitlePrice = (rawPrice) => {
-    if (!rawPrice) {
+  const getTitlePrice = (price) => {
+    if (!price) {
       return "--";
     }
-
-    const price = rawPrice.replace(",","");
 
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
   };
 
-  const getBtnPrice = useCallback((rawPrice) => {
-    if (!rawPrice) {
+  const getBtnPrice = useCallback((price) => {
+    if (!price) {
       return "--";
     }
-
-    const price = rawPrice.replace(",","");
 
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
 
@@ -426,7 +409,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               textAlign: "center",
                             }}
                           >
-                            {el?.size?.value}
+                            {el?.size}
                           </div>
                           <div
                             style={{
@@ -437,7 +420,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               justifyContent: "center",
                             }}
                           >
-                            {getTitlePrice(el.price?.minPrice?.amountText) || "--"}
+                            {getTitlePrice(el.price) || "--"}
                           </div>
                         </div>
                       ))}
@@ -532,7 +515,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 textAlign: "center",
                               }}
                             >
-                              {el?.size?.value}
+                              {el?.size}
                             </div>
                             <div
                               style={{
@@ -543,7 +526,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 justifyContent: "center",
                               }}
                             >
-                              {getTitlePrice(el?.price?.minPrice?.amountText) || "--"}
+                              {getTitlePrice(el?.price) || "--"}
                             </div>
                           </div>
                         ))}

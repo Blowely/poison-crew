@@ -80,18 +80,30 @@ export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
   return price.toString().substring(0, price?.length - 2);
 }
 
-export const getCheapestPriceOfSize = (sizes = []) => {
-  let cheapestPrice = 1000000;
+export const getCheapestElOfSize = (sizes = []) => {
+  if (!sizes.length) {
+    return null;
+  }
 
-  sizes.forEach((s) => {
-    const newPrice = Number(s?.price?.minPrice?.amountText);
+  if (sizes.length === 1) {
+    return sizes[0];
+  }
+
+  let cheapestPrice = 1000000;
+  let cheapestEl = sizes[0];
+  let cheapestIndex = 0;
+
+  sizes.forEach((el,index) => {
+    const newPrice = Number(el?.price);
 
     if (newPrice < cheapestPrice) {
       cheapestPrice = newPrice;
+      cheapestIndex = index;
+      cheapestEl = el;
     }
   });
 
-  return cheapestPrice;
+  return {...cheapestEl, index: cheapestIndex};
 };
 
 export const useFirstRender = () => {
