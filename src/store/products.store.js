@@ -6,12 +6,12 @@ import { API_URL } from "../bootstrap";
 export const productsApi = createApi({
   reducerPath: "productsApi",
   tagTypes: ["Product"],
-  //baseQuery: baseQuery("https://api.re-poizon.ru/api"),
-  baseQuery: baseQuery("http://localhost:3001/api"),
+  baseQuery: baseQuery("https://api.re-poizon.ru/api"),
+  //baseQuery: baseQuery("https://localhost:3001/api"),
   endpoints: (builder) => ({
     parseProduct: builder.query({
       query: ({ spuId, token }) =>
-        `/productsV5?spuId=${spuId}&token=${token}&update=true`,
+        `/productsV5?spuId=${spuId}&token=${token}&updatePrices=true`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getProducts: builder.query({
@@ -19,8 +19,8 @@ export const productsApi = createApi({
       ...collectionQueryProps("Product"),
     }),
     getProduct: builder.query({
-      query: ({ spuId, url, token }) =>
-        `/productsV5?spuId=${spuId}&url=${url}&token=${token}`,
+      query: ({ spuId, token }) =>
+        `/productsV5?spuId=${spuId}&token=${token}`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getCartProducts: builder.query({

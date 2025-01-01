@@ -38,13 +38,22 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   const isLoadingProduct = false;
 
+  const { data: updatedProductData } = useParseProductQuery({
+    spuId,
+    token,
+  }, {skip: !spuId});
+
   let { data: remoteProduct } = useGetProductQuery(
     {
-      url,
+      spuId,
       token,
     },
-    { skip: !url },
+    { skip: !spuId },
   );
+
+  useEffect(() => {
+    setProduct(updatedProductData?.product?.detail?.data || remoteProduct?.detail?.data);
+  },[remoteProduct, updatedProductData]);
 
   const { time, start, pause, reset, status } = useTimer({
     //initialTime: 13,
@@ -55,12 +64,13 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
 
   useEffect(() => {
-    console.log('selectedProduct=',selectedProduct)
-    if (!selectedProduct?.sizesAndPrices?.length) {
+    const currentProduct = product || remoteProduct?.detail?.data || selectedProduct;
+
+    if (!currentProduct?.sizesAndPrices?.length) {
       return;
     }
 
-    let sizesAndPrices = [...selectedProduct.sizesAndPrices].sort((el, next) => el?.size - next?.size) || []
+    let sizesAndPrices = [...currentProduct.sizesAndPrices].sort((el, next) => el?.size - next?.size) || []
 
     setSizesAndPrices(sizesAndPrices);
 
@@ -72,11 +82,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
     if (!prevUpdatedAtRef.current) {
       start();
-      prevUpdatedAtRef.current = selectedProduct?.updatedAt;
-    } else if (prevUpdatedAtRef.current !== selectedProduct?.updatedAt) {
-      prevUpdatedAtRef.current = selectedProduct?.updatedAt;
+      prevUpdatedAtRef.current = currentProduct?.updatedAt;
+    } else if (prevUpdatedAtRef.current !== currentProduct?.updatedAt) {
+      prevUpdatedAtRef.current = currentProduct?.updatedAt;
     }
-  }, [selectedProduct, remoteProduct]);
+  }, [selectedProduct, remoteProduct, product]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });

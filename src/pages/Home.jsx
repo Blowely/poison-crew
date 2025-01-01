@@ -39,7 +39,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
 
-  const [limit] = useState(60);
+  const [limit] = useState(20);
   const [offset, setOffset] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [showFilters, setShowFilters] = useState(false);
@@ -13660,7 +13660,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
               /*if ((productsSlice?.[trimCollectionValue]?.length || 1) + 1 === prev + 1) {
                 return prev + 1;
               }*/
-
+              console.log('prev=',prev)
               return prev + 1;
             })
           }
