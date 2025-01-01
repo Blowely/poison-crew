@@ -10,8 +10,7 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import {getCheapestElOfSize, getCheapestPriceOfSize, getIntPrice, keepNumbersAndSpecialChars} from "../common/utils";
-import { usSizeConversionTable } from "./constants";
+import {getCheapestElOfSize,  getIntPrice} from "../common/utils";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
@@ -28,8 +27,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
   const [product, setProduct] = useState(selectedProduct);
   const [lvl2Properties, setLvl2Properties] = useState([]);
-  const [availableLvl1Properties, setAvailableLvl1Properties] = useState({});
-  const [availableLvl2Properties, setAvailableLvl2Properties] = useState({});
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
 
   const spuId = searchParams.get("spuId");
@@ -38,11 +35,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
-
-  /*useParseProductQuery({
-    url,
-    token,
-  }, {skip: !spuId});*/
 
   const isLoadingProduct = false;
 
@@ -54,8 +46,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     { skip: !url },
   );
 
-  const [getPrice] = useGetPriceMutation();
-
   const { time, start, pause, reset, status } = useTimer({
     //initialTime: 13,
     initialTime: 0,
@@ -65,92 +55,28 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
 
   useEffect(() => {
-    //const defaultPrice = selectedProduct
-    let currentProduct = selectedProduct;
-    // Исходные данные
-    const data = currentProduct;
-
-// Создаем маппинг propertyValueId -> название размера
-    const sizeMap = {};
-    data.saleProperties.list.forEach((property) => {
-      if (property.name === "尺碼" && property.propertyValueId) {
-        sizeMap[property.propertyValueId] = property.value;
-      }
-    });
-
-// Маппинг SKU -> итоговая структура
-    const mappedSkus = data.skus.map((sku) => {
-      // Проверяем наличие свойства "properties"
-      const sizeProperty = sku.properties?.find(
-          (prop) => sizeMap[prop.propertyValueId]
-      );
-
-      return {
-        skuId: sku.skuId,           // ID параметра (размера)
-        spuId: sku.spuId,           // ID товара
-        propertyValueId: sizeProperty?.propertyValueId || null, // Значение propertyValueId
-        size: sizeProperty ? sizeMap[sizeProperty.propertyValueId] : null // Название размера
-      };
-    });
-
-    console.log(mappedSkus);
-
-// Пример псевдокода для обращения к бэку и добавления цены к структуре
-    async function fetchSkuPrices(skus) {
-      const prices = await Promise.all(
-          skus.map(async (sku) => {
-            try {
-              // Псевдозапрос к бэку для получения цены
-              const response = await getPrice(sku.skuId).unwrap();
-
-              if (!response?.spuId) throw new Error(`Error fetching price for skuId ${sku.skuId}`);
-              const {detail} = response;
-              console.log('response',response);
-              return { ...sku, price: detail.data.verticals[detail.data.verticals.length - 1] };
-            } catch (error) {
-              console.error(error);
-              return { ...sku, price: null }; // Если произошла ошибка, цена будет null
-            }
-          })
-      );
-      return prices;
+    console.log('selectedProduct=',selectedProduct)
+    if (!selectedProduct?.sizesAndPrices?.length) {
+      return;
     }
 
-// Использование
-    fetchSkuPrices(mappedSkus.slice(0,3)).then((result) => {
-      console.log("Итоговая структура с ценами:", result);
-      setSizesAndPrices(result);
+    let sizesAndPrices = [...selectedProduct.sizesAndPrices].sort((el, next) => el?.size - next?.size) || []
 
-      const {size, price, index} = getCheapestElOfSize(result);
-      setChoice({ size, price, index });
-    });
+    setSizesAndPrices(sizesAndPrices);
+
+    const template = {size: null, price: null, index: null};
+
+    const {size, price, index} = getCheapestElOfSize(sizesAndPrices) || template;
+    setChoice({ size, price, index });
 
 
     if (!prevUpdatedAtRef.current) {
       start();
-      prevUpdatedAtRef.current = currentProduct?.updatedAt;
-    } else if (prevUpdatedAtRef.current !== currentProduct?.updatedAt) {
-      prevUpdatedAtRef.current = currentProduct?.updatedAt;
-      //setDisabledBuyBtn(false);
+      prevUpdatedAtRef.current = selectedProduct?.updatedAt;
+    } else if (prevUpdatedAtRef.current !== selectedProduct?.updatedAt) {
+      prevUpdatedAtRef.current = selectedProduct?.updatedAt;
     }
   }, [selectedProduct, remoteProduct]);
-
-  useEffect(() => {
-    if (!lvl2Properties) {
-      return;
-    }
-
-    const tempAvailableSizesBy1lvlProps = {};
-
-    /*lvl2Properties?.map((sku) => {
-      if (!sku.properties[-2]) {
-        return;
-      }
-      const lvl1Prop = sku.properties[-2];
-      tempAvailableSizesBy1lvlProps[lvl1Prop.propertyValueId] = sku.properties[-1];
-    })*/
-
-  },[lvl2Properties])
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -178,7 +104,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
     const price = el?.price;
 
-    setChoice({ size: el.size.value, price, index: i });
+    setChoice({ size: el?.size.value, price, index: i });
   };
 
   const getTitlePrice = (price) => {
@@ -226,8 +152,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   }
 
   const isDesktopScreen = window?.innerWidth > 768;
-
-  console.log(sizesAndPrices);
 
   return (
     <div style={{height: '100%'}}>
@@ -340,41 +264,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   </div>
 
                 </div>
-                {(!isDesktopScreen && !!(Object.keys(lvl2Properties)?.length)) &&
-                  <div className="product-info__item standart">
-                    <div className="label">
-                      <div className="label_wrap">
-                        <div className="size_label">
-                          <div>Версия</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="list">
-                      {Object.keys(lvl2Properties)?.map((key, i) => (
-                        <div
-                          className={
-                            i === choice.index
-                              ? "size-wrapper gap-2 selected"
-                              : "size-wrapper gap-2"
-                          }
-                          onClick={() => onChangeChoiceHandler(lvl2Properties[key], i)}
-                          key={i}
-                          role="presentation"
-                        >
-                          <div
-                            style={{
-                              fontSize: "17px",
-                              fontWeight: "600",
-                              textAlign: "center",
-                            }}
-                          >
-                            {showPropertyValue(lvl2Properties[key].value, lvl2Properties[key]?.showValue)}
-                          </div>
-                        </div>
-                      )).filter(el => el)}
-                    </div>
-                  </div>
-                }
 
                 {!isDesktopScreen &&
                   <div className="product-info__item standart">

@@ -41,7 +41,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
 
-    const cartItems = useAppSelector((state) => state.cart.items);
+    const cartItems = useAppSelector((state) => state.cart.items) || [];
     const addresses = useAppSelector((state) => state.account.addresses);
 
     const {data: accountData, isLoadingAcc, error: accError, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
@@ -144,26 +144,27 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                                 {activeAddr?.address ??
                                     'Необходимо заполнить адрес доставки'} <RightOutlined />
                             </div>
-                            {cartItems.map((el, i) => {
-                                return <div key={i} className="cart-item">
-                                    <div className="cart-product-info">
-                                        <div style={{display: 'flex', gap: '7px'}}>
-                                            <img src={el?.images[0]} style={{width: '100px'}} alt=""/>
-                                            <div>
-                                                <div style={{fontSize: '16px'}}>{el.title}</div>
-                                                <div>размер: {el.size}</div>
+                            {cartItems.length
+                                ? cartItems.map((el, i) => {
+                                    return <div key={i} className="cart-item">
+                                        <div className="cart-product-info">
+                                            <div style={{display: 'flex', gap: '7px'}}>
+                                                <img src={el?.images?.[0]} style={{width: '100px'}} alt=""/>
+                                                <div>
+                                                    <div style={{fontSize: '16px'}}>{el.title}</div>
+                                                    <div>размер: {el.size}</div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="cart-product-info-third-column">
-                                            <div style={{fontWeight: '500'}}>{el?.price?.substring(0, el?.price?.length - 2)} ₽</div>
-                                            <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
-                                                <DeleteOutlined />
+                                            <div className="cart-product-info-third-column">
+                                                <div style={{fontWeight: '500'}}>{el?.price} ₽</div>
+                                                <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
+                                                    <DeleteOutlined />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            })}
+                            }) : null}
 
                             <div className="cart-product-info-submit-btn-wrapper">
                                 <div className="cart-product-info-submit-confirm-oferta">

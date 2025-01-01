@@ -81,11 +81,12 @@ export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
 }
 
 export const getCheapestElOfSize = (sizes = []) => {
-  if (!sizes.length) {
+  console.log('sizes=',sizes)
+  if (!sizes?.length) {
     return null;
   }
 
-  if (sizes.length === 1) {
+  if (sizes?.length === 1) {
     return sizes[0];
   }
 
@@ -94,6 +95,10 @@ export const getCheapestElOfSize = (sizes = []) => {
   let cheapestIndex = 0;
 
   sizes.forEach((el,index) => {
+    if (!el?.price) {
+      return;
+    }
+
     const newPrice = Number(el?.price);
 
     if (newPrice < cheapestPrice) {
