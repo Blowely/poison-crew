@@ -52,7 +52,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   );
 
   useEffect(() => {
-    setProduct(updatedProductData?.product?.detail?.data || remoteProduct?.detail?.data);
+    setProduct(updatedProductData || remoteProduct);
   },[remoteProduct, updatedProductData]);
 
   const { time, start, pause, reset, status } = useTimer({
@@ -64,15 +64,13 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
 
   useEffect(() => {
-    const currentProduct = product || remoteProduct?.detail?.data || selectedProduct;
+    const currentProduct = product || remoteProduct || selectedProduct;
 
-    if (!currentProduct?.sizesAndPrices?.length) {
+    if (!currentProduct?.skus?.length) {
       return;
     }
-
-    let sizesAndPrices = [...currentProduct.sizesAndPrices].sort((el, next) => el?.size - next?.size) || []
-
-    setSizesAndPrices(sizesAndPrices);
+    console.log('currentProduct?.skus',currentProduct?.skus);
+    setSizesAndPrices(currentProduct?.skus || []);
 
     const template = {size: null, price: null, index: null};
 
@@ -108,13 +106,13 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       return;
     }
 
-    if (!el?.size) {
+    if (!el?.size.primary) {
       return;
     }
 
     const price = el?.price;
 
-    setChoice({ size: el?.size.value, price, index: i });
+    setChoice({ size: el?.size.primary, price, index: i });
   };
 
   const getTitlePrice = (price) => {
@@ -122,7 +120,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       return "--";
     }
 
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price);
   };
 
   const getBtnPrice = useCallback((price) => {
@@ -130,7 +128,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       return "--";
     }
 
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price);
 
   },[choice, isDisabledBuyBtn, time]);
 
@@ -249,7 +247,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
               }}>
                 <SwiperCarousel
                   style={{width: '100%'}}
-                  images={product?.spuImage?.images?.map(el => el?.url) || [product?.image]}
+                  images={product?.images}
                   onLoad={onLoadCarousel}
                   onError={onLoadCarousel}
                 />
@@ -264,7 +262,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   }
                   <div className="title-wrapper">
                     <span className="standart" style={{minHeight: '24px'}}>
-                      {product?.detail?.title}
+                      {product?.name}
                     </span>
                     {isDesktopScreen &&
                       <div  className="title">
@@ -308,7 +306,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                               textAlign: "center",
                             }}
                           >
-                            {el?.size}
+                            {el?.size.primary}
                           </div>
                           <div
                             style={{
@@ -414,7 +412,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 textAlign: "center",
                               }}
                             >
-                              {el?.size}
+                              {el?.size.primary}
                             </div>
                             <div
                               style={{

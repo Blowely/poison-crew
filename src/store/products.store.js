@@ -7,29 +7,29 @@ export const productsApi = createApi({
   reducerPath: "productsApi",
   tagTypes: ["Product"],
   baseQuery: baseQuery("https://api.re-poizon.ru/api"),
-  //baseQuery: baseQuery("https://localhost:3001/api"),
+  //baseQuery: baseQuery("http://localhost:3001/api"),
   endpoints: (builder) => ({
     parseProduct: builder.query({
       query: ({ spuId, token }) =>
-        `/productsV5?spuId=${spuId}&token=${token}&updatePrices=true`,
+        `/productsV6?spuId=${spuId}&token=${token}&updatePrices=true`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getProducts: builder.query({
-      query: (params) => customUrlBuilder("/productsV5", params),
+      query: (params) => customUrlBuilder("/productsV6", params),
       ...collectionQueryProps("Product"),
     }),
     getProduct: builder.query({
       query: ({ spuId, token }) =>
-        `/productsV5?spuId=${spuId}&token=${token}`,
+        `/productsV6?spuId=${spuId}&token=${token}`,
       invalidatesTags: (result, error, arg) => [{ type: "Product", id: arg }],
     }),
     getCartProducts: builder.query({
-      query: (token) => `/productsV5?token${token}`,
+      query: (token) => `/productsV6?token${token}`,
       ...collectionQueryProps("Product"),
     }),
     getPrice: builder.mutation({
       query: (skuId) => ({
-        url: `/productsV5?skuId=${skuId}`,
+        url: `/productsV6?skuId=${skuId}`,
         method: "GET",
       })
     })

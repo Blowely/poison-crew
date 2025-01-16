@@ -123,7 +123,7 @@ export const getIntPrice = (price) => {
     return "";
   }
 
-  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price * 102);
+  return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price);
 }
 
 const getLvl2Properties = (selectedProduct, el) => {
