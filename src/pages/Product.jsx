@@ -10,7 +10,7 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import {getCheapestElOfSize,  getIntPrice} from "../common/utils";
+import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice} from "../common/utils";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
@@ -77,6 +77,10 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     const {size, price, index} = getCheapestElOfSize(sizesAndPrices) || template;
     setChoice({ size, price, index });
 
+    if (sizeParam) {
+      const {size, price, index} = getCurrentPriceOfSize(sizeParam, sizesAndPrices) || template;
+      setChoice({ size, price, index });
+    }
 
     if (!prevUpdatedAtRef.current) {
       start();
@@ -88,6 +92,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
+
   }, []);
 
   const onAddToCart = () => {

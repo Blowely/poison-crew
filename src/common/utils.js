@@ -70,14 +70,14 @@ export function iosCopyToClipboard(el) {
 }
 
 export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
-  const foundSizeIndex = sizesAndPrices.findIndex(s => s.size === size);
+  const foundSizeIndex = sizesAndPrices.findIndex(s => s.size?.eu === size);
 
   if (foundSizeIndex < 0) {
-    return null;
+    return {};
   }
 
   const price = sizesAndPrices[foundSizeIndex].price;
-  return price.toString().substring(0, price?.length - 2);
+  return {price, size, index: foundSizeIndex};
 }
 
 export const getCheapestElOfSize = (sizes = []) => {
