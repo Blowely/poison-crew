@@ -407,6 +407,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
             {isDesktopScreen && (
                 <div className="filters-wrapper" ref={filtersRef}>
                   <Filters
+                      search={search}
+                      brandId={brandId}
                       size={size}
                       minPrice={minPrice}
                       maxPrice={maxPrice}

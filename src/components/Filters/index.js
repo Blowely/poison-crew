@@ -10,6 +10,8 @@ import ImgList from "./ImgList/ImgList";
 
 function Filters(props) {
   const {
+    search,
+    brandId,
     setShowFilters,
     size,
     minPrice,
@@ -100,17 +102,20 @@ function Filters(props) {
   }
 
   const clearFilters = () => {
+
     setMaxPrice('');
     setMinPrice('');
     setSize('');
     setChoice(null);
-    searchParams.set('size', '');
-    searchParams.set('minPrice', '');
-    searchParams.set('maxPrice', '');
+    searchParams.delete('size');
+    searchParams.delete('minPrice');
+    searchParams.delete('maxPrice');
+    searchParams.delete('brandId');
+    searchParams.delete('search');
     setSearchParams(searchParams);
   }
 
-  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice);
+  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search);
 
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${size}`;
@@ -177,19 +182,25 @@ function Filters(props) {
                    setOffset={setOffset} setSelectedBrands={setSelectedBrands}/>
         </div>*/}
         {isDesktopScreen &&
-          <div className="filters-apply-btn">
-            <Button
-              type="primary"
-              className={"btn default"}
-              onClick={applyFilters}
-              disabled={queryLine === currentLine}
-            >
-              <span>Применить</span>
-            </Button>
-          </div>
+            <div className="filters-apply-btn">
+              <Button
+                  type="primary"
+                  className={"btn default"}
+                  onClick={applyFilters}
+                  disabled={queryLine === currentLine}
+              >
+                <span>Применить</span>
+              </Button>
+              {isFilters &&
+                  <div className="filters-phone-headers">
+                    <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<CloseOutlined/></Button>
+                  </div>
+              }
+            </div>
         }
       </div>
     </div>
   );
 }
+
 export default Filters;

@@ -341,8 +341,13 @@ header {
 }
 
 .filters-apply-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: sticky;
   padding: 20px;
+  gap: 10px;
+  align-items: center;
 }
 
 footer {
