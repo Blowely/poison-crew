@@ -246,6 +246,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
   );
 
   const onBrandClick = (brand) => {
+    if (brand.toString() === brandId) {
+      searchParams.delete('brandId');
+      return setSearchParams(searchParams);
+    }
+
     setLoading(true);
     setOffset(1);
     searchParams.set('brandId', brand);
@@ -292,6 +297,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
     body.style.overflow = 'hidden';
   } else {
     body.style.overflow = '';
+  }
+
+  const getBorderStyle = (selectedBrandId) => {
+    if (brandId === selectedBrandId.toString()) {
+      return {border: "1px solid grey"};
+    }
   }
 
   return (
@@ -361,7 +372,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
                  onClick={() => onBrandClick(144)}>
-              <div className="brands-section-wrapper_card-icon">
+              <div className="brands-section-wrapper_card-icon" style={getBorderStyle(144)}>
                 <NikeIcon />
               </div>
               <div style={{ fontWeight: "bold", fontSize: "10px" }}>NIKE</div>
@@ -370,7 +381,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             className="brands-section-wrapper_card"
             onClick={() => onBrandClick(494)}
           >
-            <div className="brands-section-wrapper_card-icon">
+            <div className="brands-section-wrapper_card-icon" style={getBorderStyle(494)}>
               <AdidasIcon />
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>ADIDAS</div>
@@ -379,7 +390,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             className="brands-section-wrapper_card"
             onClick={() => onBrandClick(4)}
           >
-            <div className="brands-section-wrapper_card-icon">
+            <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
               <NewBalanceIcon />
             </div>
             <div style={{ fontWeight: "bold", fontSize: "10px" }}>NEW BALANCE</div>
@@ -387,7 +398,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
           <div className="brands-section-wrapper_card"
                onClick={() => onBrandClick(13)}>
-            <div className="brands-section-wrapper_card-icon">
+            <div className="brands-section-wrapper_card-icon" style={getBorderStyle(13)}>
               <JordanIcon />
             </div>
             <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
