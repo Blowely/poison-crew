@@ -168,14 +168,14 @@ function Filters(props) {
             ))}
           </div>
         </div>
-        <div className="params-item-wrapper">
+        {/*<div className="params-item-wrapper">
           <div className="param-title">
             Бренды
           </div>
 
           <ImgList data={brands?.items} setLoading={setLoading}
                    setOffset={setOffset} setSelectedBrands={setSelectedBrands}/>
-        </div>
+        </div>*/}
         {isDesktopScreen &&
           <div className="filters-apply-btn">
             <Button
