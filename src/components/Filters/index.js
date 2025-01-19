@@ -102,7 +102,6 @@ function Filters(props) {
   }
 
   const clearFilters = () => {
-
     setMaxPrice('');
     setMinPrice('');
     setSize('');
