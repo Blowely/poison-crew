@@ -37,11 +37,12 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const prevUpdatedAtRef = useRef(null);
 
   const isLoadingProduct = false;
+  const isTest = true
 
   const { data: updatedProductData } = useParseProductQuery({
     spuId,
     token,
-  }, {skip: !spuId});
+  }, {skip: !spuId || isTest});
 
   let { data: remoteProduct } = useGetProductQuery(
     {
@@ -69,7 +70,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     if (!currentProduct?.skus?.length) {
       return;
     }
-    console.log('currentProduct?.skus',currentProduct?.skus);
     setSizesAndPrices(currentProduct?.skus || []);
 
     const template = {size: null, price: null, index: null};

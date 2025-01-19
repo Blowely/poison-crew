@@ -81,7 +81,6 @@ export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
 }
 
 export const getCheapestElOfSize = (sizes = []) => {
-  console.log('sizes=',sizes)
   if (!sizes?.length) {
     return null;
   }
@@ -142,11 +141,9 @@ const getLvl2Properties = (selectedProduct, el) => {
 
 
   const relationsOfSecondPropertyLevel = selectedProduct.arSkuIdRelation.filter((el) => el.propertyValueId === propertyValueId);
-  console.log('relationsOfSecondPropertyLevel=',relationsOfSecondPropertyLevel);
 
   const propertyValueIdSkus = relationsOfSecondPropertyLevel.map((rel) => selectedProduct.skus.find(({skuId}) => skuId === rel.skuId));
 
-  console.log('propertyValueIdSkus',propertyValueIdSkus);
 }
 
 export function keepNumbersAndSpecialChars(str) {

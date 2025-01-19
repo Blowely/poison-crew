@@ -82,7 +82,6 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
 
         Promise.all(requests)
           .then(responses => {
-            console.log('responses=', responses);
               dispatch(clearCart());
               return navigate(`/payment?id=${responses[0]?.data?.orderId}`)
           }).catch((err) => notification.open(
