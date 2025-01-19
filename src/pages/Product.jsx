@@ -412,7 +412,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                 textAlign: "center",
                               }}
                             >
-                              {el?.size.primary}
+                              {el?.size?.eu || el?.size?.primary}
                             </div>
                             <div
                               style={{

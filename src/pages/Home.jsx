@@ -256,11 +256,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onMinPriceChange = (val) => {
-    setMinPrice(val !== '00' ? val : '');
+    setMinPrice(val);
   }
 
   const onMaxPriceChange = (val) => {
-    setMaxPrice(val !== '99' ? val : '');
+    setMaxPrice(val);
   }
 
   const applyFilters = () => {

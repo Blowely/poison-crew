@@ -78,15 +78,25 @@ function Filters(props) {
   }
 
   const minPriceHandler = (e) => {
-    setMinPrice(`${e.target.value}00`);
+    if (e.target.value === "") {
+      searchParams.delete("minPrice");
+      setSearchParams(searchParams);
+    }
+
+    setMinPrice(e.target.value);
   }
 
   const maxPriceHandler = (e) => {
-    setMaxPrice(`${e.target.value}99`);
+    if (e.target.value === "") {
+      searchParams.delete("maxPrice");
+      setSearchParams(searchParams);
+    }
+
+    setMaxPrice(e.target.value);
   }
 
   const getPrice = (price) => {
-    return price.substring(0, price.length - 2)
+    return price
   }
 
   const clearFilters = () => {
