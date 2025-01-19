@@ -7,7 +7,7 @@ import React, {
 import Card from "../components/Card";
 import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
-import CoachIcon from "../assets/svg/brands/coach-icon";
+import JordanIcon from "../assets/svg/brands/jordan-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
 import { Button, Empty, Layout, Pagination } from "antd";
 import Header from "../components/Header/Header";
@@ -28,6 +28,7 @@ import Product from "./Product";
 import Filters from "../components/Filters";
 import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
+
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -367,7 +368,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
           <div
             className="brands-section-wrapper_card"
-            onClick={() => onBrandClick(10139)}
+            onClick={() => onBrandClick(494)}
           >
             <div className="brands-section-wrapper_card-icon">
               <AdidasIcon />
@@ -385,57 +386,57 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
 
           <div className="brands-section-wrapper_card"
-               onClick={() => onBrandClick(10229)}>
+               onClick={() => onBrandClick(13)}>
             <div className="brands-section-wrapper_card-icon">
-              <CoachIcon />
+              <JordanIcon />
             </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>COACH</div>
+            <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
           </div>
 
-          {isDesktopScreen &&
-            <div className="brands-section-wrapper_card"
-                 onClick={() => console.log('more')}>
-              <div className="brands-section-wrapper_card-icon">
-                <MoreIcon />
-              </div>
-              <div style={{ fontWeight: "bold", fontSize: "10px" }}>Больше</div>
-            </div>
-          }
-        </div>
-        <div className="filters-content-wrapper">
-          {isDesktopScreen && (
-            <div className="filters-wrapper" ref={filtersRef}>
-              <Filters
-                size={size}
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                categoryId={categoryId}
-                selectedBrands={selectedBrands}
-                setSelectedBrands={setSelectedBrands}
-                setSize={onSizeClick}
-                setMinPrice={onMinPriceChange}
-                setMaxPrice={onMaxPriceChange}
-                applyFilters={applyFilters}
-                setLoading={setLoading}
-                setOffset={setOffset}
-              />
-            </div>
-          )}
-          <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
-        </div>
+            {isDesktopScreen &&
+                <div className="brands-section-wrapper_card"
+                     onClick={() => console.log('more')}>
+                  <div className="brands-section-wrapper_card-icon">
+                    <MoreIcon/>
+                  </div>
+                  <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
+                </div>
+            }
+          </div>
+          <div className="filters-content-wrapper">
+            {isDesktopScreen && (
+                <div className="filters-wrapper" ref={filtersRef}>
+                  <Filters
+                      size={size}
+                      minPrice={minPrice}
+                      maxPrice={maxPrice}
+                      categoryId={categoryId}
+                      selectedBrands={selectedBrands}
+                      setSelectedBrands={setSelectedBrands}
+                      setSize={onSizeClick}
+                      setMinPrice={onMinPriceChange}
+                      setMaxPrice={onMaxPriceChange}
+                      applyFilters={applyFilters}
+                      setLoading={setLoading}
+                      setOffset={setOffset}
+                  />
+                </div>
+            )}
+            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+          </div>
         </div>
         {!isDesktopScreen &&
-          <footer>
-            <div onClick={() => navigate("/products")}>
-              <ActiveBagIcon />
-            </div>
-            <div onClick={() => navigate("/cart?from=products")}>
-              <NonActiveCartIcon />
-            </div>
-            <div onClick={() => navigate("/profile")}>
-              <NonActiveProfileIcon />
-            </div>
-          </footer>
+            <footer>
+              <div onClick={() => navigate("/products")}>
+                <ActiveBagIcon/>
+              </div>
+              <div onClick={() => navigate("/cart?from=products")}>
+                <NonActiveCartIcon/>
+              </div>
+              <div onClick={() => navigate("/profile")}>
+                <NonActiveProfileIcon/>
+              </div>
+            </footer>
         }
       </div>
       {/*<div className="loader">
@@ -451,8 +452,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>*/}
 
 
-
     </Layout>
   );
 }
+
 export default Home;
