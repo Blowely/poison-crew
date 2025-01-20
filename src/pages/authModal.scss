@@ -2,11 +2,12 @@
   vertical-align: bottom!important;
   max-width: 100vw;
   height: 100%;
+  border-radius: 8px!important;
 }
 
 .ant-modal-content {
+  border-radius: 8px!important;
   padding: 0!important;
-  border-radius: 0!important;
   bottom: 0;
   height: 100%;
 }

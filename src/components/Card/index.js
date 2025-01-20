@@ -71,8 +71,8 @@ function Card({
 
           <img
             ref={imgElement}
-            //src={`${image}/resize,w_600`}
-            src={`${image}`}
+            src={`${image}?x-oss-process=image/format,webp/resize,w_500`}
+            //src={`${image}`}
             onLoad={onLoadedIcon}
             loading="lazy"
           />

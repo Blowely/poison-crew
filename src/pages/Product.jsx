@@ -447,7 +447,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       loading={isDisabledBuyBtn}
                     >
                       {getBtnPrice(choice?.price)}
-                      <span> {!isDisabledBuyBtn ? 'В корзину' : ''}</span>
+                      <span> {!isDisabledBuyBtn ? 'Купить' : ''}</span>
                     </Button>
                   </div>
 
@@ -476,7 +476,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   loading={isDisabledBuyBtn}
                 >
                   <span>{getBtnPrice(choice?.price)}</span>
-                  <span>{!isDisabledBuyBtn ? 'В корзину' : '₽'}</span>
+                  <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
                 </Button>
               </div>
             }

@@ -55,7 +55,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         if (from) {
             return navigate('/products');
         } else if (cartItems[0]?._id) {
-            return navigate(`/products/view?spuId=${cartItems[0]?._id}`);
+            return navigate(`/products/view?spuId=${cartItems[0]?.spuId}`);
         } else {
             return navigate('/products');
         }
@@ -134,7 +134,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
             }
             <div className="content-block-header">
               <LeftOutlined onClick={onGoBackClick} />
-              Корзина <div />
+              Оформление заказа <div />
             </div>
                 <div className="content-block">
                     {step === 0 &&
@@ -144,13 +144,15 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                                     'Необходимо заполнить адрес доставки'} <RightOutlined />
                             </div>
                             {cartItems.length
-                                ? cartItems.map((el, i) => {
+                                ? [cartItems[cartItems.length - 1]].map((el, i) => {
                                     return <div key={i} className="cart-item">
                                         <div className="cart-product-info">
                                             <div style={{display: 'flex', gap: '7px'}}>
-                                                <img src={el?.images?.[0]} style={{width: '100px'}} alt=""/>
+                                                <img
+                                                    src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_500`}
+                                                    style={{width: '100px'}} alt=""/>
                                                 <div>
-                                                    <div style={{fontSize: '16px'}}>{el.title}</div>
+                                                    <div style={{fontSize: '16px'}}>{el?.name}</div>
                                                     <div>размер: {el.size}</div>
                                                 </div>
                                             </div>
