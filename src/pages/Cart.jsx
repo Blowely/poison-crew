@@ -109,6 +109,14 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         dispatch(removeFromCart({id}));
     }
 
+    const getPrice = (price) => {
+        if (!price) {
+            return '--';
+        }
+
+        return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
+    }
+
     return (
         <Layout>
             {!token && isChoiceAddressModalOpen &&
@@ -158,10 +166,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                                             </div>
 
                                             <div className="cart-product-info-third-column">
-                                                <div style={{fontWeight: '500'}}>{el?.price} ₽</div>
-                                                <div style={{fontSize: '23px', textAlign: 'right'}} onClick={() => onDeleteItem(el?._id)}>
-                                                    <DeleteOutlined />
-                                                </div>
+                                                <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
                                             </div>
                                         </div>
                                     </div>

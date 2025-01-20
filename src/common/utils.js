@@ -107,7 +107,7 @@ export const getCheapestElOfSize = (sizes = []) => {
     }
   });
 
-  return {...cheapestEl, index: cheapestIndex};
+  return {size: cheapestEl.size?.eu || '',  price: cheapestEl.price, index: cheapestIndex};
 };
 
 export const useFirstRender = () => {

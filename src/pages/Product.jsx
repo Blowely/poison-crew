@@ -65,7 +65,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
 
   useEffect(() => {
-    const currentProduct = product || remoteProduct || selectedProduct;
+    const currentProduct = product || selectedProduct || remoteProduct;
 
     if (!currentProduct?.skus?.length) {
       return;
