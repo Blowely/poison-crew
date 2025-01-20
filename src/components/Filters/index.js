@@ -68,6 +68,11 @@ function Filters(props) {
   },[sizes?.length])
 
   const onChangeChoiceHandler = (el) => {
+    if (size === el.toString()) {
+      setChoice('');
+      return setSize('');
+    }
+
     setChoice(el);
     setSize(el.toString());
   };
