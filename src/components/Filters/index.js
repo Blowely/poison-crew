@@ -70,7 +70,10 @@ function Filters(props) {
   const onChangeChoiceHandler = (el) => {
     if (size === el.toString()) {
       setChoice('');
-      return setSize('');
+      setSize('');
+      setOffset(1);
+      searchParams.delete('size');
+      return setSearchParams(searchParams);
     }
 
     setChoice(el);
@@ -156,7 +159,7 @@ function Filters(props) {
             {sizes?.map((el, i) => (
               <div
                 className={
-                  el === (choice || Number(sizeParam))
+                  el === (choice)
                     ? "size-wrapper gap-2 selected"
                     : "size-wrapper gap-2"
                 }
