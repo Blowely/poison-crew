@@ -300,13 +300,14 @@ header {
 }
 
 .filters-wrapper {
-  margin-top: 20px;
+  //margin-top: 20px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   height: inherit;
   width: 280px;
   min-width: 280px;
+  padding-top: 0!important;
 
   @media (max-width: 768px) {
     position: absolute;

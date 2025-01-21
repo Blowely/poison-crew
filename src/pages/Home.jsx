@@ -217,23 +217,23 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
   window.addEventListener(
-    "scroll",
-    function (event) {
-      try {
-        const lastEl =
-          docElements[0]?.children[docElements[0]?.children?.length - 1]
-            ?.offsetTop - 3500;
-        const windowPageYOffset = window.pageYOffset;
+      "scroll",
+      function (event) {
+        try {
+          const lastEl =
+              docElements[0]?.children[docElements[0]?.children?.length - 1]
+                  ?.offsetTop - 3500;
+          const windowPageYOffset = window.pageYOffset;
 
 
-        if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
-          currentPage = true;
+          if (windowPageYOffset >= lastEl && !isLoading && !currentPage) {
+            currentPage = true;
 
-          if (products.items.length === limit) {
-            setOffset((prev) => {
-              /*if ((productsSlice?.[trimCollectionValue]?.length || 1) + 1 === prev + 1) {
-                return prev + 1;
-              }*/
+            if (products.items.length === limit) {
+              setOffset((prev) => {
+                /*if ((productsSlice?.[trimCollectionValue]?.length || 1) + 1 === prev + 1) {
+                  return prev + 1;
+                }*/
               console.log('prev=',prev)
               return prev + 1;
             })
@@ -415,7 +415,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 </div>
             }
           </div>
-          <FilterTags />
           <div className="filters-content-wrapper">
             {isDesktopScreen && (
                 <div className="filters-wrapper" ref={filtersRef}>
@@ -437,7 +436,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   />
                 </div>
             )}
-            <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+            <div style={{ width: "100%" }}>
+              <FilterTags/>
+              <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+            </div>
           </div>
         </div>
         {!isDesktopScreen &&

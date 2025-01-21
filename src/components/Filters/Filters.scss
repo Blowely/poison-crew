@@ -1,10 +1,9 @@
 .filters-component-wrapper {
   padding: 20px;
 
- /* @media (min-width: 768px) {
-    position: sticky;
-    top: 52px;
-  }*/
+  @media (min-width: 768px) {
+    padding: 0 20px 20px 20px;
+  }
 }
 
 .filters-phone-headers {

@@ -5,8 +5,7 @@ const Categories = ({setLoading}) => {
 
   const isDesktopScreen = window.screen.availWidth > 768;
 
-  const data = [];
- /* let data = [{
+  let data = [{
     categoryId:38,
     img:'https://cdn-img.poizon.com/node-common/8f37961b-732b-1dc9-0d30-7dc7aeb0e044-438-438.jpg?x-oss-process=image/format,webp/resize,w_500',
     title:'Кроссовки',
@@ -33,7 +32,7 @@ const Categories = ({setLoading}) => {
     img:'https://cdn-img.poizonapp.com/pro-img/cut-img/20230801/45daabfbec5746818ddb4865ac39c6e5.jpg?x-oss-process=image/format,webp/resize,w_500',
     title:'Ботинки',
     isOnlyDesktop: true
-  }] : data*/
+  }] : data
 
   return <div className="card-wrapper">{data.map((el,i) => {
     return <div key={i}><CatCard title={el.title} img={el.img} categoryId={el.categoryId} setLoading={setLoading} /></div>

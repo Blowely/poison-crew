@@ -10,9 +10,14 @@
 
 .ant-tag {
   border-radius: 8px;
-  font-size: 14px;
   padding: 4px 8px;
   margin: 3px 8px 3px 0;
+  font-weight: 300;
+  font-size: 0.8rem;
+  line-height: 18.75px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .ant-btn{
