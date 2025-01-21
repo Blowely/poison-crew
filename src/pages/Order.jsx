@@ -16,7 +16,7 @@ import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import SberIcon from "../assets/svg/payment/sber-icon";
-import {getCurrentPriceOfSize, iosCopyToClipboard} from "../common/utils";
+import {getCurrentPriceOfSize, getPrice, iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS, PRODUCT_STATUS_DICTIONARY} from "./constants";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import StatusText from "../components/Status";
@@ -113,9 +113,9 @@ const Order = () => {
                                 </div>
                                 <div className="status-block-wrapper">
                                     <StatusTag status={el?.status}/>
-                                    {el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
+                                    {/*{el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
                                         'заказ станет доступным к оплате'
-                                    }
+                                    }*/}
                                     {el?.status === PRODUCT_STATUS.CANCELED && <>
                                         Нет в наличии
                                         <Button
@@ -138,27 +138,27 @@ const Order = () => {
 
                                 <div style={{display: "grid", gap: '7px'}}>
                                     {el?.products?.map((p, i) => {
-                                        totalPrice += Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000);
+                                        totalPrice += el?.price;
                                         return (
                                             <div key={i} className="cart-product-info-payment">
                                                 <div style={{display: 'flex', gap: '7px'}}>
                                                     <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
                                                     <div>
-                                                        <div style={{fontSize: '16px'}}>{p?.title}</div>
-                                                        <div>размер: {p?.size}</div>
+                                                        <div style={{fontSize: '16px'}}>{p?.name}</div>
+                                                        <div>размер: {el?.size}</div>
                                                     </div>
                                                 </div>
 
                                                 <div>
                                                     <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                        {Math.ceil(getCurrentPriceOfSize(p?.size, p?.properties.sizes) * 13.3 + 1000)} ₽
+                                                        {getPrice(el.price)}
                                                     </div>
                                                 </div>
                                             </div>
                                         )
                                     })}
 
-                                    <div className="total-price">Товары {totalPrice} ₽</div>
+                                    <div className="total-price">Товар {totalPrice} ₽</div>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +184,7 @@ const Order = () => {
                                     </div>
                                 </div>
 
-                                <div className="total-price">Доставка {deliveryCost} ₽</div>
+                                <div className="total-price">Доставка (оплачивается при получении) ~700 ₽</div>
                             </div>
 
 
@@ -213,13 +213,12 @@ const Order = () => {
                                                 />
                                                 <div className="order-info-block-item-info">
                                                     <div>
-                                                        { memoOrder?.status === PRODUCT_STATUS.PAID
+                                                        { memoOrder?.paid === true
                                                             ?  'Оплачено'
                                                             : 'Не оплачено'}
                                                     </div>
-                                                    <div>Товары <span className="total-price">{totalPrice} ₽</span></div>
-                                                    <div>Доставка <span className="total-price">{deliveryCost} ₽</span></div>
-                                                    <div>Итого <span className="total-price">{totalPrice + deliveryCost} ₽</span></div>
+                                                    <div>Товар <span className="total-price">{totalPrice} ₽</span></div>
+                                                    <div>Итого <span className="total-price">{totalPrice} ₽</span></div>
                                                 </div>
                                             </div>
                                         </div>

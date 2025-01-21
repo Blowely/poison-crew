@@ -135,9 +135,8 @@ const Payment = () => {
                                     <div className="order-info-block-item-info">
                                         <input type="text" style={{display: 'none'}} ref={paymentCostRef}
                                                value={memoTotalPricer + deliveryCost}/>
-                                        <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
-                                        <div>Доставка <span className="total-price">{1700} ₽</span></div>
-                                        <span className="total-price">Итого {memoTotalPricer + 1700} ₽
+                                        <div>Товар <span className="total-price">{memoTotalPricer} ₽</span></div>
+                                        <span className="total-price">Итого {memoTotalPricer} ₽
                                                 <CopyOutlined style={{marginLeft: '5px'}}
                                                               onClick={() => copyToClickBord(paymentCostRef.current)}/>
                                             </span>
@@ -189,9 +188,8 @@ const Payment = () => {
                                         <div className="order-info-block-item-info">
                                             <input type="text" style={{display: 'none'}} ref={paymentCostRef}
                                                    value={memoTotalPricer + deliveryCost}/>
-                                            <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
-                                            <div>Доставка <span className="total-price">{1700} ₽</span></div>
-                                            <span className="total-price">Итого {memoTotalPricer + 1700} ₽
+                                            <div>Товар <span className="total-price">{memoTotalPricer} ₽</span></div>
+                                            <span className="total-price">Итого {memoTotalPricer} ₽
                                                 <CopyOutlined style={{marginLeft: '5px'}}
                                                               onClick={() => copyToClickBord(paymentCostRef.current)}/>
                                             </span>
