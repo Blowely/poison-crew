@@ -393,7 +393,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
               <NewBalanceIcon />
             </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>NEW BALANCE</div>
+            <div style={{ fontWeight: "bold", fontSize: "10px" }}>NB</div>
           </div>
 
           <div className="brands-section-wrapper_card"

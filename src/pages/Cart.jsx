@@ -61,8 +61,8 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
         }
     }
 
-    const onOkHandler = async () => {
-      try {
+const onOkHandler = async () => {
+    try {
         if (!accountData?.account?.activeAddressId) {
           return notification.open({duration: 2, type: 'error', message:'Не выбран адрес доставки'})
         }
@@ -70,21 +70,21 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
           return notification.open({duration: 2, type: 'error', message:'Товары не выбраны'})
         }
 
-        let requests = cartItems.map(el => {
-          const addOrderBody = {
-              clientId: accountData?.account?._id,
-              products: [el],
-              address: activeAddr,
-          }
+        const cartItem = cartItems[cartItems.length - 1];
 
-          return addOrder(addOrderBody);
-        })
+        const addOrderBody = {
+          clientId: accountData?.account?._id,
+          products: [cartItem],
+          address: activeAddr,
+        }
 
-        setStep(1);
-      } catch (e) {
+        addOrder(addOrderBody);
+
+        return setStep(1);
+    } catch (e) {
         return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
-      }
     }
+}
 
     const onAddressClick = () => {
         setChoiceAddressModalOpen(true);
