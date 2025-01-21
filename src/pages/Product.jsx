@@ -101,7 +101,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     }
 
     dispatch(
-      addToCart({ ...product, size: choice?.size, price: choice?.price }),
+      addToCart({ ...product, selectedSize: choice?.size, price: choice.price }),
     );
     navigate("/cart");
   };

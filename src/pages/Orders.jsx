@@ -69,6 +69,15 @@ const Orders = () => {
       return navigate(`/order?id=${id}`);
     }
 
+    const getPrice = (price) => {
+        if (!price) {
+            return '--';
+        }
+
+        return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
+    }
+
+
     let totalPrice = 0;
 
     return (
@@ -108,14 +117,14 @@ const Orders = () => {
                                                 <div style={{display: 'flex', gap: '7px'}}>
                                                     <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
                                                     <div>
-                                                        <div style={{fontSize: '16px'}}>{p?.title}</div>
-                                                        <div>размер: {p?.size}</div>
+                                                        <div style={{fontSize: '16px'}}>{p?.name}</div>
+                                                        <div>размер: {el?.size}</div>
                                                     </div>
                                                 </div>
 
                                                 <div>
                                                     <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                        {p?.price.toString().substring(0, p?.price?.length - 2)} ₽
+                                                        {getPrice(el?.price)}
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,17 +132,15 @@ const Orders = () => {
                                     })}
                                 </div>
                             </div>
-                            {el?.status === PRODUCT_STATUS.PAID
-                                ?
+                            {el?.status === PRODUCT_STATUS.PAID &&
                                 <Button
                                     type="primary"
                                     onClick={() => onGoToTraceClick(el?._id, el?.status)}
                                     style={{width: '100%', marginTop:'10px'}}
                                 >
-                                    Отследить
+                                Отследить
                                 </Button>
-                                :
-                                <Button
+                                /*<Button
                                     disabled={!(el?.status === PRODUCT_STATUS.APPROVED ||
                                         el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES)}
                                     type="primary"
@@ -141,7 +148,7 @@ const Orders = () => {
                                     style={{width: '100%', marginTop:'10px'}}
                                 >
                                     Оплатить
-                                </Button>
+                                </Button>*/
                             }
 
                         </div>
