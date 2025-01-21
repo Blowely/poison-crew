@@ -80,13 +80,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
           return addOrder(addOrderBody);
         })
 
-        Promise.all(requests)
-          .then(responses => {
-              dispatch(clearCart());
-              return navigate(`/payment?id=${responses[0]?.data?.orderId}`)
-          }).catch((err) => notification.open(
-              {duration: 2, type: 'error', message:'Ошибка оформления заказа'}
-        ));
+        setStep(1);
       } catch (e) {
         return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
       }
@@ -149,7 +143,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                         <>
                             <div className="cart-item redirect" onClick={onAddressClick}>
                                 {activeAddr?.address ??
-                                    'Необходимо заполнить адрес доставки'} <RightOutlined />
+                                    'Необходимо заполнить адрес доставки'} <RightOutlined/>
                             </div>
                             {cartItems.length
                                 ? [cartItems[cartItems.length - 1]].map((el, i) => {
@@ -170,18 +164,43 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                                             </div>
                                         </div>
                                     </div>
-                            }) : null}
+                                }) : null}
+
+                            <div className="cart-item">
+                                <div className="cart-order-info">
+                                    <div style={{display: "grid", gap: '7px'}}>
+                                        {/*<div style={{fontSize: '15px', fontWeight: '500'}}>
+                                    Скопируйте реквизиты
+                                </div>
+                                <div className="cart-product-info-payment-card">
+                                    <div className="card">
+                                        <SberIcon></SberIcon>
+                                        <div>
+                                            {getFormattedCardNumber()}
+                                        </div>
+
+                                    </div>
+                                </div>*/}
+                                        <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                            Отсканируйте qr-code.
+                                            Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
+                                        </div>
+                                        <img className="cart-product-info-payment-qr"
+                                             src="https://storage.yandexcloud.net/pc-mediafiles/test1/qr.jpg" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className="cart-product-info-submit-btn-wrapper">
                                 <div className="cart-product-info-submit-confirm-oferta">
-                                    Нажимая на кнопку "Подтвердить заказ", Вы принимаете {' '}
+                                    Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
                                     <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
                                         Условия оферты
                                     </a>
                                 </div>
                                 <Button type="primary" className="cart-product-info-submit-btn"
                                         onClick={onOkHandler}>
-                                    Подтвердить заказ
+                                    Я Оплатил. Подтвердить заказ
                                 </Button>
                             </div>
                         </>
@@ -189,8 +208,8 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                     {step === 1 &&
                         <div className="loader-block">
                             <Result
-                                title="Проверка товара!"
-                                subTitle="Как только проверим товар, поменяем статус заказа. Обычно занимает не более 2 минут"
+                                title="Проверям поступление платежа!"
+                                subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
                                 extra={[
                                     <Button type="primary" key="console" onClick={() => navigate('/orders')}>
                                         Мои заказы
@@ -202,19 +221,19 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
                 </div>
 
 
-
             <footer>
                 <div onClick={() => navigate('/products')}>
                     <NonActiveBagIcon/>
                 </div>
-                <div onClick={() => navigate('/cart?from=products') }>
-                    <ActiveCartIcon style={{ fontSize: '30px'}} />
+                <div onClick={() => navigate('/cart?from=products')}>
+                    <ActiveCartIcon style={{fontSize: '30px'}}/>
                 </div>
                 <div onClick={() => navigate('/profile')}>
-                    <NonActiveProfileIcon style={{ fontSize: '30px'}} />
+                    <NonActiveProfileIcon style={{fontSize: '30px'}}/>
                 </div>
             </footer>
         </Layout>
     );
 }
+
 export default Cart;

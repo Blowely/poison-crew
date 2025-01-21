@@ -8,7 +8,7 @@ import {
     LeftOutlined,
     LoadingOutlined,
 } from "@ant-design/icons";
-import {useAppDispatch} from "../store";
+import {useAppDispatch, useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import {useAddOrderMutation, useGetOrdersQuery, useUpdateStatusMutation} from "../store/orders.store";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
@@ -29,6 +29,7 @@ const Payment = () => {
     const from = searchParams.get('from');
     const orderId = searchParams.get('id');
     const token = localStorage.getItem('token');
+    const cartItems = useAppSelector((state) => state.cart.items) || [];
 
 
     const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
@@ -102,6 +103,15 @@ const Payment = () => {
 
     }
 
+    const getPrice = (price) => {
+        if (!price) {
+            return '--';
+        }
+
+        return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
+    }
+    console.log('cartItems[cartItems.length - 1]=',cartItems[cartItems.length - 1]);
+
     return (
         <Layout>
             <div className="content-block-header">
@@ -114,11 +124,36 @@ const Payment = () => {
                 </div>
             }
             <div className="content-block">
+                <div className="cart-item">
+                    <div className="cart-order-info">
+                        <div style={{display: "grid", gap: '7px'}}>
+                            <div className="cart-product-info-payment-card">
+                                <div className="order-info-block-item">
+                                    <CreditCardOutlined
+                                        style={{fontSize: '28px'}}
+                                    />
+                                    <div className="order-info-block-item-info">
+                                        <input type="text" style={{display: 'none'}} ref={paymentCostRef}
+                                               value={memoTotalPricer + deliveryCost}/>
+                                        <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
+                                        <div>Доставка <span className="total-price">{1700} ₽</span></div>
+                                        <span className="total-price">Итого {memoTotalPricer + 1700} ₽
+                                                <CopyOutlined style={{marginLeft: '5px'}}
+                                                              onClick={() => copyToClickBord(paymentCostRef.current)}/>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
                 {step === 0 &&
                     <div className="cart-item">
                         <div className="cart-order-info">
                             <div style={{display: "grid", gap: '7px'}}>
-                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                {/*<div style={{fontSize: '15px', fontWeight: '500'}}>
                                     Скопируйте реквизиты
                                 </div>
                                 <div className="cart-product-info-payment-card">
@@ -129,7 +164,12 @@ const Payment = () => {
                                         </div>
 
                                     </div>
+                                </div>*/}
+                                <div style={{fontSize: '15px', fontWeight: '500'}}>
+                                    Отсканируйте qr-code. Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
                                 </div>
+                                <img className="cart-product-info-payment-qr"
+                                     src="https://storage.yandexcloud.net/pc-mediafiles/test1/qr.jpg" alt=""/>
                             </div>
                         </div>
                     </div>
@@ -152,7 +192,7 @@ const Payment = () => {
                                             <div>Товары <span className="total-price">{memoTotalPricer} ₽</span></div>
                                             <div>Доставка <span className="total-price">{1700} ₽</span></div>
                                             <span className="total-price">Итого {memoTotalPricer + 1700} ₽
-                                                <CopyOutlined style={{marginLeft:'5px'}}
+                                                <CopyOutlined style={{marginLeft: '5px'}}
                                                               onClick={() => copyToClickBord(paymentCostRef.current)}/>
                                             </span>
                                         </div>
@@ -162,19 +202,6 @@ const Payment = () => {
 
 
                         </div>
-                    </div>
-                }
-                {step === 2 &&
-                    <div className="loader-block">
-                        <Result
-                            title="Проверям поступление платежа!"
-                            subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
-                            extra={[
-                                <Button type="primary" key="console" onClick={() => navigate('/orders')}>
-                                    Мои заказы
-                                </Button>,
-                            ]}
-                        />
                     </div>
                 }
             </div>
@@ -196,11 +223,11 @@ const Payment = () => {
                 <div onClick={() => navigate('/products')}>
                     <NonActiveBagIcon/>
                 </div>
-                <div onClick={() => navigate('/cart?from=products') }>
-                    <ActiveCartIcon style={{ fontSize: '30px'}} />
+                <div onClick={() => navigate('/cart?from=products')}>
+                    <ActiveCartIcon style={{fontSize: '30px'}}/>
                 </div>
                 <div onClick={() => navigate('/profile')}>
-                    <NonActiveProfileIcon style={{ fontSize: '30px'}} />
+                    <NonActiveProfileIcon style={{fontSize: '30px'}}/>
                 </div>
             </footer>
         </Layout>
