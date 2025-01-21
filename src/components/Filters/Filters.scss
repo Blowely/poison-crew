@@ -21,6 +21,12 @@
   }
 }
 
+@media (min-width: 768px) {
+  .filters-phone-headers {
+    justify-content: center;
+  }
+}
+
 .params-wrapper {
   display: flex;
   flex-direction: column;
