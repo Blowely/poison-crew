@@ -186,7 +186,7 @@ const onOkHandler = async () => {
                                             Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
                                         </div>
                                         <img className="cart-product-info-payment-qr"
-                                             src="https://storage.yandexcloud.net/pc-mediafiles/test1/qr.jpg" alt=""/>
+                                             src="https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-21%20at%2018.09.46.png" alt=""/>
                                     </div>
                                 </div>
                             </div>
