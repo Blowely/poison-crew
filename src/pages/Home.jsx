@@ -28,6 +28,7 @@ import Product from "./Product";
 import Filters from "../components/Filters";
 import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
+import FilterTags from "../components/Tag/Tag";
 
 
 function Home({ onAddToFavorite, onAddToCart }) {
@@ -414,6 +415,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 </div>
             }
           </div>
+          <FilterTags />
           <div className="filters-content-wrapper">
             {isDesktopScreen && (
                 <div className="filters-wrapper" ref={filtersRef}>
