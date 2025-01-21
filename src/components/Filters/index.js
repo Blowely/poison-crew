@@ -192,7 +192,7 @@ function Filters(props) {
               </Button>
               {isFilters &&
                   <div className="filters-phone-headers">
-                    <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<CloseOutlined/></Button>
+                    <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры</Button>
                   </div>
               }
             </div>
