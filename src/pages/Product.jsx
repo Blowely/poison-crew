@@ -12,6 +12,7 @@ import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
+import {BRANDS} from "../components/constants";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
@@ -165,6 +166,15 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     return value;
   }
 
+  const onBrandClick = () => {
+    navigate(`/products?brandId=${product?.brandId}`);
+  }
+
+  const getImgSrc = () => {
+    const brandIndex = BRANDS.findIndex(el => el.id === product?.brandId);
+    return BRANDS[brandIndex]?.src || "";
+  }
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
@@ -252,14 +262,27 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                 marginTop: isDesktopScreen ? '40px' : '0'
               }}>
                 <SwiperCarousel
-                  style={{width: '100%'}}
-                  images={product?.images}
-                  onLoad={onLoadCarousel}
-                  onError={onLoadCarousel}
+                    style={{width: '100%'}}
+                    images={product?.images}
+                    onLoad={onLoadCarousel}
+                    onError={onLoadCarousel}
                 />
-                {isDesktopScreen && <div className="item-details-wrapper">
-                  <ItemDetails details={product?.productProperties} brand={"a"} style={{ marginTop: '50px' }}/>
-                </div>}
+                {isDesktopScreen && <div>
+                    <div className="item-details-wrapper">
+                      <ItemDetails details={product?.productProperties} style={{marginTop: '50px'}}/>
+                    </div>
+                    <div className="product-info__item standart brand " onClick={onBrandClick}>
+                      <img
+                          src={getImgSrc()}
+                          alt="brand" className="brand-logo"/>
+                      <div className="brand-info">
+                        <span className="brand-name">{product?.brand}</span>
+                        <span className="items">10K+ items ></span>
+                      </div>
+                    </div>
+                  </div>
+                }
+
 
               </div>
 
@@ -275,9 +298,9 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       {product?.name}
                     </span>
                     {isDesktopScreen &&
-                        <div className="title">
-                          {getIntPrice(choice?.price)}
-                        </div>
+                    <div className="title">
+                      {getIntPrice(choice?.price)}
+                    </div>
                     }
                   </div>
                 </div>
@@ -339,14 +362,20 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                         <ItemDetails details={product?.productProperties}/>
                       </div>
 
-                      <div className="product-info__item standart brand">
+                      <div className="product-info__item standart brand" onClick={onBrandClick}>
                         <img
-                            src="https://yastatic.net/naydex/yandex-search/jh9KNi066/73cf2elA/6elCMGAnSC5I8Rz3ZWni2nuUCWteNoY9CceGangCUscIXtiQBP_gyWeiCbfRwaW11RpI1j-A4mEQr-SfVEQ8VL2d0zWhxt0KWMUJYzRId2pv9a1uG_ODWZ0ycsoN43KHbNwddVCs86p0sHsEFhYiwmLO_afL1USy8"
-                            alt="Adidas Originals" className="brand-logo"/>
+                            src={getImgSrc()}
+                            alt="brand" className="brand-logo"/>
                         <div className="brand-info">
                           <span className="brand-name">{product?.brand}</span>
-                          <span className="items">49K+ items</span>
+                          <span className="items">10K+ items</span>
                         </div>
+
+                        <span className="brand-name-arrow">
+                            <img className="PoizonImage_img__BNSaU"
+                                 src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                 alt=""/>
+                          </span>
                       </div>
                     </div>
                 }
@@ -422,7 +451,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                         </div>
                       </div>
                       <div className="list">
-                        {sizesAndPrices?.map((el, i) => (
+                        {sizesAndPrices?.filter(el => el.price).map((el, i) => (
                             <div
                                 className={
                                   i === choice.index

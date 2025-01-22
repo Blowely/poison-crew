@@ -315,6 +315,12 @@
     gap: 0 8px;
     cursor: pointer;
 
+    @media (min-width: 768px) {
+        background: rgba(120, 120, 120, 0.1);
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+
     .brand-logo {
         height: 100%;
         border-radius: 8px;
@@ -328,11 +334,19 @@
         .brand-name {
             font-weight: bold;
             font-size: 1.2rem;
+            white-space: nowrap
         }
 
         .items {
             color: #777;
             font-size: 0.9rem;
+            white-space: nowrap;
         }
+    }
+
+    .brand-name-arrow {
+        width: 100%;
+        display: flex;
+        justify-content: end;
     }
 }
