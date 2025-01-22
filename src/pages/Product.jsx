@@ -11,6 +11,7 @@ import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice} from "../common/utils";
+import ItemDetails from "../components/ItemDetails/ItemDetails";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
@@ -256,214 +257,236 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   onLoad={onLoadCarousel}
                   onError={onLoadCarousel}
                 />
+                {isDesktopScreen && <div className="item-details-wrapper">
+                  <ItemDetails details={product?.productProperties} brand={"a"} style={{ marginTop: '50px' }}/>
+                </div>}
+
               </div>
 
               <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
                 <div className="product-info__item standart">
                   {!isDesktopScreen &&
-                    <div  className="title">
-                      {getIntPrice(choice?.price)}
-                    </div>
+                      <div className="title">
+                        {getIntPrice(choice?.price)}
+                      </div>
                   }
                   <div className="title-wrapper">
                     <span className="standart" style={{minHeight: '24px'}}>
                       {product?.name}
                     </span>
                     {isDesktopScreen &&
-                      <div  className="title">
-                        {getIntPrice(choice?.price)}
-                      </div>
+                        <div className="title">
+                          {getIntPrice(choice?.price)}
+                        </div>
                     }
                   </div>
-
                 </div>
 
                 {!isDesktopScreen &&
-                  <div className="product-info__item standart">
-                    <div className="label">
-                      <div className="label_wrap">
-                        <div className="size_label">
-                          <div>Размер: EU</div>
-                        </div>
-                      </div>
-                      <div className="size_guide" onClick={onMeasureOpenClick}>
-                        Таблица размеров
-                        <img className="PoizonImage_img__BNSaU"
-                             src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
-                      </div>
-                    </div>
-                    <div className="list">
-                      {sizesAndPrices?.filter(el => el.price).map((el, i) => (
-                        <div
-                          className={
-                            i === choice.index
-                              ? "size-wrapper gap-2 selected"
-                              : "size-wrapper gap-2"
-                          }
-                          onClick={() => onChangeChoiceHandler(el, i)}
-                          key={i}
-                          role="presentation"
-                        >
-                          <div
-                            style={{
-                              fontSize: "17px",
-                              fontWeight: "600",
-                              textAlign: "center",
-                            }}
-                          >
-                            {el?.size.primary}
+                    <div style={{display: 'grid', gap: '10px'}}>
+                      <div className="product-info__item standart">
+                        <div className="label">
+                          <div className="label_wrap">
+                            <div className="size_label">
+                              <div>Размер: EU</div>
+                            </div>
                           </div>
-                          <div
-                            style={{
-                              fontSize: "13px",
-                              textAlign: "center",
-                              display: "flex",
-                              gap: "1.5px",
-                              justifyContent: "center",
-                            }}
-                          >
-                            {getTitlePrice(el.price) || "--"}
+                          <div className="size_guide" onClick={onMeasureOpenClick}>
+                            Таблица размеров
+                            <img className="PoizonImage_img__BNSaU"
+                                 src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                 alt=""/>
                           </div>
                         </div>
-                      ))}
+                        <div className="list">
+                          {sizesAndPrices?.filter(el => el.price).map((el, i) => (
+                              <div
+                                  className={
+                                    i === choice.index
+                                        ? "size-wrapper gap-2 selected"
+                                        : "size-wrapper gap-2"
+                                  }
+                                  onClick={() => onChangeChoiceHandler(el, i)}
+                                  key={i}
+                                  role="presentation"
+                              >
+                                <div
+                                    style={{
+                                      fontSize: "17px",
+                                      fontWeight: "600",
+                                      textAlign: "center",
+                                    }}
+                                >
+                                  {el?.size.primary}
+                                </div>
+                                <div
+                                    style={{
+                                      fontSize: "13px",
+                                      textAlign: "center",
+                                      display: "flex",
+                                      gap: "1.5px",
+                                      justifyContent: "center",
+                                    }}
+                                >
+                                  {getTitlePrice(el.price) || "--"}
+                                </div>
+                              </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="product-info__item standart">
+                        <ItemDetails details={product?.productProperties}/>
+                      </div>
+
+                      <div className="product-info__item standart brand">
+                        <img
+                            src="https://yastatic.net/naydex/yandex-search/jh9KNi066/73cf2elA/6elCMGAnSC5I8Rz3ZWni2nuUCWteNoY9CceGangCUscIXtiQBP_gyWeiCbfRwaW11RpI1j-A4mEQr-SfVEQ8VL2d0zWhxt0KWMUJYzRId2pv9a1uG_ODWZ0ycsoN43KHbNwddVCs86p0sHsEFhYiwmLO_afL1USy8"
+                            alt="Adidas Originals" className="brand-logo"/>
+                        <div className="brand-info">
+                          <span className="brand-name">{product?.brand}</span>
+                          <span className="items">49K+ items</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
                 }
 
                 <div className="product-info__item poizon_auth">
                   <img className="product-info__item poizon_auth pzn_img"
                        src="https://cdn-img.poizonapp.com/node-common/e9004fdc-f3f9-1e94-d275-0965f2da9ee4-192-117.png?x-oss-process=image/format,webp/resize,w_100"
-                       alt="100% authenticated" />
+                       alt="100% authenticated"/>
                   <div className="sm_divider">|</div>
                   <div className="product-info__item poizon_auth main-txt">ВЕРЕФИЦИРОВАНО ЭКСПЕРТАМИ</div>
                   <div className="product-info__item poizon_auth second-txt">5-шаговая аутентификация</div>
                   <div>
                     <img className="PoizonImage_img__BNSaU"
-                         src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
+                         src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt=""/>
                   </div>
                 </div>
 
                 {(isDesktopScreen && !!(Object.keys(lvl2Properties)?.length)) &&
-                  <div className="product-info__item">
-                    <div className="label">
-                      <div className="label_wrap">
-                        <div className="size_label">
-                          <div>Версия</div>
-                        </div>
-                      </div>
-                      <div className="size_guide" onClick={onMeasureOpenClick}>
-                        Таблица размеров
-                        <img className="PoizonImage_img__BNSaU"
-                             src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
-                      </div>
-                    </div>
-                    <div className="list">
-                      {Object.keys(lvl2Properties)?.map((key, i) => (
-                        <div
-                          className={
-                            i === choice.index
-                              ? "size-wrapper gap-2 selected"
-                              : "size-wrapper gap-2"
-                          }
-                          onClick={() => onChangeChoiceHandler(lvl2Properties[key], i)}
-                          key={i}
-                          role="presentation"
-                        >
-                          <div
-                            style={{
-                              fontSize: "17px",
-                              fontWeight: "600",
-                              textAlign: "center",
-                            }}
-                          >
-                            {showPropertyValue(lvl2Properties[key].value, lvl2Properties[key]?.showValue)}
+                    <div className="product-info__item">
+                      <div className="label">
+                        <div className="label_wrap">
+                          <div className="size_label">
+                            <div>Версия</div>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                }
-
-                {isDesktopScreen &&
-                  <div className="product-info__item">
-                    <div className="label">
-                      <div className="label_wrap">
-                        <div className="size_label">
-                          <div>Размер: EU</div>
+                        <div className="size_guide" onClick={onMeasureOpenClick}>
+                          Таблица размеров
+                          <img className="PoizonImage_img__BNSaU"
+                               src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                               alt=""/>
                         </div>
                       </div>
-                      <div className="size_guide" onClick={onMeasureOpenClick}>
-                        Таблица размеров
-                        <img className="PoizonImage_img__BNSaU"
-                             src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt="" />
-                      </div>
-                    </div>
-                    <div className="list">
-                      {sizesAndPrices?.map((el, i) => (
-                          <div
-                            className={
-                              i === choice.index
-                                ? "size-wrapper gap-2 selected"
-                                : "size-wrapper gap-2"
-                            }
-                            onClick={() => onChangeChoiceHandler(el, i)}
-                            key={i}
-                            role="presentation"
-                          >
+                      <div className="list">
+                        {Object.keys(lvl2Properties)?.map((key, i) => (
                             <div
-                              style={{
-                                fontSize: "17px",
-                                fontWeight: "600",
-                                textAlign: "center",
-                              }}
+                                className={
+                                  i === choice.index
+                                      ? "size-wrapper gap-2 selected"
+                                      : "size-wrapper gap-2"
+                                }
+                                onClick={() => onChangeChoiceHandler(lvl2Properties[key], i)}
+                                key={i}
+                                role="presentation"
                             >
-                              {el?.size?.eu || el?.size?.primary}
+                              <div
+                                  style={{
+                                    fontSize: "17px",
+                                    fontWeight: "600",
+                                    textAlign: "center",
+                                  }}
+                              >
+                                {showPropertyValue(lvl2Properties[key].value, lvl2Properties[key]?.showValue)}
+                              </div>
                             </div>
-                            <div
-                              style={{
-                                fontSize: "13px",
-                                textAlign: "center",
-                                display: "flex",
-                                gap: "1.5px",
-                                justifyContent: "center",
-                              }}
-                            >
-                              {getTitlePrice(el?.price) || "--"}
-                            </div>
-                          </div>
                         ))}
+                      </div>
                     </div>
-                  </div>
+                }
+
+                {isDesktopScreen &&
+                    <div className="product-info__item">
+                      <div className="label">
+                        <div className="label_wrap">
+                          <div className="size_label">
+                            <div>Размер: EU</div>
+                          </div>
+                        </div>
+                        <div className="size_guide" onClick={onMeasureOpenClick}>
+                          Таблица размеров
+                          <img className="PoizonImage_img__BNSaU"
+                               src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                               alt=""/>
+                        </div>
+                      </div>
+                      <div className="list">
+                        {sizesAndPrices?.map((el, i) => (
+                            <div
+                                className={
+                                  i === choice.index
+                                      ? "size-wrapper gap-2 selected"
+                                      : "size-wrapper gap-2"
+                                }
+                                onClick={() => onChangeChoiceHandler(el, i)}
+                                key={i}
+                                role="presentation"
+                            >
+                              <div
+                                  style={{
+                                    fontSize: "17px",
+                                    fontWeight: "600",
+                                    textAlign: "center",
+                                  }}
+                              >
+                                {el?.size?.eu || el?.size?.primary}
+                              </div>
+                              <div
+                                  style={{
+                                    fontSize: "13px",
+                                    textAlign: "center",
+                                    display: "flex",
+                                    gap: "1.5px",
+                                    justifyContent: "center",
+                                  }}
+                              >
+                                {getTitlePrice(el?.price) || "--"}
+                              </div>
+                            </div>
+                        ))}
+                      </div>
+                    </div>
                 }
 
 
                 {isDesktopScreen &&
-                  <div className="btn_wrapper">
-                    <Button
-                      type="primary"
-                      className={"btn"}
-                      onClick={onAddToCart}
-                      disabled={isDisabledBuyBtn}
-                      loading={isDisabledBuyBtn}
-                    >
-                      {getBtnPrice(choice?.price)}
-                      <span> {!isDisabledBuyBtn ? 'Купить' : ''}</span>
-                    </Button>
-                  </div>
+                    <div className="btn_wrapper">
+                      <Button
+                          type="primary"
+                          className={"btn"}
+                          onClick={onAddToCart}
+                          disabled={isDisabledBuyBtn}
+                          loading={isDisabledBuyBtn}
+                      >
+                        {getBtnPrice(choice?.price)}
+                        <span> {!isDisabledBuyBtn ? 'Купить' : ''}</span>
+                      </Button>
+                    </div>
 
                 }
 
                 {!isDesktopScreen &&
-                  <Button
-                      type="primary"
-                      className={"btn"}
-                      onClick={onAddToCart}
-                      disabled={isDisabledBuyBtn}
-                      loading={isDisabledBuyBtn}
-                  >
-                    <span>{getBtnPrice(choice?.price)}</span>
-                    <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
-                  </Button>
+                    <Button
+                        type="primary"
+                        className={"btn"}
+                        onClick={onAddToCart}
+                        disabled={isDisabledBuyBtn}
+                        loading={isDisabledBuyBtn}
+                    >
+                      <span>{getBtnPrice(choice?.price)}</span>
+                      <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
+                    </Button>
                 }
               </div>
 
@@ -474,4 +497,5 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     </div>
   );
 }
+
 export default Product;

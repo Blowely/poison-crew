@@ -101,3 +101,9 @@ export const BANKS = {
         qr: 'https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2005.14.39.jpg'
     }
 }
+
+export const PRODUCT_PROPERTIES = {
+    MAIN_ARTICLE_NUMBER: 'MAIN_ARTICLE_NUMBER',
+    SALE_PRICE: "SALE_PRICE",
+    APPLICABLE_SEASON: "APPLICABLE_SEASON"
+}
