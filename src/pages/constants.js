@@ -93,11 +93,11 @@ export const BANKS = {
     't-bank': {
         src: 'https://yastatic.net/naydex/yandex-search/jh9KNi066/73cf2elA/6elCMGAnSC5I8Rz3ZWni2nuUCWteNoY9CceGangCUscIXtiQBP_gyWeiCbfRwaW11RpI1j-A4mEQr-SfVEQ8VL2d0zWhxt0KWMUJYzRId2pv9a1uG_ODWZ0ycsoN43KHbNwddVCs86p0sHsEFhYiwmLO_afL1USy8',
         card_number: '2200701374514112',
-        qr: 'https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2003.31.24.png'
+        qr: 'https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2005.16.39.jpg'
     },
     'sber': {
         src: 'https://firebasestorage.googleapis.com/v0/b/icon-finder-91d39.appspot.com/o/icons%2Fbrand%2Fsberbank.svg?alt=media&token=35f47b59-2261-470b-a499-2aaff90fdf0f',
         card_number: '2202201875038123',
-        qr: 'https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2004.58.24.png'
+        qr: 'https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2005.14.39.jpg'
     }
 }
