@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Button, Modal } from "antd";
+import {Button, message, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useGetPriceMutation, useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
@@ -10,7 +10,7 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice} from "../common/utils";
+import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, iosCopyToClipboard} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS} from "../components/constants";
 
@@ -175,6 +175,12 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     return BRANDS[brandIndex]?.src || "";
   }
 
+  const copyUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    message.success( 'Скопировано')
+  }
+
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
@@ -251,7 +257,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
           />
           <LinkOutlined
             className="link-btn"
-            onClick={() => window.history.go(-1)}
+            onClick={copyUrl}
           />
 
 
