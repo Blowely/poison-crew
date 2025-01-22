@@ -54,6 +54,34 @@
 
 }
 
+.cart-item-card {
+    margin-top: 15px!important;
+    width: 100%;
+    min-height: 70px;
+    background-color: white;
+    border-radius: 8px;
+
+    .ant-card-body {
+        padding: 12px 0 12px 0;
+        > div > .ant-tabs-nav > .ant-tabs-nav-wrap {
+            margin-left: 10px;
+        }
+    }
+
+    .ant-card-head {
+        padding: 0;
+        > div > div {
+            width: 100%;
+            > div {
+            width: 100%;
+                > div {
+                    border: none!important;
+                }
+            }
+        }
+    }
+}
+
 .transparent {
     background-color: unset;
     display: flex;

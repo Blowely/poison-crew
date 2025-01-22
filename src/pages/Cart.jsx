@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Layout, message, Modal, notification, Result, Tabs} from "antd";
+import {Button, Card, Layout, message, Modal, notification, Result, Select, Tabs} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
@@ -27,6 +27,7 @@ import AuthModal from "./AuthModal";
 import {clearCart, removeFromCart} from "../common/cartSlice";
 import {getIntPrice, iosCopyToClipboard} from "../common/utils";
 import SberIcon from "../assets/svg/payment/sber-icon";
+import {BANK_ICONS, BANKS, banksIcons} from "./constants";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const [activeAddr, setActiveAddr] = useState('');
     const [phone, setPhone] = useState('');
     const [step, setStep] = useState(0);
+    const [bank, setBank] = useState('t-bank');
 
     const paymentNumberRef = useRef(null);
     const from = searchParams.get('from');
@@ -121,7 +123,7 @@ const onOkHandler = async () => {
     }
 
     const getFormattedCardNumber = () => {
-        const number = '2202201875038123';
+        const number = BANKS[bank].card_number;
 
         return <span style={{display: "grid", gap: '8px'}}>
                     <input type="text" style={{visibility: 'hidden'}} ref={paymentNumberRef} value={number}/>
@@ -145,7 +147,7 @@ const onOkHandler = async () => {
                     </div>
                     <div className="cart-product-info-payment-card">
                         <div className="card">
-                            <SberIcon></SberIcon>
+                            <img src={BANKS[bank].src} width="35" alt=''></img>
                             <div>
                                 {getFormattedCardNumber()}
                             </div>
@@ -163,7 +165,7 @@ const onOkHandler = async () => {
                         Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
                     </div>
                     <img className="cart-product-info-payment-qr"
-                         src="https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2003.31.24.png"
+                         src={BANKS[bank].qr}
                          alt=""/>
                 </div>
             </div>
@@ -184,6 +186,10 @@ const onOkHandler = async () => {
 
     const onChange = (key) => {
         console.log(key);
+    };
+
+    const onChangeBank = (bank) => {
+        setBank(bank);
     };
 
     return (
@@ -243,24 +249,54 @@ const onOkHandler = async () => {
                             }) : null}
 
 
-                                <div className="cart-item">
-                                    <div className="cart-order-info">
-                                        <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
-                                    </div>
+                            {/*<div className="cart-item">
+                                <div className="cart-order-info">
+                                    <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
                                 </div>
+                            </div>*/}
 
-                                <div className="cart-product-info-submit-btn-wrapper">
-                                    <div className="cart-product-info-submit-confirm-oferta">
-                                        Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
-                                        <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
-                                            Условия оферты
-                                        </a>
-                                    </div>
-                                    <Button type="primary" className="cart-product-info-submit-btn"
-                                            onClick={onOkHandler}>
-                                        Я Оплатил. Подтвердить заказ
-                                    </Button>
+                            <Card
+                                className="cart-item-card"
+                                extra={
+                                    <Select
+                                        placeholder="Выберите банк"
+                                        optionFilterProp="label"
+                                        onChange={onChangeBank}
+                                        menuItemSelectedIcon={<img src={BANKS[bank].src} width="50" alt=""/>}
+                                        defaultValue={{
+                                            value: 't-bank',
+                                            label: `Т-БАНК`,
+                                        }}
+                                        options={[
+                                            {
+                                                value: 't-bank',
+                                                label: 'Т-БАНК',
+                                            },
+                                            {
+                                                value: 'sber',
+                                                label: 'СБЕР',
+                                            },
+                                        ]}>
+                                        Выбрать
+                                    </Select>
+                                }
+                                size="small"
+                            >
+                                <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
+                            </Card>
+
+                            <div className="cart-product-info-submit-btn-wrapper">
+                                <div className="cart-product-info-submit-confirm-oferta">
+                                    Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
+                                    <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                                        Условия оферты
+                                    </a>
                                 </div>
+                                <Button type="primary" className="cart-product-info-submit-btn"
+                                        onClick={onOkHandler}>
+                                    Я Оплатил. Подтвердить заказ
+                                </Button>
+                            </div>
                             </>
                             }
                             {step === 1 &&
