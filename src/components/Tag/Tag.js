@@ -1,7 +1,7 @@
 import React from "react";
 import {Tag} from "antd";
 import {useSearchParams} from "react-router-dom";
-import {BRANDS} from "../constants";
+import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 
 const FilterTags = () => {
@@ -24,6 +24,11 @@ const FilterTags = () => {
 
         if (key === 'size') {
             return `Размер ${params[key]}`;
+        }
+
+        if (key === 'categoryId') {
+            const index = CATEGORIES.findIndex((el) => el.id === Number(params[key]));
+            return CATEGORIES[index].name || '';
         }
 
         return params[key]
