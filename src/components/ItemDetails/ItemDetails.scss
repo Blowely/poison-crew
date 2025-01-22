@@ -1,0 +1,72 @@
+// ItemDetails.scss
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: Arial, sans-serif;
+
+  .details {
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .detail {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1rem;
+
+        .label {
+          font-weight: bold;
+        }
+
+        .value {
+          color: #555;
+        }
+      }
+    }
+
+    .view-more {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #007bff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .brand-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+
+      .brand-name {
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .items {
+        color: #777;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

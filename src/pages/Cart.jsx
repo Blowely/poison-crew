@@ -84,6 +84,7 @@ const onOkHandler = async () => {
         }
 
         addOrder(addOrderBody);
+        dispatch(clearCart());
 
         return setStep(1);
     } catch (e) {
@@ -255,50 +256,54 @@ const onOkHandler = async () => {
                                 </div>
                             </div>*/}
 
-                            <Card
-                                className="cart-item-card"
-                                extra={
-                                    <Select
-                                        placeholder="Выберите банк"
-                                        optionFilterProp="label"
-                                        onChange={onChangeBank}
-                                        menuItemSelectedIcon={<img src={BANKS[bank].src} width="50" alt=""/>}
-                                        defaultValue={{
-                                            value: 't-bank',
-                                            label: `Т-БАНК`,
-                                        }}
-                                        options={[
-                                            {
+                        {!!cartItems.length &&  (
+                            <div>
+                                <Card
+                                    className="cart-item-card"
+                                    extra={
+                                        <Select
+                                            placeholder="Выберите банк"
+                                            optionFilterProp="label"
+                                            onChange={onChangeBank}
+                                            menuItemSelectedIcon={<img src={BANKS[bank].src} width="50" alt=""/>}
+                                            defaultValue={{
                                                 value: 't-bank',
-                                                label: 'Т-БАНК',
-                                            },
-                                            {
-                                                value: 'sber',
-                                                label: 'СБЕР',
-                                            },
-                                        ]}>
-                                        Выбрать
-                                    </Select>
-                                }
-                                size="small"
-                            >
-                                <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
-                            </Card>
+                                                label: `Т-БАНК`,
+                                            }}
+                                            options={[
+                                                {
+                                                    value: 't-bank',
+                                                    label: 'Т-БАНК',
+                                                },
+                                                {
+                                                    value: 'sber',
+                                                    label: 'СБЕР',
+                                                },
+                                            ]}>
+                                            Выбрать
+                                        </Select>
+                                    }
+                                    size="small"
+                                >
+                                    <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
+                                </Card>
 
-                            <div className="cart-product-info-submit-btn-wrapper">
-                                <div className="cart-product-info-submit-confirm-oferta">
-                                    Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
-                                    <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
-                                        Условия оферты
-                                    </a>
+                                <div className="cart-product-info-submit-btn-wrapper">
+                                    <div className="cart-product-info-submit-confirm-oferta">
+                                        Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
+                                        <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                                            Условия оферты
+                                        </a>
+                                    </div>
+                                    <Button type="primary" className="cart-product-info-submit-btn"
+                                            onClick={onOkHandler}>
+                                        Я Оплатил. Подтвердить заказ
+                                    </Button>
                                 </div>
-                                <Button type="primary" className="cart-product-info-submit-btn"
-                                        onClick={onOkHandler}>
-                                    Я Оплатил. Подтвердить заказ
-                                </Button>
                             </div>
-                            </>
-                            }
+                        )}
+                        </>
+                    }
                             {step === 1 &&
                                 <div className="loader-block">
                                     <Result
