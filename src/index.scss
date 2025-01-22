@@ -384,10 +384,6 @@ footer {
   height: 100%;
   background-color: white;
   overflow: hidden;
-
-  @media (max-width: 768px) {
-    padding-bottom: 76px;
-  }
 }
 
 .empty {

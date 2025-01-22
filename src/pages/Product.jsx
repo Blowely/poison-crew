@@ -452,35 +452,22 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   </div>
 
                 }
+
+                {!isDesktopScreen &&
+                  <Button
+                      type="primary"
+                      className={"btn"}
+                      onClick={onAddToCart}
+                      disabled={isDisabledBuyBtn}
+                      loading={isDisabledBuyBtn}
+                  >
+                    <span>{getBtnPrice(choice?.price)}</span>
+                    <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
+                  </Button>
+                }
               </div>
 
             </div>
-
-            {!isDesktopScreen &&
-              <div
-                style={{
-                  position: "fixed",
-                  bottom: "0",
-                  width: "100%",
-                  padding: 10,
-                  backgroundColor: "white",
-                  borderTop: "1px solid #f9f9f9",
-                  zIndex: 2,
-                }}
-              >
-                <Button
-                  type="primary"
-                  className={"btn"}
-                  onClick={onAddToCart}
-                  disabled={isDisabledBuyBtn}
-                  loading={isDisabledBuyBtn}
-                >
-                  <span>{getBtnPrice(choice?.price)}</span>
-                  <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
-                </Button>
-              </div>
-            }
-
           </div>
         </div>
       )}
