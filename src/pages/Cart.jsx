@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal, notification, Result} from "antd";
+import React, {useEffect, useRef, useState} from "react";
+import {Button, Layout, message, Modal, notification, Result, Tabs} from "antd";
 import {useGetProductQuery} from "../store/products.store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
-  DeleteOutlined,
-  LeftOutlined,
-  LoadingOutlined,
-  RightOutlined,
-  ShoppingCartOutlined,
-  UserOutlined
+    CopyOutlined,
+    DeleteOutlined,
+    LeftOutlined,
+    LoadingOutlined,
+    RightOutlined,
+    ShoppingCartOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import BagIcon from "../assets/svg/active-bag-icon";
@@ -24,7 +25,8 @@ import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses, removeAddress} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
 import {clearCart, removeFromCart} from "../common/cartSlice";
-import { getIntPrice } from "../common/utils";
+import {getIntPrice, iosCopyToClipboard} from "../common/utils";
+import SberIcon from "../assets/svg/payment/sber-icon";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -38,6 +40,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const [phone, setPhone] = useState('');
     const [step, setStep] = useState(0);
 
+    const paymentNumberRef = useRef(null);
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
 
@@ -111,6 +114,78 @@ const onOkHandler = async () => {
         return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
     }
 
+    const copyToClickBord = (el) => {
+        iosCopyToClipboard(el);
+        navigator.clipboard.writeText(el.value);
+        message.success( 'Скопировано')
+    }
+
+    const getFormattedCardNumber = () => {
+        const number = '2202201875038123';
+
+        return <span style={{display: "grid", gap: '8px'}}>
+                    <input type="text" style={{visibility: 'hidden'}} ref={paymentNumberRef} value={number}/>
+                    Номер карты
+                    <span className="formatted-card-number">
+                        <span>{number.substring(0,4)}</span>
+                        <span>{number.substring(4,8)}</span>
+                        <span>{number.substring(8,12)}</span>
+                        <span>{number.substring(12,16)}</span>
+                        <CopyOutlined onClick={() => copyToClickBord(paymentNumberRef.current)}/>
+                    </span>
+                    Андрей Евгеньевич М
+                </span>
+    }
+
+    const CardNumberComponent = () => {
+        return (<div className="payment-method-wrapper">
+                    <div style={{fontSize: '15px', fontWeight: '500'}}>
+                        Выполните перевод.
+                        Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
+                    </div>
+                    <div className="cart-product-info-payment-card">
+                        <div className="card">
+                            <SberIcon></SberIcon>
+                            <div>
+                                {getFormattedCardNumber()}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>)
+    }
+
+    const QrCodeComponent = () => {
+        return <div className="payment-method-wrapper">
+                <div style={{display: "grid", gap: '7px'}}>
+                    <div style={{fontSize: '15px', fontWeight: '500'}}>
+                        Отсканируйте qr-code.
+                        Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
+                    </div>
+                    <img className="cart-product-info-payment-qr"
+                         src="https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-22%20at%2003.31.24.png"
+                         alt=""/>
+                </div>
+            </div>
+
+    }
+
+    const items = [
+        {
+            key: '1',
+            label: 'QR-code',
+            children: <QrCodeComponent/>,
+        },
+        {
+            key: '2',
+            label: 'Реквизиты',
+            children: <CardNumberComponent/>,
+        }];
+
+    const onChange = (key) => {
+        console.log(key);
+    };
+
     return (
         <Layout>
             {!token && isChoiceAddressModalOpen &&
@@ -118,7 +193,8 @@ const onOkHandler = async () => {
                     open={isChoiceAddressModalOpen}
                     setRemotePhone={setPhone}
                     setModalOpen={isChoiceAddressModalOpen}
-                    onCancel={() => {setChoiceAddressModalOpen(false); setCodeModalOpen(false)}}
+                    onCancel={() => {
+                        setChoiceAddressModalOpen(false); setCodeModalOpen(false)}}
                     isCodeModalOpen={isCodeModalOpen}
                     setCodeModalOpen={setCodeModalOpen}
                 />
@@ -164,65 +240,48 @@ const onOkHandler = async () => {
                                             </div>
                                         </div>
                                     </div>
-                                }) : null}
+                            }) : null}
 
-                            <div className="cart-item">
-                                <div className="cart-order-info">
-                                    <div style={{display: "grid", gap: '7px'}}>
-                                        {/*<div style={{fontSize: '15px', fontWeight: '500'}}>
-                                    Скопируйте реквизиты
-                                </div>
-                                <div className="cart-product-info-payment-card">
-                                    <div className="card">
-                                        <SberIcon></SberIcon>
-                                        <div>
-                                            {getFormattedCardNumber()}
-                                        </div>
 
-                                    </div>
-                                </div>*/}
-                                        <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                            Отсканируйте qr-code.
-                                            Оплатите {getPrice(cartItems[cartItems.length - 1]?.price)}
-                                        </div>
-                                        <img className="cart-product-info-payment-qr"
-                                             src="https://storage.yandexcloud.net/pc-mediafiles/test1/Screenshot%202025-01-21%20at%2018.09.46.png" alt=""/>
+                                <div className="cart-item">
+                                    <div className="cart-order-info">
+                                        <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="cart-product-info-submit-btn-wrapper">
-                                <div className="cart-product-info-submit-confirm-oferta">
-                                    Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
-                                    <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
-                                        Условия оферты
-                                    </a>
+                                <div className="cart-product-info-submit-btn-wrapper">
+                                    <div className="cart-product-info-submit-confirm-oferta">
+                                        Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
+                                        <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                                            Условия оферты
+                                        </a>
+                                    </div>
+                                    <Button type="primary" className="cart-product-info-submit-btn"
+                                            onClick={onOkHandler}>
+                                        Я Оплатил. Подтвердить заказ
+                                    </Button>
                                 </div>
-                                <Button type="primary" className="cart-product-info-submit-btn"
-                                        onClick={onOkHandler}>
-                                    Я Оплатил. Подтвердить заказ
-                                </Button>
-                            </div>
-                        </>
-                    }
-                    {step === 1 &&
-                        <div className="loader-block">
-                            <Result
-                                title="Проверям поступление платежа!"
-                                subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
-                                extra={[
-                                    <Button type="primary" key="console" onClick={() => navigate('/orders')}>
-                                        Мои заказы
-                                    </Button>,
-                                ]}
-                            />
+                            </>
+                            }
+                            {step === 1 &&
+                                <div className="loader-block">
+                                    <Result
+                                        title="Проверям поступление платежа!"
+                                        subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
+                                        extra={[
+                                            <Button type="primary" key="console"
+                                                    onClick={() => navigate('/orders')}>
+                                                Мои заказы
+                                            </Button>,
+                                        ]}
+                                    />
+                                </div>
+                            }
                         </div>
-                    }
-                </div>
 
 
-            <footer>
-                <div onClick={() => navigate('/products')}>
+                            <footer>
+                                <div onClick={() => navigate('/products')}>
                     <NonActiveBagIcon/>
                 </div>
                 <div onClick={() => navigate('/cart?from=products')}>

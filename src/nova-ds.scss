@@ -64,3 +64,16 @@
   height: 6px!important;
   background: rgb(1, 194, 195) !important;
 }
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: rgb(1, 194, 195);
+  text-shadow: 0 0 0.25px rgb(1, 194, 195);
+}
+
+.ant-tabs .ant-tabs-ink-bar {
+  background: rgb(1, 194, 195);
+}
+
+.ant-tabs .ant-tabs-tab:hover {
+  color: rgb(1, 194, 195);
+}

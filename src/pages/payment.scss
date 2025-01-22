@@ -136,6 +136,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 7px;
 }
 
 .formatted-card-number {
@@ -146,6 +147,10 @@
     color: white;
     font-size: 19px;
     font-weight: 400;
+}
+
+.payment-method-wrapper {
+    padding: 10px;
 }
 
 .loader-block {

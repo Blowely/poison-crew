@@ -79,6 +79,15 @@
     gap: 15px;
 }
 
+.tabs {
+    > .ant-tabs-nav {
+        margin: 0;
+        > div > div > .ant-tabs-tab {
+            padding: 0 0 12px 0;
+        }
+    }
+}
+
 .cart-product-info-submit-btn-wrapper{
     display: flex;
     justify-content: center;
