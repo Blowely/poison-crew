@@ -22,8 +22,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isCodeModalOpen, setCodeModalOpen] = useState(false);
   const [choice, setChoice] = useState({});
   const [measureOpen, setMeasureOpen] = useState(false);
   const [phone, setPhone] = useState("");
@@ -117,7 +115,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
     const price = el?.price;
 
-    setChoice({ size: el?.size.primary, price, index: i });
+    setChoice({ size: el?.size?.primary || 'cтандарт', price, index: i });
   };
 
   const getTitlePrice = (price) => {
@@ -165,7 +163,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   }
 
   const onBrandClick = () => {
-    navigate(`/products?brandId=${product?.brandId}`);
+    navigate(`?brandId=${product?.brandId}`);
   }
 
   const getImgSrc = () => {
