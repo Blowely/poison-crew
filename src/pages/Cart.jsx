@@ -252,6 +252,7 @@ const onOkHandler = async () => {
                   Оформление заказа <div />
                 </div>
             }
+            <div className="content-block-wrapper">
                 <div className="content-block">
                     {step === 0 && cartItems?.length === 0 &&
                         <Result
@@ -286,7 +287,7 @@ const onOkHandler = async () => {
                                             </div>
                                         </div>
                                     </div>
-                            }) : null}
+                                }) : null}
 
 
                             {/*<div className="cart-item">
@@ -295,69 +296,71 @@ const onOkHandler = async () => {
                                 </div>
                             </div>*/}
 
-                        {!!cartItems.length &&  (
-                            <div>
-                                <Card
-                                    className="cart-item-card"
-                                    extra={
-                                        <Select
-                                            placeholder="Выберите банк"
-                                            optionFilterProp="label"
-                                            onChange={onChangeBank}
-                                            menuItemSelectedIcon={<img src={BANKS[bank].src} width="50" alt=""/>}
-                                            defaultValue={{
-                                                value: 't-bank',
-                                                label: `Т-БАНК`,
-                                            }}
-                                            options={[
-                                                {
+                            {!!cartItems.length && (
+                                <div>
+                                    <Card
+                                        className="cart-item-card"
+                                        extra={
+                                            <Select
+                                                placeholder="Выберите банк"
+                                                optionFilterProp="label"
+                                                onChange={onChangeBank}
+                                                menuItemSelectedIcon={<img src={BANKS[bank].src} width="50" alt=""/>}
+                                                defaultValue={{
                                                     value: 't-bank',
-                                                    label: 'Т-БАНК',
-                                                },
-                                                {
-                                                    value: 'sber',
-                                                    label: 'СБЕР',
-                                                },
-                                            ]}>
-                                            Выбрать
-                                        </Select>
-                                    }
-                                    size="small"
-                                >
-                                    <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
-                                </Card>
+                                                    label: `Т-БАНК`,
+                                                }}
+                                                options={[
+                                                    {
+                                                        value: 't-bank',
+                                                        label: 'Т-БАНК',
+                                                    },
+                                                    {
+                                                        value: 'sber',
+                                                        label: 'СБЕР',
+                                                    },
+                                                ]}>
+                                                Выбрать
+                                            </Select>
+                                        }
+                                        size="small"
+                                    >
+                                        <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
+                                    </Card>
 
-                                <div className="cart-product-info-submit-btn-wrapper">
-                                    <div className="cart-product-info-submit-confirm-oferta">
-                                        Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
-                                        <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
-                                            Условия оферты
-                                        </a>
+                                    <div className="cart-product-info-submit-btn-wrapper">
+                                        <div className="cart-product-info-submit-confirm-oferta">
+                                            Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
+                                            <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                                                Условия оферты
+                                            </a>
+                                        </div>
+                                        <Button type="primary" className="cart-product-info-submit-btn"
+                                                onClick={onOkHandler}>
+                                            Я Оплатил. Подтвердить заказ
+                                        </Button>
                                     </div>
-                                    <Button type="primary" className="cart-product-info-submit-btn"
-                                            onClick={onOkHandler}>
-                                        Я Оплатил. Подтвердить заказ
-                                    </Button>
                                 </div>
-                            </div>
-                        )}
+                            )}
                         </>
                     }
-                            {step === 1 &&
-                                <div className="loader-block">
-                                    <Result
-                                        title="Проверям поступление платежа!"
-                                        subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
-                                        extra={[
-                                            <Button type="primary" key="console"
-                                                    onClick={() => navigate('/orders')}>
-                                                Мои заказы
-                                            </Button>,
-                                        ]}
-                                    />
-                                </div>
-                            }
+                    {step === 1 &&
+                        <div className="loader-block">
+                            <Result
+                                title="Проверям поступление платежа!"
+                                subTitle="Как только поступит платеж, поменяем статус заказа. Обычно занимает не более 2 минут"
+                                extra={[
+                                    <Button type="primary" key="console"
+                                            onClick={() => navigate('/orders')}>
+                                        Мои заказы
+                                    </Button>,
+                                ]}
+                            />
                         </div>
+                    }
+                </div>
+            </div>
+
 
             {!isDesktopScreen &&
                 <footer>

@@ -16,10 +16,17 @@
     font-weight: 400;
 }
 
+.content-block-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .content-block {
     padding: 15px;
     padding-bottom: 80px;
     width: 100%;
+    max-width: 1200px;
     height: auto;
 }
 
