@@ -13,6 +13,8 @@ import MeasureTable from "../components/MeasureTable/MeasureTable";
 import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, iosCopyToClipboard} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS} from "../components/constants";
+import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
+import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
 function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
@@ -228,20 +230,26 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       }
       {isDesktopScreen &&
         <div className="main-logo-wrapper">
-          <div
+          {/*<div
             className="main-logo-line black main-logo-line-left"
             style={{
               width: "calc((100vw - 226px - 40px) / 2 )"
             }}
-          />
+          />*/}
           {<RePoizonMainLogo />}
 
-          <div
+          {/*<div
             className="main-logo-line black main-logo-line-right"
             style={{
               width: "calc((100vw - 226px - 40px) / 2 )"
             }}
-          />
+          />*/}
+          {isDesktopScreen && <div className="actions-btns">
+            <GenderSwitcher/>
+            <div onClick={() => navigate("/profile")}>
+              <NonActiveProfileIcon/>
+            </div>
+          </div>}
         </div>
       }
 

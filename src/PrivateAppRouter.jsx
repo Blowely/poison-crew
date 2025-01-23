@@ -23,12 +23,15 @@ export function PrivateAppRouter({
   onAddToCart,
   isLoading
 }) {
+  console.log('localStorage.getItem("gender") =',localStorage.getItem("gender") )
+  const gender = localStorage.getItem("gender") || "men";
+
   return (
     <Suspense fallback={<AppLoading />}>
       <Routes>
         <Route path="/" element={<Navigate to="/products" />} replace />
         <Route
-          path="/products"
+          path={`/products/${gender}`}
           element={
             <Home
               cartItems={cartItems}
@@ -41,7 +44,7 @@ export function PrivateAppRouter({
             />
           }
         />
-        <Route path="/products/*" element={<Product />} />
+        <Route path="/products/" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/*" element={<Cart />} />
         <Route path="/address" element={<Address />} />
@@ -53,7 +56,7 @@ export function PrivateAppRouter({
         <Route path="/visited" element={<VisitedProducts />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/info" element={<Information />} />
-        <Route path="*" element={<Navigate to="/products" />} replace />
+        <Route path="*" element={<Navigate to={`/products/${gender}`} />} replace />
       </Routes>
     </Suspense>
   );

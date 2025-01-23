@@ -29,6 +29,7 @@ import Filters from "../components/Filters";
 import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
+import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 
 
 function Home({ onAddToFavorite, onAddToCart }) {
@@ -342,6 +343,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
+
           {/*<div
           className="main-logo-line main-logo-line-left"
           style={{
@@ -350,7 +352,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
               : "calc((100vw - 158px - 40px) / 2 )",
           }}
         />*/}
-          {isDesktopScreen ? <RePoizonMainLogo /> : <RePoizonMainMiddleLogo />}
+          {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo/>}
+          {isDesktopScreen && <div className="actions-btns">
+            <GenderSwitcher/>
+            <div onClick={() => navigate("/profile")}>
+              <NonActiveProfileIcon/>
+            </div>
+          </div>}
+
 
           {/*<div
           className="main-logo-line main-logo-line-right"

@@ -1,4 +1,4 @@
-// ItemDetails.jsx
+// GenderSwitcher.jsx
 import React from 'react';
 import './ItemDetails.scss';
 import {PRODUCT_PROPERTIES} from "../../pages/constants";
