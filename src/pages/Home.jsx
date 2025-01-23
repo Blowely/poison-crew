@@ -30,8 +30,6 @@ import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
-import {SORT_TYPES} from "./constants";
-
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();

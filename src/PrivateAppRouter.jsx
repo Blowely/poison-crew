@@ -43,7 +43,7 @@ export function PrivateAppRouter({
             />
           }
         />
-        <Route path="/products/" element={<Product />} />
+        <Route path={`/products/${gender}/*`} element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/*" element={<Cart />} />
         <Route path="/address" element={<Address />} />
