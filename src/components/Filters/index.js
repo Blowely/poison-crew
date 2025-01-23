@@ -15,6 +15,7 @@ function Filters(props) {
     brandId,
     setShowFilters,
     size,
+    sort,
     minPrice,
     maxPrice,
     categoryId,
@@ -118,7 +119,7 @@ function Filters(props) {
     setSearchParams(searchParams);
   }
 
-  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search);
+  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search || sort);
 
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${size}`;
@@ -148,6 +149,7 @@ function Filters(props) {
             <Select
                 defaultValue={SORT_TYPES[sortBy] || SORT_TYPES["by-relevance"]}
                 style={{ width: '100%' }}
+                value={sort}
                 size="large"
                 onChange={handleChange}
                 options={SORT_OPTIONS}

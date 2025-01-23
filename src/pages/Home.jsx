@@ -131,7 +131,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}`+
-    `+${minPriceParam}+${maxPriceParam}${selectedBrands.map(({id}) => `+${id}`)}` || collection;
+    `+${minPriceParam}+${maxPriceParam}+${sortBy}${selectedBrands.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -331,6 +331,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <Filters
           setShowFilters={setShowFilters}
           size={size}
+          sort={sort}
           minPrice={minPrice}
           maxPrice={maxPrice}
           categoryId={categoryId}
@@ -447,6 +448,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       search={search}
                       brandId={brandId}
                       size={size}
+                      sort={sort}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                       categoryId={categoryId}
