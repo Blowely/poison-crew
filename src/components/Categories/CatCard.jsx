@@ -1,12 +1,13 @@
 import "./index.scss";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 const CatCard = ({img, title, categoryId, setLoading}) => {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onCardClick = () => {
     setLoading(true);
-    navigate(`/products?categoryId=${categoryId}`);
+    searchParams.set('categoryId', categoryId);
+    setSearchParams(searchParams);
   }
 
   return <div className="cat-card" onClick={onCardClick}>

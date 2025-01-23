@@ -5,7 +5,7 @@ const GenderSwitcher = () => {
     const href = window.location.href;
     const gender = useMemo(() => {
         const parts = href.split("/");
-        return parts[4];
+        return parts[4].split('?')[0];
     },[href])
 
     const [activeTab, setActiveTab] = useState(gender);
