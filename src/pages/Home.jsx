@@ -9,7 +9,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import JordanIcon from "../assets/svg/brands/jordan-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import { Button, Empty, Layout, Pagination } from "antd";
+import {Button, Empty, Layout, Pagination, Select} from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
@@ -30,6 +30,7 @@ import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
+import {SORT_OPTIONS, SORT_TYPES} from "./constants";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -66,6 +67,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const filtersRef = useRef(null);
   const gender = localStorage.getItem("gender");
+  const sortRef = useRef(null);
 
   const isDesktopScreen = window?.innerWidth > 768;
 
@@ -318,6 +320,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }
 
+  const handleChange = (value) => {
+    searchParams.set('sortBy', value);
+    setSearchParams(searchParams);
+    setSort(value);
+    setOffset(1);
+  };
+
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
       {spuId && <div className="productWrapper" id="productWrapper">
@@ -462,8 +471,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   />
                 </div>
             )}
-            <div style={{ width: "100%" }}>
-              <FilterTags/>
+            <div style={{width: "100%"}}>
+              <div className="filters-tags-wrapper">
+                <FilterTags/>
+
+                <div className="inputs-wrapper">
+                  <Select
+                      defaultValue={SORT_TYPES[sortBy] || SORT_TYPES["by-relevance"]}
+                      value={sort}
+                      size="middle"
+                      onChange={handleChange}
+                      options={SORT_OPTIONS}
+                  />
+                </div>
+              </div>
+
               <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
             </div>
           </div>

@@ -46,17 +46,30 @@
   letter-spacing: -.48px;
 }
 
+.filters-tags-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
 .inputs-wrapper {
   display: flex;
   flex-wrap: nowrap;
   gap: 8px;
+
   > span {
     border-radius: 8px!important;
   }
 
-  > div > div {
-    background-color: #efefef!important;
-    border-color: #efefef!important;
+  > .ant-select {
+    margin-right: 20px;
+
+    > div {
+      min-width: fit-content;
+      border: none !important;
+      //padding: 0 11px 0 0!important;
+      box-shadow: unset!important;
+    }
   }
 }
 

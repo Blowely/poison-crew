@@ -57,10 +57,7 @@ const FilterTags = () => {
     }
 
     const filter = (el) => {
-        if (isDesktopScreen) {
-            return  el !== "sortBy"
-        }
-        return true
+        return el !== "sortBy";
     }
 
     return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {

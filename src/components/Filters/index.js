@@ -124,12 +124,6 @@ function Filters(props) {
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${size}`;
 
-  const handleChange = (value) => {
-    searchParams.set('sortBy', value);
-    setSearchParams(searchParams);
-    setSort(value);
-  };
-
   return (
     <div className="filters-component-wrapper">
       {!isDesktopScreen && (
@@ -140,23 +134,6 @@ function Filters(props) {
       )}
 
       <div className="params-wrapper">
-        <div className="params-item-wrapper">
-          <div className="param-title">
-            Сортировка
-          </div>
-
-          <div className="inputs-wrapper">
-            <Select
-                defaultValue={SORT_TYPES[sortBy] || SORT_TYPES["by-relevance"]}
-                style={{ width: '100%' }}
-                value={sort}
-                size="large"
-                onChange={handleChange}
-                options={SORT_OPTIONS}
-            />
-          </div>
-        </div>
-
         <div className="params-item-wrapper">
           <div className="param-title">
             Цена, RUB
