@@ -28,6 +28,8 @@ import {clearCart, removeFromCart} from "../common/cartSlice";
 import {getIntPrice, iosCopyToClipboard} from "../common/utils";
 import SberIcon from "../assets/svg/payment/sber-icon";
 import {BANK_ICONS, BANKS, banksIcons} from "./constants";
+import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 
 function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const dispatch = useAppDispatch();
@@ -193,6 +195,8 @@ const onOkHandler = async () => {
         setBank(bank);
     };
 
+    const isDesktopScreen = window?.innerWidth > 768;
+
     return (
         <Layout>
             {!token && isChoiceAddressModalOpen &&
@@ -217,12 +221,47 @@ const onOkHandler = async () => {
                     activeAddr={activeAddr}
                 />
             }
-            <div className="content-block-header">
-              <LeftOutlined onClick={onGoBackClick} />
-              Оформление заказа <div />
-            </div>
+            {isDesktopScreen &&
+                <div className="main-logo-wrapper">
+                    {/*<div
+                        className="main-logo-line black main-logo-line-left"
+                        style={{
+                          width: "calc((100vw - 226px - 40px) / 2 )"
+                        }}
+                    />*/}
+                    {<RePoizonMainLogo />}
+
+                    {/*<div
+                        className="main-logo-line black main-logo-line-right"
+                        style={{
+                          width: "calc((100vw - 226px - 40px) / 2 )"
+                        }}
+                      />*/}
+                    {isDesktopScreen && <div className="actions-btns">
+                        <GenderSwitcher/>
+                        <div onClick={() => navigate("/profile")}>
+                            <NonActiveProfileIcon/>
+                        </div>
+                    </div>}
+                </div>
+            }
+
+            {!isDesktopScreen &&
+                <div className="content-block-header">
+                  <LeftOutlined onClick={onGoBackClick} />
+                  Оформление заказа <div />
+                </div>
+            }
                 <div className="content-block">
-                    {step === 0 &&
+                    {step === 0 && cartItems?.length === 0 &&
+                        <Result
+                            status="info"
+                            title="Товаров пока нет"
+                            subTitle="Добавьте товары в коризну"
+                        />
+                    }
+
+                    {step === 0 && !!cartItems?.length &&
                         <>
                             <div className="cart-item redirect" onClick={onAddressClick}>
                                 {activeAddr?.address ??
@@ -320,18 +359,20 @@ const onOkHandler = async () => {
                             }
                         </div>
 
+            {!isDesktopScreen &&
+                <footer>
+                    <div onClick={() => navigate('/products')}>
+                        <NonActiveBagIcon/>
+                    </div>
+                    <div onClick={() => navigate('/cart?from=products')}>
+                        <ActiveCartIcon style={{fontSize: '30px'}}/>
+                    </div>
+                    <div onClick={() => navigate('/profile')}>
+                        <NonActiveProfileIcon style={{fontSize: '30px'}}/>
+                    </div>
+                </footer>
+            }
 
-                            <footer>
-                                <div onClick={() => navigate('/products')}>
-                    <NonActiveBagIcon/>
-                </div>
-                <div onClick={() => navigate('/cart?from=products')}>
-                    <ActiveCartIcon style={{fontSize: '30px'}}/>
-                </div>
-                <div onClick={() => navigate('/profile')}>
-                    <NonActiveProfileIcon style={{fontSize: '30px'}}/>
-                </div>
-            </footer>
         </Layout>
     );
 }
