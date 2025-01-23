@@ -1,34 +1,24 @@
-import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal, notification} from "antd";
-import {useGetProductQuery} from "../store/products.store";
+import React from "react";
+import {Layout} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
-import {
-  DeleteOutlined,
-  LeftOutlined,
-  LoadingOutlined,
-  RightOutlined,
-  ShoppingCartOutlined,
-  UserOutlined
-} from "@ant-design/icons";
-import {useAppDispatch, useAppSelector} from "../store";
-import BagIcon from "../assets/svg/active-bag-icon";
+import {LeftOutlined} from "@ant-design/icons";
+import {useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
-import moment from "moment/moment";
 import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
+import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
+import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
 const Information = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
-
-    const addresses = useAppSelector((state) => state.account.addresses);
 
     const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
@@ -41,28 +31,41 @@ const Information = () => {
       return navigate('/profile');
     }
 
+    const isDesktopScreen = window?.innerWidth > 768;
+
     return (
         <Layout>
-            <div className="content-block-header">
-              <LeftOutlined onClick={onGoBackClick} />
-              Информация <div />
-            </div>
-
-            <div className="content-block" style={{height: '100%'}}>
-
-                <div className="cart-item">
-                    <div className="cart-order-info">
-                        <div style={{display: "grid", gap: '7px'}}>
-                            <h3>Телефоны и e-mail</h3>
-                            <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
-                            <div style={{fontSize: '16px'}}>8-920-297-2447</div>
-                            <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
-
+            {isDesktopScreen &&
+                <div className="main-logo-wrapper">
+                    {<RePoizonMainLogo/>}
+                    {isDesktopScreen && <div className="actions-btns">
+                        <GenderSwitcher/>
+                        <div onClick={() => navigate("/profile")}>
+                            <NonActiveProfileIcon/>
                         </div>
-                    </div>
-
+                    </div>}
                 </div>
-                {/*<div className="cart-item">
+            }
+            {!isDesktopScreen &&
+                <div className="content-block-header">
+                    <LeftOutlined onClick={onGoBackClick}/>Информация <div/>
+                </div>
+            }
+            <div className="content-block-wrapper">
+                <div className="content-block" style={{height: '100%'}}>
+                    <div className="cart-item">
+                        <div className="cart-order-info">
+                            <div style={{display: "grid", gap: '7px'}}>
+                                <h3>Телефоны и e-mail</h3>
+                                <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
+                                <div style={{fontSize: '16px'}}>8-920-297-2447</div>
+                                <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    {/*<div className="cart-item">
                     <div className="cart-order-info">
                         <div style={{display: "grid", gap: '7px'}}>
                             <h3>Юридический адрес</h3>
@@ -75,20 +78,23 @@ const Information = () => {
                     </div>
 
                 </div>*/}
+                </div>
             </div>
 
-            <footer>
-                <div onClick={() => navigate('/products')}>
-                    <NonActiveBagIcon/>
-                </div>
-                <div onClick={() => navigate('/cart?from=products') }>
-                    <NonActiveCartIcon style={{ fontSize: '30px'}} />
-                </div>
-                <div onClick={() => navigate('/profile')}>
-                    <ActiveProfileIcon style={{ fontSize: '30px'}} />
-                </div>
-            </footer>
+            {!isDesktopScreen &&
+                <footer>
+                    <div onClick={() => navigate('/products')}>
+                        <NonActiveBagIcon/>
+                    </div>
+                    <div onClick={() => navigate('/cart?from=products')}>
+                        <NonActiveCartIcon style={{fontSize: '30px'}}/>
+                    </div>
+                    <div onClick={() => navigate('/profile')}>
+                        <ActiveProfileIcon style={{fontSize: '30px'}}/>
+                    </div>
+                </footer>
+            }
         </Layout>
-    );
+);
 }
 export default Information;
