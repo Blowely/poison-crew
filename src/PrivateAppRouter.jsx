@@ -23,7 +23,6 @@ export function PrivateAppRouter({
   onAddToCart,
   isLoading
 }) {
-  console.log('localStorage.getItem("gender") =',localStorage.getItem("gender") )
   const gender = localStorage.getItem("gender") || "men";
 
   return (

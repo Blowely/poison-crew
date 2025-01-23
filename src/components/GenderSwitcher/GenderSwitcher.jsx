@@ -1,7 +1,5 @@
 import React, {useMemo, useState} from 'react';
 import './GenderSwitcher.scss';
-import {tab} from "@testing-library/user-event/dist/tab";
-import {useNavigate, useSearchParams} from "react-router-dom";
 
 const GenderSwitcher = () => {
     const href = window.location.href;
