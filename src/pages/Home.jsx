@@ -64,7 +64,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const spuId = searchParams.get("spuId");
   const sortBy = searchParams.get("sortBy");
 
-  const [sort, setSort] = useState(sortBy);
+  const [sort, setSort] = useState(sortBy || 'by-relevance');
 
   const filtersRef = useRef(null);
   const gender = localStorage.getItem("gender");
@@ -86,7 +86,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       limit: 20,
       search: search?.toLowerCase(),
       fit: genderToFit[gender],
-      sort: sortBy || SORT_TYPES['by-relevance']
+      sort: sortBy || 'by-relevance'
     };
 
     if (brandId) {
