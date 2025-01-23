@@ -61,7 +61,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
   const filtersRef = useRef(null);
-
+  const gender = localStorage.getItem("gender");
 
   const isDesktopScreen = window?.innerWidth > 768;
 
@@ -70,10 +70,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   const buildRequest = () => {
+    const genderToFit = {
+      'women': ['FEMALE'],
+      'men': ['MALE'],
+      'kid': ['MALE']
+    }
 
     let obj = {
       limit: 20,
       search: search?.toLowerCase(),
+      fit: genderToFit[gender]
     };
 
     if (brandId) {
