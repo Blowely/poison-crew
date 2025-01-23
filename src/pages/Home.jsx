@@ -377,6 +377,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 setShowFilters={setShowFilters}
                 isEnabledFilters={isEnabledFilters}
         />
+        {!isDesktopScreen && <GenderSwitcher/>}
+
         <div className="content">
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"

@@ -30,3 +30,35 @@
     }
   }
 }
+
+.tabs-wrapper {
+  padding: 20px 20px 0 20px;
+}
+
+.custom-tabs {
+  display: flex;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    &.active {
+      background: white;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .tab:not(.active):hover {
+    background: #e0e0e0;
+  }
+}
+

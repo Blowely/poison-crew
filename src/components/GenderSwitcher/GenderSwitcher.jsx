@@ -16,27 +16,32 @@ const GenderSwitcher = () => {
         localStorage.setItem('gender', tab);
     }
 
+    const isDesktopScreen = window?.innerWidth > 768;
+
     return (
-        <div className="tabs">
-            <div
-                className={`tab ${activeTab === "men" ? "active" : ""}`}
-                onClick={() => onChange("men")}
-            >
-                Мужчинам
-            </div>
-            <div
-                className={`tab ${activeTab === "women" ? "active" : ""}`}
-                onClick={() => onChange("women")}
-            >
-                Женщинам
-            </div>
-            <div
-                className={`tab ${activeTab === "kid" ? "active" : ""}`}
-                onClick={() => onChange("kid")}
-            >
-                Детям
+        <div className={`${!isDesktopScreen ? 'tabs-wrapper' : ''}`}>
+            <div className={`${isDesktopScreen ? 'tabs' : 'custom-tabs'}`}>
+                <div
+                    className={`tab ${activeTab === "men" ? "active" : ""}`}
+                    onClick={() => onChange("men")}
+                >
+                    Мужчинам
+                </div>
+                <div
+                    className={`tab ${activeTab === "women" ? "active" : ""}`}
+                    onClick={() => onChange("women")}
+                >
+                    Женщинам
+                </div>
+                <div
+                    className={`tab ${activeTab === "kid" ? "active" : ""}`}
+                    onClick={() => onChange("kid")}
+                >
+                    Детям
+                </div>
             </div>
         </div>
+
     );
 };
 
