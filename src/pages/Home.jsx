@@ -369,7 +369,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 isEnabledFilters={isEnabledFilters}
         />
         <div className="content">
-          <Categories setLoading={setLoading}/>
           <div className="brands-section-wrapper">
             <div className="brands-section-wrapper_card"
                  onClick={() => onBrandClick(144)}>
@@ -415,6 +414,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 </div>
             }
           </div>
+          <Categories setLoading={setLoading}/>
           <div className="filters-content-wrapper">
             {isDesktopScreen && (
                 <div className="filters-wrapper" ref={filtersRef}>
