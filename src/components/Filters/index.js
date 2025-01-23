@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import "./Filters.scss";
-import { Button, Input } from "antd";
+import {Button, Input, Select} from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import { useGetBrandsQuery } from "../../store/brands.store";
 import ImgList from "./ImgList/ImgList";
+import {SORT_OPTIONS, SORT_TYPES} from "../../pages/constants";
 
 
 function Filters(props) {
@@ -21,6 +22,7 @@ function Filters(props) {
     setMinPrice,
     setSize,
     applyFilters,
+    setSort,
     selectedBrands,
     setSelectedBrands,
     setLoading,
@@ -35,6 +37,7 @@ function Filters(props) {
   const sizeParam = searchParams.get("size") || "";
   const minPriceParam = searchParams.get("minPrice") || "";
   const maxPriceParam = searchParams.get("maxPrice") || "";
+  const sortBy = searchParams.get("sortBy");
 
   const isDesktopScreen = window.screen.availWidth > 600;
 
@@ -111,6 +114,7 @@ function Filters(props) {
     searchParams.delete('maxPrice');
     searchParams.delete('brandId');
     searchParams.delete('search');
+    searchParams.delete('sortBy');
     setSearchParams(searchParams);
   }
 
@@ -118,6 +122,12 @@ function Filters(props) {
 
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${size}`;
+
+  const handleChange = (value) => {
+    searchParams.set('sortBy', value);
+    setSearchParams(searchParams);
+    setSort(value);
+  };
 
   return (
     <div className="filters-component-wrapper">
@@ -129,6 +139,21 @@ function Filters(props) {
       )}
 
       <div className="params-wrapper">
+        <div className="params-item-wrapper">
+          <div className="param-title">
+            Сортировка
+          </div>
+
+          <div className="inputs-wrapper">
+            <Select
+                defaultValue={SORT_TYPES[sortBy] || SORT_TYPES["by-relevance"]}
+                style={{ width: '100%' }}
+                size="large"
+                onChange={handleChange}
+                options={SORT_OPTIONS}
+            />
+          </div>
+        </div>
 
         <div className="params-item-wrapper">
           <div className="param-title">
@@ -137,7 +162,7 @@ function Filters(props) {
 
           <div className="inputs-wrapper">
             <Input size="large" placeholder="3020" prefix="от" suffix="₽" type="number"
-                   value={getPrice(minPrice || minPriceParam)} onChange={minPriceHandler} />
+                   value={getPrice(minPrice || minPriceParam)} onChange={minPriceHandler}/>
             <Input size="large" placeholder="520433" prefix="до" suffix="₽"
                    value={getPrice(maxPrice || maxPriceParam)} onChange={maxPriceHandler}/>
           </div>
@@ -149,26 +174,26 @@ function Filters(props) {
 
           <div className="list">
             {sizes?.map((el, i) => (
-              <div
-                className={
-                  el === (choice || Number(sizeParam))
-                    ? "size-wrapper gap-2 selected"
-                    : "size-wrapper gap-2"
-                }
-                onClick={() => onChangeChoiceHandler(el)}
-                key={i}
-                role="presentation"
-              >
                 <div
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    textAlign: "center",
-                  }}
+                    className={
+                      el === (choice || Number(sizeParam))
+                          ? "size-wrapper gap-2 selected"
+                          : "size-wrapper gap-2"
+                    }
+                    onClick={() => onChangeChoiceHandler(el)}
+                    key={i}
+                    role="presentation"
                 >
-                  {el}
+                  <div
+                      style={{
+                        fontSize: "15px",
+                        fontWeight: "400",
+                        textAlign: "center",
+                      }}
+                  >
+                    {el}
+                  </div>
                 </div>
-              </div>
             ))}
           </div>
         </div>

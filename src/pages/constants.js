@@ -107,3 +107,15 @@ export const PRODUCT_PROPERTIES = {
     SALE_PRICE: "SALE_PRICE",
     APPLICABLE_SEASON: "APPLICABLE_SEASON"
 }
+
+export const SORT_OPTIONS= [
+    { value: 'by-relevance', label: 'Популярные' },
+    { value: 'cheap-first', label: 'Подешевле' },
+    { value: 'expensive-first', label: 'Подороже' },
+]
+
+export const SORT_TYPES = {
+    'by-relevance': 'Популярные',
+    'cheap-first': 'Подешевле',
+    'expensive-first': 'Подороже',
+}

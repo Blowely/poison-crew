@@ -3,10 +3,13 @@ import {Tag} from "antd";
 import {useSearchParams} from "react-router-dom";
 import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
+import {SORT_TYPES} from "../../pages/constants";
 
 const FilterTags = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const params = Object.fromEntries(searchParams.entries());
+
+    const isDesktopScreen = window?.innerWidth > 768;
 
     const getValue = (key) => {
         if (key === 'brandId') {
@@ -31,6 +34,20 @@ const FilterTags = () => {
             return CATEGORIES[index].name || '';
         }
 
+        if (key === 'sortBy') {
+            if (isDesktopScreen) {
+                return;
+            }
+
+            if (SORT_TYPES[params[key]] === SORT_TYPES["by-relevance"]) {
+                searchParams.delete('sortBy');
+                setSearchParams(searchParams);
+                return null;
+            }
+
+            return SORT_TYPES[params[key]];
+        }
+
         return params[key]
     }
 
@@ -39,7 +56,14 @@ const FilterTags = () => {
         setSearchParams(searchParams);
     }
 
-    return <div className="tag-wrapper">{Object.keys(params).map((key) => {
+    const filter = (el) => {
+        if (isDesktopScreen) {
+            return  el !== "sortBy"
+        }
+        return true
+    }
+
+    return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {
         return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
     })}</div>
 }

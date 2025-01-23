@@ -30,6 +30,7 @@ import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
+import {SORT_TYPES} from "./constants";
 
 
 function Home({ onAddToFavorite, onAddToCart }) {
@@ -51,6 +52,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [size, setSize] = useState(sizeParam || '');
   const [selectedBrands, setSelectedBrands] = useState([]);
 
+
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
@@ -60,6 +62,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const type = searchParams.get("type");
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
+  const sortBy = searchParams.get("sortBy");
+
+  const [sort, setSort] = useState(sortBy);
+
   const filtersRef = useRef(null);
   const gender = localStorage.getItem("gender");
 
@@ -79,7 +85,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
     let obj = {
       limit: 20,
       search: search?.toLowerCase(),
-      fit: genderToFit[gender]
+      fit: genderToFit[gender],
+      sort: sortBy || SORT_TYPES['by-relevance']
     };
 
     if (brandId) {
@@ -334,6 +341,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           setMaxPrice={onMaxPriceChange}
           setLoading={setLoading}
           setOffset={setOffset}
+          setSort={setSort}
         />
         {!isDesktopScreen &&
           <div className="filters-phone-apply-btn">
@@ -450,6 +458,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       applyFilters={applyFilters}
                       setLoading={setLoading}
                       setOffset={setOffset}
+                      setSort={setSort}
                   />
                 </div>
             )}
