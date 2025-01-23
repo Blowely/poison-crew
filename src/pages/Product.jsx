@@ -113,10 +113,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
       return;
     }
 
-    if (!el?.size.primary) {
-      return;
-    }
-
     const price = el?.price;
 
     setChoice({ size: el?.size.primary, price, index: i });
@@ -346,7 +342,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                       textAlign: "center",
                                     }}
                                 >
-                                  {el?.size.primary}
+                                  {el?.size?.primary || ""}
                                 </div>
                                 <div
                                     style={{
@@ -475,7 +471,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                     textAlign: "center",
                                   }}
                               >
-                                {el?.size?.eu || el?.size?.primary}
+                                {el?.size?.eu || el?.size?.primary || ""}
                               </div>
                               <div
                                   style={{
