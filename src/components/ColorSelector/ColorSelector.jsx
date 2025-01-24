@@ -7,6 +7,7 @@ import {COLOR_LIST} from "../../pages/constants";
 
 const ColorSelector = ({setColors}) => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const colors = searchParams.get("colors") || "";
 
     const [selectedColors, setSelectedColors] = useState([]);
     const [showAll, setShowAll] = useState(false);
@@ -53,6 +54,11 @@ const ColorSelector = ({setColors}) => {
         setShowAll((prev) => !prev);
     };
 
+    const isChecked = (hex) => {
+        const colorsMap = colors?.split(',');
+        return colorsMap.includes(hex);
+    }
+
     const visibleColors = showAll ? COLOR_LIST : COLOR_LIST.slice(0, 5);
 
     return (
@@ -65,7 +71,7 @@ const ColorSelector = ({setColors}) => {
                     <li key={color.name} onClick={() => toggleSelectColor(color.name)}>
                         <input
                             type="checkbox"
-                            checked={selectedColors.includes(color.name)}
+                            checked={isChecked(color.hex)}
                             readOnly
                         />
                         <span
