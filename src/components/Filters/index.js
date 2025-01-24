@@ -17,12 +17,14 @@ function Filters(props) {
     setShowFilters,
     size,
     sort,
+    colors,
     minPrice,
     maxPrice,
     categoryId,
     setMaxPrice,
     setMinPrice,
     setSize,
+    setColors,
     applyFilters,
     setSort,
     selectedBrands,
@@ -183,7 +185,7 @@ function Filters(props) {
           </div>
 
           <div className="inputs-wrapper">
-            <ColorSelector />
+            <ColorSelector colors={colors} setColors={setColors} />
           </div>
         </div>
         {/*<div className="params-item-wrapper">

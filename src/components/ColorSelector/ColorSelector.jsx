@@ -1,33 +1,13 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./ColorSelector.scss";
 import {Button} from "antd";
+import {useSearchParams} from "react-router-dom";
+import {COLOR_LIST} from "../../pages/constants";
 
-const colors = [
-    { name: "Бежевый", color: "#d2b48c" },
-    { name: "Белый", color: "#ffffff" },
-    { name: "Бирюзовый", color: "#40e0d0" },
-    { name: "Бордовый", color: "#800020" },
-    { name: "Голубой", color: "#87ceeb" },
-    { name: "Желтый", color: "#ffff00" },
-    { name: "Зеленый", color: "#00FF00" },
-    { name: "Золотой", color: "#FFD700" },
-    { name: "Коралловый", color: "#FF7F50" },
-    { name: "Коричневый", color: "#964B00" },
-    { name: "Красный", color: "#FF0000" },
-    { name: "Мультиколор", color: "linear-gradient(90deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8F00FF)" },
-    { name: "Оранжевый", color: "#FFA500" },
-    { name: "Прозрачный", color: "#FFFFFF" },
-    { name: "Розовый", color: "#FFC0CB" },
-    { name: "Серебряный", color: "linear-gradient(90deg, #C0C0C0, #D3D3D3)" },
-    { name: "Серый", color: "#808080" },
-    { name: "Синий", color: "#0000FF" },
-    { name: "Фиолетовый", color: "#7D3C98" },
-    { name: "Фуксия", color: "#FF00FF" },
-    { name: "Хаки", color: "#808000" },
-    { name: "Чёрный", color: "#000000" }
-];
 
-const ColorSelector = () => {
+const ColorSelector = ({setColors}) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const [selectedColors, setSelectedColors] = useState([]);
     const [showAll, setShowAll] = useState(false);
 
@@ -37,26 +17,48 @@ const ColorSelector = () => {
                 ? prev.filter((c) => c !== color)
                 : [...prev, color]
         );
+
+        setColors((prev) =>
+            prev.includes(color)
+                ? prev.filter((c) => c !== color)
+                : [...prev, color]
+        );
     };
 
+    useEffect(() => {
+        console.log('selectedColors=',selectedColors)
+        const colorsMap = selectedColors?.map((c1) => {
+            const hexIndex = COLOR_LIST.findIndex((c2) => c2.name === c1);
+            return COLOR_LIST[hexIndex].hex;
+        })
+
+        searchParams.set("colors", colorsMap.join(','));
+        setSearchParams(searchParams);
+    },[selectedColors]);
+
     const selectAll = () => {
-        setSelectedColors(colors.map((c) => c.name));
+        const colorsMap = COLOR_LIST.map((c) => c.name)
+        setSelectedColors(colorsMap);
+        setColors(colorsMap);
     };
 
     const deselectAll = () => {
         setSelectedColors([]);
+        setColors([]);
+        searchParams.delete('colors');
+        setSearchParams(searchParams);
     };
 
     const toggleShowAll = () => {
         setShowAll((prev) => !prev);
     };
 
-    const visibleColors = showAll ? colors : colors.slice(0, 5);
+    const visibleColors = showAll ? COLOR_LIST : COLOR_LIST.slice(0, 5);
 
     return (
         <div className="color-selector">
-            <button className="select-all" onClick={() => (selectedColors.length === colors.length ? deselectAll() : selectAll())}>
-                {selectedColors.length === colors.length ? "Снять все" : "Выбрать все"}
+            <button className="select-all" onClick={() => (selectedColors.length === COLOR_LIST.length ? deselectAll() : selectAll())}>
+                {selectedColors.length === COLOR_LIST.length ? "Снять все" : "Выбрать все"}
             </button>
             <ul>
                 {visibleColors.map((color) => (

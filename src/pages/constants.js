@@ -119,3 +119,28 @@ export const SORT_TYPES = {
     'cheap-first': 'Подешевле',
     'expensive-first': 'Подороже',
 }
+
+export const COLOR_LIST = [
+    { name: "Бежевый", color: "#d2b48c", hex: "d2b48c" },
+    { name: "Белый", color: "#ffffff", hex: "ffffff" },
+    { name: "Бирюзовый", color: "#40e0d0", hex: "40e0d0" },
+    { name: "Бордовый", color: "#800020", hex: "800020" },
+    { name: "Голубой", color: "#87ceeb", hex: "87ceeb" },
+    { name: "Желтый", color: "#ffff00", hex: "ffff00" },
+    { name: "Зеленый", color: "#00FF00", hex: "00FF00" },
+    { name: "Золотой", color: "#FFD700", hex: "FFD700" },
+    { name: "Коралловый", color: "#FF7F50", hex: "FF7F50" },
+    { name: "Коричневый", color: "#964B00", hex: "964B00" },
+    { name: "Серебряный", color: "linear-gradient(90deg, #C0C0C0, #D3D3D3)", hex: 'silver' },
+    { name: "Красный", color: "#FF0000", hex: "FF0000" },
+    { name: "Оранжевый", color: "#FFA500", hex: "FFA500" },
+    { name: "Прозрачный", color: "#FFFFFF", hex: "FFFFFF" },
+    { name: "Розовый", color: "#FFC0CB", hex: "FFC0CB" },
+    { name: "Серый", color: "#808080", hex: "808080" },
+    { name: "Мультиколор", color: "linear-gradient(90deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #8F00FF)", hex: "multi" },
+    { name: "Синий", color: "#0000FF", hex: "0000FF" },
+    { name: "Фиолетовый", color: "#7D3C98", hex: "7D3C98" },
+    { name: "Фуксия", color: "#FF00FF", hex: "FF00FF" },
+    { name: "Хаки", color: "#808000", hex: "808000" },
+    { name: "Чёрный", color: "#000000", hex: "000000" }
+];

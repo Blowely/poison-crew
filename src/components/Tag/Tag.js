@@ -3,7 +3,7 @@ import {Tag} from "antd";
 import {useSearchParams} from "react-router-dom";
 import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
-import {SORT_TYPES} from "../../pages/constants";
+import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 
 const FilterTags = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -46,6 +46,14 @@ const FilterTags = () => {
             }
 
             return SORT_TYPES[params[key]];
+        }
+
+        if (key === 'colors') {
+            const colors = params[key].split(',');
+            return colors.map(hex => {
+                const colorIndex = COLOR_LIST.findIndex(c => c.hex === hex);
+                return COLOR_LIST[colorIndex].name;
+            }).join(',');
         }
 
         return params[key]

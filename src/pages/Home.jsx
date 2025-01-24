@@ -50,6 +50,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
   const [size, setSize] = useState(sizeParam || '');
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const [colors, setColors] = useState([]);
 
 
   const [loading, setLoading] = useState(false);
@@ -62,6 +63,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
   const sortBy = searchParams.get("sortBy");
+  const colorsParam = searchParams.get("colors");
 
   const [sort, setSort] = useState(sortBy || 'by-relevance');
 
@@ -121,6 +123,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.size = sizeParam;
     }
 
+    if (colorsParam) {
+      obj.colors = colorsParam;
+    }
+
     return obj;
   };
 
@@ -131,7 +137,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}`+
-    `+${minPriceParam}+${maxPriceParam}+${sortBy}${selectedBrands.map(({id}) => `+${id}`)}` || collection;
+    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colors}${selectedBrands.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -339,6 +345,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           setShowFilters={setShowFilters}
           size={size}
           sort={sort}
+          colors={colors}
           minPrice={minPrice}
           maxPrice={maxPrice}
           categoryId={categoryId}
@@ -350,6 +357,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           setLoading={setLoading}
           setOffset={setOffset}
           setSort={setSort}
+          setColors={setColors}
         />
         {!isDesktopScreen &&
           <div className="filters-phone-apply-btn">
