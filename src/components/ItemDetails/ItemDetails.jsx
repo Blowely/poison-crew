@@ -15,7 +15,7 @@ const ItemDetails = ({details = []}) => {
     return (
         <div className="item-details">
             <div className="details">
-                <div className="title">СВОЙСТВА ТОВАРА</div>
+                <div className="title">ХАРАКТЕРИСТИКИ ТОВАРА</div>
                 <div className="details-list">
                     {(detailItems || [])?.map((item, i) => {
                         if (item.definitionId === PRODUCT_PROPERTIES.SALE_PRICE ||

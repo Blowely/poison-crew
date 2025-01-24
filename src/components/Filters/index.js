@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import { useGetBrandsQuery } from "../../store/brands.store";
 import ImgList from "./ImgList/ImgList";
 import {SORT_OPTIONS, SORT_TYPES} from "../../pages/constants";
+import ColorSelector from "../ColorSelector/ColorSelector";
 
 
 function Filters(props) {
@@ -174,6 +175,15 @@ function Filters(props) {
                   </div>
                 </div>
             ))}
+          </div>
+        </div>
+        <div className="params-item-wrapper">
+          <div className="param-title">
+            Цвет
+          </div>
+
+          <div className="inputs-wrapper">
+            <ColorSelector />
           </div>
         </div>
         {/*<div className="params-item-wrapper">
