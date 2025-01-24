@@ -466,6 +466,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       sort={sort}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
+                      colors={colors}
                       categoryId={categoryId}
                       selectedBrands={selectedBrands}
                       setSelectedBrands={setSelectedBrands}
@@ -476,6 +477,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       setLoading={setLoading}
                       setOffset={setOffset}
                       setSort={setSort}
+                      setColors={setColors}
                   />
                 </div>
             )}

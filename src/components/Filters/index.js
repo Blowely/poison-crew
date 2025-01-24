@@ -185,7 +185,7 @@ function Filters(props) {
           </div>
 
           <div className="inputs-wrapper">
-            <ColorSelector colors={colors} setColors={setColors} />
+            <ColorSelector colors={colors} setColors={setColors} setOffset={setOffset} />
           </div>
         </div>
         {/*<div className="params-item-wrapper">
