@@ -490,7 +490,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             )}
             <div style={{width: "100%"}}>
               <div className="filters-tags-wrapper">
-                <FilterTags setOffset={setOffset} />
+                <FilterTags setOffset={setOffset} setSize={setSize} setColors={setColors} />
 
                 <div className="inputs-wrapper">
                   <Select

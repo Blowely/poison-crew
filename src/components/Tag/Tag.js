@@ -5,7 +5,7 @@ import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 
-const FilterTags = ({setOffset}) => {
+const FilterTags = ({setOffset, setSize, setColors}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const params = Object.fromEntries(searchParams.entries());
 
@@ -52,7 +52,7 @@ const FilterTags = ({setOffset}) => {
             const colors = params[key].split(',');
             return colors.map(hex => {
                 const colorIndex = COLOR_LIST.findIndex(c => c.hex === hex);
-                return COLOR_LIST[colorIndex].name;
+                return colorIndex > 0 ? COLOR_LIST[colorIndex].name : null;
             }).join(',');
         }
 
@@ -60,6 +60,14 @@ const FilterTags = ({setOffset}) => {
     }
 
     const onClose = (key) => {
+        if (key === 'colors') {
+            setColors([]);
+        }
+
+        if (key === 'size') {
+            setSize([]);
+        }
+
         searchParams.delete(key);
         setSearchParams(searchParams);
         setOffset(1);

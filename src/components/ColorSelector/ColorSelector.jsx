@@ -6,12 +6,12 @@ import {COLOR_LIST} from "../../pages/constants";
 
 
 const ColorSelector = ({colors, setColors, setOffset}) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    console.log('colorsHere =', colors);
 
+    const [searchParams, setSearchParams] = useSearchParams();
     const [showAll, setShowAll] = useState(false);
 
     const toggleSelectColor = (color) => {
-        console.log('color',color);
         setColors((prev) =>
             prev.includes(color)
                 ? prev.filter((c) => c !== color)
@@ -19,18 +19,6 @@ const ColorSelector = ({colors, setColors, setOffset}) => {
         );
         setOffset(1)
     };
-
-  /*  useEffect(() => {
-        console.log('colors=',colors)
-        const colorsMap = colors?.map((c1) => {
-            const hexIndex = COLOR_LIST.findIndex((c2) => c2.name === c1);
-            return COLOR_LIST[hexIndex]?.hex;
-        })
-
-        searchParams.set("colors", colorsMap.join(','));
-        setSearchParams(searchParams);
-        setOffset(1)
-    },[colors]);*/
 
     const selectAll = () => {
         const colorsMap = COLOR_LIST.map((c) => c.name)
@@ -68,6 +56,7 @@ const ColorSelector = ({colors, setColors, setOffset}) => {
                             checked={isChecked(color.hex)}
                             readOnly
                         />
+
                         <span
                             className="color-box"
                             style={
