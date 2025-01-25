@@ -42,7 +42,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
   const colorsParam = searchParams.get("colors");
-  console.log('colorsParam?.length=',colorsParam?.length)
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(1);

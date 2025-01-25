@@ -113,6 +113,7 @@ function Filters(props) {
     setMaxPrice('');
     setMinPrice('');
     setSize('');
+    setColors([]);
     setChoice(null);
     searchParams.delete('size');
     searchParams.delete('minPrice');
