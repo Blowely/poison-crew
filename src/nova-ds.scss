@@ -4,8 +4,37 @@
   border-color: #efefef;
 }
 
+.ant-input-outlined:focus-within {
+  border-color: rgb(1, 194, 195)!important;
+}
+.ant-input-outlined:focus {
+  border-color: rgb(1, 194, 195) !important;
+}
+.ant-input-outlined:active  {
+  border-color: rgb(1, 194, 195)!important;
+}
+
+.ant-input-outlined:hover {
+  border-color: rgb(1, 194, 195)!important;
+}
+
 .ant-input {
   background-color: #efefef;
+}
+
+
+.ant-input:focus-within {
+  border-color: rgb(1, 194, 195)!important;
+}
+.ant-input:focus {
+  border-color: rgb(1, 194, 195) !important;
+}
+.ant-input:active  {
+  border-color: rgb(1, 194, 195)!important;
+}
+
+.ant-input:hover {
+  border-color: rgb(1, 194, 195)!important;
 }
 
 .ant-tag {
