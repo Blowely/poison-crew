@@ -42,7 +42,7 @@ function Filters(props) {
   const minPriceParam = searchParams.get("minPrice") || "";
   const maxPriceParam = searchParams.get("maxPrice") || "";
   const sortBy = searchParams.get("sortBy");
-  const colorsParam = searchParams.get("colors");
+  const colorsParam = searchParams.get("colors") || "";
 
   const isDesktopScreen = window.screen.availWidth > 600;
 

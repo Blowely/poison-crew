@@ -295,18 +295,28 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setLoading(true);
     setOffset(1);
     setShowFilters(false);
-    searchParams.set('size', size);
-    searchParams.set('minPrice', minPrice);
-    searchParams.set('maxPrice', maxPrice);
 
-    const colorsMap = colors?.map((c1) => {
-      const hexIndex = COLOR_LIST.findIndex((c2) => c2.hex === c1);
-      return COLOR_LIST[hexIndex]?.hex;
-    })
+    const params = {
+      size: size || null,
+      minPrice: minPrice || null,
+      maxPrice: maxPrice || null,
+      colors: colors
+          ?.map((c1) => COLOR_LIST.find((c2) => c2.hex === c1)?.hex)
+          .filter(Boolean)
+          .join(',') || null,
+    };
 
-    searchParams.set("colors", colorsMap.filter((c) => !!c).join(','));
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) {
+        searchParams.set(key, value);
+      } else {
+        searchParams.delete(key);
+      }
+    });
+
     setSearchParams(searchParams);
-  }
+  };
+
 
   const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizeParam);
 
