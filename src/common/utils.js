@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 export const collectionQueryProps = (type) => ({
-  providesTags: (result) => result?.items.map(({ _id }) => ({ type, id: _id })),
+  providesTags: (result) => result?.items?.map(({ _id }) => ({ type, id: _id })),
   transformResponse: (response, meta) => ({
     items: response?.items || response || [],
     totalCount: Number(
@@ -23,7 +23,7 @@ export const customUrlBuilder = (url, params) => {
       //   newUrl += `${key}=${value.join(',')}&`;
       // }
       if (value.length) {
-        arrayParams.push(...value.map((v) => `${key}=${v}`));
+        arrayParams.push(...value?.map((v) => `${key}=${v}`));
       }
     } else if (!value) {
       searchParams.delete(key);

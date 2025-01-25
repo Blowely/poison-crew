@@ -459,7 +459,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                         </div>
                       </div>
                       <div className="list">
-                        {sizesAndPrices?.filter(el => el.price).map((el, i) => (
+                        {sizesAndPrices?.filter(el => el.price)?.map((el, i) => (
                             <div
                                 className={
                                   i === choice.index

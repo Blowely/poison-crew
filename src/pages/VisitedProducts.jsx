@@ -71,7 +71,7 @@ const VisitedProducts = () => {
               <LeftOutlined onClick={onGoBackClick} />
               Просмотренные товары <div /></div>
             <div className="content-block">
-                {cartItems.map((el, i) => {
+                {cartItems?.map((el, i) => {
                     return <div key={i} className="cart-item">
                       <div className="cart-product-info">
                         <div style={{display: 'flex', gap: '7px'}}>
