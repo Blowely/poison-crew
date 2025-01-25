@@ -4,7 +4,7 @@ import {Button} from "antd";
 import {COLOR_LIST} from "../../pages/constants";
 
 
-const ColorSelector = ({colors, setColors, setOffset}) => {
+const ColorSelector = ({colors, setColors}) => {
     const [showAll, setShowAll] = useState(false);
 
     const toggleSelectColor = (color) => {
