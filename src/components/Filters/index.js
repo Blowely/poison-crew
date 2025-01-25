@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "./Filters.scss";
-import {Button, Input, Select} from "antd";
+import {Button, Input} from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import { useGetBrandsQuery } from "../../store/brands.store";
-import ImgList from "./ImgList/ImgList";
-import {SORT_OPTIONS, SORT_TYPES} from "../../pages/constants";
 import ColorSelector from "../ColorSelector/ColorSelector";
+import {SIZES} from "../../pages/constants";
 
 
 function Filters(props) {
@@ -15,18 +14,16 @@ function Filters(props) {
     search,
     brandId,
     setShowFilters,
-    size,
-    sort,
+    sizes,
     colors,
     minPrice,
     maxPrice,
     categoryId,
     setMaxPrice,
     setMinPrice,
-    setSize,
+    setSizes,
     setColors,
     applyFilters,
-    setSort,
     selectedBrands,
     setSelectedBrands,
     setLoading,
@@ -35,14 +32,12 @@ function Filters(props) {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [choice, setChoice] = useState(null);
-  const [sizes, setSizes] = useState([]);
-
-  const sizeParam = searchParams.get("size") || "";
+  const sizesParam = searchParams.get("sizes") || "";
   const minPriceParam = searchParams.get("minPrice") || "";
   const maxPriceParam = searchParams.get("maxPrice") || "";
-  const sortBy = searchParams.get("sortBy");
   const colorsParam = searchParams.get("colors") || "";
+
+  const [choices, setChoices] = useState(sizes);
 
   const isDesktopScreen = window.screen.availWidth > 600;
 
@@ -64,25 +59,18 @@ function Filters(props) {
     refetch,
   } = useGetBrandsQuery(buildRequest());
 
-
-  useEffect(() => {
-    if (!sizes?.length) {
-      const euSizes = []
-      for (let i = 36; i <= 52.5; i+=0.5) {
-        euSizes.push(i);
-      }
-      setSizes(euSizes)
-    }
-  },[sizes?.length])
-
   const onChangeChoiceHandler = (el) => {
-    setChoice(el);
-    setSize(el.toString());
+    setChoices((prev) => prev.includes(el)
+        ? prev.filter((c) => c !== el)
+        : [...prev, el]);
+    setSizes((prev) => prev.includes(el)
+        ? prev.filter((c) => c !== el)
+        : [...prev, el]);
   };
 
   const closeClickHandler = () => {
     setShowFilters(false);
-    setSize("");
+    setSizes([]);
     setMinPrice("");
     setMaxPrice("");
   }
@@ -112,10 +100,11 @@ function Filters(props) {
   const clearFilters = () => {
     setMaxPrice('');
     setMinPrice('');
-    setSize('');
+    setSizes([]);
     setColors([]);
-    setChoice(null);
-    searchParams.delete('size');
+    setChoices([]);
+    setOffset(1);
+    searchParams.delete('sizes');
     searchParams.delete('minPrice');
     searchParams.delete('maxPrice');
     searchParams.delete('brandId');
@@ -125,9 +114,9 @@ function Filters(props) {
     setSearchParams(searchParams);
   }
 
-  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search || sort || colors);
-  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}+${colorsParam}`;
-  const currentLine = `${minPrice}+${maxPrice}+${size}+${colors?.join(',')}`;
+  const isFilters = !!(minPrice || maxPrice || sizes || minPriceParam || maxPriceParam || sizesParam || choices || brandId || search || colors);
+  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizesParam}+${colorsParam}`;
+  const currentLine = `${minPrice}+${maxPrice}+${sizes.join(',')}+${colors?.join(',')}`;
 
   return (
     <div className="filters-component-wrapper">
@@ -157,10 +146,10 @@ function Filters(props) {
           </div>
 
           <div className="list">
-            {sizes?.map((el, i) => (
+            {SIZES?.map((el, i) => (
                 <div
                     className={
-                      el === (choice || Number(sizeParam))
+                      choices?.includes(el)
                           ? "size-wrapper gap-2 selected"
                           : "size-wrapper gap-2"
                     }

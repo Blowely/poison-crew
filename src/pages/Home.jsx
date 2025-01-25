@@ -38,7 +38,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const productsSlice = useAppSelector((state) => state.products);
 
-  const sizeParam = searchParams.get("size");
+  const sizesParam = searchParams.get("sizes");
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
   const colorsParam = searchParams.get("colors");
@@ -49,7 +49,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [showFilters, setShowFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
-  const [size, setSize] = useState(sizeParam || '');
+  const [sizes, setSizes] = useState(!!sizesParam ? sizesParam.split(',') : []);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam.split(',') : []);
 
@@ -119,8 +119,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.maxPrice = maxPriceParam;
     }
 
-    if (sizeParam) {
-      obj.size = sizeParam;
+    if (sizesParam) {
+      obj.sizes = sizesParam;
     }
 
     if (colorsParam) {
@@ -136,7 +136,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}`+
+  const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizesParam}`+
     `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
@@ -278,10 +278,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setSearchParams(searchParams);
   }
 
-  const onSizeClick = (val) => {
-    setSize(val);
-  }
-
   const onMinPriceChange = (val) => {
     setMinPrice(val);
   }
@@ -297,7 +293,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setShowFilters(false);
 
     const params = {
-      size: size || null,
+      sizes: sizes.join(',') || null,
       minPrice: minPrice || null,
       maxPrice: maxPrice || null,
       colors: colors
@@ -318,18 +314,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   };
 
 
-  const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizeParam);
+  const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizesParam);
 
   const body = document.body;
-
-  /*fixedElement?.addEventListener('mouseenter', () => {
-    console.log('here =',fixedElement);
-    body.style.overflow = 'hidden';
-  });
-
-  fixedElement?.addEventListener('mouseleave', () => {
-    body.style.overflow = '';
-  });*/
 
   if (showFilters || url) {
     body.style.overflow = 'hidden';
@@ -360,20 +347,18 @@ function Home({ onAddToFavorite, onAddToCart }) {
            ref={filtersRef}>
         <Filters
           setShowFilters={setShowFilters}
-          size={size}
-          sort={sort}
+          sizes={sizes}
           colors={colors}
           minPrice={minPrice}
           maxPrice={maxPrice}
           categoryId={categoryId}
           selectedBrands={selectedBrands}
           setSelectedBrands={setSelectedBrands}
-          setSize={onSizeClick}
+          setSizes={setSizes}
           setMinPrice={onMinPriceChange}
           setMaxPrice={onMaxPriceChange}
           setLoading={setLoading}
           setOffset={setOffset}
-          setSort={setSort}
           setColors={setColors}
         />
         {!isDesktopScreen &&
@@ -460,28 +445,26 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   <Filters
                       search={search}
                       brandId={brandId}
-                      size={size}
-                      sort={sort}
+                      sizes={sizes}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                       colors={colors}
                       categoryId={categoryId}
                       selectedBrands={selectedBrands}
                       setSelectedBrands={setSelectedBrands}
-                      setSize={onSizeClick}
+                      setSizes={setSizes}
                       setMinPrice={onMinPriceChange}
                       setMaxPrice={onMaxPriceChange}
                       applyFilters={applyFilters}
                       setLoading={setLoading}
                       setOffset={setOffset}
-                      setSort={setSort}
                       setColors={setColors}
                   />
                 </div>
             )}
             <div style={{width: "100%"}}>
               <div className="filters-tags-wrapper">
-                <FilterTags setOffset={setOffset} setSize={setSize} setColors={setColors} />
+                <FilterTags setOffset={setOffset} setSizes={setSizes} setColors={setColors} />
 
                 <div className="inputs-wrapper">
                   <Select

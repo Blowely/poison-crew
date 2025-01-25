@@ -5,7 +5,7 @@ import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 
-const FilterTags = ({setOffset, setSize, setColors}) => {
+const FilterTags = ({setOffset, setSizes, setColors}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const params = Object.fromEntries(searchParams.entries());
 
@@ -25,7 +25,7 @@ const FilterTags = ({setOffset, setSize, setColors}) => {
             return `от ${params[key]}`;
         }
 
-        if (key === 'size') {
+        if (key === 'sizes') {
             return `Размер ${params[key]}`;
         }
 
@@ -69,8 +69,8 @@ const FilterTags = ({setOffset, setSize, setColors}) => {
             setColors([]);
         }
 
-        if (key === 'size') {
-            setSize([]);
+        if (key === 'sizes') {
+            setSizes([]);
         }
 
         searchParams.delete(key);

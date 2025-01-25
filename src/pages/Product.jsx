@@ -33,7 +33,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   const spuId = searchParams.get("spuId");
   const url = searchParams.get("url");
-  const sizeParam = searchParams.get("size");
+  const sizesParam = searchParams.get("sizes");
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
@@ -79,8 +79,8 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     const {size, price, index} = getCheapestElOfSize(sizesAndPrices) || template;
     setChoice({ size, price, index });
 
-    if (sizeParam) {
-      const {size, price, index} = getCurrentPriceOfSize(sizeParam, sizesAndPrices) || template;
+    if (sizesParam) {
+      const {size, price, index} = getCurrentPriceOfSize(sizesParam, sizesAndPrices) || template;
       setChoice({ size, price, index });
     }
 
