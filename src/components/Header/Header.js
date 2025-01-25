@@ -31,6 +31,10 @@ const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isE
     }
 
     const onSearch = (value) => {
+        if (!value || !searchValue) {
+            return;
+        }
+
         window.scrollTo({top: 0})
         searchParams.set('search', typeof value  === "string" ? value : searchValue);
         setSearchParams(searchParams);
