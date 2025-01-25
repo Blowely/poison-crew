@@ -390,15 +390,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
-
-          {/*<div
-          className="main-logo-line main-logo-line-left"
-          style={{
-            width: isDesktopScreen
-              ? "calc((100vw - 226px - 40px) / 2 )"
-              : "calc((100vw - 158px - 40px) / 2 )",
-          }}
-        />*/}
           {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo/>}
           {isDesktopScreen && <div className="actions-btns">
             <GenderSwitcher/>
@@ -406,16 +397,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
               <NonActiveProfileIcon/>
             </div>
           </div>}
-
-
-          {/*<div
-          className="main-logo-line main-logo-line-right"
-          style={{
-            width: isDesktopScreen
-              ? "calc((100vw - 226px - 40px) / 2 )"
-              : "calc((100vw - 158px - 40px) / 2 )",
-          }}
-        />*/}
         </div>
         <Header search={search}
                 showFilters={showFilters}
