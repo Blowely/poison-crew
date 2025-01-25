@@ -68,7 +68,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   useEffect(() => {
     const currentProduct = product || selectedProduct || remoteProduct;
-
+    console.log('currentProduct',currentProduct);
     if (!currentProduct?.skus?.length) {
       return;
     }
@@ -76,11 +76,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
     const template = {size: null, price: null, index: null};
 
-    const {size, price, index} = getCheapestElOfSize(sizesAndPrices) || template;
+    const {size, price, index} = getCheapestElOfSize(currentProduct?.skus?.filter(el => el.price)) || template;
     setChoice({ size, price, index });
 
-    if (sizesParam) {
-      const {size, price, index} = getCurrentPriceOfSize(sizesParam, sizesAndPrices) || template;
+    if (sizesParam.split(',').length  === 1) {
+      const {size, price, index} = getCurrentPriceOfSize(sizesParam, currentProduct?.skus?.filter(el => el.price)) || template;
       setChoice({ size, price, index });
     }
 
@@ -334,7 +334,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                           </div>
                         </div>
                         <div className="list">
-                          {sizesAndPrices?.filter(el => el.price).map((el, i) => (
+                          {sizesAndPrices?.filter(el => el.price)?.map((el, i) => (
                               <div
                                   className={
                                     i === choice.index
