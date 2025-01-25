@@ -3,7 +3,7 @@ import { useRef } from "react";
 export const collectionQueryProps = (type) => ({
   providesTags: (result) => result?.items?.map(({ _id }) => ({ type, id: _id })),
   transformResponse: (response, meta) => ({
-    items: response?.items || response || [],
+    items: response?.items || [],
     totalCount: Number(
       meta?.response?.headers?.get("X-Total-Count") ||
         response?.total_count ||

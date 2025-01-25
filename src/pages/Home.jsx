@@ -148,7 +148,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
           addProducts({
-            [trimCollectionValue]: products?.items,
+            [trimCollectionValue]: products?.items || [],
           }),
         );
       } else {
@@ -156,7 +156,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           addProducts({
             [trimCollectionValue]: [
               ...productsSlice[trimCollectionValue],
-              ...products?.items,
+              ...products?.items || [],
             ],
           }),
         );
@@ -165,7 +165,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       try {
         dispatch(
           addProducts({
-            [trimCollectionValue]: products?.items,
+            [trimCollectionValue]: products?.items || [],
           }),
         );
       } catch (e) {
