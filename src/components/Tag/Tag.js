@@ -5,7 +5,7 @@ import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 
-const FilterTags = () => {
+const FilterTags = ({setOffset}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const params = Object.fromEntries(searchParams.entries());
 
@@ -62,6 +62,7 @@ const FilterTags = () => {
     const onClose = (key) => {
         searchParams.delete(key);
         setSearchParams(searchParams);
+        setOffset(1);
     }
 
     const filter = (el) => {

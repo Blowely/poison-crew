@@ -17,7 +17,7 @@ import ActiveBagIcon from "../assets/svg/active-bag-icon.js";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
-import { addProducts } from "../common/productsSlice";
+import {addProducts, clearProducts} from "../common/productsSlice";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
@@ -30,7 +30,7 @@ import NewBalanceIcon from "../assets/svg/brands/mlb-icon";
 import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
-import {SORT_OPTIONS, SORT_TYPES} from "./constants";
+import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const sizeParam = searchParams.get("size");
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
+  const colorsParam = searchParams.get("colors");
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(1);
@@ -50,7 +51,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
   const [size, setSize] = useState(sizeParam || '');
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(colorsParam?.split(',') || []);
 
 
   const [loading, setLoading] = useState(false);
@@ -63,7 +64,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
   const sortBy = searchParams.get("sortBy");
-  const colorsParam = searchParams.get("colors");
 
   const [sort, setSort] = useState(sortBy || 'by-relevance');
 
@@ -137,7 +137,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizeParam}`+
-    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colors}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
+    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -298,6 +298,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
     searchParams.set('size', size);
     searchParams.set('minPrice', minPrice);
     searchParams.set('maxPrice', maxPrice);
+
+    const colorsMap = colors?.map((c1) => {
+      const hexIndex = COLOR_LIST.findIndex((c2) => c2.hex === c1);
+      return COLOR_LIST[hexIndex]?.hex;
+    })
+
+    searchParams.set("colors", colorsMap.join(','));
     setSearchParams(searchParams);
   }
 
@@ -483,7 +490,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             )}
             <div style={{width: "100%"}}>
               <div className="filters-tags-wrapper">
-                <FilterTags/>
+                <FilterTags setOffset={setOffset} />
 
                 <div className="inputs-wrapper">
                   <Select

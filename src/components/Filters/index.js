@@ -119,12 +119,13 @@ function Filters(props) {
     searchParams.delete('brandId');
     searchParams.delete('search');
     searchParams.delete('sortBy');
+    searchParams.delete('colors');
     setSearchParams(searchParams);
   }
 
-  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search || sort);
+  const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search || sort || colors);
 
-  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}`;
+  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}${colors?.length ? "+" + colors : ""}`;
   const currentLine = `${minPrice}+${maxPrice}+${size}`;
 
   return (
