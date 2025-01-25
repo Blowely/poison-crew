@@ -13,7 +13,6 @@ const ColorSelector = ({colors, setColors, setOffset}) => {
                 ? prev.filter((c) => c !== color)
                 : [...prev, color]
         );
-        setOffset(1)
     };
 
     const toggleShowAll = () => {
