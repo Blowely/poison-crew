@@ -37,8 +37,6 @@ function Filters(props) {
   const maxPriceParam = searchParams.get("maxPrice") || "";
   const colorsParam = searchParams.get("colors") || "";
 
-  const [choices, setChoices] = useState(sizes);
-
   const isDesktopScreen = window.screen.availWidth > 600;
 
   const buildRequest = () => {
@@ -60,9 +58,6 @@ function Filters(props) {
   } = useGetBrandsQuery(buildRequest());
 
   const onChangeChoiceHandler = (el) => {
-    setChoices((prev) => prev.includes(el)
-        ? prev.filter((c) => c !== el)
-        : [...prev, el]);
     setSizes((prev) => prev.includes(el)
         ? prev.filter((c) => c !== el)
         : [...prev, el]);
@@ -102,7 +97,6 @@ function Filters(props) {
     setMinPrice('');
     setSizes([]);
     setColors([]);
-    setChoices([]);
     setOffset(1);
     searchParams.delete('sizes');
     searchParams.delete('minPrice');
@@ -114,7 +108,7 @@ function Filters(props) {
     setSearchParams(searchParams);
   }
 
-  const isFilters = !!(minPrice || maxPrice || sizes || minPriceParam || maxPriceParam || sizesParam || choices || brandId || search || colors);
+  const isFilters = !!(minPrice || maxPrice || sizes || minPriceParam || maxPriceParam || sizesParam || brandId || search || colors);
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizesParam}+${colorsParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${sizes.join(',')}+${colors?.join(',')}`;
 
@@ -149,7 +143,7 @@ function Filters(props) {
             {SIZES?.map((el, i) => (
                 <div
                     className={
-                      choices?.includes(el)
+                      sizes?.includes(el)
                           ? "size-wrapper gap-2 selected"
                           : "size-wrapper gap-2"
                     }
