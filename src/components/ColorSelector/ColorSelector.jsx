@@ -1,14 +1,10 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useState} from "react";
 import "./ColorSelector.scss";
 import {Button} from "antd";
-import {useSearchParams} from "react-router-dom";
 import {COLOR_LIST} from "../../pages/constants";
 
 
 const ColorSelector = ({colors, setColors, setOffset}) => {
-    console.log('colorsHere =', colors);
-
-    const [searchParams, setSearchParams] = useSearchParams();
     const [showAll, setShowAll] = useState(false);
 
     const toggleSelectColor = (color) => {
@@ -17,19 +13,6 @@ const ColorSelector = ({colors, setColors, setOffset}) => {
                 ? prev.filter((c) => c !== color)
                 : [...prev, color]
         );
-        setOffset(1)
-    };
-
-    const selectAll = () => {
-        const colorsMap = COLOR_LIST.map((c) => c.name)
-        setColors(colorsMap);
-        setOffset(1)
-    };
-
-    const deselectAll = () => {
-        setColors([]);
-        searchParams.delete('colors');
-        setSearchParams(searchParams);
         setOffset(1)
     };
 
@@ -45,9 +28,6 @@ const ColorSelector = ({colors, setColors, setOffset}) => {
 
     return (
         <div className="color-selector">
-            <button className="select-all" onClick={() => (colors.length === COLOR_LIST.length ? deselectAll() : selectAll())}>
-                {colors.length === COLOR_LIST.length ? "Снять все" : "Выбрать все"}
-            </button>
             <ul>
                 {visibleColors.map((color) => (
                     <li key={color.name} onClick={() => toggleSelectColor(color.hex)}>

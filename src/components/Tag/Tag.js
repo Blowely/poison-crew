@@ -50,9 +50,14 @@ const FilterTags = ({setOffset, setSize, setColors}) => {
 
         if (key === 'colors') {
             const colors = params[key].split(',');
+
+            if (colors.length === COLOR_LIST.length) {
+                return "Все цвета";
+            }
+
             return colors.map(hex => {
                 const colorIndex = COLOR_LIST.findIndex(c => c.hex === hex);
-                return colorIndex > 0 ? COLOR_LIST[colorIndex].name : null;
+                return colorIndex >= 0 ? COLOR_LIST[colorIndex].name : null;
             }).join(',');
         }
 
