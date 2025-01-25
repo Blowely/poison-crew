@@ -42,6 +42,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
   const colorsParam = searchParams.get("colors");
+  console.log('colorsParam?.length=',colorsParam?.length)
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(1);
@@ -51,7 +52,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
   const [size, setSize] = useState(sizeParam || '');
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [colors, setColors] = useState(colorsParam?.split(',') || []);
+  const [colors, setColors] = useState(!!colorsParam ? colorsParam.split(',') : []);
 
 
   const [loading, setLoading] = useState(false);
@@ -304,7 +305,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       return COLOR_LIST[hexIndex]?.hex;
     })
 
-    searchParams.set("colors", colorsMap.join(','));
+    searchParams.set("colors", colorsMap.filter((c) => !!c).join(','));
     setSearchParams(searchParams);
   }
 

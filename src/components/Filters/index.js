@@ -42,6 +42,7 @@ function Filters(props) {
   const minPriceParam = searchParams.get("minPrice") || "";
   const maxPriceParam = searchParams.get("maxPrice") || "";
   const sortBy = searchParams.get("sortBy");
+  const colorsParam = searchParams.get("colors");
 
   const isDesktopScreen = window.screen.availWidth > 600;
 
@@ -124,9 +125,8 @@ function Filters(props) {
   }
 
   const isFilters = !!(minPrice || maxPrice || size || minPriceParam || maxPriceParam || sizeParam || choice || brandId || search || sort || colors);
-
-  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}${colors?.length ? "+" + colors : ""}`;
-  const currentLine = `${minPrice}+${maxPrice}+${size}`;
+  const queryLine = `${minPriceParam}+${maxPriceParam}+${sizeParam}+${colorsParam}`;
+  const currentLine = `${minPrice}+${maxPrice}+${size}+${colors?.join(',')}`;
 
   return (
     <div className="filters-component-wrapper">
