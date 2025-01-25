@@ -14,7 +14,8 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
     const getValue = (key) => {
         if (key === 'brandId') {
             const index = BRANDS.findIndex((el) => el.id === Number(params[key]));
-            return BRANDS[index].name || '';
+
+            return index >= 0 ? BRANDS[index].name : params[key];
         }
 
         if (key === 'maxPrice') {

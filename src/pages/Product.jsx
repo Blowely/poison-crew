@@ -168,7 +168,10 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   const getImgSrc = () => {
     const brandIndex = BRANDS.findIndex(el => el.id === product?.brandId);
-    return BRANDS[brandIndex]?.src || "";
+    if (brandIndex === -1) {
+      return null
+    }
+    return BRANDS[brandIndex]?.src;
   }
 
   const copyUrl = () => {
@@ -280,9 +283,10 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       <ItemDetails details={product?.productProperties} style={{marginTop: '50px'}}/>
                     </div>
                     <div className="product-info__item standart brand " onClick={onBrandClick}>
-                      <img
+                      {!!getImgSrc() && <img
                           src={getImgSrc()}
                           alt="brand" className="brand-logo"/>
+                      }
                       <div className="brand-info">
                         <span className="brand-name">{product?.brand}</span>
                         <span className="items">10K+ items ></span>
@@ -371,16 +375,18 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                       </div>
 
                       <div className="product-info__item standart brand" onClick={onBrandClick}>
-                        <img
+                          {!!getImgSrc() && <img
                             src={getImgSrc()}
                             alt="brand" className="brand-logo"/>
-                        <div className="brand-info">
-                          <span className="brand-name">{product?.brand}</span>
-                          <span className="items">10K+ items</span>
-                        </div>
+                          }
 
-                        <span className="brand-name-arrow">
-                            <img className="PoizonImage_img__BNSaU"
+                          <div className="brand-info">
+                          <span className="brand-name">{product?.brand}</span>
+                      <span className="items">10K+ items</span>
+                    </div>
+
+                  <span className="brand-name-arrow">
+                  <img className="PoizonImage_img__BNSaU"
                                  src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
                                  alt=""/>
                           </span>
