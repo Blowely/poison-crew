@@ -217,7 +217,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
             <div style={{ fontSize: "22px", fontWeight: "500" }}>
               Таблица размеров
             </div>
-            <MeasureTable />
+            <MeasureTable sizeTable={product?.sizeTable} />
           </div>
         </Modal>
       )}
