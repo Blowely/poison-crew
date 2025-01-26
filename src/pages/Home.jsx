@@ -346,7 +346,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <Product selectedProduct={selectedProduct}/>
       </div>
       }
-      {isShowCategories && <CategoriesTree/>}
       <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
            ref={filtersRef}>
         <Filters
@@ -377,9 +376,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
         }
       </div>
-      <div className="productsListWrapper">
+      <div className="productsListWrapper" style={{position: isShowCategories ? 'fixed' : 'unset'}}>
         <div className="main-logo-wrapper">
-          {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo />}
+          {isDesktopScreen ? <RePoizonMainLogo/> : !isShowCategories && <RePoizonMainMiddleLogo />}
           {isDesktopScreen ?
               <div className="actions-btns">
                 <GenderSwitcher/>
@@ -387,7 +386,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   <NonActiveProfileIcon/>
                 </div>
               </div>
-            : <div className="actions-btns">
+            : !isShowCategories && <div className="actions-btns">
                 <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
                 <div onClick={() => navigate("/profile")}>
                   <NonActiveProfileIcon/>
@@ -403,6 +402,28 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 isEnabledFilters={isEnabledFilters}
         />
         {!isDesktopScreen && <GenderSwitcher/>}
+        {!isDesktopScreen && isShowCategories &&
+            (<div className="categoriesWrapper">
+                  <CategoriesTree/>
+                  <footer>
+                    <div onClick={() => navigate("/products")}>
+                      <ActiveBagIcon/>
+                    </div>
+                    <div>
+                      <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
+                    </div>
+                    <div onClick={() => navigate("/cart?from=products")}>
+                      <NonActiveCartIcon/>
+                    </div>
+                    <div style={{fontSize: '26px'}} onClick={() => navigate("/favorites")}>
+                      <HeartOutlined />
+                    </div>
+                    <div onClick={() => navigate("/profile")}>
+                      <NonActiveProfileIcon/>
+                    </div>
+                  </footer>
+            </div>
+        )}
 
         <div className="content">
           <div className="brands-section-wrapper">

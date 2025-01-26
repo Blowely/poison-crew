@@ -9,7 +9,7 @@ import FormItem from "antd/es/form/FormItem";
 import {useAppDispatch} from "../store";
 import {addPhone} from "../common/accountSlice";
 
-const AuthModal = ({open, onCancel, setModalOpen, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
+const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
   const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();

@@ -203,7 +203,7 @@ const onOkHandler = async () => {
                 <AuthModal
                     open={isChoiceAddressModalOpen}
                     setRemotePhone={setPhone}
-                    setModalOpen={isChoiceAddressModalOpen}
+                    setModalOpen={() => setChoiceAddressModalOpen(true)}
                     onCancel={() => {
                         setChoiceAddressModalOpen(false); setCodeModalOpen(false)}}
                     isCodeModalOpen={isCodeModalOpen}
