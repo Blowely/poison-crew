@@ -1,0 +1,16 @@
+.layout-wrapper {
+    padding: 0 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.content-block {
+    padding: 15px;
+    padding-bottom: 160px;
+    padding-top: 60px;
+    width: 100%;
+    height: auto;
+}

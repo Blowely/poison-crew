@@ -31,6 +31,8 @@ import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
+import CategoriesTree from "../components/CategoriesTree/CategoriesTree";
+import {HeartOutlined, MenuOutlined} from "@ant-design/icons";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [sizes, setSizes] = useState(!!sizesParam ? sizesParam?.split(',') : []);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
+  const [isShowCategories, setShowCategories] = useState(false);
 
 
   const [loading, setLoading] = useState(false);
@@ -343,6 +346,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <Product selectedProduct={selectedProduct}/>
       </div>
       }
+      {isShowCategories && <CategoriesTree/>}
       <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
            ref={filtersRef}>
         <Filters
@@ -375,13 +379,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>
       <div className="productsListWrapper">
         <div className="main-logo-wrapper">
-          {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo/>}
-          {isDesktopScreen && <div className="actions-btns">
-            <GenderSwitcher/>
-            <div onClick={() => navigate("/profile")}>
-              <NonActiveProfileIcon/>
-            </div>
-          </div>}
+          {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo />}
+          {isDesktopScreen ?
+              <div className="actions-btns">
+                <GenderSwitcher/>
+                <div onClick={() => navigate("/profile")}>
+                  <NonActiveProfileIcon/>
+                </div>
+              </div>
+            : <div className="actions-btns">
+                <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
+                <div onClick={() => navigate("/profile")}>
+                  <NonActiveProfileIcon/>
+                </div>
+              </div>
+          }
         </div>
         <Header search={search}
                 showFilters={showFilters}
@@ -486,8 +498,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
               <div onClick={() => navigate("/products")}>
                 <ActiveBagIcon/>
               </div>
+              <div>
+                <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
+              </div>
               <div onClick={() => navigate("/cart?from=products")}>
                 <NonActiveCartIcon/>
+              </div>
+              <div style={{fontSize: '26px'}} onClick={() => navigate("/favorites")}>
+                <HeartOutlined />
               </div>
               <div onClick={() => navigate("/profile")}>
                 <NonActiveProfileIcon/>
