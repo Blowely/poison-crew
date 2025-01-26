@@ -49,9 +49,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [showFilters, setShowFilters] = useState(false);
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
-  const [sizes, setSizes] = useState(!!sizesParam ? sizesParam.split(',') : []);
+  const [sizes, setSizes] = useState(!!sizesParam ? sizesParam?.split(',') : []);
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [colors, setColors] = useState(!!colorsParam ? colorsParam.split(',') : []);
+  const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
 
 
   const [loading, setLoading] = useState(false);

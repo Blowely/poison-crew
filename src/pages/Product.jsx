@@ -79,7 +79,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     const {size, price, index} = getCheapestElOfSize(currentProduct?.skus?.filter(el => el.price)) || template;
     setChoice({ size, price, index });
 
-    if (sizesParam.split(',').length  === 1) {
+    if (sizesParam?.split(',').length  === 1) {
       const {size, price, index} = getCurrentPriceOfSize(sizesParam, currentProduct?.skus?.filter(el => el.price)) || template;
       setChoice({ size, price, index });
     }

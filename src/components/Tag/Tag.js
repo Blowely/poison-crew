@@ -50,7 +50,7 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
         }
 
         if (key === 'colors') {
-            const colors = params[key].split(',');
+            const colors = params[key]?.split(',');
 
             if (colors.length === COLOR_LIST.length) {
                 return "Все цвета";
