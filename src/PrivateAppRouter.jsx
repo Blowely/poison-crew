@@ -13,6 +13,7 @@ import Information from "./pages/Information";
 import Payment from "./pages/Payment";
 import Order from "./pages/Order";
 import Trace from "./pages/Trace";
+import CategoriesTree from "./components/CategoriesTree/CategoriesTree";
 
 export function PrivateAppRouter({
   searchValue,
@@ -54,6 +55,7 @@ export function PrivateAppRouter({
         <Route path="/trace" element={<Trace />} />
         <Route path="/visited" element={<VisitedProducts />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path={`/categories/${gender}/`} element={<CategoriesTree />} />
         <Route path="/info" element={<Information />} />
         <Route path="*" element={<Navigate to={`/products/${gender}`} />} replace />
       </Routes>

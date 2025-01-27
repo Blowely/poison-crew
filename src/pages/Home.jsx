@@ -54,8 +54,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [sizes, setSizes] = useState(!!sizesParam ? sizesParam?.split(',') : []);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
-  const [isShowCategories, setShowCategories] = useState(false);
-
 
   const [loading, setLoading] = useState(false);
 
@@ -376,9 +374,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
           </div>
         }
       </div>
-      <div className="productsListWrapper" style={{position: isShowCategories ? 'fixed' : 'unset'}}>
+      <div className="productsListWrapper" >
         <div className="main-logo-wrapper">
-          {isDesktopScreen ? <RePoizonMainLogo/> : !isShowCategories && <RePoizonMainMiddleLogo />}
+          {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo />}
           {isDesktopScreen ?
               <div className="actions-btns">
                 <GenderSwitcher/>
@@ -386,8 +384,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   <NonActiveProfileIcon/>
                 </div>
               </div>
-            : !isShowCategories && <div className="actions-btns">
-                <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
+            : <div className="actions-btns">
+                <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/categories/${gender}`)}/>
                 <div onClick={() => navigate("/profile")}>
                   <NonActiveProfileIcon/>
                 </div>
@@ -402,28 +400,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 isEnabledFilters={isEnabledFilters}
         />
         {!isDesktopScreen && <GenderSwitcher/>}
-        {!isDesktopScreen && isShowCategories &&
-            (<div className="categoriesWrapper">
-                  <CategoriesTree/>
-                  <footer>
-                    <div onClick={() => navigate("/products")}>
-                      <ActiveBagIcon/>
-                    </div>
-                    <div>
-                      <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
-                    </div>
-                    <div onClick={() => navigate("/cart?from=products")}>
-                      <NonActiveCartIcon/>
-                    </div>
-                    <div style={{fontSize: '26px'}} onClick={() => navigate("/favorites")}>
-                      <HeartOutlined />
-                    </div>
-                    <div onClick={() => navigate("/profile")}>
-                      <NonActiveProfileIcon/>
-                    </div>
-                  </footer>
-            </div>
-        )}
 
         <div className="content">
           <div className="brands-section-wrapper">
@@ -520,7 +496,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 <ActiveBagIcon/>
               </div>
               <div>
-                <MenuOutlined style={{fontSize: '22px'}} onClick={() => setShowCategories(prev => !prev)}/>
+                <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/categories/${gender}`)}/>
               </div>
               <div onClick={() => navigate("/cart?from=products")}>
                 <NonActiveCartIcon/>
