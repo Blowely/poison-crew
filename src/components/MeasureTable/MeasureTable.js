@@ -58,11 +58,11 @@ const MeasureTable = ({sizeTable}) => {
     if (usMen) {
       const entry = {
         key: i,
-        usMen: parseFloat(usMen),
-        eu: eu ? parseFloat(eu) : null,
-        uk: uk ? parseFloat(uk) : null,
-        ru: ru ? parseFloat(ru) : null,
-        mm: mm ? parseFloat(mm) : null,
+        usMen: usMen,
+        eu: eu ? eu : null,
+        uk: uk ? uk : null,
+        ru: ru ? ru : null,
+        mm: mm ? mm : null,
       };
       usSizeConversionTable[usMen] = entry;
       tableData.push(entry);
