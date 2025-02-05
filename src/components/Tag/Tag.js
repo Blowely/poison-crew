@@ -30,7 +30,7 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
             return `Размер ${params[key]}`;
         }
 
-        if (key === 'category3Id') {
+        if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
             const index = CATEGORIES.findIndex((el) => el.id === Number(params[key]));
             return CATEGORIES[index].name || '';
         }
