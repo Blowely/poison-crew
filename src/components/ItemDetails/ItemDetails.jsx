@@ -25,13 +25,13 @@ const ItemDetails = ({details = []}) => {
 
                         if (item.definitionId === PRODUCT_PROPERTIES.APPLICABLE_SEASON &&
                             item.translatedValue.length === 4) {
-                            return (<div className="detail">
+                            return (<div className="detail" key={i}>
                                 <span className="label">{item.translatedKey}</span>
                                 <span className="value">Все сезоны</span>
                             </div>)
                         }
 
-                        return (<div className="detail">
+                        return (<div className="detail" key={i}>
                             <span className="label">{item.translatedKey}</span>
                             <span className="value">{item.translatedValue?.map((el,i) => {
                                 if (i === item.translatedValue.length - 1) {

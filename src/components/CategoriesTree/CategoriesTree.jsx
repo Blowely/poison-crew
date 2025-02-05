@@ -26,7 +26,7 @@ const categories = [
         {
             name: 'Верхняя одежда',
             categoryLvl: 2,
-            id: 41
+            id: 1002606
         }]
     },
     { name: "Обувь", subcategories: [

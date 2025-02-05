@@ -68,19 +68,36 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
   useEffect(() => {
     const currentProduct = product || selectedProduct || remoteProduct;
-    console.log('currentProduct',currentProduct);
+
     if (!currentProduct?.skus?.length) {
       return;
     }
-    setSizesAndPrices(currentProduct?.skus || []);
+
+    let handledSizesAndPrices = currentProduct?.skus || []
+
+    if (!currentProduct?.skus?.[0]?.size) {
+      const propertyTypeSizeIndex = currentProduct?.properties?.propertyTypes.findIndex((type) => type.name === "Размер");
+      const sizesValues = currentProduct?.properties?.propertyTypes[propertyTypeSizeIndex]?.values;
+
+      const sizesAndPrices = sizesValues?.map((size, i) => ({
+        ...size,
+        price: currentProduct?.skus[i]?.price,
+        size: size?.value
+      }));
+
+      handledSizesAndPrices = sizesAndPrices || [];
+    }
+
+    setSizesAndPrices(handledSizesAndPrices);
+
 
     const template = {size: null, price: null, index: null};
 
-    const {size, price, index} = getCheapestElOfSize(currentProduct?.skus?.filter(el => el.price)) || template;
+    const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price)) || template;
     setChoice({ size, price, index });
 
     if (sizesParam?.split(',').length  === 1) {
-      const {size, price, index} = getCurrentPriceOfSize(sizesParam, currentProduct?.skus?.filter(el => el.price)) || template;
+      const {size, price, index} = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price)) || template;
       setChoice({ size, price, index });
     }
 
@@ -352,7 +369,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                       textAlign: "center",
                                     }}
                                 >
-                                  {el?.size?.primary || ""}
+                                  {el?.size?.eu || el?.size?.primary || el?.size || ""}
                                 </div>
                                 <div
                                     style={{
