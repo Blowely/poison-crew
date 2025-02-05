@@ -13,8 +13,25 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 const categories = [
     { name: "Идеи", subcategories: [] },
     { name: "Новинки", subcategories: [] },
-    { name: "Одежда", subcategories: ["Новинки от мировых брендов", "Все товары", "Брюки", "Верхняя одежда", "Джемперы, свитеры и кардиганы", "Джинсы", "Домашняя одежда", "Комбинезоны", "Майки", "Нижнее белье", "Носки и гетры"] },
-    { name: "Обувь", subcategories: ["Новинки от мировых брендов", "Все товары", "Ботинки", "Домашняя обувь", "Кроссовки и кеды", "Мокасины и топсайдеры", "Резиновая обувь", "Сабо", "Сандалии", "Сапоги", "Слипы"] },
+    { name: "Одежда", subcategories: [
+        {
+            name: "Новинки от мировых брендов",
+            id: 'idk'
+        },
+        {
+            name: "Все товары",
+            id: 'all'
+        },
+        {
+            name:"Брюки",
+            id: 34
+        },
+        {
+            name: 'Верхняя одежда',
+            id: 41
+        }]
+    },
+    //{ name: "Обувь", subcategories: ["Новинки от мировых брендов", "Все товары", "Ботинки", "Домашняя обувь", "Кроссовки и кеды", "Мокасины и топсайдеры", "Резиновая обувь", "Сабо", "Сандалии", "Сапоги", "Слипы"] },
     { name: "Аксессуары", subcategories: [] },
     { name: "Premium", subcategories: [] },
     { name: "Спорт", subcategories: [] },
@@ -38,8 +55,8 @@ function CategoriesTree() {
     const sizesParam = searchParams.get("sizes");
     const minPriceParam = searchParams.get("minPrice");
     const maxPriceParam = searchParams.get("maxPrice");
+    const gender = searchParams.get("gender");
     const [showFilters, setShowFilters] = useState(false);
-
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category.name);
@@ -49,6 +66,10 @@ function CategoriesTree() {
     const handleSubCategoryClick = (subcategory) => {
         setSelectedCategory(subcategory?.name);
         setSubcategories(subcategory?.subcategories);
+
+        navigate(`/products/${gender}`);
+        searchParams.set("category2Id", subcategory.id);
+        setSearchParams(searchParams);
     };
 
     const isDesktopScreen = window?.innerWidth > 768;
@@ -83,7 +104,7 @@ function CategoriesTree() {
             {!isDesktopScreen && <GenderSwitcher/>}
             <div className="category-selector">
                 <div className="categories">
-                    {!selectedCategory && categories.map((category) => (
+                    {!selectedCategory && categories?.map((category) => (
                         <div key={category.name}>
                             <button
                                 className={`category-button`}
@@ -93,13 +114,13 @@ function CategoriesTree() {
                             </button>
                         </div>
                     ))}
-                    {selectedCategory && subcategories.map((subcategory) => (
-                        <div key={subcategory}>
+                    {selectedCategory && subcategories?.map((subcategory) => (
+                        <div key={subcategory.id}>
                             <button
                                 className={`category-button`}
                                 onClick={() => handleSubCategoryClick(subcategory)}
                             >
-                                {subcategory}
+                                {subcategory.name}
                             </button>
                         </div>
                     ))}

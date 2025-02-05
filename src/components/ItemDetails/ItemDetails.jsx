@@ -35,9 +35,9 @@ const ItemDetails = ({details = []}) => {
                             <span className="label">{item.translatedKey}</span>
                             <span className="value">{item.translatedValue?.map((el,i) => {
                                 if (i === item.translatedValue.length - 1) {
-                                    return (el);
+                                    return (el.charAt(0).toUpperCase() + el.slice(1));
                                 }
-                                return `${el}, `;
+                                return `${el.charAt(0).toUpperCase() + el.slice(1)}, `;
                             })}</span>
                         </div>)
                     })}
