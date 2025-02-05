@@ -18,7 +18,7 @@ function Filters(props) {
     colors,
     minPrice,
     maxPrice,
-    categoryId,
+    category3Id,
     setMaxPrice,
     setMinPrice,
     setSizes,
@@ -44,8 +44,8 @@ function Filters(props) {
       limit: 100,
     };
 
-    if (categoryId) {
-      obj.categoryId = categoryId;
+    if (category3Id) {
+      obj.category3Id = category3Id;
     }
 
     return obj;

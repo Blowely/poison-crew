@@ -5,14 +5,14 @@ const GenderSwitcher = () => {
     const href = window.location.href;
     const gender = useMemo(() => {
         const parts = href?.split("/");
-        return parts[4]?.split('?')[0];
+        return parts[3]?.split('?')[0];
     },[href])
 
     const [activeTab, setActiveTab] = useState(gender);
 
     const onChange = (tab) => {
         setActiveTab(tab);
-        window.location.href = `/products/${tab}`;
+        window.location.href = `/${tab}/products`;
         localStorage.setItem('gender', tab);
     }
 

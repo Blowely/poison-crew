@@ -17,7 +17,7 @@ import ActiveBagIcon from "../assets/svg/active-bag-icon.js";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
-import {addProducts, clearProducts} from "../common/productsSlice";
+import {addProducts} from "../common/productsSlice";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
@@ -31,7 +31,6 @@ import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
-import CategoriesTree from "../components/CategoriesTree/CategoriesTree";
 import {HeartOutlined, MenuOutlined} from "@ant-design/icons";
 
 function Home({ onAddToFavorite, onAddToCart }) {
@@ -44,6 +43,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
   const colorsParam = searchParams.get("colors");
+  const category2IdParam = searchParams.get("category2Id");
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(1);
@@ -59,7 +59,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const search = searchParams.get("search");
   const brandId = searchParams.get("brandId");
-  const categoryId = searchParams.get("categoryId");
+  const category3Id = searchParams.get("category3Id");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const url = searchParams.get("url");
@@ -100,8 +100,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.brandIds = selectedBrands.map(({id}) => id).join(',');
     }
 
-    if (categoryId) {
-      obj.categoryId = categoryId;
+    if (category3Id) {
+      obj.category3Id = category3Id;
     }
 
     if (collection) {
@@ -128,6 +128,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.colors = colorsParam;
     }
 
+    if (category2IdParam) {
+      obj.category2Id = category2IdParam;
+    }
+
     return obj;
   };
 
@@ -137,7 +141,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${categoryId}+${brandId}+${search}+${sizesParam}`+
+  const searchOrCollection = `${category3Id}+${brandId}+${search}+${sizesParam}`+
     `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
@@ -352,7 +356,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           colors={colors}
           minPrice={minPrice}
           maxPrice={maxPrice}
-          categoryId={categoryId}
+          category3Id={category3Id}
           selectedBrands={selectedBrands}
           setSelectedBrands={setSelectedBrands}
           setSizes={setSizes}
@@ -385,7 +389,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 </div>
               </div>
             : <div className="actions-btns">
-                <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/categories/${gender}`)}/>
+                <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/${gender}/categories/`)}/>
                 <div onClick={() => navigate("/profile")}>
                   <NonActiveProfileIcon/>
                 </div>
@@ -458,7 +462,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                       colors={colors}
-                      categoryId={categoryId}
+                      category3Id={category3Id}
                       selectedBrands={selectedBrands}
                       setSelectedBrands={setSelectedBrands}
                       setSizes={setSizes}
@@ -496,7 +500,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 <ActiveBagIcon/>
               </div>
               <div>
-                <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/categories/${gender}`)}/>
+                <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/${gender}/categories/`)}/>
               </div>
               <div onClick={() => navigate("/cart?from=products")}>
                 <NonActiveCartIcon/>

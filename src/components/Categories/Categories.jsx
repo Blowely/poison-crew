@@ -35,7 +35,7 @@ const Categories = ({setLoading}) => {
   }] : data
 
   return <div className="card-wrapper">{data.map((el,i) => {
-    return <div key={i}><CatCard title={el.title} img={el.img} categoryId={el.categoryId} setLoading={setLoading} /></div>
+    return <div key={i}><CatCard title={el.title} img={el.img} category3Id={el.categoryId} setLoading={setLoading} /></div>
   })}</div>
 }
 

@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
-const ListImgItem = ({img, title, categoryId, setLoading}) => {
+const ListImgItem = ({img, title, category3Id, setLoading}) => {
   const navigate = useNavigate();
 
   const onCardClick = () => {
     setLoading(true);
-    navigate(`/products?categoryId=${categoryId}`);
+    navigate(`/products?category3Id=${category3Id}`);
   }
 
   return <div className="cat-card" onClick={onCardClick}>

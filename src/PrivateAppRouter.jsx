@@ -31,7 +31,7 @@ export function PrivateAppRouter({
       <Routes>
         <Route path="/" element={<Navigate to="/products" />} replace />
         <Route
-          path={`/products/${gender}`}
+          path={`/${gender}/products`}
           element={
             <Home
               cartItems={cartItems}
@@ -44,7 +44,7 @@ export function PrivateAppRouter({
             />
           }
         />
-        <Route path={`/products/${gender}/*`} element={<Product />} />
+        <Route path={`/${gender}/products/*`} element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/*" element={<Cart />} />
         <Route path="/address" element={<Address />} />
@@ -55,9 +55,9 @@ export function PrivateAppRouter({
         <Route path="/trace" element={<Trace />} />
         <Route path="/visited" element={<VisitedProducts />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path={`/categories/${gender}/`} element={<CategoriesTree />} />
+        <Route path={`/${gender}/categories/`} element={<CategoriesTree />} />
         <Route path="/info" element={<Information />} />
-        <Route path="*" element={<Navigate to={`/products/${gender}`} />} replace />
+        <Route path="*" element={<Navigate to={`/${gender}/products`} />} replace />
       </Routes>
     </Suspense>
   );

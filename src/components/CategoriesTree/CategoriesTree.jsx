@@ -11,33 +11,59 @@ import Header from "../Header/Header";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
 const categories = [
-    { name: "Идеи", subcategories: [] },
-    { name: "Новинки", subcategories: [] },
+    /*{ name: "Идеи", subcategories: [] },
+    { name: "Новинки", subcategories: [] },*/
     { name: "Одежда", subcategories: [
-        {
-            name: "Новинки от мировых брендов",
-            id: 'idk'
-        },
         {
             name: "Все товары",
             id: 'all'
         },
         {
-            name:"Брюки",
-            id: 34
+            name:"Штаны",
+            categoryLvl: 2,
+            id: 1002767
         },
         {
             name: 'Верхняя одежда',
+            categoryLvl: 2,
             id: 41
         }]
     },
+    { name: "Обувь", subcategories: [
+            {
+                name: "Все товары",
+                categoryLvl: 1,
+                id: 29
+            },
+            {
+                name: "Кроссовки и кеды",
+                categoryLvl: 2,
+                id: 35
+            },
+            {
+                name: "Обувь для спорта",
+                categoryLvl: 2,
+                id: 30
+            },
+            {
+                name: 'Тапки',
+                categoryLvl: 2,
+                id: 410
+            },
+            {
+                name: 'Ботинки',
+                categoryLvl: 2,
+                id: 292
+            },
+        ]
+    },
     //{ name: "Обувь", subcategories: ["Новинки от мировых брендов", "Все товары", "Ботинки", "Домашняя обувь", "Кроссовки и кеды", "Мокасины и топсайдеры", "Резиновая обувь", "Сабо", "Сандалии", "Сапоги", "Слипы"] },
+    /*{ name: "Красота", subcategories: [] },
     { name: "Аксессуары", subcategories: [] },
     { name: "Premium", subcategories: [] },
     { name: "Спорт", subcategories: [] },
-    { name: "Красота", subcategories: [] },
     { name: "Дом", subcategories: [] },
-    { name: "Распродажа", subcategories: [] },
+    { name: "Распродажа", subcategories: [] },*/
 ];
 
 
@@ -55,7 +81,7 @@ function CategoriesTree() {
     const sizesParam = searchParams.get("sizes");
     const minPriceParam = searchParams.get("minPrice");
     const maxPriceParam = searchParams.get("maxPrice");
-    const gender = searchParams.get("gender");
+    const gender = localStorage.getItem("gender") || "men";
     const [showFilters, setShowFilters] = useState(false);
 
     const handleCategoryClick = (category) => {
@@ -66,10 +92,9 @@ function CategoriesTree() {
     const handleSubCategoryClick = (subcategory) => {
         setSelectedCategory(subcategory?.name);
         setSubcategories(subcategory?.subcategories);
-
-        navigate(`/products/${gender}`);
-        searchParams.set("category2Id", subcategory.id);
-        setSearchParams(searchParams);
+        console.log('subcategory=',subcategory)
+        console.log('subcategory.id=',subcategory.id)
+        window.location.href = `/${gender}/products?category${subcategory.categoryLvl}Id=${subcategory.id}`;
     };
 
     const isDesktopScreen = window?.innerWidth > 768;
