@@ -87,7 +87,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
 
       handledSizesAndPrices = sizesAndPrices || [];
     }
-
+    console.log('handledSizesAndPrices=',handledSizesAndPrices)
     setSizesAndPrices(handledSizesAndPrices);
 
 
@@ -131,8 +131,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     }
 
     const price = el?.price;
-
-    setChoice({ size: el?.size?.primary || 'cтандарт', price, index: i });
+    setChoice({ size: el?.size?.primary || el?.size || 'cтандарт', price, index: i });
   };
 
   const getTitlePrice = (price) => {
@@ -424,48 +423,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                   </div>
                 </div>
 
-                {(isDesktopScreen && !!(Object.keys(lvl2Properties)?.length)) &&
-                    <div className="product-info__item">
-                      <div className="label">
-                        <div className="label_wrap">
-                          <div className="size_label">
-                            <div>Версия</div>
-                          </div>
-                        </div>
-                        <div className="size_guide" onClick={onMeasureOpenClick}>
-                          Таблица размеров
-                          <img className="PoizonImage_img__BNSaU"
-                               src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
-                               alt=""/>
-                        </div>
-                      </div>
-                      <div className="list">
-                        {Object.keys(lvl2Properties)?.map((key, i) => (
-                            <div
-                                className={
-                                  i === choice.index
-                                      ? "size-wrapper gap-2 selected"
-                                      : "size-wrapper gap-2"
-                                }
-                                onClick={() => onChangeChoiceHandler(lvl2Properties[key], i)}
-                                key={i}
-                                role="presentation"
-                            >
-                              <div
-                                  style={{
-                                    fontSize: "17px",
-                                    fontWeight: "600",
-                                    textAlign: "center",
-                                  }}
-                              >
-                                {showPropertyValue(lvl2Properties[key].value, lvl2Properties[key]?.showValue)}
-                              </div>
-                            </div>
-                        ))}
-                      </div>
-                    </div>
-                }
-
                 {isDesktopScreen &&
                     <div className="product-info__item">
                       <div className="label">
@@ -500,7 +457,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                                     textAlign: "center",
                                   }}
                               >
-                                {el?.size?.eu || el?.size?.primary || ""}
+                                {el?.size?.eu || el?.size?.primary || el?.size || ""}
                               </div>
                               <div
                                   style={{

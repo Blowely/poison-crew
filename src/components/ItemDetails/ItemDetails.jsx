@@ -32,7 +32,7 @@ const ItemDetails = ({details = []}) => {
                         }
 
                         return (<div className="detail" key={i}>
-                            <span className="label">{item.translatedKey}</span>
+                            <span className="label">{item.translatedKey.charAt(0).toUpperCase() + item.translatedKey.slice(1)}</span>
                             <span className="value">{item.translatedValue?.map((el,i) => {
                                 if (i === item.translatedValue.length - 1) {
                                     return (el.charAt(0).toUpperCase() + el.slice(1));
