@@ -227,9 +227,9 @@ export const CATEGORIES = [
         id: 51
     },
     {
-        name: "Сумки и рюкзаки",
+        name: "Все сумки и рюкзаки",
         categoryLvl: 2,
-        id: 49,
+        id: 49
     },
     {
         name: "Все аксессуары",

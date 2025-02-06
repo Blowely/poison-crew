@@ -225,6 +225,11 @@ const categories = [
                 id: 49,
                 subcategories: [
                     {
+                        name: "Все сумки и рюкзаки",
+                        categoryLvl: 2,
+                        id: 49
+                    },
+                    {
                         name: "Сумки через плечо",
                         categoryLvl: 3,
                         id: 51
