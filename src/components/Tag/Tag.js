@@ -15,7 +15,7 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
         if (key === 'brandId') {
             const index = BRANDS.findIndex((el) => el.id === Number(params[key]));
 
-            return index >= 0 ? BRANDS[index].name : params[key];
+            return index >= 0 ? BRANDS[index]?.name : params[key];
         }
 
         if (key === 'maxPrice') {
@@ -32,7 +32,7 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
 
         if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
             const index = CATEGORIES.findIndex((el) => el.id === Number(params[key]));
-            return CATEGORIES[index].name || '';
+            return CATEGORIES[index]?.name || '';
         }
 
         if (key === 'sortBy') {

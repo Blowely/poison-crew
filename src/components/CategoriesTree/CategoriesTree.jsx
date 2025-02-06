@@ -27,6 +27,66 @@ const categories = [
             name: 'Верхняя одежда',
             categoryLvl: 2,
             id: 1002606
+        },
+        {
+            name: 'Спортивная одежда',
+            categoryLvl: 2,
+            id: 1001262,
+            womenId: 1001262
+        },
+        {
+            name: 'Футболки',
+            categoryLvl: 2,
+            id: 4,
+            womenId: 4
+        },
+        {
+            name: 'Майки',
+            categoryLvl: 3,
+            id: 1002849,
+            womenId: 1002849
+        },
+        {
+            name: 'Поло',
+            categoryLvl: 3,
+            id: 10,
+            womenId: 10
+        },
+        {
+            name: 'Худи',
+            categoryLvl: 3,
+            id: 1002848,
+            womenId: 1002848
+        },
+        {
+            name: 'Рубашки',
+            categoryLvl: 3,
+            id: 5,
+            womenId: 5
+        },
+        {
+            name: 'Свитшоты',
+            categoryLvl: 3,
+            id: 13,
+            womenId: 13
+        },
+        {
+            name: 'Шорты',
+            categoryLvl: 3,
+            id: 1002791,
+            womenId: 1002791
+        },
+        {
+            name: 'Носки',
+            categoryLvl: 3,
+            id: 1003050,
+            womenId: 1003050
+        },
+        {
+            name: 'Трусы',
+            categoryLvl: 3,
+            id: 1003036,
+            womenId: 1003036
         }]
     },
     { name: "Обувь", subcategories: [
@@ -130,22 +190,22 @@ function CategoriesTree() {
             <div className="category-selector">
                 <div className="categories">
                     {!selectedCategory && categories?.map((category) => (
-                        <div key={category.name}>
+                        <div key={category?.name}>
                             <button
                                 className={`category-button`}
                                 onClick={() => handleCategoryClick(category)}
                             >
-                                {category.name}
+                                {category?.name}
                             </button>
                         </div>
                     ))}
                     {selectedCategory && subcategories?.map((subcategory) => (
-                        <div key={subcategory.id}>
+                        <div key={subcategory?.id}>
                             <button
                                 className={`category-button`}
                                 onClick={() => handleSubCategoryClick(subcategory)}
                             >
-                                {subcategory.name}
+                                {subcategory?.name}
                             </button>
                         </div>
                     ))}
