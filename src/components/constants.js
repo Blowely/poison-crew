@@ -235,5 +235,85 @@ export const CATEGORIES = [
         name: "Все аксессуары",
         categoryLvl: 1,
         id: 48
-    }
+    },
+    {
+        name: "Поясные сумки",
+        categoryLvl: 3,
+        id: 54
+    },
+    {
+        name: "Портфели",
+        categoryLvl: 3,
+        id: 1001008
+    },
+    {
+        name: "Спортивные сумки",
+        categoryLvl: 3,
+        id: 1000797
+    },
+    {
+        name: "Нагрудные сумки",
+        categoryLvl: 3,
+        id: 277
+    },
+    {
+        name: "Сумки",
+        categoryLvl: 3,
+        id: 52
+    },
+    {
+        name: "Сумочки",
+        categoryLvl: 3,
+        id: 305
+    },
+    {
+        name: "Клатчи",
+        categoryLvl: 3,
+        id: 59
+    },
+    {
+        name: "Косметички",
+        categoryLvl: 3,
+        id: 1000787
+    },
+    {
+        name: "Паспортницы",
+        categoryLvl: 3,
+        id: 60
+    },
+    {
+        name: "Сумки для наушников",
+        categoryLvl: 3,
+        id: 1000382
+    },
+    {
+        name: "Сумки для телефона",
+        categoryLvl: 3,
+        id: 1000385
+    },
+    {
+        name: "Портмоне",
+        categoryLvl: 3,
+        id: 58
+    },
+    {
+        name: "Кошельки",
+        categoryLvl: 3,
+        id: 57
+    },
+    {
+        name: "Карточницы",
+        categoryLvl: 3,
+        id: 185
+    },
+    {
+        name: "Ключницы",
+        categoryLvl: 3,
+        id: 330
+    },
+    {
+        name: "Рюкзаки",
+        categoryLvl: 3,
+        id: 50
+    },
 ]
