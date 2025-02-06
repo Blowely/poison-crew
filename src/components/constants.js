@@ -174,4 +174,66 @@ export const CATEGORIES = [
         categoryLvl: 3,
         id: 1001271
     },
+    {
+        name:"Аксессуары для сумок",
+        categoryLvl: 2,
+        id: 56,
+    },
+    {
+        name:"Украшения",
+        categoryLvl: 2,
+        id: 421,
+    },
+    {
+        name:"Ремни",
+        categoryLvl: 2,
+        id: 101,
+    },
+    {
+        name:"Очки",
+        categoryLvl: 2,
+        id: 121,
+        subcategories: []
+    },
+    {
+        name:"Кепки и шапки",
+        categoryLvl: 2,
+        id: 96,
+        subcategories: []
+    },
+    {
+        name:"Шарфы",
+        categoryLvl: 2,
+        id: 141,
+    },
+    {
+        name:"Разные аксессуары",
+        categoryLvl: 2,
+        id: 116,
+    },
+    {
+        name:"Аксессуары для волос",
+        categoryLvl: 2,
+        id: 102,
+    },
+    {
+        name:"Часы",
+        categoryLvl: 2,
+        id: 500,
+    },
+    {
+        name: "Сумки через плечо",
+        categoryLvl: 3,
+        id: 51
+    },
+    {
+        name: "Сумки и рюкзаки",
+        categoryLvl: 2,
+        id: 49,
+    },
+    {
+        name: "Все аксессуары",
+        categoryLvl: 1,
+        id: 48
+    }
 ]

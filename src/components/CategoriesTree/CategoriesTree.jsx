@@ -211,6 +211,75 @@ const categories = [
             },
         ]
     },
+    {
+        name: "Аксессуары",
+        subcategories: [
+            {
+                name: "Все аксессуары",
+                categoryLvl: 1,
+                id: 48
+            },
+            {
+                name:"Сумки и рюкзаки",
+                categoryLvl: 2,
+                id: 49,
+                subcategories: [
+                    {
+                        name: "Сумки через плечо",
+                        categoryLvl: 3,
+                        id: 51
+                    },
+                ]
+            },
+            {
+                name:"Аксессуары для сумок",
+                categoryLvl: 2,
+                id: 56,
+            },
+            {
+                name:"Украшения",
+                categoryLvl: 2,
+                id: 421,
+            },
+            {
+                name:"Ремни",
+                categoryLvl: 2,
+                id: 101,
+            },
+            {
+                name:"Очки",
+                categoryLvl: 2,
+                id: 121,
+                subcategories: []
+            },
+            {
+                name:"Кепки и шапки",
+                categoryLvl: 2,
+                id: 96,
+                subcategories: []
+            },
+            {
+                name:"Шарфы",
+                categoryLvl: 2,
+                id: 141,
+            },
+            {
+                name:"Разные аксессуары",
+                categoryLvl: 2,
+                id: 116,
+            },
+            {
+                name:"Аксессуары для волос",
+                categoryLvl: 2,
+                id: 102,
+            },
+            {
+                name:"Часы",
+                categoryLvl: 2,
+                id: 500,
+            },
+        ]
+    }
     //{ name: "Обувь", subcategories: ["Новинки от мировых брендов", "Все товары", "Ботинки", "Домашняя обувь", "Кроссовки и кеды", "Мокасины и топсайдеры", "Резиновая обувь", "Сабо", "Сандалии", "Сапоги", "Слипы"] },
     /*{ name: "Красота", subcategories: [] },
     { name: "Аксессуары", subcategories: [] },

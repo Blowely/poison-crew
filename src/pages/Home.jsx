@@ -43,7 +43,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const minPriceParam = searchParams.get("minPrice");
   const maxPriceParam = searchParams.get("maxPrice");
   const colorsParam = searchParams.get("colors");
+  const category1IdParam = searchParams.get("category1Id");
   const category2IdParam = searchParams.get("category2Id");
+  const category3IdParam = searchParams.get("category3Id");
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(1);
@@ -59,7 +61,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const search = searchParams.get("search");
   const brandId = searchParams.get("brandId");
-  const category3Id = searchParams.get("category3Id");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const url = searchParams.get("url");
@@ -100,10 +101,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.brandIds = selectedBrands.map(({id}) => id).join(',');
     }
 
-    if (category3Id) {
-      obj.category3Id = category3Id;
-    }
-
     if (collection) {
       obj.collName = collection;
     }
@@ -128,8 +125,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.colors = colorsParam;
     }
 
+    if (category3IdParam) {
+      obj.category3Id = category3IdParam;
+    }
+
     if (category2IdParam) {
       obj.category2Id = category2IdParam;
+    }
+
+    if (category1IdParam) {
+      obj.category1Id = category1IdParam;
     }
 
     return obj;
@@ -141,7 +146,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${category3Id}+${brandId}+${search}+${sizesParam}`+
+  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${brandId}+${search}+${sizesParam}`+
     `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
@@ -356,7 +361,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
           colors={colors}
           minPrice={minPrice}
           maxPrice={maxPrice}
-          category3Id={category3Id}
           selectedBrands={selectedBrands}
           setSelectedBrands={setSelectedBrands}
           setSizes={setSizes}
@@ -462,7 +466,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                       colors={colors}
-                      category3Id={category3Id}
                       selectedBrands={selectedBrands}
                       setSelectedBrands={setSelectedBrands}
                       setSizes={setSizes}
