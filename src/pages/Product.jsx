@@ -94,6 +94,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     const template = {size: null, price: null, index: null};
 
     const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price)) || template;
+    console.log('{size, price, index} ',{size, price, index} )
     setChoice({ size, price, index });
 
     if (sizesParam?.split(',').length  === 1) {

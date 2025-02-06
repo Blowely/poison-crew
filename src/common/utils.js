@@ -86,7 +86,7 @@ export const getCheapestElOfSize = (sizes = []) => {
   }
 
   if (sizes?.length === 1) {
-    return sizes[0];
+    return {...sizes[0], index: 0};
   }
 
   let cheapestPrice = 1000000;
@@ -97,7 +97,6 @@ export const getCheapestElOfSize = (sizes = []) => {
     if (!el?.price) {
       return;
     }
-
     const newPrice = Number(el?.price);
 
     if (newPrice < cheapestPrice) {
@@ -107,7 +106,7 @@ export const getCheapestElOfSize = (sizes = []) => {
     }
   });
 
-  return {size: cheapestEl.size?.eu || '',  price: cheapestEl.price, index: cheapestIndex};
+  return {size: cheapestEl.size?.eu || cheapestEl?.size || '',  price: cheapestEl.price, index: cheapestIndex};
 };
 
 export const useFirstRender = () => {
