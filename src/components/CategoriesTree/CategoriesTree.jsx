@@ -26,13 +26,107 @@ const categories = [
         {
             name: 'Верхняя одежда',
             categoryLvl: 2,
-            id: 1002606
+            id: 1002606,
+            subcategories: [
+                {
+                    name:"Вся верхняя одежда",
+                    categoryLvl: 2,
+                    id: 1002606
+                },
+                {
+                    name:"Летняя верхняя одежда",
+                    categoryLvl: 3,
+                    id: 1001276
+                },
+                {
+                    name:"Бейсбольная верхняя одежда",
+                    categoryLvl: 3,
+                    id: 285
+                },
+                {
+                    name:"Пиджаки",
+                    categoryLvl: 3,
+                    id: 15
+                },
+                {
+                    name:"Спортивные куртки",
+                    categoryLvl: 3,
+                    id: 7
+                },
+                {
+                    name:"Джинсовые куртки",
+                    categoryLvl: 3,
+                    id: 11
+                },
+                {
+                    name:"Ветровки",
+                    categoryLvl: 3,
+                    id: 17
+                },
+                {
+                    name:"Кожаные куртки",
+                    categoryLvl: 3,
+                    id: 1002608
+                },
+                {
+                    name:"Демисезонные куртки",
+                    categoryLvl: 3,
+                    id: 1001273
+                },
+                {
+                    name:"Пальто",
+                    categoryLvl: 3,
+                    id: 8
+                },
+                {
+                    name:"Зимние куртки",
+                    categoryLvl: 3,
+                    id: 12
+                },
+                {
+                    name:"Пуховики",
+                    categoryLvl: 3,
+                    id: 9
+                },
+            ]
         },
         {
             name: 'Спортивная одежда',
             categoryLvl: 2,
-            id: 1001262,
-            womenId: 1001262
+            id: 1001262,//1002618,1002628
+            womenId: 1001262,
+            subcategories: [
+                {
+                    name:"Баскетбольные майки",
+                    categoryLvl: 3,
+                    id: 1001392
+                },
+                {
+                    name:"Баскетбольные штаны",
+                    categoryLvl: 3,
+                    id: 1001393
+                },
+                {
+                    name:"Тренировочные костюмы",
+                    categoryLvl: 3,
+                    id: 295
+                },
+                {
+                    name:"Тренировочные штаны",
+                    categoryLvl: 3,
+                    id: 1002616
+                },
+                {
+                    name:"Костюмы для горных лыж",
+                    categoryLvl: 3,
+                    id: 1001268
+                },
+                {
+                    name:"Штаны для горных лыж",
+                    categoryLvl: 3,
+                    id: 1001271
+                },
+            ]
         },
         {
             name: 'Футболки',
@@ -152,8 +246,11 @@ function CategoriesTree() {
     const handleSubCategoryClick = (subcategory) => {
         setSelectedCategory(subcategory?.name);
         setSubcategories(subcategory?.subcategories);
-        console.log('subcategory=',subcategory)
-        console.log('subcategory.id=',subcategory.id)
+
+        if (subcategory?.subcategories?.length) {
+            return;
+        }
+
         window.location.href = `/${gender}/products?category${subcategory.categoryLvl}Id=${subcategory.id}`;
     };
 

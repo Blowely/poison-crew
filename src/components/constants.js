@@ -27,7 +27,7 @@ export const CATEGORIES = [
     {
         name: 'Спортивная одежда',
         categoryLvl: 2,
-        id: 1001262,
+        id: 1001262,//1002618,
         womenId: 1001262
     },
     {
@@ -83,5 +83,95 @@ export const CATEGORIES = [
         categoryLvl: 3,
         id: 1003036,
         womenId: 1003036
-    }
+    },
+    {
+        name:"Вся верхняя одежда",
+        categoryLvl: 2,
+        id: 1002606
+    },
+    {
+        name:"Летняя верхняя одежда",
+        categoryLvl: 3,
+        id: 1001276
+    },
+    {
+        name:"Бейсбольная верхняя одежда",
+        categoryLvl: 3,
+        id: 285
+    },
+    {
+        name:"Пиджаки",
+        categoryLvl: 3,
+        id: 15
+    },
+    {
+        name:"Спортивные куртки",
+        categoryLvl: 3,
+        id: 7
+    },
+    {
+        name:"Джинсовые куртки",
+        categoryLvl: 3,
+        id: 11
+    },
+    {
+        name:"Ветровки",
+        categoryLvl: 3,
+        id: 17
+    },
+    {
+        name:"Кожаные куртки",
+        categoryLvl: 3,
+        id: 1002608
+    },
+    {
+        name:"Демисезонные куртки",
+        categoryLvl: 3,
+        id: 1001273
+    },
+    {
+        name:"Пальто",
+        categoryLvl: 3,
+        id: 8
+    },
+    {
+        name:"Зимние куртки",
+        categoryLvl: 3,
+        id: 12
+    },
+    {
+        name:"Пуховики",
+        categoryLvl: 3,
+        id: 9
+    },
+    {
+        name:"Баскетбольные майки",
+        categoryLvl: 3,
+        id: 1001392
+    },
+    {
+        name:"Баскетбольные штаны",
+        categoryLvl: 3,
+        id: 1001393
+    },
+    {
+        name:"Тренировочные костюмы",
+        categoryLvl: 3,
+        id: 295
+    },
+    {
+        name:"Тренировочные штаны",
+        categoryLvl: 3,
+        id: 1002616
+    },
+    {
+        name:"Костюмы для горных лыж",
+        categoryLvl: 3,
+        id: 1001268
+    },
+    {
+        name:"Штаны для горных лыж",
+        categoryLvl: 3,
+        id: 1001271
+    },
 ]
