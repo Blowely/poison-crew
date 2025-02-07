@@ -99,7 +99,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     const template = {size: null, price: null, index: null};
 
     const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price)) || template;
-
+    console.log('{ size, price, index ',{ size, price, index })
     setChoice({ size, price, index });
 
     if (sizesParam?.split(',').length  === 1) {
@@ -126,7 +126,7 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     }
 
     dispatch(
-      addToCart({ ...product, selectedSize: choice?.size, price: choice.price }),
+      addToCart({ ...product, selectedSize: choice?.size?.eu || choice?.size, price: choice.price }),
     );
     navigate("/cart");
   };
