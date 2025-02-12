@@ -99,6 +99,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 15px;
 }
 
 .cart-product-info-submit-confirm-oferta {
@@ -108,7 +109,6 @@
 
 .cart-product-info-submit-btn {
     width: 100%;
-    margin-top: 15px;
 }
 
 .total-price {
