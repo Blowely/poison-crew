@@ -423,10 +423,10 @@ function CategoriesTree() {
                         </div>
                     </div>
                     : <div className="actions-btns">
-                        <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/products`)}/>
+                        {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/products`)}/>
                         <div onClick={() => navigate("/profile")}>
                             <NonActiveProfileIcon/>
-                        </div>
+                        </div>*/}
                     </div>
                 }
             </div>
@@ -464,19 +464,29 @@ function CategoriesTree() {
             </div>
             <footer>
                 <div onClick={() => navigate("/products")}>
-                    <ActiveBagIcon/>
+                    <img style={{height: '50px'}}
+                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
+                         alt=""/>
                 </div>
-                <div>
-                    <MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate('/products')}/>
+                <div onClick={() => navigate(`/${gender}/categories/`)}>
+                    <img style={{height: '50px'}}
+                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                         alt=""/>
                 </div>
                 <div onClick={() => navigate("/cart?from=products")}>
-                    <NonActiveCartIcon/>
+                    <img style={{height: '50px'}}
+                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
+                         alt=""/>
                 </div>
-                <div style={{fontSize: '26px'}} onClick={() => navigate("/favorites")}>
-                    <HeartOutlined/>
+                <div onClick={() => navigate("/favorites")}>
+                    <img style={{height: '50px'}}
+                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
+                         alt=""/>
                 </div>
                 <div onClick={() => navigate("/profile")}>
-                    <NonActiveProfileIcon/>
+                    <img style={{height: '50px'}}
+                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
+                         alt=""/>
                 </div>
             </footer>
         </div>

@@ -422,11 +422,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
                        alt="100% authenticated"/>
                   <div className="sm_divider">|</div>
                   <div className="product-info__item poizon_auth main-txt">ВЕРЕФИЦИРОВАНО ЭКСПЕРТАМИ</div>
-                  <div className="product-info__item poizon_auth second-txt">5-шаговая аутентификация</div>
+                  {/*<div className="product-info__item poizon_auth second-txt">5-шаговая аутентификация</div>
                   <div>
                     <img className="PoizonImage_img__BNSaU"
                          src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt=""/>
-                  </div>
+                  </div>*/}
                 </div>
 
                 {isDesktopScreen &&

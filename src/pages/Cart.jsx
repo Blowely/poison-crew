@@ -1,37 +1,26 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Card, Layout, message, Modal, notification, Result, Select, Tabs} from "antd";
-import {useGetProductQuery} from "../store/products.store";
+import {Button, Card, Layout, message, notification, Result, Select, Tabs} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
     CopyOutlined,
-    DeleteOutlined,
     LeftOutlined,
-    LoadingOutlined,
     RightOutlined,
-    ShoppingCartOutlined,
-    UserOutlined
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
-import BagIcon from "../assets/svg/active-bag-icon";
-import {useAddCodeMutation, useGetAccountQuery} from "../store/accounts.store";
+import {useGetAccountQuery} from "../store/accounts.store";
 import {useAddOrderMutation} from "../store/orders.store";
-import ActiveBagIcon from "../assets/svg/active-bag-icon";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import ChoiceAddressModal from "./ChoiceAddressModal";
-import {cleanAddresses, removeAddress} from "../common/accountSlice";
+import {cleanAddresses} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
 import {clearCart, removeFromCart} from "../common/cartSlice";
-import {getIntPrice, iosCopyToClipboard} from "../common/utils";
-import SberIcon from "../assets/svg/payment/sber-icon";
-import {BANK_ICONS, BANKS, banksIcons} from "./constants";
+import {iosCopyToClipboard} from "../common/utils";
+import {BANKS} from "./constants";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 
-function Cart({onAddToFavorite, onAddToCart, isLoading}) {
+function Cart() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -47,6 +36,7 @@ function Cart({onAddToFavorite, onAddToCart, isLoading}) {
     const paymentNumberRef = useRef(null);
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
+    const gender = localStorage.getItem("gender");
 
     const cartItems = useAppSelector((state) => state.cart.items) || [];
     const addresses = useAppSelector((state) => state.account.addresses);
@@ -364,14 +354,30 @@ const onOkHandler = async () => {
 
             {!isDesktopScreen &&
                 <footer>
-                    <div onClick={() => navigate('/products')}>
-                        <NonActiveBagIcon/>
+                    <div onClick={() => navigate("/products")}>
+                        <img style={{height: '50px'}}
+                             src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
+                             alt=""/>
                     </div>
-                    <div onClick={() => navigate('/cart?from=products')}>
-                        <ActiveCartIcon style={{fontSize: '30px'}}/>
+                    <div onClick={() => navigate(`/${gender}/categories/`)}>
+                        <img style={{height: '50px'}}
+                             src="https://storage.yandexcloud.net/pc-mediafiles/icons/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
+                             alt=""/>
                     </div>
-                    <div onClick={() => navigate('/profile')}>
-                        <NonActiveProfileIcon style={{fontSize: '30px'}}/>
+                    <div onClick={() => navigate("/cart?from=products")}>
+                        <img style={{height: '50px'}}
+                             src="https://storage.yandexcloud.net/pc-mediafiles/icons/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                             alt=""/>
+                    </div>
+                    <div onClick={() => navigate("/favorites")}>
+                        <img style={{height: '50px'}}
+                             src="https://storage.yandexcloud.net/pc-mediafiles/icons/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
+                             alt=""/>
+                    </div>
+                    <div onClick={() => navigate("/profile")}>
+                        <img style={{height: '50px'}}
+                             src="https://storage.yandexcloud.net/pc-mediafiles/icons/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
+                             alt=""/>
                     </div>
                 </footer>
             }
