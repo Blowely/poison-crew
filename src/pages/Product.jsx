@@ -282,10 +282,10 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
             className="go-back-btn"
             onClick={() => window.history.go(-1)}
           />
-          <LinkOutlined
-            className="link-btn"
-            onClick={copyUrl}
-          />
+
+          <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C%D1%81%D1%8F(cropped).png"
+               className="link-btn"
+               onClick={copyUrl} alt=""/>
 
 
           <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px 0 20px' : '0'}}>

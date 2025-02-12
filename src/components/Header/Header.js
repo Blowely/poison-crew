@@ -94,13 +94,14 @@ const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isE
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
                    onPressEnter={onSearch}
-                   prefix={<SearchOutlined />}
+                   prefix={<img style={{height: '15px', marginRight: "unset"}}
+                                src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20(%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0)(cropped).png" alt=""/>}
                    suffix={<span style={{borderLeft: '1px solid #d9d9d9', paddingLeft: '10px'}}
                                  onClick={onSearch}>Найти</span>}
             />
             {!isDesktopScreen &&
-              <Button onClick={filtersBtnHandler} style={{borderRadius: '8px'}}>
-                  {isEnabledFilters ? <FilterFilled /> : <FilterOutlined />}
+              <Button onClick={filtersBtnHandler} style={{borderRadius: '8px', display: 'flex', alignItems: 'center'}}>
+                  <img style={{height: '15px', marginRight: "unset"}} src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%A4%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B(cropped).png" alt=""/>
               </Button>
             }
         </div>
