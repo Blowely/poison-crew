@@ -412,3 +412,12 @@ footer {
   align-items: center;
   justify-content: center;
 }
+
+.custom-modal > .ant-modal-content > .ant-modal-footer {
+  display: flex;
+  gap: 10px;
+  > button {
+    width: 50%!important;
+    height: inherit;
+  }
+}

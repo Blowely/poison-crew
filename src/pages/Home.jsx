@@ -382,10 +382,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
               onOk={() => {
                 setOpenBrandsModal(false);
               }}
+              cancelButtonProps={(<Button>Сбросить</Button>)}
+              cancelText="Сбросить"
+              okText="Применить"
               centered={!isDesktopScreen}
               onCancel={() => {
                 setOpenBrandsModal(false);
               }}
+              className="custom-modal"
           >
             <div
                 style={{
