@@ -18,7 +18,7 @@ import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
 import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 
-function Address({ onAddToFavorite, onAddToCart, isLoading }) {
+function Address() {
   const dispatch = useAppDispatch();
 
   const phone = useAppSelector((state) => state.account.phone);
