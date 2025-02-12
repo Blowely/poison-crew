@@ -32,7 +32,7 @@ export const CATEGORIES = [
     },
     {
         name: 'Футболки',
-        categoryLvl: 2,
+        categoryLvl: 3,
         id: 4,
         womenId: 4
     },
