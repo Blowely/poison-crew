@@ -9,6 +9,8 @@ import RePoizonMainMiddleLogo from "../../assets/svg/re-poizon-main-middle-logo"
 import GenderSwitcher from "../GenderSwitcher/GenderSwitcher";
 import Header from "../Header/Header";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {Layout} from "antd";
+import CategoryCard from "../CategoryCard";
 
 const categories = [
     /*{ name: "Идеи", subcategories: [] },
@@ -398,8 +400,10 @@ function CategoriesTree() {
     };
 
     const handleSubCategoryClick = (subcategory) => {
-        setSelectedCategory(subcategory?.name);
-        setSubcategories(subcategory?.subcategories);
+        if (subcategory?.subcategories?.length > 0) {
+            setSelectedCategory(subcategory?.name);
+            setSubcategories(subcategory?.subcategories);
+        }
 
         if (subcategory?.subcategories?.length) {
             return;
@@ -412,84 +416,99 @@ function CategoriesTree() {
     const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizesParam);
 
     return (
-        <div className="categoriesWrapper">
-            <div className="main-logo-wrapper">
-                {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo />}
-                {isDesktopScreen ?
-                    <div className="actions-btns">
-                        <GenderSwitcher/>
-                        <div onClick={() => navigate("/profile")}>
-                            <NonActiveProfileIcon/>
-                        </div>
-                    </div>
-                    : <div className="actions-btns">
-                        {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/products`)}/>
+        <Layout>
+            {selectedCategory &&
+                <CategoryCard
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    subcategories={subcategories}
+                    handleSubCategoryClick={handleSubCategoryClick}
+                />
+            }
+            {!selectedCategory &&
+                <>
+                    <div className="categoriesWrapper">
+                        <div className="main-logo-wrapper">
+                            {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo/>}
+                            {isDesktopScreen ?
+                                <div className="actions-btns">
+                                    <GenderSwitcher/>
+                                    <div onClick={() => navigate("/profile")}>
+                                        <NonActiveProfileIcon/>
+                                    </div>
+                                </div>
+                                : <div className="actions-btns">
+                                    {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/products`)}/>
                         <div onClick={() => navigate("/profile")}>
                             <NonActiveProfileIcon/>
                         </div>*/}
+                                </div>
+                            }
+                        </div>
+                        <Header search={search}
+                                showFilters={showFilters}
+                                setOffset={setOffset}
+                                setLoading={setLoading}
+                                setShowFilters={setShowFilters}
+                                isEnabledFilters={isEnabledFilters}
+                        />
+                        {!isDesktopScreen && <GenderSwitcher/>}
+                        <div className="category-selector">
+                            <div className="categories">
+                                {!selectedCategory && categories?.map((category) => (
+                                    <div key={category?.name}>
+                                        <button
+                                            className={`category-button`}
+                                            onClick={() => handleCategoryClick(category)}
+                                        >
+                                            {category?.name}
+                                        </button>
+                                    </div>
+                                ))}
+                                {selectedCategory && subcategories?.map((subcategory) => (
+                                    <div key={subcategory?.id}>
+                                        <button
+                                            className={`category-button`}
+                                            onClick={() => handleSubCategoryClick(subcategory)}
+                                        >
+                                            {subcategory?.name}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <footer>
+                            <div onClick={() => navigate("/products")}>
+                                <img style={{height: '50px'}}
+                                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
+                                     alt=""/>
+                            </div>
+                            <div onClick={() => navigate(`/${gender}/categories/`)}>
+                                <img style={{height: '50px'}}
+                                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                                     alt=""/>
+                            </div>
+                            <div onClick={() => navigate("/cart?from=products")}>
+                                <img style={{height: '50px'}}
+                                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
+                                     alt=""/>
+                            </div>
+                            <div onClick={() => navigate("/favorites")}>
+                                <img style={{height: '50px'}}
+                                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
+                                     alt=""/>
+                            </div>
+                            <div onClick={() => navigate("/profile")}>
+                                <img style={{height: '50px'}}
+                                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
+                                     alt=""/>
+                            </div>
+                        </footer>
                     </div>
-                }
-            </div>
-            <Header search={search}
-                    showFilters={showFilters}
-                    setOffset={setOffset}
-                    setLoading={setLoading}
-                    setShowFilters={setShowFilters}
-                    isEnabledFilters={isEnabledFilters}
-            />
-            {!isDesktopScreen && <GenderSwitcher/>}
-            <div className="category-selector">
-                <div className="categories">
-                    {!selectedCategory && categories?.map((category) => (
-                        <div key={category?.name}>
-                            <button
-                                className={`category-button`}
-                                onClick={() => handleCategoryClick(category)}
-                            >
-                                {category?.name}
-                            </button>
-                        </div>
-                    ))}
-                    {selectedCategory && subcategories?.map((subcategory) => (
-                        <div key={subcategory?.id}>
-                            <button
-                                className={`category-button`}
-                                onClick={() => handleSubCategoryClick(subcategory)}
-                            >
-                                {subcategory?.name}
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <footer>
-                <div onClick={() => navigate("/products")}>
-                    <img style={{height: '50px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
-                         alt=""/>
-                </div>
-                <div onClick={() => navigate(`/${gender}/categories/`)}>
-                    <img style={{height: '50px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
-                         alt=""/>
-                </div>
-                <div onClick={() => navigate("/cart?from=products")}>
-                    <img style={{height: '50px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
-                         alt=""/>
-                </div>
-                <div onClick={() => navigate("/favorites")}>
-                    <img style={{height: '50px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
-                         alt=""/>
-                </div>
-                <div onClick={() => navigate("/profile")}>
-                    <img style={{height: '50px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
-                         alt=""/>
-                </div>
-            </footer>
-        </div>
+                </>
+            }
+        </Layout>
+
 
     );
 }

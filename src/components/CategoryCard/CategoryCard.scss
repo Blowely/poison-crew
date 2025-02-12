@@ -1,0 +1,162 @@
+.cart-layout {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.content-block-header {
+  position: fixed!important;
+  height: 60px;
+  width: 100%;
+  padding: 15px;
+  background-color: white;
+  border-bottom: 1px solid #ffffff !important;;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.content-block {
+  padding: 15px;
+  padding-bottom: 160px;
+  padding-top: 60px;
+  width: 100%;
+  height: auto;
+}
+
+.cart-item {
+  margin-top: 15px;
+  width: 100%;
+  min-height: 70px;
+  background-color: white;
+  padding: 10px;
+  &.redirect {
+    margin-top: unset;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    border-bottom: 1px solid green;
+    &.borderless {
+      border: none;
+      margin-top: 15px;
+    }
+  }
+
+  &.cart-item-transparent {
+    background-color: unset;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+}
+
+.transparent {
+  background-color: unset;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+}
+
+.cart-product-info-payment {
+  display: flex;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.cart-product-info-payment-card {
+  display: grid;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.cart-product-info-payment-qr {
+  height: 160px;
+}
+
+.actions-way {
+  display: grid;
+  gap: 8px;
+}
+
+.cart-product-info-third-column {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.cart-order-info {
+  background-color: white;
+  gap: 15px;
+}
+
+.cart-product-info-submit-btn-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart-product-info-submit-confirm-oferta {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.cart-product-info-submit-btn {
+  width: 100%;
+}
+
+.total-price {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.card {
+  width: 100%;
+  max-width: 340px;
+  height: 190px;
+  background: rgb(87, 97, 110);
+  border-radius: 10px;
+  color: white;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+.formatted-card-number {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.payment-method-wrapper {
+  padding: 10px;
+}
+
+.loader-block {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  gap: 20px;
+  > span {
+    font-size: 18px;
+
+  }
+}
