@@ -17,8 +17,9 @@ const categories = [
     { name: "Новинки", subcategories: [] },*/
     { name: "Одежда", subcategories: [
         {
-            name: "Все товары",
-            id: 'all'
+            name: "Вся одежда",
+            categoryLvl: 1,
+            id: 2
         },
         {
             name:"Штаны",

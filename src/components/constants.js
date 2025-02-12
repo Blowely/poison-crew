@@ -7,6 +7,7 @@ export const BRANDS = [
 
 export const CATEGORIES = [
     {id: 38, name: "Кроссовки"},
+    {id: 2, name: "Вся одежда"},
     {id: 4, name: "Футболки"},
     {id: 122, name: "Очки"},
     {id: 305, name: "Сумки"},
