@@ -12,7 +12,7 @@ import {SIZES} from "../../pages/constants";
 function Filters(props) {
   const {
     search,
-    brandId,
+    brandIds,
     setShowFilters,
     sizes,
     colors,
@@ -101,14 +101,14 @@ function Filters(props) {
     searchParams.delete('sizes');
     searchParams.delete('minPrice');
     searchParams.delete('maxPrice');
-    searchParams.delete('brandId');
+    searchParams.delete('brandIds');
     searchParams.delete('search');
     searchParams.delete('sortBy');
     searchParams.delete('colors');
     setSearchParams(searchParams);
   }
 
-  const isFilters = !!(minPrice || maxPrice || sizes || minPriceParam || maxPriceParam || sizesParam || brandId || search || colors);
+  const isFilters = !!(minPrice || maxPrice || sizes || minPriceParam || maxPriceParam || sizesParam || brandIds || search || colors);
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizesParam}+${colorsParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${sizes.join(',')}+${colors?.join(',')}`;
 

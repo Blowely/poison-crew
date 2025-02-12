@@ -49,6 +49,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const category1IdParam = searchParams.get("category1Id");
   const category2IdParam = searchParams.get("category2Id");
   const category3IdParam = searchParams.get("category3Id");
+  const brandsParam = searchParams.get("brandIds");
+
 
   const [limit] = useState(20);
   const [offset, setOffset] = useState(1);
@@ -57,14 +59,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [minPrice, setMinPrice] = useState(minPriceParam || '');
   const [maxPrice, setMaxPrice] = useState(maxPriceParam || '');
   const [sizes, setSizes] = useState(!!sizesParam ? sizesParam?.split(',') : []);
-  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState(!!brandsParam ? brandsParam?.split(',') : []);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
   const search = searchParams.get("search");
-  const brandId = searchParams.get("brandId");
   const collection = searchParams.get("collName") || "";
   const type = searchParams.get("type");
   const url = searchParams.get("url");
@@ -102,13 +103,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
       sort: sortBy || 'by-relevance'
     };
 
-    if (brandId) {
-      obj.brandId = brandId;
+    if (brandsParam) {
+      obj.brandIds = brandsParam;
     }
-
+/*
     if (selectedBrands?.length) {
       obj.brandIds = selectedBrands.map(({id}) => id).join(',');
-    }
+    }*/
 
     if (collection) {
       obj.collName = collection;
@@ -155,7 +156,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${brandId}+${search}+${sizesParam}`+
+  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${brandsParam}+${search}+${sizesParam}`+
     `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
@@ -286,14 +287,15 @@ function Home({ onAddToFavorite, onAddToCart }) {
   );
 
   const onBrandClick = (brand) => {
-    if (brand.toString() === brandId) {
-      searchParams.delete('brandId');
+    if (brand.toString() === brandsParam) {
+      searchParams.delete('brandIds');
       return setSearchParams(searchParams);
     }
 
+    setSelectedBrands((prev) => [...prev, Number(brand)]);
     setLoading(true);
     setOffset(1);
-    searchParams.set('brandId', brand);
+    searchParams.set('brandIds', brand);
     setSearchParams(searchParams);
   }
 
@@ -344,7 +346,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const getBorderStyle = (selectedBrandId) => {
-    if (brandId === selectedBrandId.toString()) {
+    if (brandsParam === selectedBrandId.toString()) {
       return {border: "1px solid grey"};
     }
   }
@@ -369,6 +371,23 @@ function Home({ onAddToFavorite, onAddToCart }) {
     return navigate('/products');
   }
 
+  const onApplyBrandsClick = () => {
+    if (!selectedBrands.length) {
+      return;
+    }
+
+    searchParams.set('brandIds', selectedBrands.join(','));
+    setSearchParams(searchParams);
+    setOpenBrandsModal(false);
+  }
+
+  const onCancelBrandsClick = (e) => {
+    setSelectedBrands([]);
+    searchParams.delete('brandIds');
+    setSearchParams(searchParams);
+    setOpenBrandsModal(false);
+  }
+
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
       {spuId && <div className="productWrapper" id="productWrapper">
@@ -379,14 +398,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
           <Modal
               title="Бренды"
               open={isOpenBrandsModal}
-              onOk={() => {
-                setOpenBrandsModal(false);
-              }}
+              onOk={onApplyBrandsClick}
               cancelButtonProps={(<Button>Сбросить</Button>)}
-              cancelText="Сбросить"
+              cancelText={<Button onClick={onCancelBrandsClick}>Сбросить</Button>}
               okText="Применить"
               centered={!isDesktopScreen}
-              onCancel={() => {
+              onCancel={(e) => {
                 setOpenBrandsModal(false);
               }}
               className="custom-modal"
@@ -520,7 +537,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 <div className="filters-wrapper" ref={filtersRef}>
                   <Filters
                       search={search}
-                      brandId={brandId}
+                      brandIds={selectedBrands}
                       sizes={sizes}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
@@ -545,6 +562,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     setOffset={setOffset}
                     setSizes={setSizes}
                     setColors={setColors}
+                    setBrands={setSelectedBrands}
                     setOpenBrandsModal={setOpenBrandsModal}/>
 
                 <div className="inputs-wrapper">

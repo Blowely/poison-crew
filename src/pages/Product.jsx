@@ -185,11 +185,11 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   }
 
   const onBrandClick = () => {
-    navigate(`?brandId=${product?.brandId}`);
+    navigate(`?brandIds=${product?.brandIds}`);
   }
 
   const getImgSrc = () => {
-    const brandIndex = BRANDS.findIndex(el => el.id === product?.brandId);
+    const brandIndex = BRANDS.findIndex(el => el.id === product?.brandIds);
     if (brandIndex === -1) {
       return null
     }

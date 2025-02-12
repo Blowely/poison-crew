@@ -6,9 +6,10 @@ import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 import {BrandTag} from "../BrandTag/BrandTag";
 
-const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
+const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const params = Object.fromEntries(searchParams.entries());
+    const brandsParams = searchParams.get("brandIds");
 
     const isDesktopScreen = window?.innerWidth > 768;
 
@@ -69,6 +70,10 @@ const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
             setSizes([]);
         }
 
+        if (key === 'brandIds') {
+            setBrands([]);
+        }
+
         searchParams.delete(key);
         setSearchParams(searchParams);
         setOffset(1);
@@ -79,15 +84,13 @@ const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
     }
 
     return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {
-        if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
+        if ((key === 'category3Id' || key === 'category2Id' || key === 'category1Id') && !brandsParams) {
             return <Button key={key}
                            size="small"
                            color="default"
                            className="fast-filters-btn"
                            variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
-        }
-
-        if (key === 'brandId') {
+        } else if (key === 'brandIds') {
             const brandsIds = params[key]?.split(',');
 
             if (brandsIds?.length === BRANDS.length) {
@@ -99,7 +102,11 @@ const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
 
             return <BrandTag brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
                              brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
+        } else {
+            return null
         }
+
+
 
         return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
     })}</div>

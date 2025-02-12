@@ -1,13 +1,15 @@
 import React from "react";
 import {BRANDS} from "../constants";
+import {Checkbox} from "antd";
 
 const BrandsModalSelector = ({brands, setBrands}) => {
-
-    const toggleSelectColor = (color) => {
+    console.log('brands',brands)
+    const toggleSelectColor = (id) => {
+        console.log('id',id)
         setBrands((prev) =>
-            prev?.includes(color)
-                ? prev.filter((c) => c !== color)
-                : [...prev, color]
+            prev?.includes(id)
+                ? prev.filter((c) => c !== id)
+                : [...prev, id]
         );
     };
 
@@ -20,8 +22,7 @@ const BrandsModalSelector = ({brands, setBrands}) => {
             <ul>
                 {BRANDS?.map((brand) => (
                     <li key={brand.name} onClick={() => toggleSelectColor(brand.id)}>
-                        <input
-                            type="checkbox"
+                        <Checkbox
                             checked={isChecked(brand.id)}
                             readOnly
                         />
