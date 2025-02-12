@@ -49,7 +49,12 @@
 .filters-tags-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  align-items: center;
+  margin-top: 30px;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 }
 
 .inputs-wrapper {

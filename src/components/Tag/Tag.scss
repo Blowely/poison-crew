@@ -1,8 +1,17 @@
 .tag-wrapper {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   padding: 0px 20px 6px;
   > span > span {
     font-size: 14px!important;
+  }
+
+  > .fast-filters-btn {
+    border: none;
+
+    :hover {
+      color: #00d1e4!important;
+    }
   }
 }

@@ -64,6 +64,16 @@ header {
   h1 {
     margin: 0px;
   }
+
+  .category-title {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 130%;
+    padding: 20px 20px 0 20px;
+    display: flex;
+    gap: 6px;
+  }
 }
 
 .cards-section-wrapper {
@@ -300,7 +310,7 @@ header {
 }
 
 .filters-wrapper {
-  //margin-top: 20px;
+  margin-top: 20px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;

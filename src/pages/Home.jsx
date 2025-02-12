@@ -9,7 +9,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import JordanIcon from "../assets/svg/brands/jordan-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import {Button, Empty, Layout, Pagination, Select} from "antd";
+import {Button, Empty, Layout, Modal, Pagination, Select} from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
@@ -31,7 +31,10 @@ import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
-import {HeartOutlined, MenuOutlined} from "@ant-design/icons";
+import {HeartOutlined, LeftOutlined, MenuOutlined} from "@ant-design/icons";
+import {CATEGORIES} from "../components/constants";
+import MeasureTable from "../components/MeasureTable/MeasureTable";
+import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -56,6 +59,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [sizes, setSizes] = useState(!!sizesParam ? sizesParam?.split(',') : []);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
+  const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -66,6 +70,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const url = searchParams.get("url");
   const spuId = searchParams.get("spuId");
   const sortBy = searchParams.get("sortBy");
+  const category1Id = searchParams.get("category1Id");
+  const category2Id = searchParams.get("category2Id");
+  const category3Id = searchParams.get("category3Id");
+
+  const selectedCategory = category1Id || category2Id || category3Id;
 
   const [sort, setSort] = useState(sortBy || 'by-relevance');
 
@@ -347,12 +356,52 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setOffset(1);
   };
 
+  const getCategoryTitle = () => {
+    if (!selectedCategory) {
+      return '';
+    }
+
+    const index = CATEGORIES.findIndex((el) => el.id === Number(selectedCategory));
+    return CATEGORIES[index]?.name || '';
+  }
+
+  const onGoBackClick = () => {
+    return navigate('/products');
+  }
+
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
       {spuId && <div className="productWrapper" id="productWrapper">
         <Product selectedProduct={selectedProduct}/>
       </div>
       }
+      {isOpenBrandsModal && (
+          <Modal
+              title="Бренды"
+              open={isOpenBrandsModal}
+              onOk={() => {
+                setOpenBrandsModal(false);
+              }}
+              centered={!isDesktopScreen}
+              onCancel={() => {
+                setOpenBrandsModal(false);
+              }}
+          >
+            <div
+                style={{
+                  display: "grid",
+                  padding: "15px",
+                  borderBottom: "1px solid #ececec",
+                  gap: "15px",
+                }}
+            >
+              <div style={{ fontSize: "22px", fontWeight: "500" }}>
+                Бренды
+              </div>
+              <BrandsModalSelector />
+            </div>
+          </Modal>
+      )}
       <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
            ref={filtersRef}>
         <Filters
@@ -407,55 +456,61 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 setShowFilters={setShowFilters}
                 isEnabledFilters={isEnabledFilters}
         />
-        {!isDesktopScreen && <GenderSwitcher/>}
+        {!isDesktopScreen && !selectedCategory && <GenderSwitcher/>}
 
         <div className="content">
-          <div className="brands-section-wrapper">
-            <div className="brands-section-wrapper_card"
-                 onClick={() => onBrandClick(144)}>
-              <div className="brands-section-wrapper_card-icon" style={getBorderStyle(144)}>
-                <NikeIcon />
-              </div>
-              <div style={{ fontWeight: "bold", fontSize: "10px" }}>NIKE</div>
-            </div>
-          <div
-            className="brands-section-wrapper_card"
-            onClick={() => onBrandClick(494)}
-          >
-            <div className="brands-section-wrapper_card-icon" style={getBorderStyle(494)}>
-              <AdidasIcon />
-            </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>ADIDAS</div>
-          </div>
-          <div
-            className="brands-section-wrapper_card"
-            onClick={() => onBrandClick(4)}
-          >
-            <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
-              <NewBalanceIcon />
-            </div>
-            <div style={{ fontWeight: "bold", fontSize: "10px" }}>NB</div>
-          </div>
-
-          <div className="brands-section-wrapper_card"
-               onClick={() => onBrandClick(13)}>
-            <div className="brands-section-wrapper_card-icon" style={getBorderStyle(13)}>
-              <JordanIcon />
-            </div>
-            <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
-          </div>
-
-            {isDesktopScreen &&
-                <div className="brands-section-wrapper_card"
-                     onClick={() => console.log('more')}>
-                  <div className="brands-section-wrapper_card-icon">
-                    <MoreIcon/>
+          {selectedCategory && !isDesktopScreen &&
+              <div className="category-title"><LeftOutlined onClick={onGoBackClick}/>{getCategoryTitle()}</div>}
+          {!selectedCategory &&
+              <>
+                <div className="brands-section-wrapper">
+                  <div className="brands-section-wrapper_card"
+                       onClick={() => onBrandClick(144)}>
+                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(144)}>
+                      <NikeIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>NIKE</div>
                   </div>
-                  <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
+                  <div
+                      className="brands-section-wrapper_card"
+                      onClick={() => onBrandClick(494)}
+                  >
+                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(494)}>
+                      <AdidasIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>ADIDAS</div>
+                  </div>
+                  <div
+                      className="brands-section-wrapper_card"
+                      onClick={() => onBrandClick(4)}
+                  >
+                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
+                      <NewBalanceIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>NB</div>
+                  </div>
+
+                  <div className="brands-section-wrapper_card"
+                       onClick={() => onBrandClick(13)}>
+                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(13)}>
+                      <JordanIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
+                  </div>
+
+                  {isDesktopScreen &&
+                      <div className="brands-section-wrapper_card"
+                           onClick={() => console.log('more')}>
+                        <div className="brands-section-wrapper_card-icon">
+                          <MoreIcon/>
+                        </div>
+                        <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
+                      </div>
+                  }
                 </div>
-            }
-          </div>
-          <Categories setLoading={setLoading}/>
+                <Categories setLoading={setLoading}/>
+              </>
+          }
           <div className="filters-content-wrapper">
             {isDesktopScreen && (
                 <div className="filters-wrapper" ref={filtersRef}>
@@ -479,8 +534,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 </div>
             )}
             <div style={{width: "100%"}}>
+              {selectedCategory && isDesktopScreen &&
+                  <div className="category-title"><LeftOutlined onClick={onGoBackClick}/>{getCategoryTitle()}</div>}
               <div className="filters-tags-wrapper">
-                <FilterTags setOffset={setOffset} setSizes={setSizes} setColors={setColors} />
+                <FilterTags
+                    setOffset={setOffset}
+                    setSizes={setSizes}
+                    setColors={setColors}
+                    setOpenBrandsModal={setOpenBrandsModal}/>
 
                 <div className="inputs-wrapper">
                   <Select
@@ -500,9 +561,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen &&
             <footer>
               <div onClick={() => navigate("/products")}>
-                <img style={{height: '50px'}} src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png" alt=""/>
+                <img style={{height: '50px'}}
+                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                     alt=""/>
               </div>
-              <div  onClick={() => navigate(`/${gender}/categories/`)}>
+              <div onClick={() => navigate(`/${gender}/categories/`)}>
                 <img style={{height: '50px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
                      alt=""/>

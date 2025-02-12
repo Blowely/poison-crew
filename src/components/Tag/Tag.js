@@ -1,11 +1,11 @@
 import React from "react";
-import {Tag} from "antd";
+import {Button, Tag} from "antd";
 import {useSearchParams} from "react-router-dom";
 import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 
-const FilterTags = ({setOffset, setSizes, setColors}) => {
+const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const params = Object.fromEntries(searchParams.entries());
 
@@ -30,10 +30,10 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
             return `Размер ${params[key]}`;
         }
 
-        if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
+        /*if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
             const index = CATEGORIES.findIndex((el) => el.id === Number(params[key]));
             return CATEGORIES[index]?.name || '';
-        }
+        }*/
 
         if (key === 'sortBy') {
             if (isDesktopScreen) {
@@ -84,6 +84,14 @@ const FilterTags = ({setOffset, setSizes, setColors}) => {
     }
 
     return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {
+        if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
+            return <Button key={key}
+                           size="small"
+                           color="default"
+                           className="fast-filters-btn"
+                           variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
+        }
+
         return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
     })}</div>
 }
