@@ -398,7 +398,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
               <div style={{ fontSize: "22px", fontWeight: "500" }}>
                 Бренды
               </div>
-              <BrandsModalSelector />
+              <BrandsModalSelector brands={selectedBrands} setBrands={setSelectedBrands} />
             </div>
           </Modal>
       )}

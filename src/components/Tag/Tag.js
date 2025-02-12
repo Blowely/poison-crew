@@ -4,6 +4,7 @@ import {useSearchParams} from "react-router-dom";
 import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
+import {BrandTag} from "../BrandTag/BrandTag";
 
 const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -12,12 +13,6 @@ const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
     const isDesktopScreen = window?.innerWidth > 768;
 
     const getValue = (key) => {
-        if (key === 'brandId') {
-            const index = BRANDS.findIndex((el) => el.id === Number(params[key]));
-
-            return index >= 0 ? BRANDS[index]?.name : params[key];
-        }
-
         if (key === 'maxPrice') {
             return `до ${params[key]}`;
         }
@@ -90,6 +85,20 @@ const FilterTags = ({setOffset, setSizes, setColors, setOpenBrandsModal}) => {
                            color="default"
                            className="fast-filters-btn"
                            variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
+        }
+
+        if (key === 'brandId') {
+            const brandsIds = params[key]?.split(',');
+
+            if (brandsIds?.length === BRANDS.length) {
+                return "Все бренды";
+            }
+
+            const brandIndex = BRANDS.findIndex(c => c.id === Number(brandsIds[0]));
+            const firstBrand = brandIndex >= 0 ? BRANDS[brandIndex].name : null
+
+            return <BrandTag brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
+                             brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
         }
 
         return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
