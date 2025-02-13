@@ -167,7 +167,7 @@ function Product({ selectedProduct }) {
   };
 
   const onBrandClick = () => {
-    navigate(`?brandIds=${product?.brandIds}`);
+    navigate(`?brandIds=${product?.brandId}`);
   }
 
   const getImgSrc = () => {
