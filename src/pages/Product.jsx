@@ -180,7 +180,7 @@ function Product({ selectedProduct }) {
 
   const copyUrl = () => {
     navigator.clipboard.writeText(window.location.href);
-    message.success( 'Скопировано')
+    message.success( 'Ссылка скопирована')
   }
 
 
@@ -330,12 +330,15 @@ function Product({ selectedProduct }) {
                               <div>Размер: EU</div>
                             </div>
                           </div>
-                          <div className="size_guide" onClick={onMeasureOpenClick}>
-                            Таблица размеров
-                            <img className="PoizonImage_img__BNSaU"
-                                 src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
-                                 alt=""/>
-                          </div>
+                          {product?.category?.category1 === 'footwear' &&
+                              <div className="size_guide" onClick={onMeasureOpenClick}>
+                                Таблица размеров
+                                <img className="PoizonImage_img__BNSaU"
+                                     src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                     alt=""/>
+                              </div>
+                          }
+
                         </div>
                         <div className="list">
                           {sizesAndPrices?.filter(el => el.price)?.map((el, i) => (
@@ -419,12 +422,14 @@ function Product({ selectedProduct }) {
                             <div>Размер: EU</div>
                           </div>
                         </div>
-                        <div className="size_guide" onClick={onMeasureOpenClick}>
-                          Таблица размеров
-                          <img className="PoizonImage_img__BNSaU"
-                               src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
-                               alt=""/>
-                        </div>
+                        {product?.category?.category1 === 'footwear' &&
+                            <div className="size_guide" onClick={onMeasureOpenClick}>
+                              Таблица размеров
+                              <img className="PoizonImage_img__BNSaU"
+                                   src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                   alt=""/>
+                            </div>
+                        }
                       </div>
                       <div className="list">
                         {sizesAndPrices?.filter(el => el.price)?.map((el, i) => (
