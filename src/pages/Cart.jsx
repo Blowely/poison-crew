@@ -268,7 +268,7 @@ const onOkHandler = async () => {
                                                     style={{width: '100px'}} alt=""/>
                                                 <div>
                                                     <div style={{fontSize: '16px'}}>{el?.name}</div>
-                                                    <div>размер: {el.selectedSize}</div>
+                                                    <div>размер: {el?.selectedSize}</div>
                                                 </div>
                                             </div>
 

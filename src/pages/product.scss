@@ -170,7 +170,7 @@
     background: white;
     width: 100%;
     min-height: 40px;
-    border-radius: 8px;
+    border-radius: 20px;
 
     &.standart {
         font-size: 20px;
@@ -288,7 +288,7 @@
     font-size: 20px;
     font-weight: 700;
     font-family: "Roboto Condensed";
-    border-radius: 8px;
+    border-radius: 20px;
 
     &:hover {
         background: unset;
@@ -323,7 +323,7 @@
 
     .brand-logo {
         height: 100%;
-        border-radius: 8px;
+        border-radius: 20px;
         object-fit: contain;
     }
 

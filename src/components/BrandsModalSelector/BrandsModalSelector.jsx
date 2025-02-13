@@ -1,6 +1,7 @@
 import React from "react";
 import {BRANDS} from "../constants";
 import {Checkbox} from "antd";
+import "./BrandsSelector.scss"
 
 const BrandsModalSelector = ({brands, setBrands}) => {
     console.log('brands',brands)
@@ -18,7 +19,7 @@ const BrandsModalSelector = ({brands, setBrands}) => {
     }
 
     return (
-        <div className="color-selector">
+        <div className="brand-selector">
             <ul>
                 {BRANDS?.map((brand) => (
                     <li key={brand.name} onClick={() => toggleSelectColor(brand.id)}>
