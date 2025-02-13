@@ -19,7 +19,6 @@ const BrandsModalSelector = ({brands, setBrands}) => {
     }
 
     const onSearchChange = (val) => {
-        console.log(val)
         setSearch(val);
     }
 
