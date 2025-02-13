@@ -29,7 +29,7 @@ import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
-import {LeftOutlined} from "@ant-design/icons";
+import {ArrowUpOutlined, LeftOutlined} from "@ant-design/icons";
 import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 
@@ -387,6 +387,23 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setOpenBrandsModal(false);
   }
 
+  const scrollButton = document.getElementById('scrollToTop');
+
+  window?.addEventListener('scroll', () => {
+    if (window?.scrollY > 200) {
+      scrollButton?.classList?.add('show');
+    } else {
+      scrollButton?.classList?.remove('show');
+    }
+  });
+
+  scrollButton?.addEventListener('click', () => {
+    window?.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
   return (
     <Layout style={{ backgroundColor: "white", position: "relative" }}>
       {spuId && <div className="productWrapper" id="productWrapper">
@@ -579,9 +596,15 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
           </div>
         </div>
+        {!spuId &&
+            <div className="scroll-top" id="scrollToTop">
+              <ArrowUpOutlined/>
+            </div>
+        }
+
         {!isDesktopScreen &&
             <footer>
-              <div onClick={() => navigate("/products")}>
+            <div onClick={() => navigate("/products")}>
                 <img style={{height: '50px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
                      alt=""/>

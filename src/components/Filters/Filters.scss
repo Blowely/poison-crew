@@ -97,3 +97,28 @@
     padding: 10px;
   }
 }
+
+.scroll-top {
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  top: calc(100vh - 20vh);
+  color: gray;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  padding: 30px;
+  border-radius: 35px;
+  background: rgba(237, 237, 237, 0.8);
+  font-size: 23px;
+  right: 50px;
+
+  @media (max-width: 768px) {
+    right: 10px;
+  }
+}
+
+.scroll-top.show {
+  display: flex;
+}
