@@ -84,7 +84,7 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
     const filter = (el) => {
         return el !== "sortBy";
     }
-    console.log('params',params)
+
     return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {
         if (key === 'category1Id' || key === 'category2Id' || key === 'category3Id') {
             return null;

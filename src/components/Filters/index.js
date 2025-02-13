@@ -76,7 +76,10 @@ function Filters(props) {
       setSearchParams(searchParams);
     }
 
-    setMinPrice(e.target.value);
+    const reg = /^-?\d*(\.\d*)?$/;
+    if (reg.test(e.target.value)) {
+      setMinPrice(e.target.value);
+    }
   }
 
   const maxPriceHandler = (e) => {
@@ -85,7 +88,10 @@ function Filters(props) {
       setSearchParams(searchParams);
     }
 
-    setMaxPrice(e.target.value);
+    const reg = /^-?\d*(\.\d*)?$/;
+    if (reg.test(e.target.value)) {
+      setMaxPrice(e.target.value);
+    }
   }
 
   const getPrice = (price) => {
@@ -128,7 +134,7 @@ function Filters(props) {
           </div>
 
           <div className="inputs-wrapper">
-            <Input size="large" placeholder="3020" prefix="от" suffix="₽" type="number"
+            <Input size="large" placeholder="3020" prefix="от" suffix="₽"
                    value={getPrice(minPrice || minPriceParam)} onChange={minPriceHandler}/>
             <Input size="large" placeholder="520433" prefix="до" suffix="₽"
                    value={getPrice(maxPrice || maxPriceParam)} onChange={maxPriceHandler}/>
