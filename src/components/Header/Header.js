@@ -87,7 +87,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading}) => {
           className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
         >
         <div className="header-input-wrapper">
-            <Input placeholder="Я ищу..."
+            <Input placeholder="Название, бренд..."
                    allowClear
                    value={searchValue}
                    onChange={(e) => onChange(e.target.value)}
