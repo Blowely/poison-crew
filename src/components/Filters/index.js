@@ -133,6 +133,8 @@ function Filters(props) {
     if (footwear2Categories.includes(category2Id) ) {
       return true;
     }
+
+    return !isSelectedCategory;
   }
 
   return (

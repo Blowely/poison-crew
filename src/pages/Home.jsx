@@ -365,7 +365,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onGoBackClick = () => {
-    return navigate('/products');
+    return navigate(`/${gender}/categories/`);
   }
 
   const onApplyBrandsClick = () => {

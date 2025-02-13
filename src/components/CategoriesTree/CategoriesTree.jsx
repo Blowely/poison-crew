@@ -383,7 +383,6 @@ function CategoriesTree() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedSubCategory, setSelectedSubCategory] = useState(null);
     const [subcategories, setSubcategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [offset, setOffset] = useState(1);
