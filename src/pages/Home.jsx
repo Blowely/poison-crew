@@ -13,12 +13,10 @@ import {Button, Empty, Layout, Modal, Pagination, Select} from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
-import ActiveBagIcon from "../assets/svg/active-bag-icon.js";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
 import {addProducts} from "../common/productsSlice";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
@@ -31,9 +29,8 @@ import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
-import {HeartOutlined, LeftOutlined, MenuOutlined} from "@ant-design/icons";
+import {LeftOutlined} from "@ant-design/icons";
 import {CATEGORIES} from "../components/constants";
-import MeasureTable from "../components/MeasureTable/MeasureTable";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 
 function Home({ onAddToFavorite, onAddToCart }) {

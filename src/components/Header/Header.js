@@ -100,8 +100,10 @@ const Header = ({search, showFilters, setShowFilters, setOffset, setLoading, isE
                                  onClick={onSearch}>Найти</span>}
             />
             {!isDesktopScreen &&
-              <Button onClick={filtersBtnHandler} style={{borderRadius: '20px', display: 'flex', alignItems: 'center'}}>
-                  <img style={{height: '15px', marginRight: "unset"}} src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%A4%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B(cropped).png" alt=""/>
+              <Button onClick={filtersBtnHandler}
+                      style={{borderRadius: '20px', display: 'flex', alignItems: 'center', border: "unset"}}>
+                  <img style={{height: '15px', marginRight: "unset"}}
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%A4%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B(cropped).png" alt=""/>
               </Button>
             }
         </div>

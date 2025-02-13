@@ -24,9 +24,6 @@ function Filters(props) {
     setSizes,
     setColors,
     applyFilters,
-    selectedBrands,
-    setSelectedBrands,
-    setLoading,
     setOffset,
   } = props
 
