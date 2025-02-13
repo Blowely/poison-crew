@@ -83,6 +83,8 @@
             width: 100%;
                 > div {
                     border: none!important;
+                    border-top-left-radius: 20px;
+                    border-top-right-radius: 20px;
                 }
             }
         }

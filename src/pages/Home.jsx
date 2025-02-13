@@ -156,8 +156,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
     refetch,
   } = useGetProductsQuery(buildRequest());
 
-  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${brandsParam}+${search}+${sizesParam}`+
-    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}${selectedBrands?.map(({id}) => `+${id}`)}` || collection;
+  const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
+    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
