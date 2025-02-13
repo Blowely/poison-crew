@@ -1,34 +1,27 @@
 import React, {
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState
 } from "react";
 import {
   Button,
-  Divider,
   Dropdown,
   Input,
-  message,
   Modal,
   notification,
   Radio
 } from "antd";
-import { useGetProductQuery } from "../store/products.store";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./choiceAddressModal.scss";
-import { LoadingOutlined, UserOutlined } from "@ant-design/icons";
 import {
-  useLazyGetCodeQuery,
   useAddCodeMutation,
   useUpdateActiveAddressMutation,
   useAddAddressMutation,
   useDeleteAddressMutation
 } from "../store/accounts.store";
-import FormItem from "antd/es/form/FormItem";
-import { useAppDispatch, useAppSelector } from "../store";
-import { addPhone, setAddress } from "../common/accountSlice";
+import { useAppDispatch } from "../store";
+import { setAddress } from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
 import { addressTypes } from "./constants";
 
@@ -44,10 +37,7 @@ function ChoiceAddressModal({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
   const [phone, setPhone] = useState("");
-  const [code, setCode] = useState(null);
-  const [getCode, { codeData, isLoadingCode }] = useLazyGetCodeQuery();
   const [sendCode, { isLoading: isLoadingPostCode, error }] =
     useAddCodeMutation({}, { refetchOnMountOrArgChange: true });
   const [updateActiveAddress] = useUpdateActiveAddressMutation();

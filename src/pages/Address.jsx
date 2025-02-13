@@ -33,7 +33,6 @@ function Address() {
 
   const [
     updateActiveAddress,
-    { isLoading: isLoadingUpdateActiveAddress, activeAddressError }
   ] = useUpdateActiveAddressMutation();
 
   const remotePhone = accountData?.account?.phone;
