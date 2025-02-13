@@ -25,6 +25,7 @@ function Filters(props) {
     setColors,
     applyFilters,
     setOffset,
+    setSelectedBrands
   } = props
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -100,7 +101,9 @@ function Filters(props) {
     setMinPrice('');
     setSizes([]);
     setColors([]);
+    setColors([]);
     setOffset(1);
+    setSelectedBrands([])
     searchParams.delete('sizes');
     searchParams.delete('minPrice');
     searchParams.delete('maxPrice');
@@ -108,12 +111,13 @@ function Filters(props) {
     searchParams.delete('search');
     searchParams.delete('sortBy');
     searchParams.delete('colors');
+    searchParams.delete('brandIds');
     setSearchParams(searchParams);
   }
 
   const isFilters = !!(minPrice || maxPrice || sizes || minPriceParam || maxPriceParam || sizesParam || brandIds || search || colors);
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizesParam}+${colorsParam}`;
-  const currentLine = `${minPrice}+${maxPrice}+${sizes.join(',')}+${colors?.join(',')}`;
+  const currentLine = `${minPrice}+${maxPrice}+${sizes.join(',')}+${colors?.join(',')}+${brandIds?.join(',')}`;
 
   return (
     <div className="filters-component-wrapper">
