@@ -6,7 +6,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import { useGetBrandsQuery } from "../../store/brands.store";
 import ColorSelector from "../ColorSelector/ColorSelector";
-import {SIZES} from "../../pages/constants";
+import {APPAREL_SIZES, SIZES} from "../../pages/constants";
 
 
 function Filters(props) {
@@ -18,7 +18,6 @@ function Filters(props) {
     colors,
     minPrice,
     maxPrice,
-    category3Id,
     setMaxPrice,
     setMinPrice,
     setSizes,
@@ -34,6 +33,11 @@ function Filters(props) {
   const minPriceParam = searchParams.get("minPrice") || "";
   const maxPriceParam = searchParams.get("maxPrice") || "";
   const colorsParam = searchParams.get("colors") || "";
+  const category1Id = searchParams.get("category1Id") || "";
+  const category2Id = searchParams.get("category2Id") || "";
+  const category3Id = searchParams.get("category3Id") || "";
+
+  const isSelectedCategory = !!(category1Id || category2Id || category3Id);
 
   const isDesktopScreen = window.screen.availWidth > 600;
 
@@ -119,6 +123,18 @@ function Filters(props) {
   const queryLine = `${minPriceParam}+${maxPriceParam}+${sizesParam}+${colorsParam}`;
   const currentLine = `${minPrice}+${maxPrice}+${sizes.join(',')}+${colors?.join(',')}+${brandIds?.join(',')}`;
 
+  const isFootwear = () => {
+    if (category1Id === '29') {
+      return true;
+    }
+
+    const footwear2Categories = ['35', '30', '410', '292'];
+
+    if (footwear2Categories.includes(category2Id) ) {
+      return true;
+    }
+  }
+
   return (
     <div className="filters-component-wrapper">
       {!isDesktopScreen && (
@@ -143,11 +159,33 @@ function Filters(props) {
         </div>
         <div className="params-item-wrapper">
           <div className="param-title">
-            Размеры, EU
+            Размеры{isFootwear() ? ", EU" : (isSelectedCategory ? null : ', EU')}
           </div>
 
           <div className="list">
-            {SIZES?.map((el, i) => (
+            {isFootwear() && SIZES?.map((el, i) => (
+                <div
+                    className={
+                      sizes?.includes(el)
+                          ? "size-wrapper gap-2 selected"
+                          : "size-wrapper gap-2"
+                    }
+                    onClick={() => onChangeChoiceHandler(el)}
+                    key={i}
+                    role="presentation"
+                >
+                  <div
+                      style={{
+                        fontSize: "15px",
+                        fontWeight: "400",
+                        textAlign: "center",
+                      }}
+                  >
+                    {el}
+                  </div>
+                </div>
+            ))}
+            {!isFootwear() && APPAREL_SIZES?.map((el, i) => (
                 <div
                     className={
                       sizes?.includes(el)

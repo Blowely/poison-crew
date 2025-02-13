@@ -145,6 +145,20 @@ export const COLOR_LIST = [
     { name: "Чёрный", color: "#000000", hex: "000000" }
 ];
 
+export const APPAREL_SIZES = [
+    'XXXXS',
+    'XXXS',
+    'XXS',
+    'XS',
+    'S',
+    'M',
+    'L',
+    'XL',
+    'XXL',
+    'XXXL',
+    'XXXXL',
+]
+
 export const SIZES = [
     "35",
     "35.5",
