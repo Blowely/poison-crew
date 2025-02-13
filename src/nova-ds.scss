@@ -121,3 +121,8 @@ footer {
   max-height: calc(100vh - 40vh);
   overflow: auto;
 }
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: rgb(1, 194, 195) !important; /* Новый цвет */
+  border-color: rgb(1, 194, 195) !important; /* Граница */
+}
