@@ -9,10 +9,9 @@ import {BrandTag} from "../BrandTag/BrandTag";
 const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal}) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const params = Object.keys(Object.fromEntries(searchParams.entries())).length
+    const params = Object.keys(Object.fromEntries(searchParams.entries()))?.includes('brandIds')
         ? Object.fromEntries(searchParams.entries())
-        : {brandIds: null};
-    const brandsParams = searchParams.get("brandIds");
+        : {...Object.fromEntries(searchParams.entries()), brandIds: ""};
 
     const isDesktopScreen = window?.innerWidth > 768;
 
@@ -85,23 +84,21 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
     const filter = (el) => {
         return el !== "sortBy";
     }
-
+    console.log('params',params)
     return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {
-        if ((key === 'category3Id' || key === 'category2Id' || key === 'category1Id') && !brandsParams) {
-            return <Button key={key}
-                           size="middle"
-                           color="default"
-                           className="fast-filters-btn"
-                           variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
-        } else if (key === 'brandIds') {
-            const brandsIds = params[key]?.split(',');
+        if (key === 'category1Id' || key === 'category2Id' || key === 'category3Id') {
+            return null;
+        }
+
+        if (key === 'brandIds') {
+            const brandsIds = params[key]?.length ? params[key]?.split(',') : [];
 
             if (!brandsIds?.length) {
                 return <Button key={key}
-                          size="middle"
-                          color="default"
-                          className="fast-filters-btn"
-                          variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
+                               size="middle"
+                               color="default"
+                               className="fast-filters-btn"
+                               variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
             }
 
             const brandIndex = BRANDS.findIndex(c => c.id === Number(brandsIds[0]));
@@ -109,9 +106,8 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
 
             return <BrandTag key={key} brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
                              brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
-        } else if ((key === 'category3Id' || key === 'category2Id' || key === 'category1Id')) {
-            return null;
         }
+
 
         return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
     })}</div>
