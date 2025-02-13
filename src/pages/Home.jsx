@@ -373,12 +373,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
       return;
     }
 
+    setOffset(1);
     searchParams.set('brandIds', selectedBrands.join(','));
     setSearchParams(searchParams);
     setOpenBrandsModal(false);
   }
 
-  const onCancelBrandsClick = (e) => {
+  const onCancelBrandsClick = () => {
+    setOffset(1);
     setSelectedBrands([]);
     searchParams.delete('brandIds');
     setSearchParams(searchParams);

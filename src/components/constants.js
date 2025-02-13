@@ -5,7 +5,6 @@ export const BRANDS = [
     {id: 144, name: "Nike", src: 'https://cdn-qiniu.poizonapp.com/news_byte3724byte_94276b9b2c7361e9fa70da69894d2e91_w150h150.png?x-oss-process=image/format,webp/resize,w_120,h_120'},
     { name: "Warrior", id: 1000460 },
     { name: "Vans", id: 9},
-    { name: "Adidas originals", id: 494},
     { name: "PUMA", id: 2},
     { name: "Converse", id: 176},
     { name: "Skechers", id: 10336},
