@@ -93,10 +93,6 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
         } else if (key === 'brandIds') {
             const brandsIds = params[key]?.split(',');
 
-            if (brandsIds?.length === BRANDS.length) {
-                return "Все бренды";
-            }
-
             const brandIndex = BRANDS.findIndex(c => c.id === Number(brandsIds[0]));
             const firstBrand = brandIndex >= 0 ? BRANDS[brandIndex].name : null
 
