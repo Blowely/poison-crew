@@ -107,7 +107,7 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
             const brandIndex = BRANDS.findIndex(c => c.id === Number(brandsIds[0]));
             const firstBrand = brandIndex >= 0 ? BRANDS[brandIndex].name : null
 
-            return <BrandTag brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
+            return <BrandTag key={key} brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
                              brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
         } else if ((key === 'category3Id' || key === 'category2Id' || key === 'category1Id')) {
             return null;
