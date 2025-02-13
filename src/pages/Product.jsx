@@ -1,22 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {Button, message, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {useGetPriceMutation, useGetProductQuery, useParseProductQuery} from "../store/products.store";
+import {useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
-import { LeftOutlined, LinkOutlined, LoadingOutlined } from "@ant-design/icons";
+import { LeftOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, iosCopyToClipboard} from "../common/utils";
+import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS} from "../components/constants";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
-function Product({ selectedProduct, onAddToFavorite, isLoading }) {
+function Product({ selectedProduct }) {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -28,11 +28,9 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
   const [product, setProduct] = useState(selectedProduct);
-  const [lvl2Properties, setLvl2Properties] = useState([]);
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
 
   const spuId = searchParams.get("spuId");
-  const url = searchParams.get("url");
   const sizesParam = searchParams.get("sizes");
 
   const token = localStorage.getItem("token");
@@ -167,22 +165,6 @@ function Product({ selectedProduct, onAddToFavorite, isLoading }) {
     }
     setIsLoadingImages(false);
   };
-
-  const getClearTitle = (str) => {
-    return str?.replace(/[^a-zA-Z\s]/g, '');
-  }
-
-  const showPropertyValue = (value, showValue) => {
-    if (!showValue) {
-      return '';
-    }
-
-    if (value?.includes('宽')) {
-      return value.replace('宽', ' ширина');
-    }
-
-    return value;
-  }
 
   const onBrandClick = () => {
     navigate(`?brandIds=${product?.brandIds}`);
