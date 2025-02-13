@@ -36,7 +36,7 @@ function Filters(props) {
 
   const isDesktopScreen = window.screen.availWidth > 600;
 
-  const buildRequest = () => {
+  /*const buildRequest = () => {
     let obj = {
       limit: 100,
     };
@@ -52,7 +52,7 @@ function Filters(props) {
     data: brands = { items: [], totalCount: 0 },
     isLoading,
     refetch,
-  } = useGetBrandsQuery(buildRequest());
+  } = useGetBrandsQuery(buildRequest());*/
 
   const onChangeChoiceHandler = (el) => {
     setSizes((prev) => prev.includes(el)
