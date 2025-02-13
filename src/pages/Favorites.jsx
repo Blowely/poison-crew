@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Layout, notification} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
@@ -23,6 +23,10 @@ const Favorites = () => {
 
     const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
     const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
+
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
 
     const onGoBackClick = () => {
       return navigate('/profile');

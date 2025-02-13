@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./categoriesTree.scss";
 import ActiveBagIcon from "../../assets/svg/active-bag-icon";
 import {HeartOutlined, MenuOutlined} from "@ant-design/icons";
@@ -394,6 +394,10 @@ function CategoriesTree() {
     const gender = localStorage.getItem("gender") || "men";
     const [showFilters, setShowFilters] = useState(false);
 
+    useEffect(() => {
+        window.scrollTo({top: 0})
+    }, [])
+
     const handleCategoryClick = (category) => {
         setSelectedCategory(category.name);
         setSubcategories(category.subcategories);
@@ -414,6 +418,7 @@ function CategoriesTree() {
 
     const isDesktopScreen = window?.innerWidth > 768;
     const isEnabledFilters = !!(minPriceParam || maxPriceParam || sizesParam);
+
 
     return (
         <Layout>

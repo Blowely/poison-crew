@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./CategoryCard.scss";
 import {useAppSelector} from "../../store";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -20,6 +20,10 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
 
   const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
   const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
+
+  useEffect(() => {
+    window.scrollTo({top: 0})
+  }, [])
 
   const onGoBackClick = () => {
     return setSelectedCategory(null);
