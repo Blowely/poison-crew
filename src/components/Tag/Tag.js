@@ -103,12 +103,12 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
             return <BrandTag brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
                              brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
         } else {
-            return null
+            return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
         }
 
 
 
-        return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
+
     })}</div>
 }
 export default FilterTags;
