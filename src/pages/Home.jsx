@@ -537,7 +537,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
                   {isDesktopScreen &&
                       <div className="brands-section-wrapper_card"
-                           onClick={() => console.log('more')}>
+                           onClick={() => setOpenBrandsModal(true)}>
                         <div className="brands-section-wrapper_card-icon">
                           <MoreIcon/>
                         </div>
