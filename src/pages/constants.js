@@ -146,9 +146,9 @@ export const COLOR_LIST = [
 ];
 
 export const APPAREL_SIZES = [
-    'XXXXS',
-    'XXXS',
-    'XXS',
+    '4XS',
+    '3XS',
+    '2XS',
     'XS',
     'S',
     'M',

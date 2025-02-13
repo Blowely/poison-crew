@@ -6,7 +6,6 @@ import {useGetAccountQuery} from "../../store/accounts.store";
 import {useAddOrderMutation} from "../../store/orders.store";
 import {Layout, notification} from "antd";
 import {LeftOutlined} from "@ant-design/icons";
-import categories from "../Categories/Categories";
 
 function CategoryCard({selectedCategory, setSelectedCategory, subcategories, handleSubCategoryClick}) {
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
           {selectedCategory} <div />
         </div>
         {subcategories?.length &&
-            <div className="content-block" style={{padding: 'unset', marginTop: '60px'}}>
+            <div className="content-block" style={{padding: 'unset', marginTop: '55px'}}>
               <div className="category-selector">
                 <div className="categories">
                   {selectedCategory && subcategories?.map((subcategory) => (

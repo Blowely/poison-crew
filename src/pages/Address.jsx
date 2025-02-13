@@ -110,7 +110,7 @@ function Address() {
 
   return (
     <Layout>
-      <div className="content-block-header">
+      <div className="content-block-header border-radius">
         <LeftOutlined onClick={onGoBackClick} />
         Добавление нового адреса <div />
       </div>

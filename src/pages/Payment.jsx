@@ -114,7 +114,7 @@ const Payment = () => {
 
     return (
         <Layout>
-            <div className="content-block-header">
+            <div className="content-block-header border-radius">
               <LeftOutlined onClick={onGoBackClick} />
               Оплата <div />
             </div>

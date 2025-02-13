@@ -48,7 +48,7 @@ const Information = () => {
                 </div>
             }
             {!isDesktopScreen &&
-                <div className="content-block-header">
+                <div className="content-block-header border-radius">
                     <LeftOutlined onClick={onGoBackClick}/>Информация <div/>
                 </div>
             }

@@ -1,23 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {Button, Layout, Modal, notification} from "antd";
-import {useGetProductQuery} from "../store/products.store";
+import React from "react";
+import {Layout, notification} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
-  DeleteOutlined,
   LeftOutlined,
-  LoadingOutlined,
-  RightOutlined,
-  ShoppingCartOutlined,
-  UserOutlined
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
-import BagIcon from "../assets/svg/active-bag-icon";
-import {useAddCodeMutation, useGetAccountQuery} from "../store/accounts.store";
+import {useGetAccountQuery} from "../store/accounts.store";
 import {useAddOrderMutation} from "../store/orders.store";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
-import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 
 const Favorites = () => {
     const dispatch = useAppDispatch();
@@ -68,7 +58,7 @@ const Favorites = () => {
 
     return (
         <Layout>
-            <div className="content-block-header">
+            <div className="content-block-header border-radius">
               <LeftOutlined onClick={onGoBackClick} />
               Избранное <div /></div>
             <div className="content-block">

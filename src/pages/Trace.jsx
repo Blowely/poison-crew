@@ -85,7 +85,7 @@ const Trace = () => {
 
     return (
         <Layout>
-            <div className="content-block-header">
+            <div className="content-block-header border-radius">
                 <LeftOutlined onClick={onGoBackClick} />
                 Отслеживание
                 <ReloadOutlined onClick={async () => {

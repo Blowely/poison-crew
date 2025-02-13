@@ -90,7 +90,7 @@ const Order = () => {
                 </div>
             }
             {!isDesktopScreen &&
-                <div className="content-block-header content-block-header-order">
+                <div className="content-block-header content-block-header-order border-radius">
                     <input type="text" style={{display: "none"}} value={orderId} ref={orderNumberRef}/>
                     <LeftOutlined onClick={onGoBackClick} />
                     Заказ № {orderId}

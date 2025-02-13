@@ -237,7 +237,7 @@ const onOkHandler = async () => {
             }
 
             {!isDesktopScreen &&
-                <div className="content-block-header">
+                <div className="content-block-header border-radius">
                   <LeftOutlined onClick={onGoBackClick} />
                   Оформление заказа <div />
                 </div>

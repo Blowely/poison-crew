@@ -67,7 +67,7 @@ const VisitedProducts = () => {
 
     return (
         <Layout>
-            <div className="content-block-header">
+            <div className="content-block-header border-radius">
               <LeftOutlined onClick={onGoBackClick} />
               Просмотренные товары <div /></div>
             <div className="content-block">
