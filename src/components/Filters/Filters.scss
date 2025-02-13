@@ -115,6 +115,7 @@
   right: 50px;
 
   @media (max-width: 768px) {
+    top: calc(100vh - 33vh);
     right: 10px;
   }
 }
