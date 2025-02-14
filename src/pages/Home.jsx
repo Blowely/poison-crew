@@ -365,6 +365,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onGoBackClick = () => {
+    if (isDesktopScreen) {
+      return navigate('/products');
+    }
     return navigate(`/${gender}/categories/`);
   }
 
@@ -496,8 +499,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
         {!isDesktopScreen && !selectedCategory && <GenderSwitcher/>}
 
         <div className="content">
+
           {selectedCategory && !isDesktopScreen &&
               <div className="category-title"><LeftOutlined onClick={onGoBackClick}/>{getCategoryTitle()}</div>}
+
           {!selectedCategory &&
               <>
                 <div className="brands-section-wrapper">
