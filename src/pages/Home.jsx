@@ -603,7 +603,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         </div>
         {!spuId &&
             <div className="scroll-top" id="scrollToTop">
-              <ArrowUpOutlined/>
+              <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png" alt=""/>
             </div>
         }
 
