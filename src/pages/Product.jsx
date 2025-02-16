@@ -402,7 +402,7 @@ function Product({ selectedProduct }) {
                       </div>
                   }
 
-                  <div className="product-info__item poizon_auth">
+                  <div className="product-info__item poizon_auth full-border-radius">
                     <img className="product-info__item poizon_auth pzn_img"
                          src="https://cdn-img.poizonapp.com/node-common/e9004fdc-f3f9-1e94-d275-0965f2da9ee4-192-117.png?x-oss-process=image/format,webp/resize,w_100"
                          alt="100% authenticated"/>
