@@ -54,17 +54,11 @@ const Information = () => {
             }
             <div className="content-block-wrapper">
                 <div className="content-block" style={{height: '100%'}}>
-                    <div className="cart-item">
-                        <div className="cart-order-info">
-                            <div style={{display: "grid", gap: '7px'}}>
-                                <h3>Телефоны и e-mail</h3>
-                                <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
-                                <div style={{fontSize: '16px'}}>8-920-297-2447</div>
-                                <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
-
-                            </div>
-                        </div>
-
+                    <div className="product-info__item standart template" style={{marginTop: '10px'}}>
+                            <div className="title">Телефоны и e-mail</div>
+                            <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
+                            <div style={{fontSize: '16px'}}>8-920-297-2447</div>
+                            <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
                     </div>
                     {/*<div className="cart-item">
                     <div className="cart-order-info">

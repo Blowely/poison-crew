@@ -184,6 +184,16 @@
         }
     }
 
+    &.template {
+        display: grid;
+        gap: 7px;
+
+        > .title {
+            font-size: 4.8vw;
+            font-weight: 700;
+        }
+    }
+
     &.poizon_auth {
         height: 41px;
         padding: 8px .7rem;
