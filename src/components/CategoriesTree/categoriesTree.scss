@@ -3,6 +3,7 @@
     color: #000000;
     font-family: Arial, sans-serif;
     padding: 1rem;
+    min-height: calc(100vh - 55px);
 
     .categories {
         display: flex;

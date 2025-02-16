@@ -61,7 +61,8 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
       <Layout>
         <div className="content-block-header">
           <LeftOutlined onClick={onGoBackClick} />
-          {selectedCategory} <div />
+          {selectedCategory}
+          <div style={{width:'19px'}}/>
         </div>
         {subcategories?.length &&
             <div className="content-block" style={{padding: 'unset', marginTop: '55px'}}>
