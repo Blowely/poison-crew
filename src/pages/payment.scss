@@ -160,3 +160,40 @@
 
     }
 }
+
+.delivery-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.delivery-logo {
+    height: 24px;
+}
+
+.delivery-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.delivery-point {
+    font-weight: bold;
+    margin: 4px 0;
+}
+
+.delivery-address {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.delivery-time, .delivery-cost {
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+strong {
+    color: #d10024;
+}

@@ -1,5 +1,4 @@
 import "./MeasureTable.scss";
-import { usSizeConversionTable } from "../../pages/constants";
 import { Table } from "antd";
 
 const MeasureTable = ({sizeTable}) => {
@@ -75,6 +74,7 @@ const MeasureTable = ({sizeTable}) => {
                 columns={columns}
                 size="small"
                 pagination={false}
+                className="table-wrapper"
                 rowClassName={(_,index) => {
                   return index % 2 === 0 ? "even-row" : ""
                 }} />;

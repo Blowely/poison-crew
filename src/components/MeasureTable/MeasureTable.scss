@@ -1,3 +1,9 @@
+.table-wrapper {
+  > div > div > div > div > div > table > tbody > tr > td {
+    padding: 4px!important;
+  }
+}
+
 .wrapper {
   display: flex;
 }
@@ -26,3 +32,4 @@
 .even-row {
   background-color: #f7f7f7!important;
 }
+

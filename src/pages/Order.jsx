@@ -117,7 +117,28 @@ const Order = () => {
                                         display: "flex",
                                         justifyContent: 'space-between'
                                     }}>
-                                        Статус заказа
+                                        <div className="status-block-wrapper">
+                                            <StatusTag status={el?.status}/>
+                                            {/*{el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
+                                        'заказ станет доступным к оплате'
+                                    }*/}
+                                            {el?.status === PRODUCT_STATUS.CANCELED && <>
+                                                Нет в наличии
+                                                <Button
+                                                    size="small"
+                                                    style={{marginLeft: '10px'}}
+                                                    type="text"
+                                                >
+                                                    Сменить размер
+                                                </Button>
+                                            </>
+                                            }
+                                            {el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES &&
+                                                <Tooltip title={priceChangesTooltipText}>
+                                                    <InfoCircleOutlined style={{fontSize: '20px'}}/>
+                                                </Tooltip>
+                                            }
+                                        </div>
                                         <ReloadOutlined
                                             style={{fontSize: '20px'}}
                                             onClick={async () => {
@@ -127,28 +148,7 @@ const Order = () => {
                                             }}
                                         />
                                     </div>
-                                    <div className="status-block-wrapper">
-                                        <StatusTag status={el?.status}/>
-                                        {/*{el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
-                                        'заказ станет доступным к оплате'
-                                    }*/}
-                                        {el?.status === PRODUCT_STATUS.CANCELED && <>
-                                            Нет в наличии
-                                            <Button
-                                                size="small"
-                                                style={{marginLeft: '10px'}}
-                                                type="text"
-                                            >
-                                                Сменить размер
-                                            </Button>
-                                        </>
-                                        }
-                                        {el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES &&
-                                            <Tooltip title={priceChangesTooltipText}>
-                                                <InfoCircleOutlined style={{fontSize: '20px'}}/>
-                                            </Tooltip>
-                                        }
-                                    </div>
+
 
                                     <Divider style={{margin: '10px 0'}}></Divider>
 
@@ -180,32 +180,14 @@ const Order = () => {
                             </div>
                         })}
                         <div className="cart-item">
-                            <div className="cart-order-info">
-                                <div style={{display: "grid", gap: '7px'}}>
-                                    <div style={{fontSize: '15px', fontWeight: '500'}}>
-                                        Доставка
-                                    </div>
-
-                                    <div className="cart-product-info-payment">
-                                        <div style={{display: 'flex', gap: '7px'}}>
-                                            <div>
-                                                <img
-                                                    src="https://storage.yandexcloud.net/boxberrysite-public/logo/logo-boxberry-mobile.png?v=3"
-                                                    style={{height: '20px'}} alt=""/>
-                                                <div style={{fontSize: '16px'}}>BoxBerry</div>
-                                                <div>Пункт выдачи заказов</div>
-                                                <div>{orders[0]?.address?.address}</div>
-                                                <br/>
-                                                <div>Ожидаемое время доставки 16-18 дней</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="total-price">Доставка (оплачивается при получении) ~700 ₽</div>
-                                </div>
-
-
+                            <div className="delivery-header">
+                                <img src="https://storage.yandexcloud.net/boxberrysite-public/logo/logo-boxberry-mobile.png?v=3"
+                                     alt="BoxBerry" className="delivery-logo"/>
                             </div>
+                            <p className="delivery-point">📍 Пункт выдачи заказов</p>
+                            <p className="delivery-address">{orders[0]?.address?.address}</p>
+                            <p className="delivery-time">⏳ Ожидаемое время доставки: <strong>16-18 дней</strong></p>
+                            <p className="delivery-cost">💰 Доставка (при получении): <strong>~700 ₽</strong></p>
                         </div>
                         <div className="cart-item">
                             <div className="cart-order-info">
@@ -246,22 +228,22 @@ const Order = () => {
                     </div>
                 </div>
             }
-                <div className="cart-product-info-submit-btn-wrapper">
-                    {(memoOrder?.status === PRODUCT_STATUS.APPROVED
-                            || memoOrder?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES) &&
-                        <Button
-                            type="primary"
-                            className="cart-product-info-submit-btn"
-                            onClick={() => onGoToPaymentClick(memoOrder?._id)}
-                        >
-                            Оплатить
-                        </Button>
-                    }
-                    {memoOrder?.status === PRODUCT_STATUS.PAID &&
-                        <Button
-                            type="primary"
-                            className="cart-product-info-submit-btn"
-                            onClick={() => onGoToTraceClick(memoOrder?._id)}
+            <div className="cart-product-info-submit-btn-wrapper">
+                {(memoOrder?.status === PRODUCT_STATUS.APPROVED
+                        || memoOrder?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES) &&
+                    <Button
+                        type="primary"
+                        className="cart-product-info-submit-btn"
+                        onClick={() => onGoToPaymentClick(memoOrder?._id)}
+                    >
+                        Оплатить
+                    </Button>
+                }
+                {memoOrder?.status === PRODUCT_STATUS.PAID &&
+                    <Button
+                        type="primary"
+                        className="cart-product-info-submit-btn"
+                        onClick={() => onGoToTraceClick(memoOrder?._id)}
                         >
                             Отследить
                         </Button>
