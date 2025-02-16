@@ -178,11 +178,24 @@ function Product({ selectedProduct }) {
     return BRANDS[brandIndex]?.src;
   }
 
-  const copyUrl = () => {
-    navigator.clipboard.writeText(window.location.href);
-    message.success( 'Ссылка скопирована')
+  const copyUrl = async () => {
+    /*navigator.clipboard.writeText(window.location.href);
+    message.success( 'Ссылка скопирована')*/
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          text: "Смотри, какой классный товар!",
+          url: window.location.href,
+        });
+        console.log("Контент успешно отправлен!");
+      } catch (error) {
+        console.error("Ошибка при отправке:", error);
+      }
+    } else {
+      alert("Функция 'Поделиться' не поддерживается в этом браузере.");
+    }
   }
-
 
   const isDesktopScreen = window?.innerWidth > 768;
 
