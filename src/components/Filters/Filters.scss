@@ -106,9 +106,8 @@
   top: calc(100vh - 20vh);
   color: gray;
   position: fixed;
-  width: 40px;
-  height: 40px;
-  padding: 28px;
+  height: 54px;
+  padding: 20px 17px;
   border-radius: 35px;
   background: rgba(237, 237, 237, 0.8);
   font-size: 23px;
@@ -120,7 +119,8 @@
   }
 
   @media (max-width: 768px) {
-    top: calc(100vh - 33vh);
+    top: calc(100vh - 20vh);
+
     right: 10px;
   }
 }
