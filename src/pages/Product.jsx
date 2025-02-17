@@ -231,9 +231,9 @@ function Product({ selectedProduct }) {
           <div
             style={{
               display: "grid",
-              padding: "15px",
+              padding: "16px",
               borderBottom: "1px solid #ececec",
-              gap: "15px",
+              gap: "16px",
             }}
           >
             <div style={{ fontSize: "22px", fontWeight: "500" }}>
