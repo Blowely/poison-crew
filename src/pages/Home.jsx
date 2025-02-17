@@ -29,7 +29,7 @@ import Categories from "../components/Categories/Categories";
 import FilterTags from "../components/Tag/Tag";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
-import {ArrowUpOutlined, LeftOutlined} from "@ant-design/icons";
+import {LeftOutlined} from "@ant-design/icons";
 import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 
@@ -376,6 +376,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       return;
     }
 
+    setLoading(true);
     setOffset(1);
     searchParams.set('brandIds', selectedBrands.join(','));
     setSearchParams(searchParams);
@@ -438,7 +439,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
               <div style={{ fontSize: "22px", fontWeight: "500" }}>
                 Бренды
               </div>
-              <BrandsModalSelector brands={selectedBrands} setBrands={setSelectedBrands} />
+              <BrandsModalSelector brands={selectedBrands} setBrands={setSelectedBrands}/>
             </div>
           </Modal>
       )}

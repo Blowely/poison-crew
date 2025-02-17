@@ -3,7 +3,7 @@ import {BRANDS} from "../constants";
 import {Checkbox, Input} from "antd";
 import "./BrandsSelector.scss"
 
-const BrandsModalSelector = ({brands, setBrands}) => {
+const BrandsModalSelector = ({brands, setBrands, setLoading}) => {
     const [search, setSearch] = useState("");
 
     const toggleSelectColor = (id) => {
