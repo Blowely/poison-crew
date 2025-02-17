@@ -159,6 +159,10 @@
 .title-wrapper {
     display: grid;
     gap: 24px;
+
+    &.transparent {
+        box-shadow: unset!important;
+    }
 }
 
 .title {
@@ -174,15 +178,17 @@
     min-height: 40px;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 16px;
 
     &.standart {
         font-size: 20px;
         font-family: "Roboto Condensed";
         font-optical-sizing: auto;
+    }
 
-        @media (max-width: 768px) {
-            padding: 16px;
-        }
+    &.transparent {
+        padding: unset;
+        box-shadow: unset;
     }
 
     &.template {

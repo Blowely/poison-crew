@@ -20,6 +20,13 @@
 
   > span {
     border-radius: 20px!important;
+    @media (min-width: 768px) {
+      font-size: 16px!important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    height: 40px!important;
   }
 }
 
@@ -117,6 +124,7 @@
   border-radius: 50%;
   color: #919191;
   background: rgb(178 178 178 / 10%);
+  cursor: pointer;
 }
 
 .link-btn {
@@ -129,4 +137,5 @@
   margin-right: 10px;
   border-radius: 35%;
   background: rgb(178 178 178 / 10%);
+  cursor: pointer;
 }

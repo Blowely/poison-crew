@@ -317,7 +317,7 @@ function Product({ selectedProduct }) {
                 </div>
 
                 <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
-                  <div className="product-info__item standart">
+                  <div className="product-info__item standart transparent">
                     {!isDesktopScreen &&
                         <div className="title">
                           {getIntPrice(choice?.price)}
