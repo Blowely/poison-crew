@@ -96,12 +96,12 @@ function Product({ selectedProduct }) {
 
     const template = {size: null, price: null, index: null};
 
-    const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price)) || template;
+    const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && el?.size)) || template;
     console.log('{ size, price, index ',{ size, price, index })
     setChoice({ size, price, index });
 
     if (sizesParam?.split(',').length  === 1) {
-      const {size, price, index} = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price)) || template;
+      const {size, price, index} = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price && el?.size)) || template;
       setChoice({ size, price, index });
     }
 
@@ -355,7 +355,7 @@ function Product({ selectedProduct }) {
 
                           </div>
                           <div className="list">
-                            {sizesAndPrices?.filter(el => el.price)?.map((el, i) => (
+                            {sizesAndPrices?.filter(el => el.price && el?.size)?.map((el, i) => (
                                 <div
                                     className={
                                       i === choice.index
@@ -446,7 +446,7 @@ function Product({ selectedProduct }) {
                           }
                         </div>
                         <div className="list">
-                          {sizesAndPrices?.filter(el => el.price)?.map((el, i) => (
+                          {sizesAndPrices?.filter(el => el.price && el?.size)?.map((el, i) => (
                               <div
                                   className={
                                     i === choice.index
@@ -499,25 +499,27 @@ function Product({ selectedProduct }) {
                       </div>
 
                   }
-
-                  {!isDesktopScreen &&
-                      <Button
-                          type="primary"
-                          className={"btn"}
-                          onClick={onAddToCart}
-                          disabled={isDisabledBuyBtn}
-                          loading={isDisabledBuyBtn}
-                      >
-                        <span>{getBtnPrice(choice?.price)}</span>
-                        <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
-                      </Button>
-                  }
+                  
                 </div>
 
               </div>
             </div>
           </div>
       )}
+      {!isDesktopScreen &&
+          <footer className="footer-btn-wrapper">
+            <Button
+                type="primary"
+                className={"btn"}
+                onClick={onAddToCart}
+                disabled={isDisabledBuyBtn}
+                loading={isDisabledBuyBtn}
+            >
+              <span>{getBtnPrice(choice?.price)}</span>
+              <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
+            </Button>
+          </footer>
+      }
     </div>
   );
 }
