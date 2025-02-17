@@ -91,7 +91,9 @@ function Product({ selectedProduct }) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
     }
 
-    setSizesAndPrices(handledSizesAndPrices);
+    const sortedHandledSizesAndPrices = [...handledSizesAndPrices]?.sort((a, b) => a?.size?.primary - b?.size?.primary)
+
+    setSizesAndPrices(sortedHandledSizesAndPrices);
 
 
     const template = {size: null, price: null, index: null};
