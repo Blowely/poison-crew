@@ -48,6 +48,8 @@
     border-radius: 2px;
     cursor: pointer;
     border: solid #f1f1f5 1px;
+    min-width: fit-content;
+
     &.selected {
         box-sizing: border-box;
         border: solid #000000 1px;

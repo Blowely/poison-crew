@@ -154,9 +154,9 @@ export const APPAREL_SIZES = [
     'M',
     'L',
     'XL',
-    'XXL',
-    'XXXL',
-    'XXXXL',
+    '2XL',
+    '3XL',
+    '4XL',
 ]
 
 export const SIZES = [

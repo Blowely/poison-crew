@@ -129,8 +129,9 @@ function Filters(props) {
     }
 
     const footwear2Categories = ['35', '30', '410', '292'];
+    const footwear3Categories = ['38'];
 
-    if (footwear2Categories.includes(category2Id) ) {
+    if (footwear2Categories.includes(category2Id) || footwear3Categories.includes(category3Id)) {
       return true;
     }
 
