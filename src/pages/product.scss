@@ -194,9 +194,12 @@
     &.template {
         display: grid;
         gap: 7px;
+        font-size: 24px;
 
         > .title {
-            font-size: 4.8vw;
+            @media (max-width: 768px) {
+                font-size: 4.8vw;
+            }
             font-weight: 700;
         }
     }
