@@ -349,6 +349,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const handleChange = (value) => {
+    setLoading(true);
     searchParams.set('sortBy', value);
     setSearchParams(searchParams);
     setSort(value);
@@ -585,7 +586,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     setSizes={setSizes}
                     setColors={setColors}
                     setBrands={setSelectedBrands}
-                    setOpenBrandsModal={setOpenBrandsModal}/>
+                    setOpenBrandsModal={setOpenBrandsModal}
+                    setLoading={setLoading}
+                />
 
                 <div className="inputs-wrapper">
                   <Select

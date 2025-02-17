@@ -6,7 +6,7 @@ import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 import {BrandTag} from "../BrandTag/BrandTag";
 
-const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal}) => {
+const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal, setLoading}) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const params = Object.keys(Object.fromEntries(searchParams.entries()))?.includes('brandIds')
@@ -64,6 +64,8 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
     }
 
     const onClose = (key) => {
+        setLoading(true)
+
         if (key === 'colors') {
             setColors([]);
         }
