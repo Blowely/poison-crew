@@ -120,6 +120,10 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
+    > #delete-icon-wrapper {
+        font-size: 18px!important;
+    }
 }
 
 .cart-order-info {

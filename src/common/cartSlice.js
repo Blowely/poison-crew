@@ -8,7 +8,7 @@ export const cartSlice = createSlice({
       state.items = [...state.items, payload];
     },
     removeFromCart(state, { payload }) {
-      state.items = state.items.filter(el => el._id !== payload.id);
+      state.items = state.items.filter(el => el._id !== payload._id);
     },
     clearCart(state) {
       state.items = [];

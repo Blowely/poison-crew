@@ -3,7 +3,7 @@ import {Button, Card, Layout, message, notification, Result, Select, Tabs} from 
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
-    CopyOutlined,
+    CopyOutlined, DeleteOutlined,
     LeftOutlined,
     RightOutlined,
 } from "@ant-design/icons";
@@ -25,7 +25,6 @@ function Cart() {
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [isModalOpen, setModalOpen] = useState(false);
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
@@ -39,10 +38,9 @@ function Cart() {
     const gender = localStorage.getItem("gender");
 
     const cartItems = useAppSelector((state) => state.cart.items) || [];
-    const addresses = useAppSelector((state) => state.account.addresses);
 
-    const {data: accountData, isLoadingAcc, error: accError, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
-    const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
+    const {data: accountData, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
+    const [addOrder] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
     useEffect(() => {
         window.scrollTo({top: 0})
@@ -185,6 +183,10 @@ const onOkHandler = async () => {
         setBank(bank);
     };
 
+    const removeFromCartHandler = (el) => {
+        dispatch(removeFromCart(el));
+    }
+
     const isDesktopScreen = window?.innerWidth > 768;
 
     return (
@@ -274,6 +276,9 @@ const onOkHandler = async () => {
 
                                             <div className="cart-product-info-third-column">
                                                 <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
+                                                <div id="delete-icon-wrapper">
+                                                    <DeleteOutlined onClick={() => removeFromCartHandler(el)} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
