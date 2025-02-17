@@ -16,7 +16,7 @@ import {BRANDS} from "../components/constants";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
-function Product({ selectedProduct }) {
+function Product({ selectedProduct, setLoading }) {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -169,6 +169,7 @@ function Product({ selectedProduct }) {
   };
 
   const onBrandClick = () => {
+    setLoading(true);
     navigate(`?brandIds=${product?.brandId}`);
   }
 
