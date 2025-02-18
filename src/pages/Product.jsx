@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {Button, message, Modal} from "antd";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {Button, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
