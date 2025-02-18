@@ -162,6 +162,5 @@ export function keepNumbersAndSpecialChars(str) {
 
 export const normalizeSize = (size) => {
   if (!size) return "";
-  console.log('size',size)
   return (size?.primary ? size?.primary : size)?.replace(/^(\d+)X/, (_, num) => "X"?.repeat(parseInt(num, 10))); // "2XS" -> "XXS", "3XL" -> "XXXL"
 };
