@@ -274,13 +274,14 @@ header {
 }
 
 .brands-section-wrapper {
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100%;
   height: 70px;
   display: flex;
   gap: 6px;
-  padding: 15px 20px 6px;
+  padding: 0 20px;
   margin-bottom: 30px;
+  overflow-x: auto;
 }
 
 .brands-section-wrapper_card {
@@ -291,6 +292,14 @@ header {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  min-width: fit-content;
+
+  > .brands-section-wrapper_card-icon {
+    @media (max-width: 768px) {
+      width: fit-content;
+    }
+    padding: 0 16px;
+  }
 }
 
 .brands-section-wrapper_card-icon{

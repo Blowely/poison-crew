@@ -32,6 +32,7 @@ import {COLOR_LIST, SORT_OPTIONS, SORT_TYPES} from "./constants";
 import {LeftOutlined} from "@ant-design/icons";
 import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
+import ConverseIcon from "../assets/svg/brands/converse-icon";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -343,6 +344,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const getBorderStyle = (selectedBrandId) => {
     if (brandsParam === selectedBrandId.toString()) {
       return {border: "1px solid grey"};
+    } else {
+      return {border: "1px solid white"};
     }
   }
 
@@ -539,16 +542,23 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     </div>
                     <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
                   </div>
+                  <div
+                      className="brands-section-wrapper_card"
+                      onClick={() => onBrandClick(176)}
+                  >
+                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(176)}>
+                      <ConverseIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Converse</div>
+                  </div>
 
-                  {isDesktopScreen &&
-                      <div className="brands-section-wrapper_card"
-                           onClick={() => setOpenBrandsModal(true)}>
-                        <div className="brands-section-wrapper_card-icon">
-                          <MoreIcon/>
-                        </div>
-                        <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
-                      </div>
-                  }
+                  <div className="brands-section-wrapper_card"
+                       onClick={() => setOpenBrandsModal(true)}>
+                    <div className="brands-section-wrapper_card-icon">
+                      <MoreIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
+                  </div>
                 </div>
                 <Categories setLoading={setLoading}/>
               </>
