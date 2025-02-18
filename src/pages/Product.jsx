@@ -3,7 +3,7 @@ import {Button, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
-import { LeftOutlined, LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
@@ -22,12 +22,11 @@ function Product({ selectedProduct, setLoading }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [choice, setChoice] = useState({});
   const [measureOpen, setMeasureOpen] = useState(false);
-  const [phone, setPhone] = useState("");
   const [isLoadingImages, setIsLoadingImages] = useState(true);
-  const [isDisabledBuyBtn, setDisabledBuyBtn] = useState(false);
+  const [isDisabledBuyBtn] = useState(false);
   const [product, setProduct] = useState(selectedProduct);
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
 
