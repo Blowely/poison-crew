@@ -91,7 +91,11 @@ function Product({ selectedProduct, setLoading }) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
     }
 
-    const sortedHandledSizesAndPrices = [...handledSizesAndPrices]?.sort((a, b) => a?.size?.primary - b?.size?.primary)
+    const sortedHandledSizesAndPrices = [
+      ...new Map(
+          handledSizesAndPrices.map(item => [item?.size?.primary, item])
+      ).values()
+    ]?.sort((a, b) => a?.size?.primary - b?.size?.primary);
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
