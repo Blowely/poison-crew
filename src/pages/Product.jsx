@@ -10,11 +10,12 @@ import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import { useTimer } from "use-timer";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice} from "../common/utils";
+import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, normalizeSize} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS} from "../components/constants";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
+import {APPAREL_SIZES_ORDER} from "./constants";
 
 function Product({ selectedProduct, setLoading }) {
 
@@ -93,15 +94,27 @@ function Product({ selectedProduct, setLoading }) {
 
     const sortedHandledSizesAndPrices = [
       ...new Map(
-          handledSizesAndPrices.map(item => [item?.size?.primary, item])
+          handledSizesAndPrices.map(item => [normalizeSize(item.size || item.value), item])
       ).values()
-    ]?.sort((a, b) => a?.size?.primary - b?.size?.primary);
+    ].sort((a, b) => {
+      const sizeA = normalizeSize(a.size || a.value);
+      const sizeB = normalizeSize(b.size || b.value);
+
+      const isNumeric = !isNaN(sizeA) && !isNaN(sizeB);
+
+      if (isNumeric) {
+        return parseFloat(sizeA) - parseFloat(sizeB); // Числовая сортировка
+      } else {
+        return APPAREL_SIZES_ORDER.indexOf(sizeA) - APPAREL_SIZES_ORDER.indexOf(sizeB); // Буквенная сортировка
+      }
+    });
+
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
 
     const template = {size: null, price: null, index: null};
-    console.log('handledSizesAndPrices',handledSizesAndPrices)
+
     const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && el?.size)) || template;
     console.log('{ size, price, index ',{ size, price, index })
     setChoice({ size, price, index });
