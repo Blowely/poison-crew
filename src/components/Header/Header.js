@@ -95,7 +95,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading}) => {
           className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
         >
         <div className="header-input-wrapper">
-            <Button onClick={onCategoriesClick}><MenuOutlined /></Button>
+            {isDesktopScreen && <Button id="desktop-category-btn" onClick={onCategoriesClick}><MenuOutlined /></Button>}
             <Input placeholder="Название, бренд..."
                    allowClear
                    value={searchValue}

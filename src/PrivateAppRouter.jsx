@@ -14,7 +14,7 @@ import Payment from "./pages/Payment";
 import Order from "./pages/Order";
 import Trace from "./pages/Trace";
 import CategoriesTree from "./components/CategoriesTree/CategoriesTree";
-import CategoriesTreeDesktop from "./components/CategoriesTree/CategoriesTree";
+import CategoriesTreeDesktop from "./components/CategoriesTreeDesktop/CategoriesTreeDesktop";
 
 export function PrivateAppRouter({
   searchValue,

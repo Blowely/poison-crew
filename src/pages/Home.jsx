@@ -149,7 +149,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const {
     data: products = { items: [], totalCount: 0 },
     isLoading,
-    refetch,
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
