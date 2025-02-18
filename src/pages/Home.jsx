@@ -78,7 +78,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const filtersRef = useRef(null);
   const gender = localStorage.getItem("gender");
-  const sortRef = useRef(null);
 
   const isDesktopScreen = window?.innerWidth > 768;
 
