@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { AppLoading } from "./common/AppLoading";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes, useSearchParams} from "react-router-dom";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
@@ -25,7 +25,9 @@ export function PrivateAppRouter({
   onAddToCart,
   isLoading
 }) {
-  const gender = localStorage.getItem("gender") || "men";
+  const genderParam = window.location.href.split("/")[3];
+
+  const gender =  genderParam || localStorage.getItem("gender") || "men";
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
