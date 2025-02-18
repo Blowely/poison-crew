@@ -1,14 +1,18 @@
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {Button, Input} from "antd";
 import React, {useEffect, useMemo, useState} from "react";
 import './header.styles.scss';
 import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
+import {MenuOutlined} from "@ant-design/icons";
 
 const Header = ({search, setShowFilters, setOffset, setLoading}) => {
+    const navigate = useNavigate();
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [searchValue, setSearchValue] = useState(search || '');
+    const gender = localStorage.getItem("gender");
 
     useEffect(() => {
         if (!search) {
@@ -82,11 +86,16 @@ const Header = ({search, setShowFilters, setOffset, setLoading}) => {
 
     const isDesktopScreen = window?.innerWidth > 768;
 
+    const onCategoriesClick = () => {
+        navigate(`/${gender}/categories/`)
+    }
+
     return (
         <header
           className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
         >
         <div className="header-input-wrapper">
+            <Button onClick={onCategoriesClick}><MenuOutlined /></Button>
             <Input placeholder="Название, бренд..."
                    allowClear
                    value={searchValue}

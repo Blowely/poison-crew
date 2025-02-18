@@ -1,0 +1,51 @@
+.category-selector {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+    min-height: calc(100vh - 55px);
+
+    .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .category-button {
+        background: none;
+        border: none;
+        color: black;
+        font-size: 1rem;
+        text-align: left;
+        cursor: pointer;
+        padding: 0.5rem 0;
+        transition: color 0.3s;
+
+        &.active {
+            color: #f60;
+        }
+
+        &:hover {
+            color: #aaa;
+        }
+    }
+
+    .subcategories {
+        background-color: whitesmoke;
+        margin-top: 0.5rem;
+        padding-left: 1rem;
+
+        border-left: 2px solid whitesmoke;
+
+        .subcategory {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            color: black;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
+}
+

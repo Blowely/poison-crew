@@ -26,7 +26,16 @@
   }
 
   @media (min-width: 768px) {
-    height: 40px!important;
+    height: 40px;
+
+    > button {
+      height: 40px;
+      font-size: 16px;
+      border: none;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
