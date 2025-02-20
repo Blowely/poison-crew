@@ -163,5 +163,7 @@ export function keepNumbersAndSpecialChars(str) {
 export const normalizeSize = (size) => {
   if (!size) return "";
 
+  if (typeof size === 'object' && !Object.keys(size)?.length) return "";
+
   return (size?.primary || size)?.replace(/^(\d+)X/, (_, num) => "X"?.repeat(parseInt(num, 10))); // "2XS" -> "XXS", "3XL" -> "XXXL"
 };

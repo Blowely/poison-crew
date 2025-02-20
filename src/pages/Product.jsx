@@ -95,7 +95,6 @@ function Product({ selectedProduct, setLoading }) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
     }
 
-    console.log('handledSizesAndPrices =', handledSizesAndPrices);
     const sortedHandledSizesAndPrices = [
       ...new Map(
           handledSizesAndPrices.map(item => [normalizeSize(item?.size || item?.value), item])
