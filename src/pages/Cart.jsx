@@ -163,7 +163,7 @@ const onOkHandler = async () => {
     }
 
     const onPaymentLinkClick = () => {
-        window.open(BANKS[paymentNumberRef.current].link);
+        window.open(BANKS[bank].link);
     }
 
     const items = [
