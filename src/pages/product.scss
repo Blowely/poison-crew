@@ -121,6 +121,10 @@
     background-color: white;
     min-height: 339px;
 
+    > .swiper {
+        min-height: 339px!important;
+    }
+
     @media (min-width: 768px) {
         > .swiper {
             min-height: 50vh!important;

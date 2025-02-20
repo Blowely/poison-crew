@@ -63,7 +63,6 @@ function Product({ selectedProduct, setLoading }) {
     timerType: 'DECREMENTAL',
   });
 
-
   useEffect(() => {
     const currentProduct = product;
 
@@ -86,12 +85,9 @@ function Product({ selectedProduct, setLoading }) {
       handledSizesAndPrices = sizesAndPrices || [];
     }
 
-    if (!handledSizesAndPrices?.length) {
-      return setSizesAndPrices([]);
-    }
-
+    console.log('currentProduct=',currentProduct)
     // For bags and else
-    if (!handledSizesAndPrices?.length && currentProduct?.skus?.length === 1 && currentProduct?.skus[0].price) {
+    if (currentProduct?.skus?.length === 1 && currentProduct?.skus[0].price) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
     }
 
@@ -220,6 +216,8 @@ function Product({ selectedProduct, setLoading }) {
   }
 
   const isDesktopScreen = window?.innerWidth > 768;
+  console.log('sizesAndPrices=',sizesAndPrices)
+  console.log('sizesAndPrices?.length !== 1 && sizesAndPrices[0]?.size !== \'Стандарт\'=',sizesAndPrices?.length !== 1 && sizesAndPrices[0]?.size !== 'Стандарт')
 
   return (
     <div style={{height: '100%'}}>
@@ -359,59 +357,61 @@ function Product({ selectedProduct, setLoading }) {
 
                   {!isDesktopScreen &&
                       <div style={{display: 'grid', gap: '10px'}}>
-                        <div className="product-info__item standart">
-                          <div className="label">
-                            <div className="label_wrap">
-                              <div className="size_label">
-                                <div>Размер: EU</div>
+                        {sizesAndPrices[0]?.size !== 'Стандарт' && (
+                            <div className="product-info__item standart">
+                              <div className="label">
+                                <div className="label_wrap">
+                                  <div className="size_label">
+                                    <div>Размер: EU</div>
+                                  </div>
+                                </div>
+                                {product?.category?.category1 === 'footwear' &&
+                                    <div className="size_guide" onClick={onMeasureOpenClick}>
+                                      Таблица размеров
+                                      <img className="PoizonImage_img__BNSaU"
+                                           src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                           alt=""/>
+                                    </div>
+                                }
+
+                              </div>
+                              <div className="list">
+                                {sizesAndPrices?.filter(el => el.price && el?.size)?.map((el, i) => (
+                                    <div
+                                        className={
+                                          i === choice.index
+                                              ? "size-wrapper gap-2 selected"
+                                              : "size-wrapper gap-2"
+                                        }
+                                        onClick={() => onChangeChoiceHandler(el, i)}
+                                        key={i}
+                                        role="presentation"
+                                    >
+                                      <div
+                                          style={{
+                                            fontSize: "17px",
+                                            fontWeight: "600",
+                                            textAlign: "center",
+                                          }}
+                                      >
+                                        {el?.size?.eu || el?.size?.primary || el?.size || ""}
+                                      </div>
+                                      <div
+                                          style={{
+                                            fontSize: "13px",
+                                            textAlign: "center",
+                                            display: "flex",
+                                            gap: "1.5px",
+                                            justifyContent: "center",
+                                          }}
+                                      >
+                                        {getTitlePrice(el.price) || "--"}
+                                      </div>
+                                    </div>
+                                ))}
                               </div>
                             </div>
-                            {product?.category?.category1 === 'footwear' &&
-                                <div className="size_guide" onClick={onMeasureOpenClick}>
-                                  Таблица размеров
-                                  <img className="PoizonImage_img__BNSaU"
-                                       src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
-                                       alt=""/>
-                                </div>
-                            }
-
-                          </div>
-                          <div className="list">
-                            {sizesAndPrices?.filter(el => el.price && el?.size)?.map((el, i) => (
-                                <div
-                                    className={
-                                      i === choice.index
-                                          ? "size-wrapper gap-2 selected"
-                                          : "size-wrapper gap-2"
-                                    }
-                                    onClick={() => onChangeChoiceHandler(el, i)}
-                                    key={i}
-                                    role="presentation"
-                                >
-                                  <div
-                                      style={{
-                                        fontSize: "17px",
-                                        fontWeight: "600",
-                                        textAlign: "center",
-                                      }}
-                                  >
-                                    {el?.size?.eu || el?.size?.primary || el?.size || ""}
-                                  </div>
-                                  <div
-                                      style={{
-                                        fontSize: "13px",
-                                        textAlign: "center",
-                                        display: "flex",
-                                        gap: "1.5px",
-                                        justifyContent: "center",
-                                      }}
-                                  >
-                                    {getTitlePrice(el.price) || "--"}
-                                  </div>
-                                </div>
-                            ))}
-                          </div>
-                        </div>
+                        )}
 
                         <div className="product-info__item standart">
                           <ItemDetails details={product?.productProperties}/>
@@ -450,7 +450,7 @@ function Product({ selectedProduct, setLoading }) {
                   </div>*/}
                   </div>
 
-                  {isDesktopScreen &&
+                  {isDesktopScreen && sizesAndPrices[0]?.size !== 'Стандарт' &&
                       <div className="product-info__item">
                         <div className="label">
                           <div className="label_wrap">
