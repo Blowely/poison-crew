@@ -113,8 +113,13 @@ function Product({ selectedProduct, setLoading }) {
 
     const template = {size: null, price: null, index: null};
 
-    const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
+    let {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
     console.log('{ size, price, index ',{ size, price, index })
+
+    if (typeof size === 'object' && Object.keys(size)?.length) {
+      size = 'Стандарт';
+    }
+
     setChoice({ size, price, index });
 
     if (sizesParam?.split(',').length  === 1) {

@@ -160,20 +160,23 @@ const onOkHandler = async () => {
                          alt=""/>
                 </div>
             </div>
+    }
 
+    const onPaymentLinkClick = () => {
+        window.open(BANKS[paymentNumberRef.current].link);
     }
 
     const items = [
         {
+            key: '2',
+            label: 'Реквизиты',
+            children: <Button onClick={onPaymentLinkClick}>Оплатить в приложении</Button>,
+        },
+        {
             key: '1',
             label: 'QR-code',
             children: <QrCodeComponent/>,
-        },
-        {
-            key: '2',
-            label: 'Реквизиты',
-            children: <CardNumberComponent/>,
-        }];
+        },];
 
     const onChange = (key) => {
         console.log(key);
