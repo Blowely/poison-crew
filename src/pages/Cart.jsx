@@ -175,7 +175,7 @@ const onOkHandler = async () => {
         {
             key: '2',
             label: 'Реквизиты',
-            children: <CardNumberComponent />,
+            children: <CardNumberComponent/>,
         },];
 
     const onChange = (key) => {
