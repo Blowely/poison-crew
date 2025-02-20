@@ -65,7 +65,7 @@ function Product({ selectedProduct, setLoading }) {
 
 
   useEffect(() => {
-    const currentProduct = product || selectedProduct || remoteProduct;
+    const currentProduct = product;
 
     if (!currentProduct?.skus?.length) {
       return;
@@ -86,11 +86,16 @@ function Product({ selectedProduct, setLoading }) {
       handledSizesAndPrices = sizesAndPrices || [];
     }
 
+    if (!handledSizesAndPrices?.length) {
+      return setSizesAndPrices([]);
+    }
+
     // For bags and else
     if (!handledSizesAndPrices?.length && currentProduct?.skus?.length === 1 && currentProduct?.skus[0].price) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
     }
 
+    console.log('handledSizesAndPrices =', handledSizesAndPrices);
     const sortedHandledSizesAndPrices = [
       ...new Map(
           handledSizesAndPrices.map(item => [normalizeSize(item.size || item.value), item])
@@ -129,7 +134,7 @@ function Product({ selectedProduct, setLoading }) {
     } else if (prevUpdatedAtRef.current !== currentProduct?.updatedAt) {
       prevUpdatedAtRef.current = currentProduct?.updatedAt;
     }
-  }, [selectedProduct, remoteProduct, product]);
+  }, [product]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
