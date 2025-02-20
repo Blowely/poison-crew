@@ -119,10 +119,12 @@
     align-items: flex-start;
     margin-top: 20px;
     background-color: white;
-    min-height: 339px!important;
+    min-height: 339px;
 
-    > .swiper {
-        min-height: 50vh!important;
+    @media (min-width: 768px) {
+        > .swiper {
+            min-height: 50vh!important;
+        }
     }
 }
 
