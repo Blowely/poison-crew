@@ -98,11 +98,11 @@ function Product({ selectedProduct, setLoading }) {
     console.log('handledSizesAndPrices =', handledSizesAndPrices);
     const sortedHandledSizesAndPrices = [
       ...new Map(
-          handledSizesAndPrices.map(item => [normalizeSize(item.size || item.value), item])
+          handledSizesAndPrices.map(item => [normalizeSize(item?.size || item?.value), item])
       ).values()
     ].sort((a, b) => {
-      const sizeA = normalizeSize(a.size || a.value);
-      const sizeB = normalizeSize(b.size || b.value);
+      const sizeA = normalizeSize(a?.size || a?.value);
+      const sizeB = normalizeSize(b?.size || b?.value);
 
       const isNumeric = !isNaN(sizeA) && !isNaN(sizeB);
 
@@ -119,12 +119,12 @@ function Product({ selectedProduct, setLoading }) {
 
     const template = {size: null, price: null, index: null};
 
-    const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && el?.size)) || template;
+    const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
     console.log('{ size, price, index ',{ size, price, index })
     setChoice({ size, price, index });
 
     if (sizesParam?.split(',').length  === 1) {
-      const {size, price, index} = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price && el?.size)) || template;
+      const {size, price, index} = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
       setChoice({ size, price, index });
     }
 

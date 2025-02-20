@@ -119,7 +119,11 @@
     align-items: flex-start;
     margin-top: 20px;
     background-color: white;
-    min-height: 339px;
+    min-height: 339px!important;
+
+    > .swiper {
+        min-height: 50vh!important;
+    }
 }
 
 .item-details-wrapper {

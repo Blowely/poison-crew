@@ -70,7 +70,7 @@ export function iosCopyToClipboard(el) {
 }
 
 export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
-  const foundSizeIndex = sizesAndPrices.findIndex(s => s.size?.eu === size);
+  const foundSizeIndex = sizesAndPrices.findIndex(s => (s.size?.primary || s?.size) === size);
 
   if (foundSizeIndex < 0) {
     return {};
