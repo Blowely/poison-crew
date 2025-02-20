@@ -5,8 +5,10 @@
   width: 100%;
   padding: 0 12px;
   overflow: auto;
+  justify-content: space-evenly;
 
   @media (max-width: 768px) {
+    justify-content: unset;
     > div {
       width: 23%;
     }
