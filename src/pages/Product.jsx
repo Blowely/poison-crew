@@ -116,7 +116,6 @@ function Product({ selectedProduct, setLoading }) {
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
-
     const template = {size: null, price: null, index: null};
 
     const {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
