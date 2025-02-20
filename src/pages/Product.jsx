@@ -197,8 +197,6 @@ function Product({ selectedProduct, setLoading }) {
   }
 
   const copyUrl = async () => {
-    /*navigator.clipboard.writeText(window.location.href);
-    message.success( 'Ссылка скопирована')*/
     if (navigator.share) {
       try {
         await navigator.share({
@@ -216,8 +214,6 @@ function Product({ selectedProduct, setLoading }) {
   }
 
   const isDesktopScreen = window?.innerWidth > 768;
-  console.log('sizesAndPrices=',sizesAndPrices)
-  console.log('sizesAndPrices?.length !== 1 && sizesAndPrices[0]?.size !== \'Стандарт\'=',sizesAndPrices?.length !== 1 && sizesAndPrices[0]?.size !== 'Стандарт')
 
   return (
     <div style={{height: '100%'}}>
