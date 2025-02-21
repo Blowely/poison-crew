@@ -1,11 +1,12 @@
 import "./index.scss";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
-const CatCard = ({img, title, category3Id, category2Id, category1Id, setLoading}) => {
+const CatCard = ({img, title, category3Id, category2Id, category1Id, setLoading, setOffset}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onCardClick = () => {
     setLoading(true);
+    setOffset(1);
 
     if (category3Id) {
       searchParams.set('category3Id', category3Id);

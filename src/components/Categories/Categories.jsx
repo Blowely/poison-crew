@@ -1,7 +1,7 @@
 import CatCard from "./CatCard";
 import "./index.scss";
 
-const Categories = ({setLoading}) => {
+const Categories = ({setLoading, setOffset}) => {
 
   const isDesktopScreen = window.screen.availWidth > 768;
 
@@ -44,7 +44,8 @@ const Categories = ({setLoading}) => {
                                  category3Id={el?.category3Id}
                                  category2Id={el?.category2Id}
                                  category1Id={el?.category1Id}
-                                 setLoading={setLoading} /></div>
+                                 setLoading={setLoading}
+                                 setOffset={setOffset} /></div>
   })}</div>
 }
 

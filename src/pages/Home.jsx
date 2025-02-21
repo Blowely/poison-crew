@@ -560,7 +560,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
                   </div>
                 </div>
-                <Categories setLoading={setLoading}/>
+                <Categories setLoading={setLoading} setOffset={setOffset} />
               </>
           }
           <div className="filters-content-wrapper">
