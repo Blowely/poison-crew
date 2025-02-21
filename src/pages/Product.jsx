@@ -18,7 +18,7 @@ import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
 
-function Product({ selectedProduct, setLoading }) {
+function Product({ selectedProduct, setLoading = () => {} }) {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

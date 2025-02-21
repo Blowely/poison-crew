@@ -1,9 +1,7 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
-import IconHeart from "../../assets/svg/iconHeart";
-import iconHeartSmall from "../../assets/svg/iconHeartSmall";
 import IconHeartSmall from "../../assets/svg/iconHeartSmall";
 
 function Card({
@@ -14,7 +12,15 @@ function Card({
 }) {
 
   const [loadingImg, setLoadingImg] = useState(true);
+
   const imgElement = React.useRef(null);
+  const favRef = useRef(null);
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    setProduct(item);
+  },[item])
+
 
   const getPrice = () => {
     if (Number(price) < 1) {
@@ -35,24 +41,28 @@ function Card({
     setLoadingImg(false);
   };
 
-  const favRef = useRef(null);
 
-  const icon= favRef?.current?.children[0];
+  useEffect(() => {
+    if (!loadingImg) {
+      const icon = favRef?.current?.children[0];
 
-  if (!icon) {
-    const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+      if (icon) {
+        const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const productIndex = prevFavorites.findIndex((el) => el?.spuId === item?.spuId);
-
-    if (productIndex >= 0) {
-      icon.style.fill = '#a2a2a2';
+        const productIndex = prevFavorites.findIndex((el) => el?.spuId === item?.spuId);
+        if (productIndex >= 0) {
+          icon.style.fill = '#a2a2a2';
+        }
+      }
     }
-  }
+  }, [loadingImg]);
+
 
   const onFavoriteIconClick = (e) => {
     e.stopPropagation();
 
-    const icon= favRef?.current?.children[0];
+    const icon = favRef?.current?.children[0];
+    if (!icon) {return}
 
     const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 

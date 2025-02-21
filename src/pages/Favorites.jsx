@@ -1,71 +1,83 @@
-import React, {useEffect} from "react";
-import {Layout, notification} from "antd";
+import React, {useEffect, useState} from "react";
+import {Empty, Layout} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
   LeftOutlined,
 } from "@ant-design/icons";
-import {useAppDispatch, useAppSelector} from "../store";
-import {useGetAccountQuery} from "../store/accounts.store";
-import {useAddOrderMutation} from "../store/orders.store";
+import Card from "../components/Card";
+import Product from "./Product";
 
 const Favorites = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
     const [searchParams, setSearchParams] = useSearchParams();
-    const from = searchParams.get('from');
-    const token = localStorage.getItem('token');
     const gender = localStorage.getItem("gender");
+    const spuId = searchParams.get("spuId");
 
-    const cartItems = useAppSelector((state) => state.cart.items);
-    const addresses = useAppSelector((state) => state.account.addresses);
-
-    const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
-    const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
+    const isDesktopScreen = window?.innerWidth > 768;
 
     useEffect(() => {
         window.scrollTo({top: 0})
     }, [])
 
     const onGoBackClick = () => {
-      return navigate('/profile');
+      return isDesktopScreen ? navigate('/profile') : navigate('/products'); ;
     }
 
-    const onOkHandler = async () => {
-      try {
-        if (!addresses.length && !accountData?.account?.addresses?.length) {
-          notification.open({duration: 2, type: 'warning', message:'Не выбран адрес доставки'})
-        }
-        if (!cartItems.length) {
-          notification.open({duration: 2, type: 'warning', message:'Товары не выбраны'})
-        }
+    const renderItems = () => {
+        let productsItems = JSON.parse(localStorage.getItem('favorites')) || [];
 
-        const addOrderBody = {
-          clientId: accountData?.account?._id,
-          products: cartItems || [],
-          address: addresses[0] || accountData?.account?.addresses[0] || {},
-        }
-
-        const res = await addOrder(addOrderBody);
-
-        if (res.data.status === 'ok') {
-          return notification.open({duration: 2, type: 'success', message:'Заказ успешно оформлен'})
-        } else {
-          notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
+        if (!productsItems?.length) {
+            return (
+                <Empty
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    imageStyle={{ height: 100, paddingTop: "20px", width: '100%' }}
+                    description="Ничего не найдено"
+                    className="empty"
+                />
+            );
         }
 
-      } catch (e) {
-        notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
-      }
-    }
+        const onCardClickHandler = (item) => {
+            const spuId = item?.spuId || '';
+            searchParams.set('spuId', spuId);
+            setSearchParams(searchParams);
+            localStorage.setItem('product', JSON.stringify(item));
+        }
+
+        return (
+            <div className="cards-section-wrapper">
+                {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
+                    const image = item?.images[0] || '';
+                    const title = item?.name || '';
+                    const price = item?.price || '';
+
+                    return(
+                        <div onClick={() => onCardClickHandler(item)} key={index}>
+                            <Card
+                                image={image}
+                                price={price}
+                                item={item}
+                                name={title}
+                                isFavorite={true}
+                            />
+                        </div>
+                    )})}
+            </div>
+        );
+    };
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: "white", position: "relative" }}>
+            {spuId && <div className="productWrapper" id="productWrapper">
+                <Product />
+            </div>
+            }
             <div className="content-block-header border-radius">
               <LeftOutlined onClick={onGoBackClick} />
               Избранное <div /></div>
-            <div className="content-block">
+            <div className="content-block" style={{paddingLeft: '0', paddingRight: '0'}} >
+                {renderItems()}
             </div>
             <footer>
                 <div onClick={() => navigate("/products")}>

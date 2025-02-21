@@ -70,13 +70,13 @@ const Profile = () => {
                   Мои заказы <RightOutlined/>
                 </div>
                 {/*<div className="cart-item redirect borderless" onClick={() => navigate('/visited')}>
-              Просмотренные товары <RightOutlined />
-            </div>
-            <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
-              Избранное <RightOutlined />
-            </div>*/}
-              </div>
-              <div>
+                Просмотренные товары <RightOutlined />
+                </div>*/}
+                <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
+                  Избранное <RightOutlined />
+                </div>
+                </div>
+                <div>
                 <div className="cart-item redirect borderless" onClick={() => navigate('/info')}>
                   Информация <RightOutlined/>
                 </div>
