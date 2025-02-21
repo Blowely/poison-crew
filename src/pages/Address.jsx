@@ -80,8 +80,7 @@ function Address() {
     }
   });
 
-  const onGoBackClick = () =>
-    from ? navigate("/cart?from=address") : navigate(`/cart?from=address`);
+  const onGoBackClick = () => navigate(`/cart`)
 
   const phoneInputHandler = (value) => {
     if (value.length <= 10) {
