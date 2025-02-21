@@ -121,10 +121,17 @@
     background-color: white;
     min-height: 339px;
 
-    > .swiper {
-        min-height: 339px!important;
-        aspect-ratio: 1 / 1 !important;
-        object-fit: contain!important;
+    @media (min-width: 768px) {
+        > .swiper {
+            min-height: 339px!important;
+            aspect-ratio: 1 / 1 !important;
+            object-fit: contain!important;
+
+            > .swiper-wrapper > .swiper-slide {
+                display: flex;
+                align-items: center;
+            }
+        }
     }
 }
 

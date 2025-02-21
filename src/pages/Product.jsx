@@ -365,7 +365,7 @@ function Product({ selectedProduct, setLoading }) {
 
                   {!isDesktopScreen &&
                       <div style={{display: 'grid', gap: '10px'}}>
-                        {sizesAndPrices[0]?.size !== 'Стандарт' && (
+                        {!!sizesAndPrices?.length && sizesAndPrices[0]?.size !== 'Стандарт' && (
                             <div className="product-info__item standart">
                               <div className="label">
                                 <div className="label_wrap">
@@ -458,7 +458,7 @@ function Product({ selectedProduct, setLoading }) {
                   </div>*/}
                   </div>
 
-                  {isDesktopScreen && sizesAndPrices[0]?.size !== 'Стандарт' &&
+                  {isDesktopScreen && !!sizesAndPrices?.length && sizesAndPrices[0]?.size !== 'Стандарт' &&
                       <div className="product-info__item">
                         <div className="label">
                           <div className="label_wrap">
