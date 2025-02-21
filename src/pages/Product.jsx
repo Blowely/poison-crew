@@ -215,8 +215,6 @@ function Product({ selectedProduct, setLoading }) {
     }
   }
 
-  console.log('window.history',window.history)
-
   const goBack = () => {
     if (window?.history?.length === 2) {
       return navigate("/products");
