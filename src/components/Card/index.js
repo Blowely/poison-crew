@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 import IconHeart from "../../assets/svg/iconHeart";
+import iconHeartSmall from "../../assets/svg/iconHeartSmall";
+import IconHeartSmall from "../../assets/svg/iconHeartSmall";
 
 function Card({
   image,
@@ -33,16 +35,31 @@ function Card({
     setLoadingImg(false);
   };
 
-  const onFavoriteIconClick = (spuId) => {
-    const icon = document.getElementsByClassName('tabler-icon-heart')[0];
-    if (!icon) return;
+  const favRef = useRef(null);
+
+  const icon= favRef?.current?.children[0];
+
+  if (!icon) {
+    const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const productIndex = prevFavorites.findIndex((el) => el?.spuId === item?.spuId);
+
+    if (productIndex >= 0) {
+      icon.style.fill = '#a2a2a2';
+    }
+  }
+
+  const onFavoriteIconClick = (e) => {
+    e.stopPropagation();
+
+    const icon= favRef?.current?.children[0];
 
     const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
     const isFavorite = icon.style.fill === 'rgb(162, 162, 162)';
 
     if (isFavorite) {
-      const updatedFavorites = prevFavorites.filter((el) => el?.spuId !== spuId);
+      const updatedFavorites = prevFavorites.filter((el) => el?.spuId !== item.spuId);
       icon.style.fill = "none";
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     } else {
@@ -89,9 +106,12 @@ function Card({
                 </ContentLoader>
             }
 
-            <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
-              <IconHeart/>
-            </div>
+            {!loadingImg && (
+              <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
+                <IconHeartSmall/>
+              </div>
+            )}
+
 
             <img
                 ref={imgElement}
