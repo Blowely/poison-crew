@@ -16,6 +16,7 @@ import {BRANDS} from "../components/constants";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {APPAREL_SIZES_ORDER} from "./constants";
+import IconHeart from "../assets/svg/iconHeart";
 
 function Product({ selectedProduct, setLoading }) {
 
@@ -127,6 +128,17 @@ function Product({ selectedProduct, setLoading }) {
       setChoice({ size: p?.size, price: p.price, index: p.index });
     }
 
+    const icon = document.getElementsByClassName('tabler-icon-heart')[0];
+    if (!icon) return;
+
+    const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const productIndex = prevFavorites.findIndex((el) => el?.spuId === product?.spuId);
+
+    if (productIndex >= 0) {
+      icon.style.fill = '#a2a2a2';
+    }
+
     if (!prevUpdatedAtRef.current) {
       start();
       prevUpdatedAtRef.current = currentProduct?.updatedAt;
@@ -226,6 +238,24 @@ function Product({ selectedProduct, setLoading }) {
     window.history.go(-1);
   }
 
+  const onFavoriteIconClick = () => {
+    const icon = document.getElementsByClassName('tabler-icon-heart')[0];
+    if (!icon) return;
+
+    const prevFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    const isFavorite = icon.style.fill === 'rgb(162, 162, 162)';
+
+    if (isFavorite) {
+      const updatedFavorites = prevFavorites.filter((el) => el?.spuId !== product?.spuId);
+      icon.style.fill = "none";
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    } else {
+      icon.style.fill = '#a2a2a2';
+      localStorage.setItem("favorites", JSON.stringify([...prevFavorites, product]));
+    }
+  };
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
@@ -304,7 +334,11 @@ function Product({ selectedProduct, setLoading }) {
           <div style={{height: '100%'}}>
             <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png"
                  alt="" className="go-back-btn"
-                 onClick={goBack} />
+                 onClick={goBack}/>
+
+            <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
+              <IconHeart />
+            </div>
 
             <img
                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C%D1%81%D1%8F(cropped).png"
@@ -529,7 +563,7 @@ function Product({ selectedProduct, setLoading }) {
                       </div>
 
                   }
-                  
+
                 </div>
 
               </div>

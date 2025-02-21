@@ -142,9 +142,12 @@
   padding: 12px;
   margin-top: 10px;
   height: 47px;
-  right: 0;
-  margin-right: 10px;
+  right: 10px;
   border-radius: 35%;
   background: rgb(178 178 178 / 10%);
   cursor: pointer;
+
+  &.favorite-btn {
+    right: 67px;
+  }
 }
