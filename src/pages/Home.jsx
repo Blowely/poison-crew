@@ -33,6 +33,7 @@ import {LeftOutlined} from "@ant-design/icons";
 import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 import ConverseIcon from "../assets/svg/brands/converse-icon";
+import FilaIcon from "../assets/svg/brands/fila-icon";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -551,6 +552,15 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     </div>
                     <div style={{fontWeight: "bold", fontSize: "10px"}}>Converse</div>
                   </div>
+                  <div
+                      className="brands-section-wrapper_card"
+                      onClick={() => onBrandClick(1318)}
+                  >
+                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(1318)}>
+                      <FilaIcon/>
+                    </div>
+                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Fila</div>
+                  </div>
 
                   <div className="brands-section-wrapper_card"
                        onClick={() => setOpenBrandsModal(true)}>
@@ -560,7 +570,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
                   </div>
                 </div>
-                <Categories setLoading={setLoading} setOffset={setOffset} />
+                <Categories setLoading={setLoading} setOffset={setOffset}/>
               </>
           }
           <div className="filters-content-wrapper">
