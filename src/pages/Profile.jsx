@@ -48,9 +48,9 @@ const Profile = () => {
                 <ActiveProfileLargeIcon/>
                 +{accountData?.account?.phone}
               </div>
-              <LogoutOutlined style={{fontSize: '25px'}} onClick={() => {
+              {/*<LogoutOutlined style={{fontSize: '25px'}} onClick={() => {
                 alert('в разработке')
-              }}/>
+              }}/>*/}
             </div>
             {/*<div className="balance-wrapper">
           <div style={{fontSize: '27px', fontWeight: '600', display: "flex", gap: '10px', alignItems: 'center'}}>
