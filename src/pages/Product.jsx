@@ -85,7 +85,6 @@ function Product({ selectedProduct, setLoading }) {
       handledSizesAndPrices = sizesAndPrices || [];
     }
 
-    console.log('currentProduct=',currentProduct)
     // For bags and else
     if (currentProduct?.skus?.length === 1 && currentProduct?.skus[0].price) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
