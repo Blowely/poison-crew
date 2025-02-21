@@ -111,20 +111,17 @@ function Product({ selectedProduct, setLoading }) {
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
-    const template = {size: null, price: null, index: null};
+    let p = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
 
-    let {size, price, index} = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
-    console.log('{ size, price, index ',{ size, price, index })
-
-    if (typeof size === 'object' && Object.keys(size)?.length) {
-      size = 'Стандарт';
+    if (typeof p.size === 'object' && Object.keys(p.size)?.length) {
+      p.size = 'Стандарт';
     }
 
-    setChoice({ size, price, index });
+    setChoice({ size: p.size, price: p.price, index: p.index });
 
     if (sizesParam?.split(',').length  === 1) {
-      const {size, price, index} = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary))) || template;
-      setChoice({ size, price, index });
+      const p = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
+      setChoice({ size: p.size, price: p.price, index: p.index });
     }
 
     if (!prevUpdatedAtRef.current) {
