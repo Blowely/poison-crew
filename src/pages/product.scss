@@ -123,13 +123,8 @@
 
     > .swiper {
         min-height: 339px!important;
-    }
-
-    @media (min-width: 768px) {
-        > .swiper {
-            aspect-ratio: 64 / 41 !important;
-            object-fit: contain!important;
-        }
+        aspect-ratio: 1 / 1 !important;
+        object-fit: contain!important;
     }
 }
 
