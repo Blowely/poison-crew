@@ -1,14 +1,10 @@
 import React, {useEffect} from "react";
 import {Layout} from "antd";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./profile.scss";
 import {LogoutOutlined, RightOutlined} from "@ant-design/icons";
-import {useAppDispatch, useAppSelector} from "../store";
+import {useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
-import {useAddOrderMutation} from "../store/orders.store";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
-import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
@@ -17,16 +13,13 @@ import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 const Profile = () => {
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const from = searchParams.get('from');
   const token = localStorage.getItem('token');
   const gender = localStorage.getItem("gender");
 
   const cartItems = useAppSelector((state) => state.cart.items);
   const addresses = useAppSelector((state) => state.account.addresses);
 
-  const {data: accountData, isLoadingAcc, error: accError} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
-  const [addOrder, {isLoading: isLoadingAddOrder, error}] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
+  const {data: accountData} = useGetAccountQuery(token, {skip: cartItems.length && addresses.length});
 
 
   useEffect(() => {
