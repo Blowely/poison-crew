@@ -25,7 +25,6 @@ const SwiperCarousel = (props) => {
               onError={onError}
               loading="lazy"
               style={{width: isDesktopScreen ? '100%' : '80%',
-                aspectRatio: isDesktopScreen ? 49 / 49 : 'unset',
                 objectFit: isDesktopScreen ? 'contain' : 'unset'}}
             />
           </SwiperSlide>

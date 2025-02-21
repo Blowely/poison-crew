@@ -127,7 +127,8 @@
 
     @media (min-width: 768px) {
         > .swiper {
-            min-height: 50vh!important;
+            aspect-ratio: 64 / 41 !important;
+            object-fit: contain!important;
         }
     }
 }

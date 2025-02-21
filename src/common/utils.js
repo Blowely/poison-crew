@@ -82,7 +82,7 @@ export const getCurrentPriceOfSize = (size, sizesAndPrices) => {
 
 export const getCheapestElOfSize = (sizes = []) => {
   if (!sizes?.length) {
-    return null;
+    return {};
   }
 
   if (sizes?.length === 1) {

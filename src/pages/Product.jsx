@@ -27,7 +27,7 @@ function Product({ selectedProduct, setLoading }) {
   const [measureOpen, setMeasureOpen] = useState(false);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn] = useState(false);
-  const [product, setProduct] = useState(selectedProduct);
+  const [product, setProduct] = useState(selectedProduct || {});
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
 
   const spuId = searchParams.get("spuId");
@@ -110,17 +110,21 @@ function Product({ selectedProduct, setLoading }) {
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
-    let p = getCheapestElOfSize(handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
+    if (!sortedHandledSizesAndPrices?.length) {
+      return;
+    }
 
-    if (typeof p.size === 'object' && Object.keys(p.size)?.length) {
+    let p = getCheapestElOfSize(sortedHandledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
+
+    if ((typeof p?.size === 'object' && Object.keys(p?.size)?.length) || !p?.size) {
       p.size = 'Стандарт';
     }
 
-    setChoice({ size: p.size, price: p.price, index: p.index });
+    setChoice({ size: p?.size, price: p.price, index: p.index });
 
     if (sizesParam?.split(',').length  === 1) {
-      const p = getCurrentPriceOfSize(sizesParam, handledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
-      setChoice({ size: p.size, price: p.price, index: p.index });
+      const p = getCurrentPriceOfSize(sizesParam, sortedHandledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
+      setChoice({ size: p?.size, price: p.price, index: p.index });
     }
 
     if (!prevUpdatedAtRef.current) {
