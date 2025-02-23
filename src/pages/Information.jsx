@@ -38,7 +38,7 @@ const Information = () => {
         <Layout>
             {isDesktopScreen &&
                 <div className="main-logo-wrapper">
-                    {<RePoizonMainLogo/>}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
                     {isDesktopScreen && <div className="actions-btns">
                         <GenderSwitcher/>
                         <div onClick={() => navigate("/profile")}>

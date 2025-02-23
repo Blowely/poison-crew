@@ -434,7 +434,7 @@ function CategoriesTreeDesktop() {
                 <>
                     <div className="categoriesWrapper">
                         <div className="main-logo-wrapper">
-                            {isDesktopScreen ? <RePoizonMainLogo/> : <RePoizonMainMiddleLogo/>}
+                            {isDesktopScreen ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div> : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
                             {isDesktopScreen ?
                                 <div className="actions-btns">
                                     <GenderSwitcher/>
