@@ -224,7 +224,7 @@ const onOkHandler = async () => {
                           width: "calc((100vw - 226px - 40px) / 2 )"
                         }}
                     />*/}
-                    {<RePoizonMainLogo />}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
 
                     {/*<div
                         className="main-logo-line black main-logo-line-right"
