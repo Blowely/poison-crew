@@ -25,9 +25,11 @@ export function PrivateAppRouter({
   onAddToCart,
   isLoading
 }) {
+  const gendersList = ['women', 'men', 'kid'];
+
   const genderParam = window.location.href.split("/")[3];
 
-  const gender =  genderParam || localStorage.getItem("gender") || "men";
+  const gender =  gendersList.includes(genderParam) ? genderParam : localStorage.getItem("gender") || "men";
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
