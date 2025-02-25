@@ -221,12 +221,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
       touchStartTime = Date.now();  // Записываем время начала касания
     };
 
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = (item, onCardClickHandler) => {
       const touchEndTime = Date.now();  // Записываем время окончания касания
 
       if (touchEndTime - touchStartTime < 300) {
-        // Если время между start и end меньше 300мс, считаем это кликом
-        console.log('Click event triggered');
+        onCardClickHandler(item)
+        message.success('click')
       }
     };
 
@@ -248,7 +248,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           return(
             <div onClick={() => onCardClickHandler(item)}
                  onTouchStart={handleTouchStart}
-                 onTouchEnd={handleTouchEnd}
+                 onTouchEnd={() => handleTouchEnd(item, onCardClickHandler)}
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
