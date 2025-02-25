@@ -222,6 +222,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     };
 
     const handleTouchEnd = (item, onCardClickHandler) => {
+      message.success('handleTouchEnd')
       const touchEndTime = Date.now();  // Записываем время окончания касания
 
       if (touchEndTime - touchStartTime < 300) {
