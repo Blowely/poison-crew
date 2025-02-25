@@ -192,17 +192,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
-  const scrollStart = useRef(null);
-
-  const onTouchStart = () => {
-    scrollStart.current = window?.scrollY;
-  }
-
-  const onTouchEnd = (item, onCardClickHandler) => {
-    if (scrollStart.current === window?.scrollY) {
-      onCardClickHandler(item)
-    }
-  }
 
   const renderItems = () => {
     let productsItems = isLoading
@@ -228,11 +217,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
 
     const onCardClickHandler = (item) => {
-      setSelectedProduct(item);
-      const spuId = item?.spuId || '';
-      searchParams.set('spuId', spuId);
-      setSearchParams(searchParams);
-      localStorage.setItem('product', JSON.stringify(item));
+      setTimeout(() => {
+        setSelectedProduct(item);
+        const spuId = item?.spuId || '';
+        searchParams.set('spuId', spuId);
+        setSearchParams(searchParams);
+        localStorage.setItem('product', JSON.stringify(item));
+      }, 0)
     }
 
     return (
@@ -243,8 +234,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onTouchStart={onTouchStart} onTouchEnd={() => onTouchEnd(item, onCardClickHandler)}
-                 onClick={() => onCardClickHandler(item)}
+            <div onClick={() => onCardClickHandler(item)}
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}

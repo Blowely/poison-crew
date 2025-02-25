@@ -411,7 +411,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
                               </div>
                               <div className="list">
-                                {sizesAndPrices?.filter(el => el.price && el?.size)?.map((el, i) => (
+                                {sizesAndPrices?.map((el, i) => (
                                     <div
                                         className={
                                           i === choice.index
@@ -443,7 +443,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                                         {getTitlePrice(el.price) || "--"}
                                       </div>
                                     </div>
-                                ))}
+                                ))?.filter(el => el?.price && el?.size)}
                               </div>
                             </div>
                         )}
@@ -503,7 +503,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                           }
                         </div>
                         <div className="list">
-                          {sizesAndPrices?.filter(el => el.price && el?.size)?.map((el, i) => (
+                          {sizesAndPrices?.map((el, i) => (
                               <div
                                   className={
                                     i === choice.index
@@ -535,7 +535,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                                   {getTitlePrice(el?.price) || "--"}
                                 </div>
                               </div>
-                          ))}
+                          ))?.filter(el => el?.price && el?.size)}
                         </div>
                       </div>
                   }
