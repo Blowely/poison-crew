@@ -229,7 +229,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onClick={() => onCardClickHandler(item)} key={index}>
+            <div onTouchStart={() => onCardClickHandler(item)} onClick={() => onCardClickHandler(item)} key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}

@@ -568,6 +568,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
             <Button
                 type="primary"
                 className={"btn"}
+                onTouchStart={onAddToCart}
                 onClick={onAddToCart}
                 disabled={isDisabledBuyBtn}
                 loading={isDisabledBuyBtn}
