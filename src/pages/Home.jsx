@@ -228,6 +228,18 @@ function Home({ onAddToFavorite, onAddToCart }) {
       localStorage.setItem('product', JSON.stringify(item));
     }
 
+    const scrollStart = useRef(null);
+
+    const onTouchStart = () => {
+      scrollStart.current = window.scrollY;
+    }
+
+    const onTouchEnd = (item) => {
+      if (scrollStart.current === window.scrollY) {
+        onCardClickHandler(item)
+      }
+    }
+
     return (
       <div className="cards-section-wrapper">
         {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
@@ -236,7 +248,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onClick={() => onCardClickHandler(item)}
+            <div onTouchStart={onTouchStart} onTouchEnd={() => onTouchEnd(item)}
+                 onClick={() => onCardClickHandler(item)}
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
