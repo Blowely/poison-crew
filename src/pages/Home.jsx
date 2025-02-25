@@ -79,7 +79,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [sort, setSort] = useState(sortBy || 'by-relevance');
 
   const filtersRef = useRef(null);
-  const isScrolling = useRef(false);
 
   const gender = localStorage.getItem("gender");
 
@@ -193,6 +192,18 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
+  const scrollStart = useRef(null);
+
+  const onTouchStart = () => {
+    scrollStart.current = window?.scrollY;
+  }
+
+  const onTouchEnd = (item, onCardClickHandler) => {
+    if (scrollStart.current === window?.scrollY) {
+      onCardClickHandler(item)
+    }
+  }
+
   const renderItems = () => {
     let productsItems = isLoading
       ? [...Array(60)]
@@ -217,27 +228,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
 
     const onCardClickHandler = (item) => {
-      if (!isScrolling.current) {
-        return;
-      }
-
       setSelectedProduct(item);
       const spuId = item?.spuId || '';
       searchParams.set('spuId', spuId);
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
-    }
-
-    const scrollStart = useRef(null);
-
-    const onTouchStart = () => {
-      scrollStart.current = window.scrollY;
-    }
-
-    const onTouchEnd = (item) => {
-      if (scrollStart.current === window.scrollY) {
-        onCardClickHandler(item)
-      }
     }
 
     return (
@@ -248,7 +243,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onTouchStart={onTouchStart} onTouchEnd={() => onTouchEnd(item)}
+            <div onTouchStart={onTouchStart} onTouchEnd={() => onTouchEnd(item, onCardClickHandler)}
                  onClick={() => onCardClickHandler(item)}
                  key={index}>
               <Card
@@ -275,14 +270,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
 
-  window.addEventListener("scrollend", () => isScrolling.current = false, false);
-
   window.addEventListener(
       "scroll",
       function (event) {
         try {
-          isScrolling.current = true
-
           const lastEl =
               docElements[0]?.children[docElements[0]?.children?.length - 1]
                   ?.offsetTop - 3500;
