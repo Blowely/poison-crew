@@ -101,6 +101,8 @@ function Product({ selectedProduct, setLoading = () => {} }) {
       }
     });
 
+    console.log('sortedHandledSizesAndPrices',sortedHandledSizesAndPrices)
+
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
@@ -133,7 +135,6 @@ function Product({ selectedProduct, setLoading = () => {} }) {
     }
 
     if (!prevUpdatedAtRef.current) {
-      start();
       prevUpdatedAtRef.current = currentProduct?.updatedAt;
     } else if (prevUpdatedAtRef.current !== currentProduct?.updatedAt) {
       prevUpdatedAtRef.current = currentProduct?.updatedAt;
@@ -142,7 +143,6 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
-
   }, []);
 
   const onAddToCart = () => {
@@ -180,7 +180,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price);
 
-  },[choice, isDisabledBuyBtn, time]);
+  },[choice, isDisabledBuyBtn]);
 
   const onMeasureOpenClick = () => {
     setMeasureOpen(true);
@@ -464,9 +464,9 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                           </div>
 
                           <span className="brand-name-arrow">
-                  <img className="PoizonImage_img__BNSaU"
-                       src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
-                       alt=""/>
+                            <img className="PoizonImage_img__BNSaU"
+                                 src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                 alt=""/>
                           </span>
                         </div>
                       </div>
