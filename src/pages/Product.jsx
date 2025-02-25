@@ -251,6 +251,13 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
   const isDesktopScreen = window?.innerWidth > 768;
 
+  const getValue = (size) => {
+    if (size?.eu) return size.eu;
+    if (size?.primary) return size.primary;
+    if (typeof size === 'string' || typeof size === 'number') return size;
+    return "";
+  }
+
   return (
     <div style={{height: '100%'}}>
       {/*{!token && (
@@ -429,7 +436,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                                             textAlign: "center",
                                           }}
                                       >
-                                        {el?.size?.eu || el?.size?.primary || el?.size || ""}
+                                        {getValue(el?.size)}
                                       </div>
                                       <div
                                           style={{
@@ -521,7 +528,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                                       textAlign: "center",
                                     }}
                                 >
-                                  {el?.size?.eu || el?.size?.primary || el?.size || ""}
+                                  {getValue(el?.size)}
                                 </div>
                                 <div
                                     style={{
