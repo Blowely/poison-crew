@@ -215,10 +215,34 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
+    let isScrolling = false;
+
+    const handleTouchStart = (e) => {
+      const touchStart = e.touches[0].clientY;
+
+      // Слушаем начало прокрутки
+      const handleTouchMove = (moveEvent) => {
+        const touchMove = moveEvent.touches[0].clientY;
+        if (Math.abs(touchMove - touchStart) > 10) {
+          // Если скролл больше чем на 10px, считаем это прокруткой
+          isScrolling = true;
+        }
+      };
+
+      const handleTouchEnd = () => {
+        if (!isScrolling) {
+          // Если не было прокрутки, выполняем действие
+          console.log('Click event triggered');
+        }
+        isScrolling = false; // Сбрасываем флаг после завершения
+        document.removeEventListener('touchmove', handleTouchMove);
+      };
+
+      document.addEventListener('touchmove', handleTouchMove);
+      document.addEventListener('touchend', handleTouchEnd);
+    };
 
     const onCardClickHandler = (item) => {
-        message.success( 'Клик')
-
         setSelectedProduct(item);
         const spuId = item?.spuId || '';
         searchParams.set('spuId', spuId);
@@ -234,7 +258,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onClick={() => onCardClickHandler(item)}
+            <div onClick={() => onCardClickHandler(item)} onTouchStart={handleTouchStart}
                  hover
                  key={index}>
               <Card
