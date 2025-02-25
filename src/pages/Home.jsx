@@ -9,7 +9,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import JordanIcon from "../assets/svg/brands/jordan-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import {Button, Empty, Layout, Modal, Pagination, Select} from "antd";
+import {Button, Empty, Layout, message, Modal, Pagination, Select} from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
@@ -217,13 +217,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
 
     const onCardClickHandler = (item) => {
-      requestAnimationFrame(() => {
+        message.success( 'Клик')
+
         setSelectedProduct(item);
         const spuId = item?.spuId || '';
         searchParams.set('spuId', spuId);
         setSearchParams(searchParams);
         localStorage.setItem('product', JSON.stringify(item));
-      });
     }
 
     return (
