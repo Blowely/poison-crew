@@ -73,24 +73,27 @@ const Profile = () => {
                 Просмотренные товары <RightOutlined />
                 </div>*/}
                 <div className="cart-item redirect borderless" onClick={() => navigate('/favorites')}>
-                  Избранное <RightOutlined />
+                  Избранное <RightOutlined/>
                 </div>
-                </div>
-                <div>
+              </div>
+              <div>
                 <div className="cart-item redirect borderless" onClick={() => navigate('/info')}>
                   Информация <RightOutlined/>
                 </div>
               </div>
+              <div className="link">
+                <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                  Условия оферты
+                </a>
+              </div>
             </div>
-
-
           </div>
         </div>
 
         {!isDesktopScreen &&
             <footer>
               <div onClick={() => navigate("/products")}>
-                <img style={{height: '50px'}}
+              <img style={{height: '50px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
                      alt=""/>
               </div>

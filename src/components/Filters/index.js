@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import "./Filters.scss";
-import {Button, Input} from "antd";
+import {Button, Divider, Input} from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import { useGetBrandsQuery } from "../../store/brands.store";
@@ -230,21 +230,30 @@ function Filters(props) {
                    setOffset={setOffset} setSelectedBrands={setSelectedBrands}/>
         </div>*/}
         {isDesktopScreen &&
-            <div className="filters-apply-btn">
-              <Button
-                  type="primary"
-                  className={"btn default"}
-                  onClick={applyFilters}
-                  disabled={queryLine === currentLine}
-              >
-                <span>Применить</span>
-              </Button>
-              {isFilters &&
-                  <div className="filters-phone-headers">
-                    <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры</Button>
-                  </div>
-              }
-            </div>
+            <>
+              <div className="filters-apply-btn">
+                <Button
+                    type="primary"
+                    className={"btn default"}
+                    onClick={applyFilters}
+                    disabled={queryLine === currentLine}
+                >
+                  <span>Применить</span>
+                </Button>
+                {isFilters &&
+                    <div className="filters-phone-headers">
+                      <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры</Button>
+                    </div>
+                }
+              </div>
+              <Divider className="divider" />
+              <div className="link">
+                <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                  Условия оферты
+                </a>
+              </div>
+            </>
+
         }
       </div>
     </div>
