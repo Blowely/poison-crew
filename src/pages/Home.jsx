@@ -61,6 +61,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [selectedBrands, setSelectedBrands] = useState(!!brandsParam ? brandsParam?.split(',') : []);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -213,7 +214,22 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
+    const handleTouchStart = (e) => {
+      // Устанавливаем флаг при начале касания
+      setIsScrolling(false);
+    };
+
+    const handleTouchMove = () => {
+      // Если произошло перемещение, считаем это как скроллинг
+      setIsScrolling(true);
+    };
+
+
     const onCardClickHandler = (item) => {
+      if (isScrolling) {
+        return;
+      }
+
       setSelectedProduct(item);
       const spuId = item?.spuId || '';
       searchParams.set('spuId', spuId);
@@ -229,7 +245,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onTouchStart={() => onCardClickHandler(item)} onClick={() => onCardClickHandler(item)} key={index}>
+            <div onTouchStart={handleTouchStart}
+                 onTouchMove={handleTouchMove}
+                 onClick={() => onCardClickHandler(item)}
+                 key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
