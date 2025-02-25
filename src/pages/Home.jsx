@@ -61,7 +61,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [selectedBrands, setSelectedBrands] = useState(!!brandsParam ? brandsParam?.split(',') : []);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -80,6 +79,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [sort, setSort] = useState(sortBy || 'by-relevance');
 
   const filtersRef = useRef(null);
+  const isScrolling = useRef(false);
+
   const gender = localStorage.getItem("gender");
 
   const isDesktopScreen = window?.innerWidth > 768;
@@ -216,7 +217,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
 
     const onCardClickHandler = (item) => {
-      if (isScrolling) {
+      if (!isScrolling.current) {
         return;
       }
 
@@ -261,13 +262,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
 
-  window.addEventListener("scrollend", () => setIsScrolling(false), false);
+  window.addEventListener("scrollend", () => isScrolling.current = false, false);
 
   window.addEventListener(
       "scroll",
       function (event) {
         try {
-          setIsScrolling(true);
+          isScrolling.current = true
 
           const lastEl =
               docElements[0]?.children[docElements[0]?.children?.length - 1]
