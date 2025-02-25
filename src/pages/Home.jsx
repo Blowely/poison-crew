@@ -215,7 +215,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
-    let touchStartTime = 0;
+    /*let touchStartTime = 0;
 
     const handleTouchStart = (e) => {
       touchStartTime = Date.now();  // Записываем время начала касания
@@ -229,7 +229,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         onCardClickHandler(item)
         message.success('click')
       }
-    };
+    };*/
 
     const onCardClickHandler = (item) => {
         setSelectedProduct(item);
@@ -248,8 +248,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
           return(
             <div onClick={() => onCardClickHandler(item)}
-                 onTouchStart={handleTouchStart}
-                 onTouchEnd={() => handleTouchEnd(item, onCardClickHandler)}
+                 /*onTouchStart={handleTouchStart}
+                 onTouchEnd={() => handleTouchEnd(item, onCardClickHandler)}*/
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
