@@ -411,7 +411,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
                               </div>
                               <div className="list">
-                                {sizesAndPrices?.filter(el => el?.price && el?.size).map((el, i) => (
+                                {sizesAndPrices?.filter(el => el?.price && el?.size)?.map((el, i) => (
                                     <div
                                         className={
                                           i === choice.index
