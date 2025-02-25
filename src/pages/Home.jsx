@@ -215,31 +215,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
-    let isScrolling = false;
+    let touchStartTime = 0;
 
     const handleTouchStart = (e) => {
-      const touchStart = e.touches[0].clientY;
+      touchStartTime = Date.now();  // Записываем время начала касания
+    };
 
-      // Слушаем начало прокрутки
-      const handleTouchMove = (moveEvent) => {
-        const touchMove = moveEvent.touches[0].clientY;
-        if (Math.abs(touchMove - touchStart) > 10) {
-          // Если скролл больше чем на 10px, считаем это прокруткой
-          isScrolling = true;
-        }
-      };
+    const handleTouchEnd = (e) => {
+      const touchEndTime = Date.now();  // Записываем время окончания касания
 
-      const handleTouchEnd = () => {
-        if (!isScrolling) {
-          // Если не было прокрутки, выполняем действие
-          console.log('Click event triggered');
-        }
-        isScrolling = false; // Сбрасываем флаг после завершения
-        document.removeEventListener('touchmove', handleTouchMove);
-      };
-
-      document.addEventListener('touchmove', handleTouchMove);
-      document.addEventListener('touchend', handleTouchEnd);
+      if (touchEndTime - touchStartTime < 300) {
+        // Если время между start и end меньше 300мс, считаем это кликом
+        console.log('Click event triggered');
+      }
     };
 
     const onCardClickHandler = (item) => {
@@ -258,8 +246,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onClick={() => onCardClickHandler(item)} onTouchStart={handleTouchStart}
-                 hover
+            <div onClick={() => onCardClickHandler(item)}
+                 onTouchStart={handleTouchStart}
+                 onTouchEnd={handleTouchEnd}
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
