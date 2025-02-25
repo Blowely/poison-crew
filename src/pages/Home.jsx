@@ -214,16 +214,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
-    const handleTouchStart = (e) => {
-      // Устанавливаем флаг при начале касания
-      setIsScrolling(false);
-    };
-
-    const handleTouchMove = () => {
-      // Если произошло перемещение, считаем это как скроллинг
-      setIsScrolling(true);
-    };
-
 
     const onCardClickHandler = (item) => {
       if (isScrolling) {
@@ -245,9 +235,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onTouchStart={handleTouchStart}
-                 onTouchMove={handleTouchMove}
-                 onClick={() => onCardClickHandler(item)}
+            <div onClick={() => onCardClickHandler(item)}
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
@@ -272,10 +260,15 @@ function Home({ onAddToFavorite, onAddToCart }) {
     currentPage = false;
   }, [products]);
 
+
+  window.addEventListener("scrollend", () => setIsScrolling(false), false);
+
   window.addEventListener(
       "scroll",
       function (event) {
         try {
+          setIsScrolling(true);
+
           const lastEl =
               docElements[0]?.children[docElements[0]?.children?.length - 1]
                   ?.offsetTop - 3500;
