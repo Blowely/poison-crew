@@ -57,13 +57,6 @@ function Product({ selectedProduct, setLoading = () => {} }) {
     setProduct(updatedProductData || remoteProduct);
   },[remoteProduct, updatedProductData]);
 
-  const { time, start, pause, reset, status } = useTimer({
-    //initialTime: 13,
-    initialTime: 0,
-    endTime: 0,
-    timerType: 'DECREMENTAL',
-  });
-
   useEffect(() => {
     const currentProduct = product;
 
