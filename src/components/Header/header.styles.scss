@@ -23,7 +23,13 @@
     @media (min-width: 768px) {
       font-size: 16px!important;
     }
+
+    > input {
+      border-radius: unset!important;
+    }
   }
+
+
 
   @media (min-width: 768px) {
     height: 40px;
