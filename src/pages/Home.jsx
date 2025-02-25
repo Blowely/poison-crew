@@ -217,13 +217,13 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
 
     const onCardClickHandler = (item) => {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         setSelectedProduct(item);
         const spuId = item?.spuId || '';
         searchParams.set('spuId', spuId);
         setSearchParams(searchParams);
         localStorage.setItem('product', JSON.stringify(item));
-      }, 0)
+      });
     }
 
     return (
