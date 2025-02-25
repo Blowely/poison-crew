@@ -247,8 +247,8 @@ function Filters(props) {
                 }
               </div>
               <Divider className="divider" />
-              <div className="link">
-                <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+              <div className="filters-link">
+                <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf" target="_blank">
                   Условия оферты
                 </a>
               </div>
