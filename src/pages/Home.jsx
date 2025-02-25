@@ -235,6 +235,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
           return(
             <div onClick={() => onCardClickHandler(item)}
+                 hover
                  key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
