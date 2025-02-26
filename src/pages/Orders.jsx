@@ -114,7 +114,7 @@ const Orders = () => {
                     <div className="content-block">
                         {orders?.map((el, i) => {
                             totalPrice = 0;
-                            return <div key={i} className="cart-item">
+                            return <div key={i} className="cart-item" style={{cursor: "pointer"}}>
                                 <div className="cart-order-info" onClick={() => onGoOrderClick(el?._id)}>
                                     <div style={{display: "grid", gap: '7px'}}>
                                         <div style={{fontSize: '15px', fontWeight: '500'}}>
