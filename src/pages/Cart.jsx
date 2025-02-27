@@ -297,6 +297,7 @@ const onOkHandler = async () => {
 
                             {!!cartItems.length && (
                                 <div>
+                                    <PromoCode />
                                     <Card
                                         className="cart-item-card"
                                         extra={
@@ -326,8 +327,6 @@ const onOkHandler = async () => {
                                     >
                                         <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
                                     </Card>
-
-                                    <PromoCode />
 
                                     <div className="cart-product-info-submit-btn-wrapper">
                                         <div className="cart-product-info-submit-confirm-oferta">
