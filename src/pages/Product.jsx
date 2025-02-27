@@ -258,6 +258,14 @@ function Product({ selectedProduct, setLoading = () => {} }) {
     return "";
   }
 
+  const root = document.getElementById("root");
+
+
+  useEffect(() => {
+    root.style.overflowY = "hidden";
+    return () => { root.style.overflowY = "unset" };
+  }, [])
+
   return (
     <div style={{height: '100%'}}>
       {/*{!token && (
