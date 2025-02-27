@@ -19,6 +19,7 @@ import {iosCopyToClipboard} from "../common/utils";
 import {BANKS} from "./constants";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
+import PromoCode from "../components/PromoCode/PromoCode";
 
 function Cart() {
     const dispatch = useAppDispatch();
@@ -325,6 +326,8 @@ const onOkHandler = async () => {
                                     >
                                         <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
                                     </Card>
+
+                                    <PromoCode />
 
                                     <div className="cart-product-info-submit-btn-wrapper">
                                         <div className="cart-product-info-submit-confirm-oferta">

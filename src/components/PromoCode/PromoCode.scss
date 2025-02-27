@@ -1,0 +1,31 @@
+.promo-code {
+  margin-top: 15px!important;
+  width: 100%;
+  background-color: white;
+  //padding: 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .promo-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+  }
+
+  .promo-content {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+
+    input {
+      flex: 1;
+      font-size: 16px;
+    }
+  }
+
+  button:disabled {
+    background-color: #d9d9d9;
+    color: #8c8c8c;
+  }
+}
