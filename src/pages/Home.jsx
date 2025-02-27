@@ -230,13 +230,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
         message.success('click')
       }
     };*/
+    let spuIdFlag = null;
 
     const onCardClickHandler = (item) => {
-        setSelectedProduct(item);
-        const spuId = item?.spuId || '';
-        searchParams.set('spuId', spuId);
-        setSearchParams(searchParams);
-        localStorage.setItem('product', JSON.stringify(item));
+      if (spuIdFlag) {
+        return;
+      }
+
+      spuIdFlag = item?.spuId
+      setSelectedProduct(item);
+      const spuId = item?.spuId || '';
+      searchParams.set('spuId', spuId);
+      setSearchParams(searchParams);
+      localStorage.setItem('product', JSON.stringify(item));
     }
 
     return (
