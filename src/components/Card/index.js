@@ -85,7 +85,7 @@ function Card({
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
        rel="noreferrer">
-      {/*{!name && (
+      {!name && (
         <ContentLoader
           speed={0.8}
           backgroundColor="#f3f3f3"
@@ -98,11 +98,11 @@ function Card({
             style={{ width: "100%", height: "100%" }}
           />
         </ContentLoader>
-      )}*/}
+      )}
 
       {image &&
           <>
-            {/*{loadingImg &&
+            {loadingImg &&
                 <ContentLoader
                     speed={0.8}
                     backgroundColor="#f3f3f3"
@@ -115,7 +115,7 @@ function Card({
                       style={{width: "100%", height: "100%"}}
                   />
                 </ContentLoader>
-            }*/}
+            }
 
             {!loadingImg && (
               <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
@@ -129,7 +129,7 @@ function Card({
                 ref={imgElement}
                 src={`${image}?x-oss-process=image/format,webp/resize,w_500`}
                 //src={`${image}`}
-                onLoad={() => {}}
+                onLoad={onLoadedIcon}
                 loading="lazy"
             />
           </>
