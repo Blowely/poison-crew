@@ -259,6 +259,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 price={price}
                 item={item}
                 name={title}
+                onCardClickHandler={onCardClickHandler}
               />
             </div>
         )})}

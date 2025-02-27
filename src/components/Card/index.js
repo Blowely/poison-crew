@@ -9,6 +9,7 @@ function Card({
   price,
   name,
   item,
+  onCardClickHandler
 }) {
 
   const [loadingImg, setLoadingImg] = useState(false);
@@ -124,6 +125,7 @@ function Card({
 
 
             <img
+                onClick={() => onCardClickHandler(item)}
                 ref={imgElement}
                 src={`${image}?x-oss-process=image/format,webp/resize,w_500`}
                 //src={`${image}`}
@@ -136,14 +138,14 @@ function Card({
 
 
       {!loadingImg && image && (
-          <>
+          <div onClick={() => onCardClickHandler(item)}>
             <div className={styles.cardText} style={{}}>
               {name}
             </div>
             <div className={styles.price}>
               <span>{getPrice()}</span>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
