@@ -10,7 +10,8 @@
   @media (max-width: 768px) {
     justify-content: unset;
     > div {
-      width: 23%;
+      min-width: 23.5%!important;
+      width: 23.5%!important;
     }
   }
 
