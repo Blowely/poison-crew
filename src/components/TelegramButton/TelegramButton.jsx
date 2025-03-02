@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "antd";
-import { SendOutlined } from "@ant-design/icons";
 import "./TelegramButton.scss";
 
 const TelegramButton = ({text, productUrl, size = 'middle'}) => {
