@@ -12,7 +12,7 @@ function Card({
   onCardClickHandler
 }) {
 
-  const [loadingImg, setLoadingImg] = useState(false);
+  const [loadingImg, setLoadingImg] = useState(true);
 
   const imgElement = React.useRef(null);
   const favRef = useRef(null);
