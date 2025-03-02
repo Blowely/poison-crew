@@ -571,9 +571,10 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                           <span> {!isDisabledBuyBtn ? 'Купить' : ''}</span>
                         </Button>
                       </div>
-
                   }
-
+                  {isDesktopScreen && <div className="telegram-button-wrapper">
+                    <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href} />
+                  </div>}
                 </div>
 
               </div>

@@ -17,7 +17,9 @@ const TelegramButton = ({text, productUrl, size = 'middle'}) => {
     };
 
     return (
-        <Button className="telegram-button" type="primary" size={size} icon={<SendOutlined />} onClick={handleClick}>
+        <Button className="telegram-button" type="primary" size={size}
+                icon={<img src="/telegram-icon.svg" alt="Telegram" className="telegram-icon" />}
+                onClick={handleClick}>
             {text || 'Написать в Telegram'}
         </Button>
     );

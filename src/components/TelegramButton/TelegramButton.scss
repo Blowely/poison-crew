@@ -1,12 +1,17 @@
 .telegram-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background-color: #0088cc;
-  border-color: #0088cc;
-  color: #fff;
-  font-weight: bold;
-  transition: background-color 0.3s, border-color 0.3s;
+  border: none;
+  font-family: "Roboto Condensed";
 
   &:hover {
-    background-color: #0077b5;
-    border-color: #0077b5;
+    background-color: #007ab8;
+  }
+  .telegram-icon {
+    width: 30px;
+    height: 30px;
   }
 }

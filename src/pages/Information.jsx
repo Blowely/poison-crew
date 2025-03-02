@@ -1,7 +1,8 @@
 import React from "react";
 import {Layout} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import "./cart.scss";
+import "./cart.scss"
+//import styles from "./Information.module.scss";
 import {LeftOutlined} from "@ant-design/icons";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
@@ -57,7 +58,7 @@ const Information = () => {
                             <div style={{fontSize: '16px'}}>8-920-297-2447</div>
                             <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
                     </div>
-                    <div className="telegram-button-wrapper"><TelegramButton /></div>
+                    <div className="telegram-button-wrapper" style={{marginTop: '15px'}}><TelegramButton /></div>
                     {/*<div className="cart-item">
                     <div className="cart-order-info">
                         <div style={{display: "grid", gap: '7px'}}>
