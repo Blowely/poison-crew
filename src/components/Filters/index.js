@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./Filters.scss";
 import {Button, Divider, Input} from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import {CloseOutlined, UndoOutlined} from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 import { useGetBrandsQuery } from "../../store/brands.store";
 import ColorSelector from "../ColorSelector/ColorSelector";
@@ -142,7 +142,7 @@ function Filters(props) {
     <div className="filters-component-wrapper">
       {!isDesktopScreen && (
         <div className="filters-phone-headers">
-          <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<CloseOutlined /></Button>
+          <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры<UndoOutlined /></Button>
           <CloseOutlined onClick={closeClickHandler}/>
         </div>
       )}
@@ -241,8 +241,8 @@ function Filters(props) {
                   <span>Применить</span>
                 </Button>
                 {isFilters &&
-                    <div className="filters-phone-headers">
-                      <Button disabled={!isFilters} onClick={clearFilters}>Сбросить фильтры</Button>
+                    <div className="filters-phone-headers" >
+                      <Button disabled={!isFilters} className="btn default" type="default" onClick={clearFilters}><UndoOutlined /></Button>
                     </div>
                 }
               </div>

@@ -23,6 +23,14 @@
 @media (min-width: 768px) {
   .filters-phone-headers {
     justify-content: center;
+    width: fit-content;
+    padding-bottom: unset;
+
+    button {
+      font-size: 17px!important;
+      border-radius: 20px;
+      padding: 0px 12px;
+    }
   }
 }
 
