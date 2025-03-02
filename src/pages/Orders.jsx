@@ -13,7 +13,7 @@ import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
 import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import {PRODUCT_STATUS} from "./constants";
 import StatusTag from "../components/Status";
-import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
@@ -77,7 +77,7 @@ const Orders = () => {
         <Layout>
             {isDesktopScreen &&
                 <div className="main-logo-wrapper">
-                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
                     {isDesktopScreen && <div className="actions-btns">
                         <GenderSwitcher/>
                         <div onClick={() => navigate("/profile")}>
@@ -195,7 +195,7 @@ const Orders = () => {
                 </div>
                 <div onClick={() => navigate("/profile")}>
                     <img style={{height: '30px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
                          alt=""/>
                 </div>
             </footer>

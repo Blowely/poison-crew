@@ -17,7 +17,7 @@ import AuthModal from "./AuthModal";
 import {clearCart, removeFromCart} from "../common/cartSlice";
 import {iosCopyToClipboard} from "../common/utils";
 import {BANKS} from "./constants";
-import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import PromoCode from "../components/PromoCode/PromoCode";
 
@@ -225,7 +225,7 @@ const onOkHandler = async () => {
                           width: "calc((100vw - 226px - 40px) / 2 )"
                         }}
                     />*/}
-                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
 
                     {/*<div
                         className="main-logo-line black main-logo-line-right"

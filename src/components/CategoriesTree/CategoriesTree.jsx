@@ -4,7 +4,7 @@ import ActiveBagIcon from "../../assets/svg/active-bag-icon";
 import {HeartOutlined, MenuOutlined} from "@ant-design/icons";
 import NonActiveCartIcon from "../../assets/svg/non-active-cart-icon";
 import NonActiveProfileIcon from "../../assets/svg/non-active-profile-icon";
-import RePoizonMainLogo from "../../assets/svg/re-poizon-main-logo";
+import RePoizonMainBigLogo from "../../assets/svg/re-poizon-main-middle-big-logo";
 import RePoizonMainMiddleLogo from "../../assets/svg/re-poizon-main-middle-logo";
 import GenderSwitcher from "../GenderSwitcher/GenderSwitcher";
 import Header from "../Header/Header";
@@ -434,7 +434,7 @@ function CategoriesTree() {
                 <>
                     <div className="categoriesWrapper">
                         <div className="main-logo-wrapper">
-                            {isDesktopScreen ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div> : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
+                            {isDesktopScreen ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div> : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
                             {isDesktopScreen ?
                                 <div className="actions-btns">
                                     <GenderSwitcher/>

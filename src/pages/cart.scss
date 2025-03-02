@@ -39,6 +39,12 @@
     height: auto;
 }
 
+.centered-content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .cart-item {
     margin-top: 15px!important;
     width: 100%;

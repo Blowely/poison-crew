@@ -68,7 +68,14 @@ const Favorites = () => {
     };
 
     return (
-        <Layout style={{ backgroundColor: "white", position: "relative" }}>
+        <Layout style={{
+                    backgroundColor: "white",
+                    position: "relative",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                }}
+                className="columnLayout">
             {spuId && <div className="productWrapper" id="productWrapper">
                 <Product />
             </div>
@@ -76,7 +83,7 @@ const Favorites = () => {
             <div className="content-block-header border-radius">
               <LeftOutlined onClick={onGoBackClick} />
               Избранное <div /></div>
-            <div className="content-block" style={{paddingLeft: '0', paddingRight: '0'}} >
+            <div className="content-block centered-content-block" style={{paddingLeft: '0', paddingRight: '0'}} >
                 {renderItems()}
             </div>
             {!isDesktopScreen && (

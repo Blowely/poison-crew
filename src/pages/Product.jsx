@@ -7,8 +7,6 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
-import { useTimer } from "use-timer";
-import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, normalizeSize} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
@@ -18,6 +16,7 @@ import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
+import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
 
@@ -322,7 +321,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
               width: "calc((100vw - 226px - 40px) / 2 )"
             }}
           />*/}
-          {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
+          {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
 
           {/*<div
             className="main-logo-line black main-logo-line-right"

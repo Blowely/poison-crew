@@ -18,7 +18,6 @@ import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
 import {addProducts} from "../common/productsSlice";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
-import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
@@ -34,6 +33,7 @@ import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 import ConverseIcon from "../assets/svg/brands/converse-icon";
 import FilaIcon from "../assets/svg/brands/fila-icon";
+import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -506,7 +506,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>
       <div className="productsListWrapper" >
         <div className="main-logo-wrapper">
-          {isDesktopScreen ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div> : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
+          {isDesktopScreen
+              ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>
+              : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
           {isDesktopScreen ?
               <div className="actions-btns">
                 <GenderSwitcher/>

@@ -6,7 +6,7 @@ import {LogoutOutlined, RightOutlined} from "@ant-design/icons";
 import {useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
-import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
@@ -32,7 +32,7 @@ const Profile = () => {
       <Layout>
         {isDesktopScreen &&
             <div className="main-logo-wrapper">
-              {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
+              {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
               {isDesktopScreen && <div className="actions-btns">
                 <GenderSwitcher/>
                 <div onClick={() => navigate("/profile")}>

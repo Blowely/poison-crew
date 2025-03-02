@@ -6,7 +6,7 @@ import "./cart.scss"
 import {LeftOutlined} from "@ant-design/icons";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
-import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
+import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
@@ -36,7 +36,7 @@ const Information = () => {
         <Layout>
             {isDesktopScreen &&
                 <div className="main-logo-wrapper">
-                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainLogo/></div>}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
                     {isDesktopScreen && <div className="actions-btns">
                         <GenderSwitcher/>
                         <div onClick={() => navigate("/profile")}>
