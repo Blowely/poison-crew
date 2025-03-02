@@ -3,15 +3,12 @@ import {Layout} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {LeftOutlined} from "@ant-design/icons";
-import {useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
-import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import RePoizonMainLogo from "../assets/svg/re-poizon-main-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
+import TelegramButton from "../components/TelegramButton/TelegramButton";
 
 const Information = () => {
     const navigate = useNavigate();
@@ -54,12 +51,13 @@ const Information = () => {
             }
             <div className="content-block-wrapper">
                 <div className="content-block" style={{height: '100%'}}>
-                    <div className="product-info__item standart template" style={{marginTop: '10px'}}>
+                    <div className="product-info__item standart template" style={{marginTop: '15px'}}>
                             <div className="title">Телефоны и e-mail</div>
                             <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
                             <div style={{fontSize: '16px'}}>8-920-297-2447</div>
                             <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
                     </div>
+                    <div className="telegram-button-wrapper"><TelegramButton /></div>
                     {/*<div className="cart-item">
                     <div className="cart-order-info">
                         <div style={{display: "grid", gap: '7px'}}>

@@ -17,6 +17,7 @@ import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
+import TelegramButton from "../components/TelegramButton/TelegramButton";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
 
@@ -499,6 +500,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                          src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt=""/>
                   </div>*/}
                   </div>
+                  {!isDesktopScreen && <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href} />}
 
                   {isDesktopScreen && !!sizesAndPrices?.length && sizesAndPrices[0]?.size !== 'Стандарт' &&
                       <div className="product-info__item">
