@@ -112,14 +112,14 @@ export const PRODUCT_PROPERTIES = {
 
 export const SORT_OPTIONS= [
     { value: 'by-relevance', label: 'Популярные' },
-    { value: 'cheap-first', label: 'Подешевле' },
-    { value: 'expensive-first', label: 'Подороже' },
+    { value: 'cheap-first', label: 'Дешевле' },
+    { value: 'expensive-first', label: 'Дороже' },
 ]
 
 export const SORT_TYPES = {
     'by-relevance': 'Популярные',
-    'cheap-first': 'Подешевле',
-    'expensive-first': 'Подороже',
+    'cheap-first': 'Дешевле',
+    'expensive-first': 'Дороже',
 }
 
 export const COLOR_LIST = [

@@ -91,7 +91,7 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
           </div>
           <div onClick={() => navigate(`/${gender}/categories/`)}>
             <img style={{height: '30px'}}
-                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
                  alt=""/>
           </div>
           <div onClick={() => navigate("/cart?from=products")}>
