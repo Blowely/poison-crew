@@ -17,6 +17,10 @@ import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
+import DeliverBlock from "../components/Delivery/DeliveryBlock";
+import InsuranceBlockBlock from "../components/InsuranceBlock/InsuranceBlock";
+import InsuranceBlock from "../components/InsuranceBlock/InsuranceBlock";
+import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
 
@@ -484,6 +488,16 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                                  alt=""/>
                           </span>
                         </div>
+
+                        <div className="product-info__item standart">
+                          <DeliverBlock/>
+                        </div>
+                        <div className="product-info__item standart">
+                          <InsuranceBlock/>
+                        </div>
+                        <div className="product-info__item standart">
+                          <VerifiedBlock/>
+                        </div>
                       </div>
                   }
 
@@ -574,6 +588,19 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                   {isDesktopScreen && <div className="telegram-button-wrapper">
                     <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href} />
                   </div>}
+                  {isDesktopScreen &&
+                      <>
+                        <div className="product-info__item standart">
+                          <DeliverBlock/>
+                        </div>
+                        <div className="product-info__item standart">
+                          <InsuranceBlock/>
+                        </div>
+                        <div className="product-info__item standart">
+                          <VerifiedBlock/>
+                        </div>
+                      </>
+                  }
                 </div>
 
               </div>
