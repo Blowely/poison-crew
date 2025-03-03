@@ -7,12 +7,12 @@ const TelegramButton = ({msg = 'Здравствуйте! Хочу задать 
         if (productUrl) {
             const message = `${msg}` + productUrl;
 
-            const telegramLink = `https://t.me/re_poizon_store?text=${encodeURIComponent(message)}`;
+            const telegramLink = `tg://resolve?domain=re_poizon_store&text=${encodeURIComponent(message)}`;
             return window.open(telegramLink, "_blank");
 
         }
 
-        window.open(`https://t.me/re_poizon_store`, "_blank");
+        window.open(`tg://resolve?domain=re_poizon_store`, "_blank");
     };
 
     return (

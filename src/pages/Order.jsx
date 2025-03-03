@@ -11,8 +11,6 @@ import {
 } from "@ant-design/icons";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import ActiveCartIcon from "../assets/svg/active-cart-icon";
 import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {getPrice, iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS} from "./constants";
@@ -25,8 +23,7 @@ import TelegramButton from "../components/TelegramButton/TelegramButton";
 const Order = () => {
     const navigate = useNavigate();
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const from = searchParams.get('from');
+    const [searchParams] = useSearchParams();
     const orderId = searchParams.get('id');
     const token = localStorage.getItem('token');
     const gender = localStorage.getItem("gender");
