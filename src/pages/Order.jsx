@@ -20,6 +20,7 @@ import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import StatusTag from "../components/Status";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
+import TelegramButton from "../components/TelegramButton/TelegramButton";
 
 const Order = () => {
     const navigate = useNavigate();
@@ -224,6 +225,11 @@ const Order = () => {
                                 </div>
 
                             </div>
+                        </div>
+                        <div className="telegram-button-wrapper" style={{marginTop: '15px'}}>
+                            <TelegramButton msg="Здравствуйте! Хочу задать вопрос по заказу: "
+                                            text="Задать вопрос по заказу"
+                                            productUrl={window.location.href}/>
                         </div>
                     </div>
                 </div>

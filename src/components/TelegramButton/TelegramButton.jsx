@@ -2,10 +2,10 @@ import React from "react";
 import { Button } from "antd";
 import "./TelegramButton.scss";
 
-const TelegramButton = ({text, productUrl, size = 'middle'}) => {
+const TelegramButton = ({msg = 'Здравствуйте! Хочу задать вопрос по товару: ', text, productUrl, size = 'middle'}) => {
     const handleClick = () => {
         if (productUrl) {
-            const message = "Здравствуйте! Хочу задать вопрос по товару: " + productUrl;
+            const message = `${msg}` + productUrl;
 
             const telegramLink = `https://t.me/re_poizon_store?text=${encodeURIComponent(message)}`;
             return window.open(telegramLink, "_blank");
