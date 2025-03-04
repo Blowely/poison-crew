@@ -33,12 +33,12 @@ const GenderSwitcher = () => {
                 >
                     Женщинам
                 </div>
-                <div
+                {/*<div
                     className={`tab ${activeTab === "kid" ? "active" : ""}`}
                     onClick={() => onChange("kid")}
                 >
                     Детям
-                </div>
+                </div>*/}
             </div>
         </div>
 
