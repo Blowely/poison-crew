@@ -612,8 +612,8 @@ export const FILLED_CATEGORIES = [
         "key": 1.3,
         "children": [
             {
-                "name": "Все товары",
-                "label": "Все товары",
+                "name": "Вся обувь",
+                "label": "Вся обувь",
                 "categoryLvl": 1,
                 "id": 29,
                 "key": 29
