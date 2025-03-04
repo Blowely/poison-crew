@@ -1,0 +1,18 @@
+.sidebar {
+  width: 250px;
+  background: #fff;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+  position: fixed;
+  z-index: 4;
+  top: 200px;
+}
+
+.ant-menu {
+  border-right: none;
+}
+
+.ant-drawer .ant-menu {
+  border-right: none;
+}

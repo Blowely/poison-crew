@@ -34,6 +34,7 @@ import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSe
 import ConverseIcon from "../assets/svg/brands/converse-icon";
 import FilaIcon from "../assets/svg/brands/fila-icon";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [selectedBrands, setSelectedBrands] = useState(!!brandsParam ? brandsParam?.split(',') : []);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
+  const [isVisibleCategories, setVisibleCategories] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -475,6 +477,15 @@ function Home({ onAddToFavorite, onAddToCart }) {
             </div>
           </Modal>
       )}
+      {isVisibleCategories && (
+          <Sidebar
+              visible={isVisibleCategories}
+              setVisibleCategories={setVisibleCategories}
+              setOffset={setOffset}
+              setLoading={setLoading}
+          />
+        )
+      }
       <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
            ref={filtersRef}>
         <Filters
@@ -530,6 +541,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 setLoading={setLoading}
                 setShowFilters={setShowFilters}
                 isEnabledFilters={isEnabledFilters}
+                setVisibleCategories={setVisibleCategories}
         />
         {!isDesktopScreen && !selectedCategory && <GenderSwitcher/>}
 

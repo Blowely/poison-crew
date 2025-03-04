@@ -397,16 +397,16 @@ function CategoriesTreeDesktop() {
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category.name);
-        setSubcategories(category.subcategories);
+        setSubcategories(category.children);
     };
 
     const handleSubCategoryClick = (subcategory) => {
-        if (subcategory?.subcategories?.length > 0) {
+        if (subcategory?.children?.length > 0) {
             setSelectedCategory(subcategory?.name);
-            setSubcategories(subcategory?.subcategories);
+            setSubcategories(subcategory?.children);
         }
 
-        if (subcategory?.subcategories?.length) {
+        if (subcategory?.children?.length) {
             return;
         }
 

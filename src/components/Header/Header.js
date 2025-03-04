@@ -6,7 +6,7 @@ import {useGetCollectionsQuery} from "../../store/collections.store";
 import {getMultipleRandom} from "../../common/utils";
 import {MenuOutlined} from "@ant-design/icons";
 
-const Header = ({search, setShowFilters, setOffset, setLoading}) => {
+const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCategories}) => {
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -87,7 +87,8 @@ const Header = ({search, setShowFilters, setOffset, setLoading}) => {
     const isDesktopScreen = window?.innerWidth > 768;
 
     const onCategoriesClick = () => {
-        navigate(`/${gender}/categories/`)
+        setVisibleCategories(true);
+        //navigate(`/${gender}/categories/`)
     }
 
     return (
