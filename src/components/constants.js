@@ -284,7 +284,7 @@ export const CATEGORIES = [
     {
         name: "Все аксессуары",
         categoryLvl: 1,
-        id: 48
+        id: 92
     },
     {
         name: "Поясные сумки",
