@@ -41,7 +41,17 @@
 
   <script async src="//points.boxberry.ru/js/boxberry.js"></script>
   <script>
-    if (!window.location.href.startsWith('http://localhost')) {
+    if (!window.location.hostname.includes("localhost")) {
+      const style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = `
+                body > iframe {
+                    display: none;
+                }
+            `;
+      document.head.appendChild(style);
+
+
       window.addEventListener('error', function(e){
         // prevent React's listener from firing
         e.stopImmediatePropagation();

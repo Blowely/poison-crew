@@ -29,7 +29,6 @@ export function PrivateAppRouter({
   const genderParam = window.location.href.split("/")[3];
 
   const gender =  gendersList.includes(genderParam) ? genderParam : localStorage.getItem("gender") || "men";
-  const isDesktopScreen = window?.innerWidth > 768;
 
   return (
     <Suspense fallback={<AppLoading />}>
