@@ -82,7 +82,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="link">
-                <a href="https://storage.yandexcloud.net/pc-mediafiles-dev3/oferta-_2_-_1_.pdf">
+                <a href="https://storage.yandexcloud.net/pc-mediafiles/important/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0%20re-poizon.ru.pdf">
                   Условия оферты
                 </a>
               </div>
