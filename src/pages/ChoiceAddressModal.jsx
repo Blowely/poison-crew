@@ -24,6 +24,7 @@ import { useAppDispatch } from "../store";
 import { setAddress } from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
 import { addressTypes } from "./constants";
+import EnterAddressDesktopModal from "../components/EnterAddressDesktopModal/EnterAddressDesktopModal";
 
 function ChoiceAddressModal({
   addresses,
@@ -38,6 +39,8 @@ function ChoiceAddressModal({
   const navigate = useNavigate();
 
   const [phone, setPhone] = useState("");
+  const [isOpenDesktopEnterAddressModal, setOpenDesktopEnterAddressModal] = useState(false);
+
   const [sendCode, { isLoading: isLoadingPostCode, error }] =
     useAddCodeMutation({}, { refetchOnMountOrArgChange: true });
   const [updateActiveAddress] = useUpdateActiveAddressMutation();
@@ -264,23 +267,48 @@ function ChoiceAddressModal({
       });
   };
 
+  const isDesktopScreen = window?.innerWidth > 768;
+
   const onOkHandler = async () => {
+    console.log('isDesktopScreen',isDesktopScreen)
+    if (isDesktopScreen) {
+      return setOpenDesktopEnterAddressModal(true)
+    }
+
     navigate("/address");
     // window?.boxberry?.open(onChangeBoxBerry)
   };
 
-  const isDesktopScreen = window?.innerWidth > 768;
+  const onEnterAddressDesktopModalCancelHandler = () => {
+    console.log('onEnterAddressDesktopModalCancelHandler')
+    setOpenDesktopEnterAddressModal(false);
+  }
+
+  const onEnterAddressDesktopModalOkHandler = () => {
+    setOpenDesktopEnterAddressModal(false);
+    setChoiceAddressModalOpen(true)
+  }
 
   return (
-    <Modal
-      open={open}
-      onOk={onOkHandler}
-      okText="Добавить адрес доставки"
-      onCancel={onCancel}
-      centered={!isDesktopScreen}
-    >
-      {renderModalContent()}
-    </Modal>
+      <>
+        {isOpenDesktopEnterAddressModal &&
+          <EnterAddressDesktopModal open={isOpenDesktopEnterAddressModal}
+                                    onOk={onEnterAddressDesktopModalOkHandler}
+                                    onCancel={onEnterAddressDesktopModalCancelHandler} />
+        }
+        {!isOpenDesktopEnterAddressModal &&
+          <Modal
+              open={open}
+              onOk={onOkHandler}
+              okText="Добавить адрес доставки"
+              onCancel={onCancel}
+              centered={!isDesktopScreen}
+          >
+            {renderModalContent()}
+          </Modal>
+        }
+
+      </>
   );
 }
 export default ChoiceAddressModal;

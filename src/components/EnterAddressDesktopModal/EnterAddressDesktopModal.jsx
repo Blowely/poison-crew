@@ -1,18 +1,18 @@
 import React from "react";
-import { Button, Input, Layout, notification } from "antd";
+import {Button, Input, Layout, Modal, notification} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "../store";
-import "./address.scss";
+import { useAppDispatch, useAppSelector } from "../../store";
+import "./EnterAddressDesktopModal.scss";
 import { useFormik } from "formik";
 import {
   useAddAddressMutation,
   useGetAccountQuery,
   useUpdateActiveAddressMutation
-} from "../store/accounts.store";
-import { setAddress } from "../common/accountSlice";
+} from "../../store/accounts.store";
+import { setAddress } from "../../common/accountSlice";
 
-function Address() {
+function EnterAddressDesktopModal({open, onClose, onOk}) {
   const dispatch = useAppDispatch();
 
   const phone = useAppSelector((state) => state.account.phone);
@@ -110,11 +110,12 @@ function Address() {
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
-    <Layout>
-      <div className="content-block-header border-radius">
-        <LeftOutlined onClick={onGoBackClick} />
-        Добавление нового адреса <div />
-      </div>
+    <Modal
+        title="Добавление нового адреса"
+        open={open}
+        onClose={onClose}
+        onOk={onOk}
+        okText="Добавить адрес">
       <div className="content-address-block">
         <div className="address-item">
           <div className="field-name">ФИО получателя</div>
@@ -198,8 +199,8 @@ function Address() {
         </footer>
       }
 
-    </Layout>
+    </Modal>
   );
 }
 
-export default Address;
+export default EnterAddressDesktopModal;
