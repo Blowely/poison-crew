@@ -12,7 +12,7 @@ import {
     notification,
     Radio
 } from "antd";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./choiceAddressModal.scss";
 import {
     useAddCodeMutation,
@@ -231,13 +231,11 @@ function ChoiceAddressModal({
 
     const {
         data: accountData,
-        isLoadingAcc,
-        error: accError
     } = useGetAccountQuery(token, { skip: phone });
 
     const remotePhone = accountData?.account?.phone;
 
-    const { values, setValues, setFieldValue, errors, submitForm } = useFormik({
+    const { values: vals, setFieldValue, submitForm } = useFormik({
         initialValues: {
             fio: "",
             phone: (phone || remotePhone)?.substring(1) || "",
@@ -267,9 +265,8 @@ function ChoiceAddressModal({
                             type: "success",
                             message: "Адрес добавлен"
                         });
+                        refetchAcc()
                     }
-
-                    navigate("/cart");
                 })
                 .catch((err) => {
                     console.log("err=", err);
@@ -285,8 +282,8 @@ function ChoiceAddressModal({
 
     const onOkHandlerEnterDesktop = () => {
         if (
-            Object.values(values).filter((el) => el.length).length !==
-            Object.keys(values).length
+            Object.values(vals).filter((el) => el.length).length !==
+            Object.keys(vals).length
         ) {
             return notification.open({
                 duration: 1.5,
@@ -312,43 +309,6 @@ function ChoiceAddressModal({
                 setFieldValue("workschedule", res.workschedule);
             };
 
-            /*const onChangeBoxBerry = (res) => {
-                const body = {
-                    type: addressTypes.BB_PVZ,
-                    ...res
-                };
-
-                addAccountAddress({token, address: body})
-                    .then(async (res) => {
-                        const address = {...body, _id: `${Date.now()}`};
-                        dispatch(setAddress(address));
-                        const activeAddrRes = await updateActiveAddress({
-                            token,
-                            addressId: res?.data?.addressId
-                        }).unwrap();
-
-                        if (activeAddrRes) {
-                            notification.open({
-                                duration: 2,
-                                type: "success",
-                                message: "Адрес добавлен"
-                            });
-                        }
-
-                        setChoiceAddressModalOpen(false);
-                        refetchAcc();
-                    })
-                    .catch((err) => {
-                        console.log("err=", err);
-                        navigate("/cart");
-                        notification.open({
-                            duration: 2,
-                            type: "error",
-                            message: "Ошибка добавления адреса"
-                        });
-                    });
-            };*/
-
             return (
                 <div
                     style={{
@@ -366,7 +326,7 @@ function ChoiceAddressModal({
                         <div className="address-item">
                             <div className="field-name">ФИО получателя</div>
                             <Input
-                                value={values.fio}
+                                value={vals.fio}
                                 onChange={(ev) => setFieldValue("fio", ev.target.value)}
                             />
                         </div>
@@ -375,7 +335,7 @@ function ChoiceAddressModal({
                             <Input
                                 prefix="+7"
                                 type="number"
-                                value={values.phone}
+                                value={vals.phone}
                                 onChange={(ev) => phoneInputHandler(ev.target.value)}
                             />
                         </div>
@@ -403,13 +363,13 @@ function ChoiceAddressModal({
                             </a>
                             <br/>
                             <br/>
-                            <Input value={values.address}/>
+                            <Input value={vals.address}/>
                         </div>
                     </div>
                 </div>
             );
         },
-        []
+        [vals, setFieldValue]
     );
 
 
@@ -422,15 +382,14 @@ function ChoiceAddressModal({
         }
 
         navigate("/address");
-        // window?.boxberry?.open(onChangeBoxBerry)
     };
 
     const onEnterAddressDesktopModalOkHandler = () => {
         console.log('onEnterAddressDesktopModalOkHandler')
+        onOkHandlerEnterDesktop()
 
         setOpenDesktopEnterAddressModal(false);
-        setChoiceAddressModalOpen(true)
-        onOkHandlerEnterDesktop()
+        setChoiceAddressModalOpen(false);
     }
 
     const onEnterAddressDesktopModalCancelHandler = () => {
