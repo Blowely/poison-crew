@@ -37,4 +37,8 @@
         font-size: 17px;
         font-weight: 500;
     }
+
+    @media (min-width: 768px) {
+        padding-bottom: 0;
+    }
 }

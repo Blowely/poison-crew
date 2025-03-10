@@ -27,6 +27,11 @@
   border-top: 1px solid #ffffff;
   display: grid;
   gap: 15px;
+
+  @media (min-width: 768px) {
+    padding-top: 0;
+    gap: 0;
+  }
 }
 
 .address-item-wrapper {
