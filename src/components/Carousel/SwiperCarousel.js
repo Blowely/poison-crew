@@ -16,7 +16,7 @@ const SwiperCarousel = (props) => {
             lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}>
       {images?.map((image, index) => {
         return (
-          <SwiperSlide key={index} className={!isDesktopScreen && styles.slide}>
+          <SwiperSlide key={index} zoom={true} modules={[Zoom]} className={!isDesktopScreen && styles.slide}>
             <img
               src={image}
               onLoad={onLoad}

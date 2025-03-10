@@ -12,13 +12,11 @@ import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, normalizeSize} 
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS} from "../components/constants";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import DeliverBlock from "../components/Delivery/DeliveryBlock";
-import InsuranceBlockBlock from "../components/InsuranceBlock/InsuranceBlock";
 import InsuranceBlock from "../components/InsuranceBlock/InsuranceBlock";
 import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 
