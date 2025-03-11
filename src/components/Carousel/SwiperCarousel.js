@@ -24,7 +24,9 @@ const SwiperCarousel = (props) => {
               alt={`Image ${index + 1}`}
               onError={onError}
               loading="lazy"
-              style={{width: '100%', objectFit: isDesktopScreen ? 'contain' : 'unset'}}
+              style={{width: isDesktopScreen ? '100%' : '80%',
+                objectFit: isDesktopScreen ? 'contain' : 'unset'
+              }}
             />
           </SwiperSlide>
         );
