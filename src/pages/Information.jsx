@@ -71,8 +71,8 @@ const Information = () => {
                 <div className="content-block" style={{height: '100%'}}>
                     <div className="product-info__item standart template" style={{marginTop: '15px'}}>
                         <div className="title">Телефоны и e-mail</div>
-                        <div style={{fontSize: '16px'}}>tg: in_a_state_of_flux</div>
-                        <div style={{fontSize: '16px'}}>8-920-297-2447</div>
+                        <div style={{fontSize: '16px'}}>tg: re_poizon_store</div>
+                        <div style={{fontSize: '16px'}}>+7 908 156 8531</div>
                         <div style={{fontSize: '16px'}}>moviefokll@gmail.com</div>
                     </div>
                     <div className="telegram-button-wrapper" style={{marginTop: '15px'}}><TelegramButton/></div>
