@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {Button, Card, Layout, message, notification, Result, Select, Tabs} from "antd";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams, useLocation} from "react-router-dom";
 import "./cart.scss";
 import {
     CopyOutlined, DeleteOutlined,
@@ -24,6 +24,7 @@ import PromoCode from "../components/PromoCode/PromoCode";
 function Cart() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
@@ -43,9 +44,10 @@ function Cart() {
     const {data: accountData, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
     const [addOrder] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
-    useEffect(() => {
-        window.scrollTo({top: 0})
-    }, [])
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const onGoBackClick = () => {
         if (from) {
@@ -57,31 +59,31 @@ function Cart() {
         }
     }
 
-const onOkHandler = async () => {
-    try {
-        if (!accountData?.account?.activeAddressId) {
-          return notification.open({duration: 2, type: 'error', message:'Не выбран адрес доставки'})
+    const onOkHandler = async () => {
+        try {
+            if (!accountData?.account?.activeAddressId) {
+              return notification.open({duration: 2, type: 'error', message:'Не выбран адрес доставки'})
+            }
+            if (!cartItems.length) {
+              return notification.open({duration: 2, type: 'error', message:'Товары не выбраны'})
+            }
+
+            const cartItem = cartItems[cartItems.length - 1];
+
+            const addOrderBody = {
+              clientId: accountData?.account?._id,
+              products: [cartItem],
+              address: activeAddr,
+            }
+
+            addOrder(addOrderBody);
+            dispatch(clearCart());
+
+            return setStep(1);
+        } catch (e) {
+            return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
         }
-        if (!cartItems.length) {
-          return notification.open({duration: 2, type: 'error', message:'Товары не выбраны'})
-        }
-
-        const cartItem = cartItems[cartItems.length - 1];
-
-        const addOrderBody = {
-          clientId: accountData?.account?._id,
-          products: [cartItem],
-          address: activeAddr,
-        }
-
-        addOrder(addOrderBody);
-        dispatch(clearCart());
-
-        return setStep(1);
-    } catch (e) {
-        return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
     }
-}
 
     const onAddressClick = () => {
         setChoiceAddressModalOpen(true);
