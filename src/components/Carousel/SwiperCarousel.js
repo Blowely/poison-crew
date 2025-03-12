@@ -15,21 +15,20 @@ const SwiperCarousel = (props) => {
     const swiperRef = useRef(null);
     const isZoomedRef = useRef(null);
 
-    const onSwiper = (swiper) => {
+    /*const onSwiper = (swiper) => {
         swiper.on('zoomChange', (scale) => {
             const zoomed = scale > 1;
             isZoomedRef.current = !!zoomed;
         });
-    };
+    };*/
 
   return (
     <Swiper
-        onSwiper={onSwiper}
         pagination={true} zoom={true} navigation={true}
         modules={[Pagination, Navigation, Zoom]}
         style={{
           width:'100%',
-          touchAction: isZoomedRef.current ? 'none' : 'auto',
+          //touchAction: isZoomedRef.current ? 'none' : 'auto',
         }}
         lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}
         ref={swiperRef}>
