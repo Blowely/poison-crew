@@ -34,6 +34,7 @@ const SwiperCarousel = (props) => {
         modules={[Pagination, Navigation, Zoom]}
         style={{
           width:'100%',
+          touchAction: isZoomed ? 'none' : 'auto',
         }}
         lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}
         ref={swiperRef}>
