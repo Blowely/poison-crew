@@ -20,7 +20,6 @@ const SwiperCarousel = (props) => {
             const zoomed = scale > 1;
             isZoomedRef.current = !!zoomed;
 
-            swiper.allowTouchMove = !zoomed;
             swiper.allowSlideNext = !zoomed;
             swiper.allowSlidePrev = !zoomed;
         });
