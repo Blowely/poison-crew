@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {Navigation, Pagination, Zoom} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from "./index.module.scss"
@@ -11,13 +11,19 @@ const SwiperCarousel = (props) => {
   const {images, onLoad, onError, lazyPreloadPrevNext, loop} = props;
   const isDesktopScreen = window.screen.availWidth > 600;
 
-  const swiperRef = useRef(null);
+    const [isZoomed, setIsZoomed] = useState(false);
+
+    const swiperRef = useRef(null);
 
     const onSwiper = (swiper) => {
         swiper.on('zoomChange', (scale) => {
-            swiper.allowTouchMove = scale === 1; // Блокируем свайп при увеличении
-            swiper.allowSlideNext = scale === 1;
-            swiper.allowSlidePrev = scale === 1;
+            const zoomed = scale > 1;
+            setIsZoomed(zoomed);
+
+            // Позволяем вертикальный скролл, но блокируем горизонтальный свайп при зуме
+            swiper.allowTouchMove = !zoomed;
+            swiper.allowSlideNext = !zoomed;
+            swiper.allowSlidePrev = !zoomed;
         });
     };
 
@@ -28,7 +34,6 @@ const SwiperCarousel = (props) => {
         modules={[Pagination, Navigation, Zoom]}
         style={{
           width:'100%',
-          touchAction: 'none'
         }}
         lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}
         ref={swiperRef}>
