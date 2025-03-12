@@ -11,19 +11,14 @@ const SwiperCarousel = (props) => {
   const {images, onLoad, onError, lazyPreloadPrevNext, loop} = props;
   const isDesktopScreen = window.screen.availWidth > 600;
 
-    const [isZoomed, setIsZoomed] = useState(false);
 
     const swiperRef = useRef(null);
+    const isZoomedRef = useRef(null);
 
     const onSwiper = (swiper) => {
         swiper.on('zoomChange', (scale) => {
             const zoomed = scale > 1;
-            setIsZoomed(zoomed);
-
-            // Позволяем вертикальный скролл, но блокируем горизонтальный свайп при зуме
-            swiper.allowTouchMove = !zoomed;
-            swiper.allowSlideNext = !zoomed;
-            swiper.allowSlidePrev = !zoomed;
+            isZoomedRef.current = !!zoomed;
         });
     };
 
@@ -34,7 +29,7 @@ const SwiperCarousel = (props) => {
         modules={[Pagination, Navigation, Zoom]}
         style={{
           width:'100%',
-          touchAction: isZoomed ? 'none' : 'auto',
+          touchAction: isZoomedRef.current ? 'none' : 'auto',
         }}
         lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}
         ref={swiperRef}>
