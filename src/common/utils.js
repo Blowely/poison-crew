@@ -170,11 +170,7 @@ export const normalizeSize = (size) => {
 };
 
 export const checkAuthProfileClick = () => {
-  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
-  if (!token) {
-    return false;
-  }
-  navigate('/profile');
+  return !!token;
 }
