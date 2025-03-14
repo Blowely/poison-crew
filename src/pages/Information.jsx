@@ -8,7 +8,6 @@ import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
 
 const Information = () => {
@@ -36,7 +35,7 @@ const Information = () => {
         <Layout>
             {isDesktopScreen &&
                 <div className="main-logo-wrapper">
-                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo /></div>}
                     {isDesktopScreen && <div className="actions-btns">
                         <GenderSwitcher/>
                         <div className="items-wrapper">

@@ -32,7 +32,7 @@ const Profile = () => {
       <Layout>
         {isDesktopScreen &&
             <div className="main-logo-wrapper">
-              {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
+              {<div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div>}
               {isDesktopScreen && <div className="actions-btns">
                 <GenderSwitcher/>
                 <div className="items-wrapper">

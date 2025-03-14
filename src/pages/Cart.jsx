@@ -227,7 +227,7 @@ function Cart() {
                           width: "calc((100vw - 226px - 40px) / 2 )"
                         }}
                     />*/}
-                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>}
+                    {<div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div>}
 
                     {/*<div
                         className="main-logo-line black main-logo-line-right"
@@ -317,6 +317,7 @@ function Cart() {
                             {!!cartItems.length && (
                                 <div>
                                     <PromoCode />
+                                    {/*<Button onClick={() => navigate('/sbp')}>Оплатить по СБП</Button>*/}
                                     <Card
                                         className="cart-item-card"
                                         extra={

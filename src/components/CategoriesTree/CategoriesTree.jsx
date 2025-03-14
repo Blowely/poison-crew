@@ -66,7 +66,7 @@ function CategoriesTree() {
                 <>
                     <div className="categoriesWrapper">
                         <div className="main-logo-wrapper">
-                            {isDesktopScreen ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div> : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
+                            {isDesktopScreen ? <div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div> : <div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainMiddleLogo/></div>}
                             {isDesktopScreen ?
                                 <div className="actions-btns">
                                     <GenderSwitcher/>

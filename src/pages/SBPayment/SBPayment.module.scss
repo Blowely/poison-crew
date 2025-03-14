@@ -1,0 +1,77 @@
+// SBPayment.module.scss
+.paymentContainer {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+}
+
+.qrSection {
+  margin-top: 2rem;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #34495e;
+  }
+}
+
+.status {
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  text-align: center;
+
+  &.ips_accepted {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+  }
+
+  &.declined, &.expired {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+  }
+}
+
+.sbp-button {
+  background: #3498db;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #2980b9;
+  }
+
+  &:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+  }
+}

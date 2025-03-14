@@ -395,7 +395,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const index = CATEGORIES.findIndex((el) => el.id === Number(selectedCategory));
-    return CATEGORIES[index]?.name || '';
+    return <span style={{cursor: "pointer"}}>{CATEGORIES[index]?.name || ''}</span> ;
   }
 
   const onGoBackClick = () => {
@@ -518,8 +518,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
       <div className="productsListWrapper" >
         <div className="main-logo-wrapper">
           {isDesktopScreen
-              ? <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainBigLogo/></div>
-              : <div onClick={() => navigate('/products')} style={{cursor: "pointer"}}><RePoizonMainMiddleLogo/></div>}
+              ? <div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div>
+              : <div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainMiddleLogo/></div>}
           {isDesktopScreen ?
               <div className="actions-btns">
                 <GenderSwitcher/>
@@ -566,7 +566,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         <div className="content">
 
           {selectedCategory && !isDesktopScreen &&
-              <div className="category-title"><LeftOutlined onClick={onGoBackClick}/>{getCategoryTitle()}</div>}
+              <div className="category-title" onClick={onGoBackClick}><LeftOutlined />{getCategoryTitle()}</div>}
 
           {!selectedCategory &&
               <>
@@ -658,7 +658,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             )}
             <div style={{width: "100%"}}>
               {selectedCategory && isDesktopScreen &&
-                  <div className="category-title"><LeftOutlined onClick={onGoBackClick}/>{getCategoryTitle()}</div>}
+                  <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>{getCategoryTitle()}</div>}
               <div className="filters-tags-wrapper">
                 <FilterTags
                     setOffset={setOffset}
