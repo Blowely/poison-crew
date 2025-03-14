@@ -83,7 +83,7 @@ function Cart() {
             const res = await addOrder(addOrderBody).unwrap();
 
             if (res?.qrCode) {
-                window.open(res.qrCode);
+                window.location.href = res.qrCode;
             }
 
             dispatch(clearCart());
