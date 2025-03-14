@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import {useNavigate} from "react-router-dom";
 
 export const collectionQueryProps = (type) => ({
   providesTags: (result) => result?.items?.map(({ _id }) => ({ type, id: _id })),
@@ -167,3 +168,13 @@ export const normalizeSize = (size) => {
 
   return (size?.primary || size)?.replace(/^(\d+)X/, (_, num) => "X"?.repeat(parseInt(num, 10))); // "2XS" -> "XXS", "3XL" -> "XXXL"
 };
+
+export const checkAuthProfileClick = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return false;
+  }
+  navigate('/profile');
+}
