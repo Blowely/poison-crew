@@ -20,6 +20,7 @@ import {BANKS} from "./constants";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import PromoCode from "../components/PromoCode/PromoCode";
+import DeliverBlock from "../components/Delivery/DeliveryBlock";
 
 function Cart() {
     const dispatch = useAppDispatch();
@@ -33,11 +34,13 @@ function Cart() {
     const [phone, setPhone] = useState('');
     const [step, setStep] = useState(0);
     const [bank, setBank] = useState('t-bank');
+    const [loading, setLoading] = useState(false);
 
     const paymentNumberRef = useRef(null);
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
     const gender = localStorage.getItem("gender");
+    const [orderAmount, setOrderAmount] = useState("");
 
     const cartItems = useAppSelector((state) => state.cart.items) || [];
 
@@ -61,6 +64,7 @@ function Cart() {
 
     const onOkHandler = async () => {
         try {
+            setLoading(true);
             if (!accountData?.account?.activeAddressId) {
               return notification.open({duration: 2, type: 'error', message:'Не выбран адрес доставки'})
             }
@@ -76,11 +80,18 @@ function Cart() {
               address: activeAddr,
             }
 
-            addOrder(addOrderBody);
+            const res = await addOrder(addOrderBody).unwrap();
+
+            if (res?.qrCode) {
+                window.open(res.qrCode);
+            }
+
             dispatch(clearCart());
+            setLoading(false);
 
             return setStep(1);
         } catch (e) {
+            setLoading(false);
             return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
         }
     }
@@ -105,6 +116,10 @@ function Cart() {
     const getPrice = (price) => {
         if (!price) {
             return '--';
+        }
+
+        if (!orderAmount) {
+            setOrderAmount(price);
         }
 
         return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
@@ -318,7 +333,7 @@ function Cart() {
                                 <div>
                                     <PromoCode />
                                     {/*<Button onClick={() => navigate('/sbp')}>Оплатить по СБП</Button>*/}
-                                    <Card
+                                    {/*<Card
                                         className="cart-item-card"
                                         extra={
                                             <Select
@@ -346,18 +361,22 @@ function Cart() {
                                         size="small"
                                     >
                                         <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
-                                    </Card>
-
+                                    </Card>*/}
+                                    <div className="product-info__item standart" style={{marginTop: '15px'}}>
+                                        <DeliverBlock/>
+                                    </div>
                                     <div className="cart-product-info-submit-btn-wrapper">
-                                        <div className="cart-product-info-submit-confirm-oferta">
+                                    <div className="cart-product-info-submit-confirm-oferta">
                                             Нажимая на кнопку "Я Оплатил. Подтвердить заказ", Вы принимаете {' '}
                                             <a href="https://storage.yandexcloud.net/pc-mediafiles/important/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0%20re-poizon.ru.pdf">
                                                 Условия оферты
                                             </a>
                                         </div>
-                                        <Button type="primary" className="cart-product-info-submit-btn"
+                                        <Button type="primary"
+                                                className="cart-product-info-submit-btn"
+                                                loading={loading}
                                                 onClick={onOkHandler}>
-                                            Я Оплатил. Подтвердить заказ
+                                            Оплатить по СБП {getPrice(orderAmount)}
                                         </Button>
                                     </div>
                                 </div>
