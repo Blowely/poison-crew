@@ -255,10 +255,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div onPointerUp={() => onCardClickHandler(item)}
-                 /*onTouchStart={handleTouchStart}
-                 onTouchEnd={() => handleTouchEnd(item, onCardClickHandler)}*/
-                 key={index}>
+            <div
+                onClick={() => onCardClickHandler(item)}
+                key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
