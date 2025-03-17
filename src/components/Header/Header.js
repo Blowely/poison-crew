@@ -56,7 +56,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
 
     const onCategoriesClick = () => {
         setVisibleCategories(true);
-        //navigate(`/${gender}/categories/`)
+        //navigate(`/${gender}-categories/`)
     }
 
     return (

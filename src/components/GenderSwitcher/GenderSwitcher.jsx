@@ -1,19 +1,29 @@
 import React, {useMemo, useState} from 'react';
 import './GenderSwitcher.scss';
+import {useNavigate} from "react-router-dom";
 
-const GenderSwitcher = () => {
+const GenderSwitcher = ({setLoading, setOffset}) => {
+    const navigate = useNavigate();
+
     const href = window.location.href;
     const gender = useMemo(() => {
-        const parts = href?.split("/");
-        return parts[3]?.split('?')[0];
+        const genderParamUrl = window.location.href.split("/")[3];
+        return genderParamUrl.split('-')[0];
     },[href])
 
     const [activeTab, setActiveTab] = useState(gender);
 
     const onChange = (tab) => {
+        if (!setLoading && !setOffset) {
+            return navigate(`/${tab}-products`);
+        }
+
+        console.log('tab',tab)
         setActiveTab(tab);
-        window.location.href = `/${tab}/products`;
+        navigate(`/${tab}-products`);
         localStorage.setItem('gender', tab);
+        setLoading(true);
+        setOffset(1);
     }
 
     const isDesktopScreen = window?.innerWidth > 768;

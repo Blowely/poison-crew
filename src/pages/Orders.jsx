@@ -80,7 +80,7 @@ const Orders = () => {
                     {<div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div>}
                     {isDesktopScreen &&
                         <div className="actions-btns">
-                            <GenderSwitcher/>
+                            <GenderSwitcher />
                             <div className="items-wrapper">
                                 <div className="item" onClick={() => navigate("/profile")}>
                                     <img style={{height: '26px'}}
@@ -196,7 +196,7 @@ const Orders = () => {
                          src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
                          alt=""/>
                 </div>
-                <div onClick={() => navigate(`/${gender}/categories/`)}>
+                <div onClick={() => navigate(`/${gender}-categories/`)}>
                     <img style={{height: '26px'}}
                          src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
                          alt=""/>

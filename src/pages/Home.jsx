@@ -94,9 +94,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
     const genderToFit = {
       'women': ['FEMALE'],
       'men': ['MALE'],
-      'kid': ['MALE']
     }
-
+    console.log('gender',gender)
     let obj = {
       limit: 20,
       search: search?.toLowerCase(),
@@ -157,7 +156,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
-    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}` || collection;
+    `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
@@ -386,7 +385,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     if (isDesktopScreen) {
       return navigate('/products');
     }
-    return navigate(`/${gender}/categories/`);
+    return navigate(`/${gender}-categories/`);
   }
 
   const onApplyBrandsClick = () => {
@@ -510,7 +509,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 <RePoizonMainMiddleLogo/></div>}
           {isDesktopScreen ?
               <div className="actions-btns">
-                <GenderSwitcher/>
+                <GenderSwitcher setOffset={setOffset} setLoading={setLoading} />
                 <div className="items-wrapper">
                   <div className="item" onClick={() => navigate("/profile")}>
                     <img style={{height: '26px'}}
@@ -534,7 +533,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
               </div>
               : <div className="actions-btns">
-                {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/${gender}/categories/`)}/>
+                {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/${gender}-categories/`)}/>
                 <div onClick={() => navigate("/profile")}>
                   <NonActiveProfileIcon/>
                 </div>*/}
@@ -549,7 +548,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 isEnabledFilters={isEnabledFilters}
                 setVisibleCategories={setVisibleCategories}
         />
-        {!isDesktopScreen && !selectedCategory && <GenderSwitcher/>}
+        {!isDesktopScreen && !selectedCategory && <GenderSwitcher setOffset={setOffset} setLoading={setLoading} />}
 
         <div className="content">
 
@@ -685,7 +684,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
                      alt=""/>
               </div>
-              <div onClick={() => navigate(`/${gender}/categories/`)}>
+              <div onClick={() => navigate(`/${gender}-categories/`)}>
                 <img style={{height: '26px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
                      alt=""/>

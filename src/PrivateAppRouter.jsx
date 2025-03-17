@@ -27,16 +27,20 @@ export function PrivateAppRouter({
 }) {
   const gendersList = ['women', 'men', 'kid'];
 
-  const genderParam = window.location.href.split("/")[3];
+  const genderParamUrl = window.location.href.split("/")[3];
+  const genderParam = genderParamUrl.split('-')[0];
 
   const gender =  gendersList.includes(genderParam) ? genderParam : localStorage.getItem("gender") || "men";
+  localStorage.setItem("gender", genderParam);
 
+  console.log('gender',gender)
   return (
     <Suspense fallback={<AppLoading />}>
       <Routes>
-        <Route path="/" element={<Navigate to="/products" />} replace />
+        <Route path="/" element={<Navigate to="/men-products" />} replace />
+        <Route path="/products" element={<Navigate to="/men-products" />} replace />
         <Route
-          path={`/${gender}/products`}
+          path={`/men-products`}
           element={
             <Home
               cartItems={cartItems}
@@ -49,7 +53,21 @@ export function PrivateAppRouter({
             />
           }
         />
-        <Route path={`/${gender}/products/*`} element={<Product />} />
+        <Route
+          path={`/women-products`}
+          element={
+            <Home
+              cartItems={cartItems}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+              isLoading={isLoading}
+            />
+          }
+        />
+        <Route path={`/products/*`} element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/*" element={<Cart />} />
         <Route path="/address" element={<Address />} />
@@ -61,9 +79,10 @@ export function PrivateAppRouter({
         <Route path="/visited" element={<VisitedProducts />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/sbp" element={<SBPayment />} />
-        <Route path={`/${gender}/categories/`} element={<CategoriesTree />} />
+        <Route path={`/men-categories/`} element={<CategoriesTree />} />
+        <Route path={`/women-categories/`} element={<CategoriesTree />} />
         <Route path="/info" element={<Information />} />
-        <Route path="*" element={<Navigate to={`/${gender}/products`} />} replace />
+        {/*<Route path="*" element={<Navigate to={`/${gender}-products`} />} replace />*/}
       </Routes>
     </Suspense>
   );
