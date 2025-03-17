@@ -84,7 +84,9 @@ function Card({
   return (
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
-       rel="noreferrer">
+         onClick={() => onCardClickHandler(item)}
+        rel="noreferrer"
+    >
       {!name && (
         <ContentLoader
           speed={0.8}

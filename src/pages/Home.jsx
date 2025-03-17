@@ -194,6 +194,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
+  useEffect(() => {
+    document.body.focus();
+  }, []);
+
+  let spuIdFlag = null;
 
   const renderItems = useCallback(() => {
     let productsItems = isLoading
@@ -217,23 +222,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
-    /*let touchStartTime = 0;
-
-    const handleTouchStart = (e) => {
-      touchStartTime = Date.now();  // Записываем время начала касания
-    };
-
-    const handleTouchEnd = (item, onCardClickHandler) => {
-      message.success('handleTouchEnd')
-      const touchEndTime = Date.now();  // Записываем время окончания касания
-
-      if (touchEndTime - touchStartTime < 300) {
-        onCardClickHandler(item)
-        message.success('click')
-      }
-    };*/
-    let spuIdFlag = null;
-
     const onCardClickHandler = (item) => {
       if (spuIdFlag) {
         return;
@@ -255,8 +243,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return(
-            <div
-                onClick={() => onCardClickHandler(item)}
+            <>
                 key={index}>
               <Card
                 onFavorite={(obj) => onAddToFavorite(obj)}
@@ -268,11 +255,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 name={title}
                 onCardClickHandler={onCardClickHandler}
               />
-            </div>
+            </>
         )})}
       </div>
     );
-  },[productsSlice, isLoading]);
+  },[productsSlice, isLoading, setSelectedProduct, setSearchParams]);
 
   const docElements = document.getElementsByClassName("cards-section-wrapper");
 
