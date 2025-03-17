@@ -10,6 +10,7 @@ function Card({
   name,
   item,
   onCardClickHandler,
+  onPointerDownHandler,
   key
 }) {
 
@@ -86,6 +87,7 @@ function Card({
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
          onClick={() => onCardClickHandler(item)}
+         onPointerDown={() => onPointerDownHandler(item)}
          key={key}
     >
       {!name && (

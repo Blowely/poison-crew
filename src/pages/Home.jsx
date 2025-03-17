@@ -198,7 +198,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
     document.body.focus();
   }, []);
 
-  let spuIdFlag = null;
+  const spuIdFlag = useRef(null);
+  const clickHandled = useRef(false);
 
   const renderItems = useCallback(() => {
     let productsItems = isLoading
@@ -223,17 +224,30 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const onCardClickHandler = (item) => {
-      if (spuIdFlag) {
-        return;
-      }
+      if (spuIdFlag.current) return;
 
-      spuIdFlag = item?.spuId
+      spuIdFlag.current = item?.spuId;
+      clickHandled.current = true; // Отмечаем, что `onClick` сработал
+
+      setTimeout(() => {
+        spuIdFlag.current = null;
+        clickHandled.current = false; // Сбрасываем состояние
+      }, 500);
+
       setSelectedProduct(item);
       const spuId = item?.spuId || '';
       searchParams.set('spuId', spuId);
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
     }
+
+    const onPointerDownHandler = (item) => {
+      setTimeout(() => {
+        if (!clickHandled.current) {
+          onCardClickHandler(item);
+        }
+      }, 200); // Ждём, вдруг `onClick` всё же сработает
+    };
 
     return (
       <div className="cards-section-wrapper">
@@ -253,6 +267,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   item={item}
                   name={title}
                   onCardClickHandler={onCardClickHandler}
+                  onPointerDownHandler={onPointerDownHandler}
               />
           )})}
       </div>
