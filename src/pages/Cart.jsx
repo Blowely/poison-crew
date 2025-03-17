@@ -89,7 +89,7 @@ function Cart() {
             dispatch(clearCart());
             setLoading(false);
 
-            return setStep(1);
+            return navigate('/orders');
         } catch (e) {
             setLoading(false);
             return notification.open({duration: 2, type: 'error', message:'Ошибка оформления заказа'})
