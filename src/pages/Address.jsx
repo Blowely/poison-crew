@@ -112,8 +112,8 @@ function Address() {
   return (
     <Layout>
       <div className="content-block-header border-radius">
-        <LeftOutlined onClick={onGoBackClick} />
-        Добавление нового адреса <div />
+        <LeftOutlined onClick={onGoBackClick}/>
+        Добавление нового адреса <div style={{width: '19px'}}/>
       </div>
       <div className="content-address-block">
         <div className="address-item">

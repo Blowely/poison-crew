@@ -82,8 +82,10 @@ const Favorites = () => {
             </div>
             }
             <div className="content-block-header border-radius">
-              <LeftOutlined onClick={onGoBackClick} />
-              Избранное <div /></div>
+                <LeftOutlined onClick={onGoBackClick}/>
+                Избранное
+                <div style={{width: '19px'}}/>
+            </div>
             <div className="content-block centered-content-block" style={{paddingLeft: '0', paddingRight: '0'}} >
                 {renderItems()}
             </div>

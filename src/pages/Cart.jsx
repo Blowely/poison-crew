@@ -279,7 +279,8 @@ function Cart() {
             {!isDesktopScreen &&
                 <div className="content-block-header border-radius">
                     <LeftOutlined onClick={onGoBackClick}/>
-                    Оформление заказа <div/>
+                    Оформление заказа
+                    <div style={{width: '19px'}}/>
                 </div>
             }
             <div className="content-block-wrapper">
