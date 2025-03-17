@@ -378,28 +378,39 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
                 }}>
-                <SwiperCarousel
-                      style={{width: '100%'}}
-                      images={product?.images}
-                      onLoad={onLoadCarousel}
-                      onError={onLoadCarousel}
-                  />
-                  {isDesktopScreen && <div style={{width: '100%'}}>
-                    <div className="item-details-wrapper">
-                      <ItemDetails details={product?.productProperties} style={{marginTop: '50px'}}/>
-                    </div>
-                    <div className="product-info__item standart brand " onClick={onBrandClick}>
-                      {!!getImgSrc() && <img
-                          src={getImgSrc()}
-                          alt="brand" className="brand-logo"/>
-                      }
-                      <div className="brand-info">
-                        <span className="brand-name">{product?.brand}</span>
-                        <span className="items">10K+ items ></span>
-                      </div>
+                  {isDesktopScreen && (
+                      <SwiperCarousel
+                          style={{width: '100%'}}
+                          images={product?.images}
+                          onLoad={onLoadCarousel}
+                          onError={onLoadCarousel}
+                      />
+                  )}
+                  {!isDesktopScreen && (
+                      <SwiperCarousel
+                          style={{width: '100%'}}
+                          images={product?.images}
+                          onLoad={onLoadCarousel}
+                          onError={onLoadCarousel}
+                      />
+                  )}
+
+                {isDesktopScreen && <div style={{width: '100%'}}>
+                  <div className="item-details-wrapper">
+                    <ItemDetails details={product?.productProperties} style={{marginTop: '50px'}}/>
+                  </div>
+                  <div className="product-info__item standart brand " onClick={onBrandClick}>
+                    {!!getImgSrc() && <img
+                        src={getImgSrc()}
+                        alt="brand" className="brand-logo"/>
+                    }
+                    <div className="brand-info">
+                      <span className="brand-name">{product?.brand}</span>
+                      <span className="items">10K+ items ></span>
                     </div>
                   </div>
-                  }
+                </div>
+                }
 
 
                 </div>
