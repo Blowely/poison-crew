@@ -17,7 +17,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
 import {addProducts} from "../common/productsSlice";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
