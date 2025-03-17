@@ -377,7 +377,6 @@ function Product({ selectedProduct, setLoading = () => {} }) {
               <div className={"content-wrapper"} style={{flexDirection: isDesktopScreen ? 'row' : 'column'}}>
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
-                  marginTop: isDesktopScreen ? '40px' : '0'
                 }}>
                 <SwiperCarousel
                       style={{width: '100%'}}

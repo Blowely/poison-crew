@@ -518,8 +518,12 @@ function Home({ onAddToFavorite, onAddToCart }) {
       <div className="productsListWrapper" >
         <div className="main-logo-wrapper">
           {isDesktopScreen
-              ? <div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div>
-              : <div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainMiddleLogo/></div>}
+              ? <div onClick={() => navigate('/products')}
+                     style={{cursor: "pointer", zIndex: "5", display: "flex", alignItems: "center"}}>
+                <RePoizonMainBigLogo/></div>
+              : <div onClick={() => navigate('/products')}
+                     style={{cursor: "pointer", zIndex: "5", display: "flex", alignItems: "center"}}>
+                <RePoizonMainMiddleLogo/></div>}
           {isDesktopScreen ?
               <div className="actions-btns">
                 <GenderSwitcher/>

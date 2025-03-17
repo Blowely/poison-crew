@@ -122,6 +122,8 @@
     min-height: 339px;
 
     @media (min-width: 768px) {
+        margin-top: 30px;
+
         > .swiper {
             min-height: 339px!important;
             aspect-ratio: 1 / 1 !important;
@@ -151,6 +153,10 @@
     align-items: flex-start;
     gap: 24px;
     width: 100%;
+
+    @media (min-width: 768px) {
+        padding-top: 30px;
+    }
 
     div.ant-divider {
         margin: 16px 0;
