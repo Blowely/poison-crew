@@ -1,5 +1,5 @@
 import React, {
-  Suspense,
+  Suspense, useCallback,
   useEffect,
   useRef,
   useState
@@ -82,7 +82,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const filtersRef = useRef(null);
 
-  const gender = localStorage.getItem("gender");
+  const gender = localStorage.getItem("gender") || "men";
 
   const isDesktopScreen = window?.innerWidth > 768;
 
@@ -195,7 +195,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
 
-  const renderItems = () => {
+  const renderItems = useCallback(() => {
     let productsItems = isLoading
       ? [...Array(60)]
       : productsSlice[trimCollectionValue] || []
@@ -273,7 +273,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
         )})}
       </div>
     );
-  };
+  },[productsSlice, isLoading]);
 
   const docElements = document.getElementsByClassName("cards-section-wrapper");
 

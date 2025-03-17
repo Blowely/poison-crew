@@ -39,7 +39,7 @@ function Cart() {
     const paymentNumberRef = useRef(null);
     const from = searchParams.get('from');
     const token = localStorage.getItem('token');
-    const gender = localStorage.getItem("gender");
+    const gender = localStorage.getItem("gender") || "men";
     const [orderAmount, setOrderAmount] = useState("");
 
     const cartItems = useAppSelector((state) => state.cart.items) || [];

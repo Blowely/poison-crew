@@ -13,7 +13,7 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
   const [searchParams, setSearchParams] = useSearchParams();
   const from = searchParams.get('from');
   const token = localStorage.getItem('token');
-  const gender = localStorage.getItem("gender");
+  const gender = localStorage.getItem("gender") || "men";
 
   const cartItems = useAppSelector((state) => state.cart.items);
   const addresses = useAppSelector((state) => state.account.addresses);

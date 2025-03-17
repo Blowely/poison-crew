@@ -11,7 +11,7 @@ import Product from "./Product";
 const Favorites = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const gender = localStorage.getItem("gender");
+    const gender = localStorage.getItem("gender") || "men";
     const spuId = searchParams.get("spuId");
 
     const isDesktopScreen = window?.innerWidth > 768;

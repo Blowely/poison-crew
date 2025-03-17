@@ -21,7 +21,7 @@ function Address() {
   const [searchParams, setSearchParams] = useSearchParams();
   const from = searchParams.get("from");
   const token = localStorage.getItem("token");
-  const gender = localStorage.getItem("gender");
+  const gender = localStorage.getItem("gender") || "men";
 
   const [addAccountAddress, { isLoading: isLoadingAddress, error }] =
     useAddAddressMutation({}, { refetchOnMountOrArgChange: true });

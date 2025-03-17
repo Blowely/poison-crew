@@ -26,7 +26,7 @@ const Order = () => {
     const [searchParams] = useSearchParams();
     const orderId = searchParams.get('id');
     const token = localStorage.getItem('token');
-    const gender = localStorage.getItem("gender");
+    const gender = localStorage.getItem("gender") || "men";
 
     const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;

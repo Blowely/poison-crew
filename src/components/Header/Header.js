@@ -10,7 +10,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [searchValue, setSearchValue] = useState(search || '');
-    const gender = localStorage.getItem("gender");
+    const gender = localStorage.getItem("gender") || "men";
 
     useEffect(() => {
         if (!search) {
