@@ -9,7 +9,8 @@ function Card({
   price,
   name,
   item,
-  onCardClickHandler
+  onCardClickHandler,
+  key
 }) {
 
   const [loadingImg, setLoadingImg] = useState(true);
@@ -85,7 +86,7 @@ function Card({
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
          onClick={() => onCardClickHandler(item)}
-        rel="noreferrer"
+         key={key}
     >
       {!name && (
         <ContentLoader

@@ -242,21 +242,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const title = item?.name || '';
           const price = item?.price || '';
 
-          return(
-            <>
-                key={index}>
+          return (
               <Card
-                onFavorite={(obj) => onAddToFavorite(obj)}
-                onPlus={(obj) => onAddToCart(obj)}
-                loading={isLoading}
-                image={image}
-                price={price}
-                item={item}
-                name={title}
-                onCardClickHandler={onCardClickHandler}
+                  key={index}
+                  onFavorite={(obj) => onAddToFavorite(obj)}
+                  onPlus={(obj) => onAddToCart(obj)}
+                  loading={isLoading}
+                  image={image}
+                  price={price}
+                  item={item}
+                  name={title}
+                  onCardClickHandler={onCardClickHandler}
               />
-            </>
-        )})}
+          )})}
       </div>
     );
   },[productsSlice, isLoading, setSelectedProduct, setSearchParams]);
