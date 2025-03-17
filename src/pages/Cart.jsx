@@ -52,7 +52,7 @@ function Cart() {
         setTimeout(() => {
             window.scrollTo(0, 0);
         }, 100);
-    }, [pathname]);
+    }, []);
 
     const onGoBackClick = () => {
         if (from) {
