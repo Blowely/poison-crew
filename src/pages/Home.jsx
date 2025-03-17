@@ -198,7 +198,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
     document.body.focus();
   }, []);
 
-  const spuIdFlag = useRef(null);
+  let spuIdFlag = null;
 
   const renderItems = useCallback(() => {
     let productsItems = isLoading
@@ -223,9 +223,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const onCardClickHandler = (item) => {
-      if (spuIdFlag.current) return;
+      if (spuIdFlag) return;
 
-      spuIdFlag.current = item?.spuId;
+      spuIdFlag = item?.spuId;
 
       setSelectedProduct(item);
       const spuId = item?.spuId || '';
