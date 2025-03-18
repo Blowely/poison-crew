@@ -381,7 +381,6 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 }}>
                   {isDesktopScreen && product?.images && (
                       <ProductGallery
-                          style={{width: '100%'}}
                           images={product?.images}
                           onLoad={onLoadCarousel}
                           onError={onLoadCarousel}
