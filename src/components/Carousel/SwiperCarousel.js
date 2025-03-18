@@ -31,7 +31,7 @@ const SwiperCarousel = (props) => {
           //touchAction: isZoomedRef.current ? 'none' : 'auto',
         }}
         lazyPreloadPrevNext={lazyPreloadPrevNext} loop={loop}
-        ref={swiperRef}>
+        ref={swiperRef}
     >
       {images?.map((image, index) => {
         return (

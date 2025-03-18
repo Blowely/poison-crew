@@ -286,7 +286,10 @@ function Cart() {
                 </div>
             }
             <div className="content-block-wrapper">
-                <div className="content-block">
+                <div className="content-block" style={{paddingTop: isDesktopScreen && '20px'}} >
+                    {isDesktopScreen &&
+                        <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>Корзина</div>
+                    }
                     {step === 0 && cartItems?.length === 0 &&
                         <Result
                             status="info"
@@ -318,7 +321,7 @@ function Cart() {
                                             <div className="cart-product-info-third-column">
                                                 <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
                                                 <div id="delete-icon-wrapper">
-                                                    <DeleteOutlined onClick={() => removeFromCartHandler(el)} />
+                                                    <DeleteOutlined onClick={() => removeFromCartHandler(el)}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -334,7 +337,7 @@ function Cart() {
 
                             {!!cartItems.length && (
                                 <div>
-                                    <PromoCode />
+                                    <PromoCode/>
                                     {/*<Button onClick={() => navigate('/sbp')}>Оплатить по СБП</Button>*/}
                                     {/*<Card
                                         className="cart-item-card"
@@ -369,7 +372,7 @@ function Cart() {
                                         <DeliverBlock/>
                                     </div>
                                     <div className="cart-product-info-submit-btn-wrapper">
-                                    <div className="cart-product-info-submit-confirm-oferta">
+                                        <div className="cart-product-info-submit-confirm-oferta">
                                             Нажимая на кнопку "Оплатить", Вы принимаете {' '}
                                             <a href="https://storage.yandexcloud.net/pc-mediafiles/important/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0%20re-poizon.ru.pdf">
                                                 Условия оферты
