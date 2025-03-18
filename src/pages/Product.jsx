@@ -19,6 +19,7 @@ import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import InsuranceBlock from "../components/InsuranceBlock/InsuranceBlock";
 import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
+import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
 
@@ -378,8 +379,8 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
                 }}>
-                  {isDesktopScreen && (
-                      <SwiperCarousel
+                  {isDesktopScreen && product?.images && (
+                      <ProductGallery
                           style={{width: '100%'}}
                           images={product?.images}
                           onLoad={onLoadCarousel}

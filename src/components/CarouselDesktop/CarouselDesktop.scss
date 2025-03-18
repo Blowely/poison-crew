@@ -1,0 +1,27 @@
+// Ваш файл ProductGallery.scss
+.image-gallery {
+  &-slide {
+  }
+
+  &-thumbnails-wrapper {
+  }
+}
+
+.image-gallery-left-nav, .image-gallery-right-nav {
+}
+
+.image-gallery-icon {
+  filter: drop-shadow(0 2px 2px rgb(174, 174, 174));
+}
+
+.image-gallery-icon:hover {
+  color: white!important;
+}
+
+.image-gallery-thumbnail:hover {
+  border: 3px solid #d6d6d6;
+}
+
+.image-gallery-thumbnail:focus, .image-gallery-thumbnail.active {
+  border: 3px solid #d6d6d6;
+}
