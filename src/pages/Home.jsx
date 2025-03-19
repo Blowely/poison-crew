@@ -198,7 +198,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   let spuIdFlag = null;
 
-  const renderItems = useCallback(() => {
+  const renderItems = () => {
     let productsItems = isLoading
       ? [...Array(60)]
       : productsSlice[trimCollectionValue] || []
@@ -255,7 +255,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           )})}
       </div>
     );
-  },[productsSlice, isLoading, setSelectedProduct, setSearchParams]);
+  };
 
   const docElements = document.getElementsByClassName("cards-section-wrapper");
 
