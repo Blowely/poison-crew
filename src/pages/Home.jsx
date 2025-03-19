@@ -94,7 +94,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       'women': ['FEMALE'],
       'men': ['MALE'],
     }
-    console.log('gender',gender)
+
     let obj = {
       limit: 20,
       search: search?.toLowerCase(),

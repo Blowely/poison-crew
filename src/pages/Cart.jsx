@@ -286,7 +286,7 @@ function Cart() {
                 </div>
             }
             <div className="content-block-wrapper">
-                <div className="content-block" style={{paddingTop: isDesktopScreen && '20px'}} >
+                <div className="content-block" style={{padding: isDesktopScreen && '30px 0px 0px 0px'}} >
                     {isDesktopScreen &&
                         <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>Корзина</div>
                     }
@@ -374,7 +374,7 @@ function Cart() {
                                     <div className="cart-product-info-submit-btn-wrapper">
                                         <div className="cart-product-info-submit-confirm-oferta">
                                             Нажимая на кнопку "Оплатить", Вы принимаете {' '}
-                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/%D0%BE%D1%84%D0%B5%D1%80%D1%82%D0%B0%20re-poizon.ru.pdf">
+                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf">
                                                 Условия оферты
                                             </a>
                                         </div>

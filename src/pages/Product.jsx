@@ -3,7 +3,7 @@ import {Button, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
-import { LoadingOutlined } from "@ant-design/icons";
+import {LeftOutlined, LoadingOutlined} from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
@@ -104,8 +104,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
       }
     });
 
-    console.log('sortedHandledSizesAndPrices',sortedHandledSizesAndPrices)
-
+    //console.log('sortedHandledSizesAndPrices',sortedHandledSizesAndPrices)
 
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
@@ -360,18 +359,22 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
       {!isLoadingProduct && (
           <div style={{height: '100%'}}>
-            <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png"
-                 alt="" className="go-back-btn"
-                 onClick={goBack}/>
-
-            <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
-              <IconHeart/>
-            </div>
-
-            <img
-                src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C%D1%81%D1%8F(cropped).png"
-                className="link-btn"
-                onClick={copyUrl} alt=""/>
+            {!isDesktopScreen && (
+                <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png"
+                     alt="" className="go-back-btn"
+                     onClick={goBack}/>)
+            }
+            {!isDesktopScreen && (
+                <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
+                  <IconHeart/>
+                </div>)
+            }
+            {!isDesktopScreen && (
+                <img
+                    src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C%D1%81%D1%8F(cropped).png"
+                    className="link-btn"
+                    onClick={copyUrl} alt=""/>)
+            }
 
 
             <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px 0 20px' : '0'}}>
@@ -379,6 +382,9 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
                 }}>
+                  {isDesktopScreen &&
+                      <div className="category-title" onClick={goBack}><LeftOutlined/>Каталог</div>
+                  }
                   {isDesktopScreen && product?.images && (
                       <ProductGallery
                           images={product?.images}
@@ -416,22 +422,27 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 </div>
 
                 <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
-                  <div className={"product-info__item standart" + (isDesktopScreen ? ' transparent' : '')}>
+                  <div className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}>
                     {!isDesktopScreen &&
                         <div className="title">
                           {getIntPrice(choice?.price)}
                         </div>
                     }
                     <div className="title-wrapper">
-                    <span className="standart" style={{minHeight: '24px'}}>
-                      {product?.name}
-                    </span>
+                      <span className="standart" style={{minHeight: '24px'}}>
+                        {product?.name}
+                      </span>
                       {isDesktopScreen &&
-                          <div className="title">
-                            {getIntPrice(choice?.price)}
-                          </div>
+                        <div className="title">
+                          {getIntPrice(choice?.price)}
+                        </div>
                       }
                     </div>
+                    {isDesktopScreen &&
+                        <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
+                          <IconHeart/>
+                        </div>
+                    }
                   </div>
 
                   {!isDesktopScreen &&

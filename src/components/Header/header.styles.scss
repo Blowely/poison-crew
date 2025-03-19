@@ -175,6 +175,11 @@
   background: rgb(178 178 178 / 10%);
   cursor: pointer;
 
+  @media (min-width: 768px) {
+    position: unset;
+    margin-top: unset;
+  }
+
   &.favorite-btn {
     right: 67px;
   }

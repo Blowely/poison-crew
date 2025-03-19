@@ -104,7 +104,7 @@
     position: relative;
     margin: 0;
     padding: 0;
-    max-width: 1250px;
+    max-width: 1200px;
     height: 100%;
     //overflow: auto;
 }
@@ -120,6 +120,18 @@
     margin-top: 20px;
     background-color: white;
     min-height: 339px;
+
+    > .category-title {
+        cursor: pointer;
+        font-style: normal;
+        width: fit-content;
+        font-weight: 800;
+        font-size: 22px;
+        line-height: 130%;
+        padding: 0 0 20px 0;
+        display: flex;
+        gap: 6px;
+    }
 
     @media (min-width: 768px) {
         margin-top: 30px;
@@ -209,6 +221,12 @@
     &.transparent {
         padding: unset;
         box-shadow: unset;
+    }
+
+    &.space-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
     }
 
     &.template {
