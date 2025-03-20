@@ -159,44 +159,43 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
+  const prevProductsRef = useRef(products);
+
   useEffect(() => {
+    if (prevProductsRef.current === products) return; // Пропускаем, если продукты не изменились
+    prevProductsRef.current = products;
+
     setLoading(false);
 
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
-          addProducts({
-            [trimCollectionValue]: products?.items || [],
-          }),
+            addProducts({
+              [trimCollectionValue]: products?.items || [],
+            })
         );
       } else {
         dispatch(
-          addProducts({
-            [trimCollectionValue]: [
-              ...productsSlice[trimCollectionValue],
-              ...products?.items || [],
-            ],
-          }),
+            addProducts({
+              [trimCollectionValue]: [
+                ...productsSlice[trimCollectionValue],
+                ...(products?.items || []),
+              ],
+            })
         );
       }
     } else if (products?.items?.length) {
       try {
         dispatch(
-          addProducts({
-            [trimCollectionValue]: products?.items || [],
-          }),
+            addProducts({
+              [trimCollectionValue]: products?.items || [],
+            })
         );
       } catch (e) {
-        console.log("e =", e);
+        console.log("Ошибка при обновлении товаров:", e);
       }
     }
   }, [products]);
-
-  useEffect(() => {
-    if (!isDesktopScreen) {
-      document.body.focus();
-    }
-  }, [spuId, products]);
 
   let spuIdFlag = null;
 
