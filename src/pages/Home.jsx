@@ -234,9 +234,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
     const onPointerUp = (item, event) => {
       const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
       const diff = Math.abs(startY - endY);
+      notification.info({message: 'onPointerUp ' + diff});
 
       if (diff < 5) { // Если палец почти не двигался, это клик
-        notification.info({message: 'onPointerUp'});
         onCardClickHandler(item);
       }
     };
