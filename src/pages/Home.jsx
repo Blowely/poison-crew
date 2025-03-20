@@ -222,16 +222,17 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   };
 
-  const renderItems = () => {
-    useEffect(() => {
-      window.addEventListener('pointermove', onPointerMove);
-      window.addEventListener('touchmove', onPointerMove);
+  useEffect(() => {
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('touchmove', onPointerMove);
 
-      return () => {
-        window.removeEventListener('pointermove', onPointerMove);
-        window.removeEventListener('touchmove', onPointerMove);
-      };
-    }, []);
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('touchmove', onPointerMove);
+    };
+  }, []);
+
+  const renderItems = () => {
 
     let productsItems = isLoading
       ? [...Array(60)]
