@@ -12,15 +12,17 @@ import {addPhone} from "../common/accountSlice";
 const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
   const dispatch = useAppDispatch();
 
-  const [searchParams, setSearchParams] = useSearchParams();
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState(null);
   const [getCode, {codeData, isLoadingCode} ] = useLazyGetCodeQuery();
   const [sendCode, {isLoading: isLoadingPostCode, error}] = useAddCodeMutation({},{refetchOnMountOrArgChange: true});
 
   const phoneInputHandler = (value) => {
-    if (value.length <= 10) {
-      setPhone(value)
+    const cleanedValue = value.replace(/\D/g, '');
+
+    // Проверяем, что длина значения не превышает 10 символов
+    if (cleanedValue.length <= 10) {
+      setPhone(cleanedValue);
     }
   }
 
@@ -29,7 +31,7 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
       {!isCodeModalOpen &&
         <>
           <div style={{fontSize: '22px', fontWeight: '500'}}>Вход по номеру телефона</div>
-          <Input prefix="+7" type="number" value={phone} placeholder="Пожалуйста введите ваш номер телефона"
+          <Input prefix="+7" type="phone" value={phone} placeholder="Пожалуйста введите ваш номер телефона"
                  onChange={(ev) => phoneInputHandler(ev.target.value)} />
 
         </>

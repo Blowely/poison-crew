@@ -83,8 +83,11 @@ function Address() {
   const onGoBackClick = () => navigate(`/cart`)
 
   const phoneInputHandler = (value) => {
-    if (value.length <= 10) {
-      setFieldValue("phone", value);
+    const cleanedValue = value.replace(/\D/g, '');
+
+    // Проверяем, что длина значения не превышает 10 символов
+    if (cleanedValue.length <= 10) {
+      setFieldValue("phone", cleanedValue);
     }
   };
 
@@ -127,7 +130,6 @@ function Address() {
           <div className="field-name">Номер получателя</div>
           <Input
             prefix="+7"
-            type="number"
             value={values.phone}
             onChange={(ev) => phoneInputHandler(ev.target.value)}
           />

@@ -54,8 +54,11 @@ function ChoiceAddressModal({
     }, []);
 
     const phoneInputHandler = (value) => {
-        if (value.length <= 10) {
-            setPhone(value);
+        const cleanedValue = value.replace(/\D/g, '');
+
+        // Проверяем, что длина значения не превышает 10 символов
+        if (cleanedValue.length <= 10) {
+            setPhone(cleanedValue);
         }
     };
 
@@ -183,7 +186,7 @@ function ChoiceAddressModal({
 
                         <Input
                             prefix="+7"
-                            type="number"
+                            type="phone"
                             value={phone}
                             placeholder="Пожалуйста введите ваш номер телефона"
                             onChange={(ev) => phoneInputHandler(ev.target.value)}
@@ -297,9 +300,11 @@ function ChoiceAddressModal({
     const renderEnterAddrModalContent = useCallback(
         () => {
             const phoneInputHandler = (value) => {
-                console.log('value =',value)
-                if (value.length <= 10) {
-                    setFieldValue("phone", value);
+                const cleanedValue = value.replace(/\D/g, '');
+
+                // Проверяем, что длина значения не превышает 10 символов
+                if (cleanedValue.length <= 10) {
+                    setFieldValue("phone", cleanedValue);
                 }
             };
 
@@ -334,7 +339,7 @@ function ChoiceAddressModal({
                             <div className="field-name">Номер получателя</div>
                             <Input
                                 prefix="+7"
-                                type="number"
+                                type="phone"
                                 value={vals.phone}
                                 onChange={(ev) => phoneInputHandler(ev.target.value)}
                             />
