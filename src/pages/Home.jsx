@@ -256,7 +256,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
             const price = item?.price || '';
 
             return (
-                <div key={`${item.spuId}-${index}`}
+                <div key={`${item?.spuId}-${index}`}
                     onTouchStart={onPointerDown}
                      onTouchEnd={(e) => onPointerUp(item, e)}
                      onPointerDown={onPointerDown}
@@ -271,7 +271,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       price={price}
                       item={item}
                       name={title}
-                      key={`${item.spuId}-${index}`}
+                      key={`${item?.spuId}-${index}`}
                   />
                 </div>
             );
