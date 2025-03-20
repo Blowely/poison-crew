@@ -160,20 +160,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
   useEffect(() => {
-    const preventTouch = (e) => {
-      if (e.cancelable) {
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener('touchstart', preventTouch, { passive: false });
-
-    return () => {
-      document.removeEventListener('touchstart', preventTouch);
-    };
-  }, []);
-
-  useEffect(() => {
     setLoading(false);
 
     if (productsSlice[trimCollectionValue]?.length) {
