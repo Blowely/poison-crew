@@ -9,7 +9,7 @@ function Card({
   price,
   name,
   item,
-  onCardClickHandler,
+  onCardClickHandler = () => {},
   key
 }) {
 
