@@ -271,7 +271,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       price={price}
                       item={item}
                       name={title}
-                      key={`${item?.spuId}-${index}`}
                   />
                 </div>
             );
