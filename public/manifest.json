@@ -1,0 +1,13 @@
+{
+  "short_name": "re:Poizon",
+  "name": "re:Poizon",
+  "icons": [
+    {
+      "src": "/re.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
