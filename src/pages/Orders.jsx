@@ -4,28 +4,21 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {LeftOutlined, LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
-import {useAppDispatch, useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import { useGetOrdersQuery} from "../store/orders.store";
 import moment from "moment/moment";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
-import ActiveProfileIcon from "../assets/svg/active-profile-icon";
 import {PRODUCT_STATUS} from "./constants";
 import StatusTag from "../components/Status";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 
 const Orders = () => {
     const navigate = useNavigate();
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const from = searchParams.get('from');
     const token = localStorage.getItem('token');
     const gender = localStorage.getItem("gender") || "men";
 
-    const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
+    const {data: accountData} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
     const {data: orders = [], isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,

@@ -31,9 +31,8 @@ export function PrivateAppRouter({
   const genderParam = genderParamUrl.split('-')[0];
 
   const gender =  gendersList.includes(genderParam) ? genderParam : localStorage.getItem("gender") || "men";
-  localStorage.setItem("gender", genderParam);
+  localStorage.setItem("gender", gender);
 
-  console.log('gender',gender)
   return (
     <Suspense fallback={<AppLoading />}>
       <Routes>
