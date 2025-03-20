@@ -162,12 +162,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   useEffect(() => {
     setLoading(false);
 
-    const productsListWrapperEl = document.querySelector('.productsListWrapper');
-    console.log('productsListWrapperEl=',productsListWrapperEl)
-    if (productsListWrapperEl?.length) {
-      productsListWrapperEl[0]?.focus();
-    }
-
     if (productsSlice[trimCollectionValue]?.length) {
       if (prevCollectionValue !== searchOrCollection) {
         dispatch(
