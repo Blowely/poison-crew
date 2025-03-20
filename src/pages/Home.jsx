@@ -159,12 +159,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const prevCollectionValue = usePrevious(searchOrCollection);
   const trimCollectionValue = searchOrCollection?.replace(/ /g, "");
 
-  const prevProductsRef = useRef(products);
-
   useEffect(() => {
-    if (prevProductsRef.current === products) return; // Пропускаем, если продукты не изменились
-    prevProductsRef.current = products;
-
     setLoading(false);
 
     if (productsSlice[trimCollectionValue]?.length) {
@@ -172,16 +167,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
         dispatch(
             addProducts({
               [trimCollectionValue]: products?.items || [],
-            })
+            }),
         );
       } else {
         dispatch(
             addProducts({
               [trimCollectionValue]: [
                 ...productsSlice[trimCollectionValue],
-                ...(products?.items || []),
+                ...products?.items || [],
               ],
-            })
+            }),
         );
       }
     } else if (products?.items?.length) {
@@ -189,10 +184,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
         dispatch(
             addProducts({
               [trimCollectionValue]: products?.items || [],
-            })
+            }),
         );
       } catch (e) {
-        console.log("Ошибка при обновлении товаров:", e);
+        console.log("e =", e);
       }
     }
   }, [products]);

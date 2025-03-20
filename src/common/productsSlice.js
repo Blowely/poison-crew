@@ -7,9 +7,11 @@ export const productsSlice = createSlice({
       popular: [],
   },
   reducers: {
-    addProducts(state, {payload}) {
-      return {...state, ...payload}
-    },
+      addProducts(state, { payload }) {
+          Object.keys(payload).forEach((key) => {
+              state[key] = [...(state[key] || []), ...payload[key]]; // Создаём новый массив
+          });
+      },
   }
 })
 
