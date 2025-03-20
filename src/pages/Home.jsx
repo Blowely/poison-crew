@@ -192,9 +192,47 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
-  const containerRef = useRef(null);
+  const onCardClickHandler = (item) => {
+
+    setSelectedProduct(item);
+    const spuId = item?.spuId || '';
+    searchParams.set('spuId', spuId);
+    setSearchParams(searchParams);
+    localStorage.setItem('product', JSON.stringify(item));
+  };
+
+  let startY = 0;
+  let isScrolling = false;
+
+  const onPointerDown = (event) => {
+    startY = event.touches ? event.touches[0].clientY : event.clientY;
+    isScrolling = false;
+  };
+
+  const onPointerMove = () => {
+    isScrolling = true;
+  };
+
+  const onPointerUp = (item, event) => {
+    const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+    const diff = Math.abs(startY - endY);
+
+    if (!isScrolling && diff < 5) {
+      onCardClickHandler(item);
+    }
+  };
 
   const renderItems = () => {
+    useEffect(() => {
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('touchmove', onPointerMove);
+
+      return () => {
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('touchmove', onPointerMove);
+      };
+    }, []);
+
     let productsItems = isLoading
       ? [...Array(60)]
       : productsSlice[trimCollectionValue] || []
@@ -216,37 +254,8 @@ function Home({ onAddToFavorite, onAddToCart }) {
       );
     }
 
-    const onCardClickHandler = (item) => {
-
-      setSelectedProduct(item);
-      const spuId = item?.spuId || '';
-      searchParams.set('spuId', spuId);
-      setSearchParams(searchParams);
-      localStorage.setItem('product', JSON.stringify(item));
-    };
-
-    let startY = 0;
-
-    const onPointerDown = (event) => {
-      startY = event.touches ? event.touches[0].clientY : event.clientY;
-    };
-
-    const onPointerUp = (item, event) => {
-      const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
-      const diff = Math.abs(startY - endY);
-      notification.info({message: 'onPointerUp ' + diff});
-
-      if (diff < 5) { // Если палец почти не двигался, это клик
-        onCardClickHandler(item);
-      }
-    };
-
     return (
-        <div ref={containerRef}
-             className="cards-section-wrapper"
-             tabIndex={-1}
-             style={{ outline: 'none' }}
-        >
+        <div className="cards-section-wrapper">
           {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
             const image = item?.images[0] || '';
             const title = item?.name || '';
@@ -254,10 +263,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
             return (
                 <div key={`${item?.spuId}-${index}`}
-                    onTouchStart={onPointerDown}
-                     onTouchEnd={(e) => onPointerUp(item, e)}
                      onPointerDown={onPointerDown}
                      onPointerUp={(e) => onPointerUp(item, e)}
+                     onTouchStart={onPointerDown}
+                     onTouchEnd={(e) => onPointerUp(item, e)}
                 >
                   <Card
                       onFavorite={(obj) => onAddToFavorite(obj)}
