@@ -194,22 +194,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.focus();
-    }
-  }, [products]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (cardRef.current && document.activeElement !== cardRef.current) {
-        cardRef.current.focus();
-      }
-    }, 500); // Каждые 500 мс проверяем и возвращаем фокус
-
-    return () => clearInterval(interval);
-  }, []);
-
   let spuIdFlag = null;
 
   const renderItems = () => {
@@ -245,6 +229,21 @@ function Home({ onAddToFavorite, onAddToCart }) {
       localStorage.setItem('product', JSON.stringify(item));
     };
 
+    let startY = 0;
+
+    const onPointerDown = (event) => {
+      startY = event.touches ? event.touches[0].clientY : event.clientY;
+    };
+
+    const onPointerUp = (item, event) => {
+      const endY = event.changedTouches ? event.changedTouches[0].clientY : event.clientY;
+      const diff = Math.abs(startY - endY);
+
+      if (diff < 5) { // Если палец почти не двигался, это клик
+        onCardClickHandler(item);
+      }
+    };
+
     return (
         <div ref={containerRef}
              className="cards-section-wrapper"
@@ -257,16 +256,24 @@ function Home({ onAddToFavorite, onAddToCart }) {
             const price = item?.price || '';
 
             return (
-                <Card
-                    onFavorite={(obj) => onAddToFavorite(obj)}
-                    onPlus={(obj) => onAddToCart(obj)}
-                    onCardClickHandler={onCardClickHandler}
-                    loading={isLoading}
-                    image={image}
-                    price={price}
-                    item={item}
-                    name={title}
-                />
+                <div key={`${item.spuId}-${index}`}
+                    onTouchStart={onPointerDown}
+                     onTouchEnd={(e) => onPointerUp(item, e)}
+                     onPointerDown={onPointerDown}
+                     onPointerUp={(e) => onPointerUp(item, e)}
+                >
+                  <Card
+                      onFavorite={(obj) => onAddToFavorite(obj)}
+                      onPlus={(obj) => onAddToCart(obj)}
+                      //onCardClickHandler={onCardClickHandler}
+                      loading={isLoading}
+                      image={image}
+                      price={price}
+                      item={item}
+                      name={title}
+                      key={`${item.spuId}-${index}`}
+                  />
+                </div>
             );
           })}
         </div>
