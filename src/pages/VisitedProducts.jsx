@@ -94,7 +94,7 @@ const VisitedProducts = () => {
                 <div onClick={() => navigate('/products')}>
                     <NonActiveBagIcon/>
                 </div>
-                <div onClick={() => navigate('/cart?from=products') }>
+                <div onClick={() => navigate('/cart') }>
                     <NonActiveCartIcon style={{ fontSize: '30px'}} />
                 </div>
                 <div onClick={() => navigate('/profile')}>
