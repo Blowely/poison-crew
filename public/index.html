@@ -68,6 +68,11 @@
 
   <script async src="//points.boxberry.ru/js/boxberry.js"></script>
   <script>
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      document.body.classList.add('pwa');
+    }
+  </script>
+  <script>
     if (!window.location.hostname.includes("localhost")) {
       const style = document.createElement('style');
       style.type = 'text/css';
