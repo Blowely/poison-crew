@@ -193,8 +193,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, [products]);
 
   useEffect(() => {
-    document.body.focus();
-  }, []);
+    if (!isDesktopScreen) {
+      document.body.focus();
+    }
+  }, [spuId, products]);
 
   let spuIdFlag = null;
 
@@ -231,7 +233,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       setSearchParams(searchParams);
       localStorage.setItem('product', JSON.stringify(item));
     }
-
 
     return (
       <div className="cards-section-wrapper" key={productsItems.length}>
