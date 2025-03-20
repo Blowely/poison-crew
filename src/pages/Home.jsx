@@ -200,6 +200,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (cardRef.current && document.activeElement !== cardRef.current) {
+        cardRef.current.focus();
+      }
+    }, 500); // Каждые 500 мс проверяем и возвращаем фокус
+
+    return () => clearInterval(interval);
+  }, []);
+
   let spuIdFlag = null;
 
   const renderItems = () => {
