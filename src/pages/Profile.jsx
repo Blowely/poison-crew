@@ -102,6 +102,12 @@ const Profile = () => {
                 <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf">
                   Условия оферты
                 </a>
+                <div style={{marginTop: '15px'}}>
+                  <a href="https://storage.yandexcloud.net/pc-mediafiles/important/privacy-policy-re-poizon.ru.pdf"
+                     target="_blank">
+                    Политика конфиденциальности
+                  </a>
+                </div>
               </div>
             </div>
           </div>

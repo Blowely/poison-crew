@@ -241,15 +241,23 @@ function Filters(props) {
                   <span>Применить</span>
                 </Button>
                 {isFilters &&
-                    <div className="filters-phone-headers" >
-                      <Button disabled={!isFilters} className="btn default" type="default" onClick={clearFilters}><UndoOutlined /></Button>
+                    <div className="filters-phone-headers">
+                      <Button disabled={!isFilters} className="btn default" type="default"
+                              onClick={clearFilters}><UndoOutlined/></Button>
                     </div>
                 }
               </div>
-              <Divider className="divider" />
+              <Divider className="divider"/>
               <div className="filters-link">
-                <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf" target="_blank">
+                <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf"
+                   target="_blank">
                   Условия оферты
+                </a>
+              </div>
+              <div className="filters-link">
+                <a href="https://storage.yandexcloud.net/pc-mediafiles/important/privacy-policy-re-poizon.ru.pdf"
+                   target="_blank">
+                  Политика конфиденциальности
                 </a>
               </div>
             </>
