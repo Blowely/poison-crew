@@ -234,7 +234,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
 
     return (
-      <div className="cards-section-wrapper">
+      <div className="cards-section-wrapper" key={productsItems.length}>
         {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
           const image = item?.images[0] || '';
           const title = item?.name || '';
