@@ -93,10 +93,6 @@ header {
   padding-top: 15px;
   padding-bottom: 40px;
 
-  :focus-within {
-    outline: none;
-  }
-
   @media (min-width: 768px) {
     grid-template-columns: 33% 33% 33%;
     width: calc(100vw - 300px);

@@ -12,10 +12,6 @@
   width: 100%;
   position: relative;
 
-  :focus-within {
-    outline: none;
-  }
-
   @media (max-width: 768px) {
     .card:hover {
       pointer-events: none!important;

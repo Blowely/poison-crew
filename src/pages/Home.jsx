@@ -192,6 +192,14 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
   }, [products]);
 
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.focus();
+    }
+  }, [products]);
+
   let spuIdFlag = null;
 
   const renderItems = () => {
@@ -228,7 +236,11 @@ function Home({ onAddToFavorite, onAddToCart }) {
     };
 
     return (
-        <div className="cards-section-wrapper">
+        <div ref={containerRef}
+             className="cards-section-wrapper"
+             tabIndex={-1}
+             style={{ outline: 'none' }}
+        >
           {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
             const image = item?.images[0] || '';
             const title = item?.name || '';
