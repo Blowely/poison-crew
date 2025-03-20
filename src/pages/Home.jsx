@@ -227,6 +227,30 @@ function Home({ onAddToFavorite, onAddToCart }) {
       localStorage.setItem('product', JSON.stringify(item));
     };
 
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let startTime = 0;
+
+    const handlePointerDown = (e) => {
+      touchStartX = e.clientX || e.touches?.[0]?.clientX;
+      touchStartY = e.clientY || e.touches?.[0]?.clientY;
+      startTime = Date.now();
+    };
+
+    const handlePointerUp = (e, item) => {
+      const touchEndX = e.clientX || e.changedTouches?.[0]?.clientX;
+      const touchEndY = e.clientY || e.changedTouches?.[0]?.clientY;
+      const elapsedTime = Date.now() - startTime;
+
+      // Проверяем, был ли это клик (не скролл)
+      const movedX = Math.abs(touchStartX - touchEndX);
+      const movedY = Math.abs(touchStartY - touchEndY);
+
+      if (elapsedTime < 200 && movedX < 10 && movedY < 10) {
+        onCardClickHandler(item);
+      }
+    };
+
     return (
       <div className="cards-section-wrapper">
         {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
@@ -235,16 +259,22 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return (
-              <Card
-                  onFavorite={(obj) => onAddToFavorite(obj)}
-                  onCardClickHandler={onCardClickHandler}
-                  onPlus={(obj) => onAddToCart(obj)}
-                  loading={isLoading}
-                  image={image}
-                  price={price}
-                  item={item}
-                  name={title}
-              />
+              <div
+                  key={item?.spuId || index}
+                  onPointerDown={handlePointerDown}
+                  onPointerUp={(e) => handlePointerUp(e, item)}
+              >
+                <Card
+                    onFavorite={(obj) => onAddToFavorite(obj)}
+                    onCardClickHandler={onCardClickHandler}
+                    onPlus={(obj) => onAddToCart(obj)}
+                    loading={isLoading}
+                    image={image}
+                    price={price}
+                    item={item}
+                    name={title}
+                />
+              </div>
           )
         })}
       </div>
