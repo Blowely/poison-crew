@@ -266,7 +266,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
               >
                 <Card
                     onFavorite={(obj) => onAddToFavorite(obj)}
-                    onCardClickHandler={onCardClickHandler}
+                    //onCardClickHandler={onCardClickHandler}
                     onPlus={(obj) => onAddToCart(obj)}
                     loading={isLoading}
                     image={image}
