@@ -9,7 +9,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import JordanIcon from "../assets/svg/brands/jordan-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import {Button, Empty, Layout, Modal, Select} from "antd";
+import {Button, Empty, Layout, Modal, notification, Select} from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
@@ -194,8 +194,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const containerRef = useRef(null);
 
-  let spuIdFlag = null;
-
   const renderItems = () => {
     let productsItems = isLoading
       ? [...Array(60)]
@@ -219,8 +217,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const onCardClickHandler = (item) => {
-      if (spuIdFlag) return;
-      spuIdFlag = item?.spuId;
 
       setSelectedProduct(item);
       const spuId = item?.spuId || '';
@@ -240,6 +236,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       const diff = Math.abs(startY - endY);
 
       if (diff < 5) { // Если палец почти не двигался, это клик
+        notification.info({message: 'onPointerUp'});
         onCardClickHandler(item);
       }
     };
