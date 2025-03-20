@@ -259,15 +259,22 @@ function Home({ onAddToFavorite, onAddToCart }) {
           const price = item?.price || '';
 
           return (
-              <Card
-                  onFavorite={(obj) => onAddToFavorite(obj)}
-                  onPlus={(obj) => onAddToCart(obj)}
-                  loading={isLoading}
-                  image={item?.images[0] || ''}
-                  price={item?.price || ''}
-                  item={item}
-                  name={item?.name || ''}
-              />
+              <div
+                  key={item?.spuId || index}
+                  onPointerDown={handlePointerDown}
+                  onPointerUp={(e) => handlePointerUp(e, item)}
+              >
+                <Card
+                    onFavorite={(obj) => onAddToFavorite(obj)}
+                    onCardClickHandler={onCardClickHandler}
+                    onPlus={(obj) => onAddToCart(obj)}
+                    loading={isLoading}
+                    image={item?.images[0] || ''}
+                    price={item?.price || ''}
+                    item={item}
+                    name={item?.name || ''}
+                />
+              </div>
           )
         })}
       </div>
