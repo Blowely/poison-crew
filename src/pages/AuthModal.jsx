@@ -57,6 +57,10 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
       return setRemotePhone(phone)
     } else {
       try {
+        if (phone?.length !== 10) {
+          return notification.open({duration: 1.5, message: 'Заполните все поля', type: "warning"})
+        }
+
         const res = await sendCode({phone: '7' + phone, code});
 
         if (res?.data?.token) {

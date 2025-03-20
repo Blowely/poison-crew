@@ -288,13 +288,15 @@ function ChoiceAddressModal({
             Object.values(vals).filter((el) => el.length).length !==
             Object.keys(vals).length
         ) {
-            return notification.open({
+            notification.open({
                 duration: 1.5,
                 type: "warning",
                 message: "Заполните все поля"
             });
+            return false;
         }
         submitForm();
+        return true;
     };
 
     const renderEnterAddrModalContent = useCallback(
@@ -390,8 +392,18 @@ function ChoiceAddressModal({
     };
 
     const onEnterAddressDesktopModalOkHandler = () => {
+        if (vals?.phone?.length !== 10) {
+            console.log(',vals?.phone?.length',vals?.phone?.length);
+
+            return notification.open({duration: 1.5, message: 'Заполните все поля', type: "warning"})
+        }
+
         console.log('onEnterAddressDesktopModalOkHandler')
-        onOkHandlerEnterDesktop()
+        const validRes = onOkHandlerEnterDesktop();
+
+        if (!validRes) {
+            return;
+        }
 
         setOpenDesktopEnterAddressModal(false);
         setChoiceAddressModalOpen(false);
