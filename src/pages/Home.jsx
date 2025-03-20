@@ -227,22 +227,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
       localStorage.setItem('product', JSON.stringify(item));
     };
 
-    let isScrolling = false;
-
-    const handlePointerDown = () => {
-      isScrolling = false;
-    };
-
-    const handlePointerMove = () => {
-      isScrolling = true;
-    };
-
-    const handlePointerUp = (item) => {
-      if (!isScrolling) {
-        onCardClickHandler(item);
-      }
-    };
-
     return (
         <div className="cards-section-wrapper">
           {productsItems?.filter((product) => !product?.isDeleted)?.map((item, index) => {
@@ -251,22 +235,16 @@ function Home({ onAddToFavorite, onAddToCart }) {
             const price = item?.price || '';
 
             return (
-                <div
-                    key={item?.spuId || index}
-                    onPointerDown={handlePointerDown}
-                    onPointerMove={handlePointerMove}
-                    onPointerUp={() => handlePointerUp(item)}
-                >
-                  <Card
-                      onFavorite={(obj) => onAddToFavorite(obj)}
-                      onPlus={(obj) => onAddToCart(obj)}
-                      loading={isLoading}
-                      image={image}
-                      price={price}
-                      item={item}
-                      name={title}
-                  />
-                </div>
+                <Card
+                    onFavorite={(obj) => onAddToFavorite(obj)}
+                    onPlus={(obj) => onAddToCart(obj)}
+                    onCardClickHandler={onCardClickHandler}
+                    loading={isLoading}
+                    image={image}
+                    price={price}
+                    item={item}
+                    name={title}
+                />
             );
           })}
         </div>

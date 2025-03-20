@@ -86,6 +86,7 @@ function Card({
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
          onClick={() => onCardClickHandler(item)}
+         onFocus={() => onCardClickHandler(item)}
          key={key}
     >
       {!name && (

@@ -92,7 +92,6 @@ header {
   grid-template-columns: 50% 50%;
   padding-top: 15px;
   padding-bottom: 40px;
-  touch-action: manipulation;
 
   @media (min-width: 768px) {
     grid-template-columns: 33% 33% 33%;
