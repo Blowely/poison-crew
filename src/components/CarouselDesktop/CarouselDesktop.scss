@@ -1,6 +1,10 @@
 // Ваш файл ProductGallery.scss
 .image-gallery {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &-slide {
   }
 
@@ -25,4 +29,9 @@
 
 .image-gallery-thumbnail:focus, .image-gallery-thumbnail.active {
   border: 3px solid #d6d6d6;
+}
+
+.image-gallery-thumbnails-container {
+  display: flex;
+  flex-wrap: wrap;
 }

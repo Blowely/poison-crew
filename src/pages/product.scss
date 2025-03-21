@@ -121,6 +121,15 @@
     background-color: white;
     min-height: 339px;
 
+    @media (max-width: 768px) {
+        justify-content: center;
+        align-items: center;
+
+        > .image-gallery {
+            width: 80%;
+        }
+    }
+
     > .category-title {
         cursor: pointer;
         font-style: normal;

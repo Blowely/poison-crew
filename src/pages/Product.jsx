@@ -384,21 +384,11 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                   {isDesktopScreen &&
                       <div className="category-title" onClick={goBack}><LeftOutlined/>Каталог</div>
                   }
-                  {isDesktopScreen && (
-                      <ProductGallery
-                          images={remoteProduct?.images || selectedProduct?.images}
-                          onLoad={onLoadCarousel}
-                          onError={onLoadCarousel}
-                      />
-                  )}
-                  {!isDesktopScreen && (
-                      <SwiperCarousel
-                          style={{width: '100%'}}
-                          images={remoteProduct?.images || selectedProduct?.images}
-                          onLoad={onLoadCarousel}
-                          onError={onLoadCarousel}
-                      />
-                  )}
+                  <ProductGallery
+                      images={remoteProduct?.images || selectedProduct?.images}
+                      onLoad={onLoadCarousel}
+                      onError={onLoadCarousel}
+                  />
 
                 {isDesktopScreen && <div style={{width: '100%'}}>
                   <div className="item-details-wrapper">
