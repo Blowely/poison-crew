@@ -430,7 +430,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                     }
                     <div className="title-wrapper">
                       <span className="standart" style={{minHeight: '24px'}}>
-                        {product?.name}
+                        {selectedProduct?.name || product?.name}
                       </span>
                       {isDesktopScreen &&
                         <div className="title">
