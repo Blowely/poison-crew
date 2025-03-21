@@ -32,6 +32,19 @@ const LazyImage = ({ original, thumbnail, onClick }) => {
     )
 };
 
+const changeControlsVisibility = (isHide) => {
+    const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
+    const linkBtns = document.getElementsByClassName('link-btn');
+    const goBackBtn = document.getElementsByClassName('go-back-btn')[0];
+    const footer = document.getElementsByClassName('footer-btn-wrapper')[0];
+
+    productInfo.style.display = isHide ? 'none' : 'block';
+    linkBtns[0].style.display = isHide ? 'none' : 'block';
+    linkBtns[1].style.display = isHide ? 'none' : 'block';
+    goBackBtn.style.display = isHide ? 'none' : 'block';
+    footer.style.display = isHide ? 'none' : 'block';
+}
+
 const ProductGallery = ({images}) => {
     const [isOpenGallery, setOpenGallery] = useState(false);
     const galleryRef = useRef(null);
@@ -40,26 +53,19 @@ const ProductGallery = ({images}) => {
         ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_500'})
     )
 
-    const hideControls = () => {
-        const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
-        const linkBtns = document.getElementsByClassName('link-btn');
-        const goBackBtn = document.getElementsByClassName('go-back-btn')[0];
-        const footer = document.getElementsByClassName('footer-btn-wrapper')[0];
-        console.log('linkBtns =',linkBtns);
-        console.log('productInfo=',productInfo)
-        productInfo.style.display = 'none';
-        linkBtns[0].style.display = 'none';
-        linkBtns[1].style.display = 'none';
-        goBackBtn.style.display = 'none';
-        footer.style.display = 'none';
-    }
+
 
     const handleImageClick = () => {
         if (galleryRef.current) {
-            hideControls()
+            //hideControls()
             galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
         }
     };
+
+    const onScreenChangeHandler = (value) => {
+        setOpenGallery(value);
+        changeControlsVisibility(value);
+    }
 
     // Функция рендера для ImageGallery
     const renderItem = (item) => {
@@ -79,7 +85,7 @@ const ProductGallery = ({images}) => {
             useBrowserFullscreen={true}
             showNav={isDesktopScreen}
             showFullscreenButton={true}
-            onScreenChange={setOpenGallery}
+            onScreenChange={onScreenChangeHandler}
         />
     );
 };
