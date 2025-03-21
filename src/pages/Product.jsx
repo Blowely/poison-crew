@@ -411,31 +411,46 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 </div>
 
                 <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
-                  <div className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}>
-                    {!isDesktopScreen &&
-                        <div className="title">
-                          {getIntPrice(choice?.price)}
-                        </div>
-                    }
-                    <div className="title-wrapper">
+                  {isDesktopScreen &&
+                      <div
+                          className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}>
+                        {!isDesktopScreen &&
+                            <div className="title">
+                              {getIntPrice(choice?.price)}
+                            </div>
+                        }
+                        <div className="title-wrapper">
                       <span className="standart" style={{minHeight: '24px'}}>
                         {selectedProduct?.name || product?.name}
                       </span>
-                      {isDesktopScreen &&
-                        <div className="title">
-                          {getIntPrice(choice?.price)}
+                          {isDesktopScreen &&
+                              <div className="title">
+                                {getIntPrice(choice?.price)}
+                              </div>
+                          }
                         </div>
-                      }
-                    </div>
-                    {isDesktopScreen &&
-                        <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
-                          <IconHeart/>
-                        </div>
-                    }
-                  </div>
+                        {isDesktopScreen &&
+                            <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
+                              <IconHeart/>
+                            </div>
+                        }
+                      </div>
+                  }
 
                   {!isDesktopScreen &&
                       <div style={{display: 'grid', gap: '10px'}}>
+                        <div className={"product-info__item standart"}>
+                          {!isDesktopScreen &&
+                              <div className="title">
+                                {getIntPrice(choice?.price)}
+                              </div>
+                          }
+                          <div className="title-wrapper">
+                            <span className="standart" style={{minHeight: '24px'}}>
+                              {selectedProduct?.name || product?.name}
+                            </span>
+                          </div>
+                        </div>
                         {!!sizesAndPrices?.length && sizesAndPrices[0]?.size !== 'Стандарт' && (
                             <div className="product-info__item standart">
                               <div className="label">
@@ -538,7 +553,8 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                          src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg" alt=""/>
                   </div>*/}
                   </div>
-                  {!isDesktopScreen && <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href} />}
+                  {!isDesktopScreen &&
+                      <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href}/>}
 
                   {isDesktopScreen && !!sizesAndPrices?.length && sizesAndPrices[0]?.size !== 'Стандарт' &&
                       <div className="product-info__item">
