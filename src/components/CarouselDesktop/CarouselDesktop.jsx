@@ -40,23 +40,12 @@ const ProductGallery = ({images}) => {
         ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_500'})
     )
 
-    const handleImageClick = ({target}) => {
+    const handleImageClick = () => {
         if (galleryRef.current) {
-            console.log('galleryRef?.current=',galleryRef?.current)
-            //galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
-            console.log('target=',target)
-            if (target?.requestFullscreen) {
-                target?.requestFullscreen();
-            } else if (target?.mozRequestFullScreen) {
-                // Firefox
-                target?.mozRequestFullScreen();
-            } else if (target?.webkitRequestFullscreen) {
-                // Chrome, Safari и Opera
-                target?.webkitRequestFullscreen();
-            } else if (target?.msRequestFullscreen) {
-                // IE/Edge
-                target?.msRequestFullscreen();
-            }
+            const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
+            console.log('productInfo=',productInfo)
+            productInfo.style.display = 'none';
+            galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
         }
     };
 
