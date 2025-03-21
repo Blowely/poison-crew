@@ -76,7 +76,7 @@ const ProductGallery = ({images}) => {
             showThumbnails={isDesktopScreen || isOpenGallery}
             showPlayButton={isDesktopScreen}
             showNav={isDesktopScreen}
-            showFullscreenButton={isDesktopScreen || isOpenGallery}
+            showFullscreenButton={true}
             onScreenChange={setOpenGallery}
         />
     );
