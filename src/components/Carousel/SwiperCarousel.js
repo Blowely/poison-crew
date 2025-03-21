@@ -50,25 +50,27 @@ const SwiperCarousel = (props) => {
                               }}
                           />
                       }
+                      <Zoom>
+                          <img
+                              src={originalImage}
+                              onLoad={(e) => {
+                                  // Когда оригинальное изображение загрузится, скрываем placeholder
+                                  e.target.style.opacity = 1;
+                                  const placeholder = e.target.previousElementSibling;
+                                  if (placeholder) placeholder.style.opacity = 0;
+                              }}
+                              onError={onError}
+                              loading="lazy"
+                              style={{
+                                  width: isDesktopScreen ? '100%' : '80%',
+                                  objectFit: isDesktopScreen ? 'contain' : 'unset',
+                                  opacity: 0, // Сначала скрыто
+                                  position: 'absolute', // Относительное позиционирование
+                                  zIndex: 2, // Выше placeholder
+                              }}
+                          />
+                      </Zoom>
 
-                      <img
-                          src={originalImage}
-                          onLoad={(e) => {
-                              // Когда оригинальное изображение загрузится, скрываем placeholder
-                              e.target.style.opacity = 1;
-                              const placeholder = e.target.previousElementSibling;
-                              if (placeholder) placeholder.style.opacity = 0;
-                          }}
-                          onError={onError}
-                          loading="lazy"
-                          style={{
-                              width: isDesktopScreen ? '100%' : '80%',
-                              objectFit: isDesktopScreen ? 'contain' : 'unset',
-                              opacity: 0, // Сначала скрыто
-                              position: 'absolute', // Относительное позиционирование
-                              zIndex: 2, // Выше placeholder
-                          }}
-                      />
                   </SwiperSlide>
               );
           })}

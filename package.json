@@ -26,6 +26,7 @@
     "react-error-boundary": "^4.0.4",
     "react-error-overlay": "^6.0.11",
     "react-image-gallery": "^1.4.0",
+    "react-medium-image-zoom": "^5.2.14",
     "react-modal": "^3.16.1",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
