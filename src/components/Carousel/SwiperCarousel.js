@@ -15,6 +15,7 @@ const SwiperCarousel = (props) => {
   const isDesktopScreen = window.screen.availWidth > 600;
 
     const swiperRef = useRef(null);
+    const imgRef = useRef(null);
 
     /*const onSwiper = (swiper) => {
         swiper.on('zoomChange', (scale) => {
@@ -46,15 +47,17 @@ const SwiperCarousel = (props) => {
                               alt={`Image ${index + 1}`}
                               loading="lazy"
                               style={{
-                                  width: isDesktopScreen ? '100%' : '80%',
-                                  objectFit: isDesktopScreen ? 'contain' : 'unset',
+                                  width: '100%',
+                                  objectFit: 'contain',
                                   position: 'absolute', // Абсолютное позиционирование для placeholder
                                   zIndex: 1, // Ниже оригинального изображения
+                                  padding: '0 10vw 0 10vw',
                               }}
                           />
                       }
                       <Zoom>
                           <img
+                              ref={imgRef}
                               src={originalImage}
                               onLoad={(e) => {
                                   // Когда оригинальное изображение загрузится, скрываем placeholder
@@ -65,14 +68,16 @@ const SwiperCarousel = (props) => {
                               onError={onError}
                               loading="lazy"
                               style={{
-                                  width: isDesktopScreen ? '100%' : '80%',
-                                  objectFit: isDesktopScreen ? 'contain' : 'unset',
+                                  width: '100%',
+                                  objectFit: 'contain',
                                   opacity: 0, // Сначала скрыто
                                   position: 'absolute', // Относительное позиционирование
                                   zIndex: 2, // Выше placeholder
+                                  padding: '0 10vw 0 10vw',
                               }}
-                                alt={'Image'}
+                              alt={'Image'}
                           />
+
                       </Zoom>
 
                   </SwiperSlide>

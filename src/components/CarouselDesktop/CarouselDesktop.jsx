@@ -6,7 +6,7 @@ import "react-medium-image-zoom/dist/styles.css";
 import "./CarouselDesktop.scss";
 
 // Создаем отдельный компонент для изображения с ленивой загрузкой
-const LazyImage = ({ original, thumbnail, onClick }) => {
+const LazyImage = ({ original, thumbnail }) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -24,59 +24,26 @@ const LazyImage = ({ original, thumbnail, onClick }) => {
     }
 
     return (
-        <Zoom>
-            <img
-                className="image-gallery-image"
-                src={original}
-                onClick={onClick}
-                alt="original"
-                style={{opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s', cursor: "pointer"}}
-            />
-        </Zoom>
+        <img
+            className="image-gallery-image"
+            src={original}
+            alt="original"
+            style={{opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s', cursor: "pointer"}}
+        />
     )
 };
 
-const changeControlsVisibility = (isHide) => {
-    const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
-    const linkBtns = document.getElementsByClassName('link-btn');
-    const goBackBtn = document.getElementsByClassName('go-back-btn')[0];
-    const footer = document.getElementsByClassName('footer-btn-wrapper')[0];
-
-    productInfo.style.display = isHide ? 'none' : 'block';
-    linkBtns[0].style.display = isHide ? 'none' : 'block';
-    linkBtns[1].style.display = isHide ? 'none' : 'block';
-    goBackBtn.style.display = isHide ? 'none' : 'block';
-    footer.style.display = isHide ? 'none' : 'block';
-}
-
 const ProductGallery = ({images}) => {
-    const [isOpenGallery, setOpenGallery] = useState(false);
     const galleryRef = useRef(null);
 
     const items = images?.map(el =>
         ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_500'})
     )
 
-
-
-    const handleImageClick = () => {
-        if (galleryRef.current) {
-            //hideControls()
-            galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
-        }
-    };
-
-    const onScreenChangeHandler = (value) => {
-        setOpenGallery(value);
-        changeControlsVisibility(value);
-    }
-
-    // Функция рендера для ImageGallery
     const renderItem = (item) => {
         return <LazyImage original={item.original} thumbnail={item.thumbnail}/>;
     };
 
-    const isDesktopScreen = window?.innerWidth > 768;
 
     return (
         <ImageGallery
@@ -84,9 +51,6 @@ const ProductGallery = ({images}) => {
             items={items || []}
             lazyLoad={true}
             renderItem={renderItem}
-            showThumbnails={isDesktopScreen || isOpenGallery}
-            showPlayButton={isDesktopScreen}
-            showNav={isDesktopScreen}
         />
     );
 };
