@@ -42,9 +42,10 @@ const ProductGallery = ({images}) => {
 
     const hideControls = () => {
         const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
-        const linkBtns = document.getElementsByClassName('product-info-phone-wrapper');
+        const linkBtns = document.getElementsByClassName('link-btn');
         const goBackBtn = document.getElementsByClassName('go-back-btn')[0];
         const footer = document.getElementsByClassName('footer-btn-wrapper')[0];
+        console.log('linkBtns =',linkBtns);
         console.log('productInfo=',productInfo)
         productInfo.style.display = 'none';
         linkBtns[0].style.display = 'none';
@@ -75,6 +76,7 @@ const ProductGallery = ({images}) => {
             renderItem={renderItem}
             showThumbnails={isDesktopScreen || isOpenGallery}
             showPlayButton={isDesktopScreen}
+            useBrowserFullscreen={true}
             showNav={isDesktopScreen}
             showFullscreenButton={true}
             onScreenChange={setOpenGallery}
