@@ -18,7 +18,7 @@ const LazyImage = ({ original, thumbnail }) => {
     }, [original]);
 
     if (!isLoaded) {
-        return <img src={thumbnail} alt="thumbnail" />
+        return <img className="image-gallery-image" src={thumbnail} alt="thumbnail" />
     }
 
     return (
