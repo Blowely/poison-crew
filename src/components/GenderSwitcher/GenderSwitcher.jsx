@@ -10,7 +10,6 @@ const GenderSwitcher = ({setLoading, setOffset}) => {
         const genderParamUrl = window.location.href.split("/")[3];
         return genderParamUrl.split('-')[0];
     },[href])
-    console.log('gender=',gender)
 
     const [activeTab, setActiveTab] = useState(gender);
 
