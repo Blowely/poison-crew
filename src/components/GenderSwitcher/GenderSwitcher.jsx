@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './GenderSwitcher.scss';
 import {useNavigate} from "react-router-dom";
 
@@ -10,8 +10,13 @@ const GenderSwitcher = ({setLoading, setOffset}) => {
         const genderParamUrl = window.location.href.split("/")[3];
         return genderParamUrl.split('-')[0];
     },[href])
+    console.log('gender=',gender)
 
     const [activeTab, setActiveTab] = useState(gender);
+
+    useEffect(() => {
+        setActiveTab(gender);
+    },[gender])
 
     const onChange = (tab) => {
         if (!setLoading && !setOffset) {
