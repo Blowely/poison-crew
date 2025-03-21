@@ -1,7 +1,10 @@
 import React, {useRef} from "react";
-import {Navigation, Pagination, Zoom} from 'swiper/modules';
+import {Navigation, Pagination} from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Zoom from "react-medium-image-zoom";
 import styles from "./index.module.scss"
+import "react-medium-image-zoom/dist/styles.css";
+
 
 // Import Swiper styles
 import 'swiper/css';
@@ -25,7 +28,7 @@ const SwiperCarousel = (props) => {
           pagination={true}
           zoom={true}
           navigation={true}
-          modules={[Pagination, Navigation, Zoom]}
+          modules={[Pagination, Navigation]}
           style={{ width: '100%' }}
           lazyPreloadPrevNext={lazyPreloadPrevNext}
           loop={loop}
@@ -36,7 +39,7 @@ const SwiperCarousel = (props) => {
               const originalImage = image;
 
               return (
-                  <SwiperSlide key={index} zoom={true} modules={[Zoom]} className={!isDesktopScreen && styles.slide}>
+                  <SwiperSlide key={index} className={!isDesktopScreen && styles.slide}>
                       {index === 0 &&
                           <img
                               src={compressedImage}
@@ -68,6 +71,7 @@ const SwiperCarousel = (props) => {
                                   position: 'absolute', // Относительное позиционирование
                                   zIndex: 2, // Выше placeholder
                               }}
+                                alt={'Image'}
                           />
                       </Zoom>
 
