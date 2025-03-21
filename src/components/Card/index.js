@@ -80,6 +80,13 @@ function Card({
     }
   };
 
+  useEffect(() => {
+    const link = document.createElement('img');
+    link.rel = 'prefetch';
+    link.src = image;
+    document.head.appendChild(link);
+  }, [image]);
+
   const isDesktopScreen = window.screen.availWidth > 600;
 
   return (

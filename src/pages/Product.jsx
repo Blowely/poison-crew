@@ -22,7 +22,7 @@ import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
-
+  console.log('selectedProduct',selectedProduct)
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -385,9 +385,9 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                   {isDesktopScreen &&
                       <div className="category-title" onClick={goBack}><LeftOutlined/>Каталог</div>
                   }
-                  {isDesktopScreen && product?.images && (
+                  {isDesktopScreen && selectedProduct?.images && (
                       <ProductGallery
-                          images={product?.images}
+                          images={selectedProduct?.images}
                           onLoad={onLoadCarousel}
                           onError={onLoadCarousel}
                       />
@@ -395,7 +395,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                   {!isDesktopScreen && (
                       <SwiperCarousel
                           style={{width: '100%'}}
-                          images={product?.images}
+                          images={selectedProduct?.images}
                           onLoad={onLoadCarousel}
                           onError={onLoadCarousel}
                       />
