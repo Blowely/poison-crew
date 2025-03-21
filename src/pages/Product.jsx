@@ -22,7 +22,6 @@ import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
-  console.log('selectedProduct',selectedProduct)
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
