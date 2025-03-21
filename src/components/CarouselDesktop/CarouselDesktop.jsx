@@ -40,10 +40,23 @@ const ProductGallery = ({images}) => {
         ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_500'})
     )
 
-    const handleImageClick = () => {
+    const handleImageClick = ({target}) => {
         if (galleryRef.current) {
             console.log('galleryRef?.current=',galleryRef?.current)
-            galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
+            //galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
+            console.log('target=',target)
+            if (target?.requestFullscreen) {
+                target?.requestFullscreen();
+            } else if (target?.mozRequestFullScreen) {
+                // Firefox
+                target?.mozRequestFullScreen();
+            } else if (target?.webkitRequestFullscreen) {
+                // Chrome, Safari и Opera
+                target?.webkitRequestFullscreen();
+            } else if (target?.msRequestFullscreen) {
+                // IE/Edge
+                target?.msRequestFullscreen();
+            }
         }
     };
 
