@@ -40,11 +40,22 @@ const ProductGallery = ({images}) => {
         ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_500'})
     )
 
+    const hideControls = () => {
+        const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
+        const linkBtns = document.getElementsByClassName('product-info-phone-wrapper');
+        const goBackBtn = document.getElementsByClassName('go-back-btn')[0];
+        const footer = document.getElementsByClassName('footer-btn-wrapper')[0];
+        console.log('productInfo=',productInfo)
+        productInfo.style.display = 'none';
+        linkBtns[0].style.display = 'none';
+        linkBtns[1].style.display = 'none';
+        goBackBtn.style.display = 'none';
+        footer.style.display = 'none';
+    }
+
     const handleImageClick = () => {
         if (galleryRef.current) {
-            const productInfo = document.getElementsByClassName('product-info-phone-wrapper')[0];
-            console.log('productInfo=',productInfo)
-            productInfo.style.display = 'none';
+            hideControls()
             galleryRef?.current?.fullScreen(); // Включаем полноэкранный режим
         }
     };
@@ -65,7 +76,7 @@ const ProductGallery = ({images}) => {
             showThumbnails={isDesktopScreen || isOpenGallery}
             showPlayButton={isDesktopScreen}
             showNav={isDesktopScreen}
-            showFullscreenButton={true}
+            showFullscreenButton={isDesktopScreen || isOpenGallery}
             onScreenChange={setOpenGallery}
         />
     );
