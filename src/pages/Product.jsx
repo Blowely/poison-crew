@@ -57,7 +57,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
   );
 
   useEffect(() => {
-    setProduct(selectedProduct || updatedProductData || remoteProduct);
+    setProduct(updatedProductData || remoteProduct || selectedProduct);
   },[selectedProduct, remoteProduct, updatedProductData]);
 
   useEffect(() => {
@@ -385,9 +385,9 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                   {isDesktopScreen &&
                       <div className="category-title" onClick={goBack}><LeftOutlined/>Каталог</div>
                   }
-                  {isDesktopScreen && selectedProduct?.images && (
+                  {isDesktopScreen && (
                       <ProductGallery
-                          images={selectedProduct?.images}
+                          images={remoteProduct?.images || selectedProduct?.images}
                           onLoad={onLoadCarousel}
                           onError={onLoadCarousel}
                       />
@@ -395,7 +395,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                   {!isDesktopScreen && (
                       <SwiperCarousel
                           style={{width: '100%'}}
-                          images={selectedProduct?.images}
+                          images={remoteProduct?.images || selectedProduct?.images}
                           onLoad={onLoadCarousel}
                           onError={onLoadCarousel}
                       />
