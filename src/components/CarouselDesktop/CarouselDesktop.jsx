@@ -28,7 +28,7 @@ const LazyImage = ({ original, thumbnail }) => {
             className="image-gallery-image"
             src={original}
             alt="original"
-            style={{opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s', cursor: "pointer"}}
+            style={{opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s'}}
         />
     )
 };
