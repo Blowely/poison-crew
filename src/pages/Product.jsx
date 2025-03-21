@@ -57,8 +57,8 @@ function Product({ selectedProduct, setLoading = () => {} }) {
   );
 
   useEffect(() => {
-    setProduct(updatedProductData || remoteProduct);
-  },[remoteProduct, updatedProductData]);
+    setProduct(selectedProduct || updatedProductData || remoteProduct);
+  },[selectedProduct, remoteProduct, updatedProductData]);
 
   useEffect(() => {
     const currentProduct = product;
