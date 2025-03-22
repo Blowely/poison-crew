@@ -1,19 +1,24 @@
-import React, {useMemo} from "react";
+import React from "react";
 import {Button, Tag} from "antd";
 import {useSearchParams} from "react-router-dom";
-import {BRANDS, CATEGORIES} from "../constants";
+import {BRANDS} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 import {BrandTag} from "../BrandTag/BrandTag";
+import {SizeTag} from "../SizeTag/SizeTag";
 
 const excludedTags = ['category1Id', 'category2Id', 'category3Id', 'categoryName'];
 
-const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal, setLoading}) => {
+const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal, setOpenSizesModal, setLoading}) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const params = Object.keys(Object.fromEntries(searchParams.entries()))?.includes('brandIds')
+    /*const params = (Object.keys(Object.fromEntries(searchParams.entries()))?.includes('brandIds')
+    || Object.keys(Object.fromEntries(searchParams.entries()))?.includes('sizes'))
         ? Object.fromEntries(searchParams.entries())
-        : {...Object.fromEntries(searchParams.entries()), brandIds: ""};
+        : {...Object.fromEntries(searchParams.entries()), brandIds: "", sizes: ""};*/
+    const params = {...Object.fromEntries(searchParams.entries())};
+    params.brandIds = params.brandIds ? params.brandIds : "";
+    params.sizes = params.sizes ? params.sizes : "";
 
     const isDesktopScreen = window?.innerWidth > 768;
 
@@ -26,9 +31,10 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
             return `от ${params[key]}`;
         }
 
+        /*
         if (key === 'sizes') {
             return `Размер ${params[key]}`;
-        }
+        }*/
 
         /*if (key === 'category3Id' || key === 'category2Id' || key === 'category1Id') {
             const index = CATEGORIES.findIndex((el) => el.id === Number(params[key]));
@@ -112,6 +118,20 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
                              brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
         }
 
+        if (key === 'sizes') {
+            const sizesIds = params[key]?.length ? params[key]?.split(',') : [];
+
+            if (!sizesIds?.length) {
+                return <Button key={key}
+                               size="middle"
+                               color="default"
+                               className="fast-filters-btn"
+                               variant="solid" onClick={() => setOpenSizesModal(true)}>Размеры</Button>;
+            }
+
+            return <SizeTag key={key} size={sizesIds[0]} onClick={() => setOpenSizesModal(true)}
+                             sizeCount={sizesIds?.length} onRemove={() => onClose(key)}/>
+        }
 
         return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
     })}</div>

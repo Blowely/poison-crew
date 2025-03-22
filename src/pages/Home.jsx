@@ -34,6 +34,7 @@ import ConverseIcon from "../assets/svg/brands/converse-icon";
 import FilaIcon from "../assets/svg/brands/fila-icon";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import Sidebar from "../components/Sidebar/Sidebar";
+import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [selectedBrands, setSelectedBrands] = useState(!!brandsParam ? brandsParam?.split(',') : []);
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
+  const [isOpenSizesModal, setOpenSizesModal] = useState(false);
   const [isVisibleCategories, setVisibleCategories] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -432,12 +434,33 @@ function Home({ onAddToFavorite, onAddToCart }) {
     setOpenBrandsModal(false);
   }
 
+  const onApplySizesClick = () => {
+    setLoading(true);
+    setOffset(1);
+
+    if (!sizes.length) {
+      searchParams.delete('sizes');
+    } else {
+      searchParams.set('sizes', sizes.join(','));
+    }
+    setSearchParams(searchParams);
+    setOpenSizesModal(false);
+  }
+
   const onCancelBrandsClick = () => {
     setOffset(1);
     setSelectedBrands([]);
     searchParams.delete('brandIds');
     setSearchParams(searchParams);
     setOpenBrandsModal(false);
+  }
+
+  const onCancelSizesClick = () => {
+    setOffset(1);
+    setSizes([]);
+    searchParams.delete('sizes');
+    setSearchParams(searchParams);
+    setOpenSizesModal(false);
   }
 
   const scrollButton = document.getElementById('scrollToTop');
@@ -489,6 +512,35 @@ function Home({ onAddToFavorite, onAddToCart }) {
                 Бренды
               </div>
               <BrandsModalSelector brands={selectedBrands} setBrands={setSelectedBrands}/>
+            </div>
+          </Modal>
+      )}
+      {isOpenSizesModal && (
+          <Modal
+              title="Размеры, EU"
+              open={isOpenSizesModal}
+              onOk={onApplySizesClick}
+              cancelButtonProps={(<Button>Сбросить</Button>)}
+              cancelText={<Button onClick={onCancelSizesClick}>Сбросить</Button>}
+              okText="Применить"
+              centered={!isDesktopScreen}
+              onCancel={(e) => {
+                setOpenSizesModal(false);
+              }}
+              className="custom-modal"
+          >
+            <div
+                style={{
+                  display: "grid",
+                  padding: "15px",
+                  borderBottom: "1px solid #ececec",
+                  gap: "15px",
+                }}
+            >
+              <div style={{ fontSize: "22px", fontWeight: "500" }}>
+                Размеры, EU
+              </div>
+              <SizesModalSelector sizes={sizes} setSizes={setSizes}/>
             </div>
           </Modal>
       )}
@@ -685,6 +737,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                     setColors={setColors}
                     setBrands={setSelectedBrands}
                     setOpenBrandsModal={setOpenBrandsModal}
+                    setOpenSizesModal={setOpenSizesModal}
                     setLoading={setLoading}
                 />
 
