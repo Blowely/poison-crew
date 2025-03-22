@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Button, Tag} from "antd";
 import {useSearchParams} from "react-router-dom";
 import {BRANDS, CATEGORIES} from "../constants";
 import "./Tag.scss";
 import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 import {BrandTag} from "../BrandTag/BrandTag";
+
+const excludedTags = ['category1Id', 'category2Id', 'category3Id', 'categoryName'];
 
 const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal, setLoading}) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -88,7 +90,7 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
     }
 
     return <div className="tag-wrapper">{Object.keys(params).filter(filter).map((key) => {
-        if (key === 'category1Id' || key === 'category2Id' || key === 'category3Id') {
+        if (excludedTags.includes(key)) {
             return null;
         }
 

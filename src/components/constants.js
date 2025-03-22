@@ -58,6 +58,7 @@ export const CATEGORIES = [
     {id: 38, name: "Кроссовки"},
     {id: 2, name: "Одежда"},
     {id: 4, name: "Футболки"},
+    {id: 48, name: "Аксессуары"},
     {id: 122, name: "Очки"},
     {id: 305, name: "Сумки"},
     {id: 43, name: "Ботинки"},

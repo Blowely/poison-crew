@@ -49,6 +49,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const category2IdParam = searchParams.get("category2Id");
   const category3IdParam = searchParams.get("category3Id");
   const brandsParam = searchParams.get("brandIds");
+  const categoryName = searchParams.get("categoryName");
 
 
   const [limit] = useState(20);
@@ -406,7 +407,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
     }
 
     const index = CATEGORIES.findIndex((el) => el.id === Number(selectedCategory));
-    return <span style={{cursor: "pointer"}}>{CATEGORIES[index]?.name || ''}</span> ;
+
+    return <span style={{cursor: "pointer"}}>{CATEGORIES[index]?.name
+      || categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
+      || ''}</span> ;
   }
 
   const onGoBackClick = () => {
