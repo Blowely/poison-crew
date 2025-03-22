@@ -1,16 +1,22 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import {Button, Modal} from "antd";
+import {Breadcrumb, Button, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
-import {LeftOutlined, LoadingOutlined} from "@ant-design/icons";
+import {ArrowLeftOutlined, LeftOutlined, LoadingOutlined} from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
-import {getCheapestElOfSize, getCurrentPriceOfSize, getIntPrice, normalizeSize} from "../common/utils";
+import {
+  getCategoryClickedLink,
+  getCheapestElOfSize,
+  getCurrentPriceOfSize,
+  getIntPrice,
+  normalizeSize
+} from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
-import {BRANDS} from "../components/constants";
+import {BRANDS, CATEGORIES} from "../components/constants";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
@@ -35,6 +41,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
+  const gender = localStorage.getItem("gender") || "men";
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
@@ -334,19 +341,19 @@ function Product({ selectedProduct, setLoading = () => {} }) {
             <GenderSwitcher/>
             <div className="items-wrapper">
               <div className="item" onClick={() => navigate("/profile")}>
-                <img style={{height: '26px'}}
+                <img style={{height: '23px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
                      alt=""/>
                 Профиль
               </div>
               <div className="item" onClick={() => navigate("/favorites")}>
-                <img style={{height: '26px'}}
+                <img style={{height: '23px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
                      alt=""/>
                 Избранное
               </div>
               <div className="item" onClick={() => navigate("/cart")}>
-                <img style={{height: '26px'}}
+                <img style={{height: '23px'}}
                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
                      alt=""/>
                 Корзина
@@ -381,12 +388,53 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
                 }}>
-                  {isDesktopScreen &&
-                      <div className="category-title" onClick={goBack}><LeftOutlined/>Каталог</div>
+                  {isDesktopScreen && product &&
+                      <div className="breadcrumb-wrapper">
+                        <div className="back-to-main-btn" onClick={goBack}><ArrowLeftOutlined /></div>
+                        <Breadcrumb
+                            items={[
+                              {
+                                title: <a href="/">Главная</a>,
+                              },
+                              {
+                                title: <a href={getCategoryClickedLink(
+                                    1,
+                                          product.category1,
+                                          product.category?.category1
+                                        )}>
+                                  {
+                                    (CATEGORIES.find(el => el.id === product.category1))?.name
+                                    || product.category?.category1
+                                }</a>,
+                              },
+                              {
+                                title: <a href={getCategoryClickedLink(
+                                    2,
+                                    product.category2,
+                                    product.category?.category2.split('/')[1]
+                                )}>{
+                                    (CATEGORIES.find(el => el.id === product.category2))?.name
+                                    || product.category?.category2.split('/')[1]
+                                }</a>,
+                              },
+                              {
+                                title: <a href={getCategoryClickedLink(
+                                    3,
+                                    product.category3,
+                                    product.category?.category3.split('/')[2]
+                                )}>{
+                                    (CATEGORIES.find(el => el.id === product.category3))?.name
+                                    || product.category?.category3.split('/')[2]
+                                }</a>,
+                              },
+                            ]}
+                        />
+                      </div>
                   }
+
                   {isDesktopScreen &&
-                    <ProductGallery
-                        images={remoteProduct?.images || selectedProduct?.images}
+                      <ProductGallery
+                          images={remoteProduct?.images || selectedProduct?.images}
                         onLoad={onLoadCarousel}
                         onError={onLoadCarousel}
                     />

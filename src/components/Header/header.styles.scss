@@ -150,6 +150,16 @@
   z-index: 0;
 }
 
+.back-to-main-btn {
+  font-size: 25px;
+  cursor: pointer;
+  padding: 8px;
+
+  :hover {
+    color: salmon!important;
+  }
+}
+
 .go-back-btn {
   z-index: 99;
   position: fixed;

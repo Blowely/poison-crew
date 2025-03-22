@@ -40,19 +40,19 @@ const Information = () => {
                         <GenderSwitcher/>
                         <div className="items-wrapper">
                             <div className="item" onClick={() => navigate("/profile")}>
-                                <img style={{height: '26px'}}
+                                <img style={{height: '23px'}}
                                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
                                      alt=""/>
                                 Профиль
                             </div>
                             <div className="item" onClick={() => navigate("/favorites")}>
-                                <img style={{height: '26px'}}
+                                <img style={{height: '23px'}}
                                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
                                      alt=""/>
                                 Избранное
                             </div>
                             <div className="item" onClick={() => navigate("/cart")}>
-                                <img style={{height: '26px'}}
+                                <img style={{height: '23px'}}
                                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
                                      alt=""/>
                                 Корзина

@@ -143,8 +143,6 @@
     }
 
     @media (min-width: 768px) {
-        margin-top: 30px;
-
         > .swiper {
             min-height: 339px!important;
             aspect-ratio: 1 / 1 !important;
@@ -156,6 +154,13 @@
             }
         }
     }
+}
+
+.breadcrumb-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding-bottom: 20px;
 }
 
 .item-details-wrapper {
