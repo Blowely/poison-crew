@@ -108,7 +108,7 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
                                size="middle"
                                color="default"
                                className="fast-filters-btn"
-                               variant="solid" onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
+                               onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
             }
 
             const brandIndex = BRANDS.findIndex(c => c.id === Number(brandsIds[0]));
@@ -126,7 +126,7 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
                                size="middle"
                                color="default"
                                className="fast-filters-btn"
-                               variant="solid" onClick={() => setOpenSizesModal(true)}>Размеры</Button>;
+                               onClick={() => setOpenSizesModal(true)}>Размеры</Button>;
             }
 
             return <SizeTag key={key} size={sizesIds[0]} onClick={() => setOpenSizesModal(true)}
