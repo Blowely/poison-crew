@@ -726,7 +726,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
           {!isDesktopScreen &&
               <footer>
-                <div onClick={() => navigate("/products")}>
+                <div onClick={() => navigate(`/${gender}-products`)}>
                   <img style={{height: '26px'}}
                        src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
                        alt=""/>
