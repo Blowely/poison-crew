@@ -300,7 +300,11 @@ function Cart() {
                             </div>
                             {cartItems.length
                                 ? [cartItems[cartItems.length - 1]].map((el, i) => {
-                                    return <div key={i} className="cart-item">
+                                    return (
+                                    <div
+                                        key={i} className="cart-item"
+                                        onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
+                                    >
                                         <div className="cart-product-info">
                                             <div style={{display: 'flex', gap: '7px'}}>
                                                 <img
@@ -319,7 +323,7 @@ function Cart() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>)
                                 }) : null}
 
 
