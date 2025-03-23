@@ -412,9 +412,7 @@ function Cart() {
 
 
             {!isDesktopScreen &&
-                <footer>
-                    <PhoneFooter tab="cart"/>
-                </footer>
+                <PhoneFooter tab="cart" />
             }
 
         </Layout>

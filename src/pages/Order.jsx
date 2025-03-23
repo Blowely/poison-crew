@@ -277,9 +277,7 @@ const Order = () => {
                     }
                 </div>
                 {!isDesktopScreen &&
-                    <footer>
-                        <PhoneFooter tab="profile" />
-                    </footer>
+                    <PhoneFooter tab="profile" />
                 }
         </Layout>
     );

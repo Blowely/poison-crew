@@ -184,9 +184,7 @@ const Orders = () => {
             }
 
         {!isDesktopScreen &&
-            <footer>
-                <PhoneFooter tab="profile" />
-            </footer>
+            <PhoneFooter tab="profile" />
         }
         </Layout>
     );

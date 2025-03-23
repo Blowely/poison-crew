@@ -91,9 +91,7 @@ const Favorites = () => {
                 {renderItems()}
             </div>
             {!isDesktopScreen && (
-                <footer>
-                    <PhoneFooter tab="favorites" />
-                </footer>
+                <PhoneFooter tab="favorites" />
             )}
         </Layout>
     );

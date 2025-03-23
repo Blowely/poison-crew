@@ -726,9 +726,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
           }
 
           {!isDesktopScreen &&
-              <footer>
-                <PhoneFooter tab="products"/>
-              </footer>
+              <PhoneFooter tab="products"/>
           }
         </div>
         {/*<div className="loader">

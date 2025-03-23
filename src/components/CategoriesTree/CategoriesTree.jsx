@@ -100,9 +100,7 @@ function CategoriesTree() {
                                 ))}
                             </div>
                         </div>
-                        <footer>
-                            <PhoneFooter tab="categories" />
-                        </footer>
+                        <PhoneFooter tab="categories" />
                     </div>
                 </>
             }

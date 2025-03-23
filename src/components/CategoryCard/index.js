@@ -84,9 +84,7 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
             </div>
         }
 
-        <footer>
-          <PhoneFooter tab="categories" />
-        </footer>
+        <PhoneFooter tab="categories" />
       </Layout>
   );
 }

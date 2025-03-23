@@ -173,9 +173,7 @@ function Address() {
         </Button>
       </div>
       {!isDesktopScreen &&
-          <footer>
-            <PhoneFooter tab="cart" />
-          </footer>
+          <PhoneFooter tab="cart" />
       }
 
     </Layout>
