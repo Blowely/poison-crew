@@ -594,7 +594,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                   isEnabledFilters={isEnabledFilters}
                   setVisibleCategories={setVisibleCategories}
           />
-          {!isDesktopScreen && !selectedCategory && <GenderSwitcher setOffset={setOffset} setLoading={setLoading}/>}
+          {!isDesktopScreen && <GenderSwitcher setOffset={setOffset} setLoading={setLoading}/>}
 
           <div className="content">
 

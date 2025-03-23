@@ -296,7 +296,7 @@ function Cart() {
                         <>
                             <div className="cart-item redirect" onClick={onAddressClick}>
                                 {activeAddr?.address ??
-                                    'Необходимо заполнить адрес доставки'} <RightOutlined/>
+                                    'Выберите адрес доставки'} <RightOutlined/>
                             </div>
                             {cartItems.length
                                 ? [cartItems[cartItems.length - 1]].map((el, i) => {

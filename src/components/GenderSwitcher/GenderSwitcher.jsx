@@ -14,11 +14,13 @@ const GenderSwitcher = ({setLoading = () => {}, setOffset = () => {}}) => {
 
     const localGender = localStorage.getItem("gender") || gender || "men";
 
-    const [activeTab, setActiveTab] = useState(localGender);
+    const [activeTab, setActiveTab] = useState();
 
     useEffect(() => {
-        setActiveTab(gender);
-    },[gender])
+        if (localGender) {
+            setActiveTab(localGender || "men");
+        }
+    },[localGender])
 
     const onChange = (tab) => {
         if (!setLoading && !setOffset) {
@@ -29,6 +31,12 @@ const GenderSwitcher = ({setLoading = () => {}, setOffset = () => {}}) => {
         localStorage.setItem('gender', tab);
         setLoading(true);
         setOffset(1);
+
+        if (window.location.href.includes("category")) {
+            console.log('lol')
+            const category = window.location.href.split("?")[1];
+            return navigate(`/${tab}-products?${category}`);
+        }
 
         if (window.location.href.includes("products")) {
             return navigate(`/${tab}-products`);
