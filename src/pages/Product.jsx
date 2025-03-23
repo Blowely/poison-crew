@@ -26,7 +26,7 @@ import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 
-function Product({ selectedProduct, setLoading = () => {} }) {
+function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -202,6 +202,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
 
   const onBrandClick = () => {
     setLoading(true);
+    setOffset(1);
     navigate(`?brandIds=${product?.brandId}`);
   }
 
@@ -324,7 +325,11 @@ function Product({ selectedProduct, setLoading = () => {} }) {
           <LoadingOutlined style={{fontSize: '24px'}} spin />
         </div>)
       }
-      {isDesktopScreen && <MainLogoComponent style={{width:'100vw', marginLeft:'-12.5%'}} />}
+      {isDesktopScreen && <MainLogoComponent
+                              style={{width:'100vw', marginLeft:'-12.5%'}}
+                              setLoading={setLoading}
+                              setOffset={setOffset}
+      />}
       {!isLoadingProduct && (
           <div style={{height: '100%'}}>
             {!isDesktopScreen && (

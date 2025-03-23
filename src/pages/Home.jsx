@@ -485,7 +485,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   return (
       <Layout style={{ backgroundColor: "white", position: "relative" }}>
         {spuId && <div className="productWrapper" id="productWrapper">
-          <Product selectedProduct={selectedProduct} setLoading={setLoading} />
+          <Product selectedProduct={selectedProduct} setLoading={setLoading} setOffset={setOffset} />
         </div>
         }
         {isOpenBrandsModal && (
