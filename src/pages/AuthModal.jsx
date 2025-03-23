@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {Button, Input, Modal, notification} from "antd";
-import {useGetProductQuery} from "../store/products.store";
-import {useSearchParams} from "react-router-dom";
+import React, {useState} from "react";
+import {Input, Modal, notification} from "antd";
 import "./authModal.scss";
-import {LoadingOutlined} from "@ant-design/icons";
 import {useLazyGetCodeQuery, useAddCodeMutation} from "../store/accounts.store";
 import FormItem from "antd/es/form/FormItem";
 import {useAppDispatch} from "../store";
@@ -30,10 +27,9 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
       {!isCodeModalOpen &&
         <>
-          <div style={{fontSize: '22px', fontWeight: '500'}}>Вход по номеру телефона</div>
-          <Input prefix="+7" type="phone" value={phone} placeholder="Пожалуйста введите ваш номер телефона"
+          <div style={{fontSize: '22px', fontWeight: '500'}}>Войти или создать профиль</div>
+          <Input prefix="+7" type="phone" value={phone} placeholder="000 000-00-00"
                  onChange={(ev) => phoneInputHandler(ev.target.value)} />
-
         </>
 
       }

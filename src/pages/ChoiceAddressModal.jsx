@@ -40,11 +40,9 @@ function ChoiceAddressModal({
     const [phone, setPhone] = useState("");
     const [isOpenDesktopEnterAddressModal, setOpenDesktopEnterAddressModal] = useState(false);
 
-    const [sendCode, { isLoading: isLoadingPostCode, error }] =
-        useAddCodeMutation({}, { refetchOnMountOrArgChange: true });
     const [updateActiveAddress] = useUpdateActiveAddressMutation();
     const [deleteAddress] = useDeleteAddressMutation();
-    const [addAccountAddress, { isLoading: isLoadingAddress, AccError }] =
+    const [addAccountAddress] =
         useAddAddressMutation({}, { refetchOnMountOrArgChange: true });
 
     const token = localStorage.getItem("token");
@@ -178,7 +176,7 @@ function ChoiceAddressModal({
                 {!isChoiceAddressModalOpen && (
                     <>
                         <div style={{ fontSize: "22px", fontWeight: "500" }}>
-                            Вход по номеру телефона
+                            Войти или создать профиль
                         </div>
                         <div style={{ fontSize: "15px" }}>
                             Незарегистрированные номера будут автоматически зарегистрированы
@@ -188,7 +186,7 @@ function ChoiceAddressModal({
                             prefix="+7"
                             type="phone"
                             value={phone}
-                            placeholder="Пожалуйста введите ваш номер телефона"
+                            placeholder="000 000-00-00"
                             onChange={(ev) => phoneInputHandler(ev.target.value)}
                         />
                     </>

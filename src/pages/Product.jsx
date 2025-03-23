@@ -231,8 +231,12 @@ function Product({ selectedProduct, setLoading = () => {} }) {
   }
 
   const goBack = () => {
+    if (window.location.href.includes('favorites')) {
+      return window.location.href = window.location.origin?.split('?')[0] + '/favorites';
+    }
+
     if (window?.history?.length === 2) {
-      return navigate("/products");
+      return navigate("/");
     }
 
     window.history.go(-1);
