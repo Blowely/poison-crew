@@ -59,6 +59,7 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
           <FormItem help={error?.data.message} validateStatus={error?.data.message ? 'error' : 'success'}>
             <Input.OTP
                  length={4}
+                 type="number"
                  autoFocus={true}
                  placeholder="Пожалуйста введите код"
                  onChange={(val) => codeInputHandler(val)}
