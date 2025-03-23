@@ -21,7 +21,7 @@ const Favorites = () => {
     }, [])
 
     const onGoBackClick = () => {
-      return isDesktopScreen ? navigate('/profile') : navigate('/products'); ;
+        window.history.go(-1);
     }
 
     const renderItems = () => {
