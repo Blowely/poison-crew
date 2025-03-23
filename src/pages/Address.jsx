@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Input, Layout, notification } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
@@ -12,6 +12,7 @@ import {
 } from "../store/accounts.store";
 import { setAddress } from "../common/accountSlice";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
+import RussianNameInput from "../components/RussianNameInput/RussianNameInput";
 
 function Address() {
   const dispatch = useAppDispatch();
@@ -19,17 +20,15 @@ function Address() {
   const phone = useAppSelector((state) => state.account.phone);
   const navigate = useNavigate();
 
+  const [nameError, setNameError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const from = searchParams.get("from");
+
   const token = localStorage.getItem("token");
-  const gender = localStorage.getItem("gender") || "men";
 
   const [addAccountAddress, { isLoading: isLoadingAddress, error }] =
     useAddAddressMutation({}, { refetchOnMountOrArgChange: true });
   const {
     data: accountData,
-    isLoadingAcc,
-    error: accError
   } = useGetAccountQuery(token, { skip: phone });
 
   const [
@@ -93,6 +92,16 @@ function Address() {
   };
 
   const onOkHandler = () => {
+    console.log('nameError=',nameError)
+
+    if (nameError) {
+      return notification.open({
+        duration: 1.5,
+        type: "warning",
+        message: nameError,
+      });
+    }
+
     if (
       Object.values(values).filter((el) => el.length).length !==
       Object.keys(values).length
@@ -111,6 +120,13 @@ function Address() {
     setFieldValue("workschedule", res.workschedule);
   };
 
+
+  const onChangeNameChange = (ev, error) => {
+    // Регулярное выражение для проверки русского ФИО
+    setNameError(typeof error === "string" ? error : "");
+    setFieldValue("fio", ev.target.value)
+  };
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
@@ -122,9 +138,9 @@ function Address() {
       <div className="content-address-block">
         <div className="address-item">
           <div className="field-name">ФИО получателя</div>
-          <Input
+          <RussianNameInput
             value={values.fio}
-            onChange={(ev) => setFieldValue("fio", ev.target.value)}
+            onChange={onChangeNameChange}
           />
         </div>
         <div className="address-item">
