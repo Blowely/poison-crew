@@ -5,6 +5,7 @@ import {useLazyGetCodeQuery, useAddCodeMutation} from "../store/accounts.store";
 import FormItem from "antd/es/form/FormItem";
 import {useAppDispatch} from "../store";
 import {addPhone} from "../common/accountSlice";
+import {isNaN} from "formik";
 
 const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isCodeModalOpen, setCodeModalOpen}) => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,18 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
     }
   }
 
+  const codeInputHandler = (value) => {
+    if (value?.length < 5) {
+      setCode(value.toString());
+    }
+
+    const numVal = Number(value);
+
+    if (value?.length === 4 && !isNaN(numVal)) {
+      onOkHandler();
+    }
+  }
+
   const renderModalContent = () => {
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
       {!isCodeModalOpen &&
@@ -38,7 +51,7 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
           <div style={{fontSize: '22px', fontWeight: '500'}}>Введите код подтверждения</div>
           <div style={{fontSize: '15px'}}>Отправлен на +7{phone}</div>
           <FormItem help={error?.data.message} validateStatus={error?.data.message ? 'error' : 'success'}>
-            <Input  placeholder="Пожалуйста введите код" onChange={(ev) => setCode(ev.target.value)} />
+            <Input.OTP length={4} placeholder="Пожалуйста введите код" onChange={(val) => codeInputHandler(val)} />
           </FormItem>
         </>
       }
@@ -62,6 +75,8 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
         if (res?.data?.token) {
           dispatch(addPhone({phone: '7' + phone}));
           localStorage.setItem('token', res?.data?.token);
+        } else {
+          return notification.error({duration: 1.5, message: 'Неверный код', type: 'error'})
         }
         onCancel();
         setModalOpen(true);

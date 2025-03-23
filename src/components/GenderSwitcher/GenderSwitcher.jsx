@@ -25,7 +25,6 @@ const GenderSwitcher = ({setLoading = () => {}, setOffset = () => {}}) => {
             return navigate(`/${tab}-products`);
         }
 
-        console.log('tab',tab)
         setActiveTab(tab);
         localStorage.setItem('gender', tab);
         setLoading(true);
