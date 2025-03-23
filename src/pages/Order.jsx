@@ -19,6 +19,7 @@ import StatusTag from "../components/Status";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
+import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 
 const Order = () => {
     const navigate = useNavigate();
@@ -277,31 +278,7 @@ const Order = () => {
                 </div>
                 {!isDesktopScreen &&
                     <footer>
-                        <div onClick={() => navigate(`/${gender}-products`)}>
-                            <img style={{height: '26px'}}
-                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F.png"
-                                 alt=""/>
-                        </div>
-                        <div onClick={() => navigate(`/${gender}-categories/`)}>
-                            <img style={{height: '26px'}}
-                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
-                                 alt=""/>
-                        </div>
-                        <div onClick={() => navigate("/cart")}>
-                            <img style={{height: '26px'}}
-                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
-                                 alt=""/>
-                        </div>
-                        <div onClick={() => navigate("/favorites")}>
-                            <img style={{height: '26px'}}
-                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
-                                 alt=""/>
-                        </div>
-                        <div onClick={() => navigate("/profile")}>
-                            <img style={{height: '26px'}}
-                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
-                                 alt=""/>
-                        </div>
+                        <PhoneFooter tab="profile" />
                     </footer>
                 }
         </Layout>
