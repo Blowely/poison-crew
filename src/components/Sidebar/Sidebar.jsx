@@ -18,7 +18,7 @@ const Sidebar = ({visible, setVisibleCategories, setOffset, setLoading}) => {
 
     return (
         <div className="sidebar-container">
-            <Drawer title="Меню" placement="left" onClose={() => setVisibleCategories(false)} visible={visible}>
+            <Drawer title="Каталог" placement="left" onClose={() => setVisibleCategories(false)} visible={visible}>
                 <Menu mode="inline"  items={FILLED_CATEGORIES} onClick={onCategoryClick} />
             </Drawer>
         </div>

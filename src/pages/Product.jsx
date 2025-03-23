@@ -681,7 +681,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                             loading={isDisabledBuyBtn}
                         >
                           {getBtnPrice(choice?.price)}
-                          <span> {!isDisabledBuyBtn ? 'Купить' : ''}</span>
+                          <span> {!isDisabledBuyBtn ? 'Добавить в корзину' : ''}</span>
                         </Button>
                       </div>
                   }
@@ -717,7 +717,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                 loading={isDisabledBuyBtn}
             >
               <span>{getBtnPrice(choice?.price)}</span>
-              <span>{!isDisabledBuyBtn ? 'Купить' : '₽'}</span>
+              <span>{!isDisabledBuyBtn ? 'Добавить в корзину' : '₽'}</span>
             </Button>
           </footer>
       }

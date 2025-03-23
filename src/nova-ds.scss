@@ -163,3 +163,8 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: rgb(1, 194, 195);
+
+}

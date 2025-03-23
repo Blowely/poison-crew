@@ -26,6 +26,17 @@
     > input {
       border-radius: unset!important;
     }
+
+    > span > img {
+      height: 25px;
+      margin: unset;
+      padding: 5px 5px 5px 5px;
+      cursor: pointer;
+
+      :hover {
+        color: black;
+      }
+    }
   }
 
   @media (min-width: 768px) {
@@ -33,7 +44,7 @@
 
     > #desktop-category-btn {
       height: 40px;
-      font-size: 16px;
+      font-size: 15px;
       border: none;
       padding: 16px;
       display: flex;
