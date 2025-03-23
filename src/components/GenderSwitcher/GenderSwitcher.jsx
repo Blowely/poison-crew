@@ -33,7 +33,6 @@ const GenderSwitcher = ({setLoading = () => {}, setOffset = () => {}}) => {
         setOffset(1);
 
         if (window.location.href.includes("category")) {
-            console.log('lol')
             const category = window.location.href.split("?")[1];
             return navigate(`/${tab}-products?${category}`);
         }
