@@ -303,6 +303,7 @@ function Cart() {
                                     return (
                                     <div
                                         key={i} className="cart-item"
+                                        style={{cursor: "pointer"}}
                                         onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
                                     >
                                         <div className="cart-product-info">
