@@ -1,16 +1,12 @@
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {Button, Input} from "antd";
 import React, {useEffect, useState} from "react";
 import './header.styles.scss';
-import {MenuOutlined, SearchOutlined} from "@ant-design/icons";
+import {MenuOutlined} from "@ant-design/icons";
 
 const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCategories}) => {
-    const navigate = useNavigate();
-
     const [searchParams, setSearchParams] = useSearchParams();
-
     const [searchValue, setSearchValue] = useState(search || '');
-    const gender = localStorage.getItem("gender") || "men";
 
     useEffect(() => {
         if (!search) {
@@ -59,6 +55,18 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
         //navigate(`/${gender}-categories/`)
     }
 
+    const val1 = "https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20(%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0)(cropped).png"
+    const val2 = "https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20(%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0)%20(blue).png"
+    const [icon, setIcon] = useState(val1)
+
+    const onMouseOver = () => {
+        setIcon(val2);
+    }
+
+    const onMouseLeave = () => {
+        setIcon(val1);
+    }
+
     return (
         <header
           className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
@@ -71,7 +79,9 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
                    rootClassName="search-input"
                    onChange={(e) => onChange(e.target.value)}
                    onPressEnter={onSearch}
-                   suffix={<img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA%20(%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0)(cropped).png" alt=""/>}
+                   suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+                       <img src={icon} alt="search" />
+                   </div>}
             />
             {!isDesktopScreen &&
               <Button onClick={filtersBtnHandler}

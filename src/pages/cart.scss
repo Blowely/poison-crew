@@ -31,13 +31,16 @@
     display: flex;
     width: 100%;
     justify-content: center;
+
+    @media (min-width: 768px) {
+        width: 80%!important;
+    }
 }
 
 .content-block {
     padding: 15px;
     padding-bottom: 80px;
     width: 100%;
-    max-width: 1200px;
     height: auto;
 
     > .category-title {

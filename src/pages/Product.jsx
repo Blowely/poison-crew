@@ -3,7 +3,7 @@ import {Breadcrumb, Button, Modal} from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useGetProductQuery, useParseProductQuery} from "../store/products.store";
 import "./product.scss";
-import {ArrowLeftOutlined, LeftOutlined, LoadingOutlined} from "@ant-design/icons";
+import {ArrowLeftOutlined, LoadingOutlined} from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { addToCart } from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
@@ -17,15 +17,14 @@ import {
 } from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS, CATEGORIES} from "../components/constants";
-import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import {APPAREL_SIZES_ORDER} from "./constants";
 import IconHeart from "../assets/svg/iconHeart";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
-import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import InsuranceBlock from "../components/InsuranceBlock/InsuranceBlock";
 import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
+import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 
 function Product({ selectedProduct, setLoading = () => {} }) {
   const dispatch = useAppDispatch();
@@ -321,48 +320,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
           <LoadingOutlined style={{fontSize: '24px'}} spin />
         </div>)
       }
-      {isDesktopScreen &&
-        <div className="main-logo-wrapper">
-          {/*<div
-            className="main-logo-line black main-logo-line-left"
-            style={{
-              width: "calc((100vw - 226px - 40px) / 2 )"
-            }}
-          />*/}
-          {<div onClick={() => navigate('/products')} style={{cursor: "pointer", zIndex: "5"}}><RePoizonMainBigLogo/></div>}
-
-          {/*<div
-            className="main-logo-line black main-logo-line-right"
-            style={{
-              width: "calc((100vw - 226px - 40px) / 2 )"
-            }}
-          />*/}
-          {isDesktopScreen && <div className="actions-btns">
-            <GenderSwitcher/>
-            <div className="items-wrapper">
-              <div className="item" onClick={() => navigate("/profile")}>
-                <img style={{height: '23px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
-                     alt=""/>
-                Профиль
-              </div>
-              <div className="item" onClick={() => navigate("/favorites")}>
-                <img style={{height: '23px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
-                     alt=""/>
-                Избранное
-              </div>
-              <div className="item" onClick={() => navigate("/cart")}>
-                <img style={{height: '23px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
-                     alt=""/>
-                Корзина
-              </div>
-            </div>
-          </div>}
-        </div>
-      }
-
+      {isDesktopScreen && <MainLogoComponent style={{width:'100vw', marginLeft:'-12.5%'}} />}
       {!isLoadingProduct && (
           <div style={{height: '100%'}}>
             {!isDesktopScreen && (
@@ -383,14 +341,14 @@ function Product({ selectedProduct, setLoading = () => {} }) {
             }
 
 
-            <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px 0 20px' : '0'}}>
+            <div className={'layout-wrapper'} style={{padding: '0'}}>
               <div className={"content-wrapper"} style={{flexDirection: isDesktopScreen ? 'row' : 'column'}}>
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
                 }}>
                   {isDesktopScreen && product &&
                       <div className="breadcrumb-wrapper">
-                        <div className="back-to-main-btn" onClick={goBack}><ArrowLeftOutlined /></div>
+                        <div className="back-to-main-btn" onClick={goBack}><ArrowLeftOutlined/></div>
                         <Breadcrumb
                             items={[
                               {
@@ -399,12 +357,12 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                               {
                                 title: <a href={getCategoryClickedLink(
                                     1,
-                                          product.category1,
-                                          product.category?.category1 || ""
-                                        )}>
+                                    product.category1,
+                                    product.category?.category1 || ""
+                                )}>
                                   {
-                                    (CATEGORIES.find(el => el.id === product.category1))?.name
-                                    || product.category?.category1 || ""
+                                      (CATEGORIES.find(el => el.id === product.category1))?.name
+                                      || product.category?.category1 || ""
                                 }</a>,
                               },
                               {
@@ -475,7 +433,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                           className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}>
                         {!isDesktopScreen &&
                             <div className="title">
-                              {getIntPrice(choice?.price)}
+                              {getIntPrice(choice?.price || selectedProduct?.price)}
                             </div>
                         }
                         <div className="title-wrapper">
@@ -484,7 +442,7 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                       </span>
                           {isDesktopScreen &&
                               <div className="title">
-                                {getIntPrice(choice?.price)}
+                                {getIntPrice(choice?.price || selectedProduct?.price)}
                               </div>
                           }
                         </div>

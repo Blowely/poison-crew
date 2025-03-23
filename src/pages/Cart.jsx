@@ -55,13 +55,7 @@ function Cart() {
     }, []);
 
     const onGoBackClick = () => {
-        if (from) {
-            return navigate('/products');
-        } else if (cartItems[0]?._id) {
-            return navigate(`/products/view?spuId=${cartItems[0]?.spuId}`);
-        } else {
-            return navigate('/products');
-        }
+        window.history.go(-1);
     }
 
     const onOkHandler = async () => {
@@ -146,7 +140,6 @@ function Cart() {
                         <span>{number.substring(12,16)}</span>
                         <CopyOutlined onClick={() => copyToClickBord(paymentNumberRef.current)}/>
                     </span>
-                    Андрей Евгеньевич М
                 </span>
     }
 

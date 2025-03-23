@@ -27,14 +27,18 @@
       border-radius: unset!important;
     }
 
-    > span > img {
-      height: 25px;
-      margin: unset;
-      padding: 5px 5px 5px 5px;
-      cursor: pointer;
+    > span > div{
+      display: flex;
+      align-items: center;
+      > img {
+        height: 30px;
+        margin: unset;
+        padding: 5px 5px 5px 5px;
+        cursor: pointer;
 
-      :hover {
-        color: black;
+        /*:hover {
+          color: black;
+        }*/
       }
     }
   }
@@ -118,7 +122,7 @@
   }
 
   > .actions-btns {
-    width: 100%;
+    width: 80%;
     position: absolute;
     display: flex;
     justify-content: space-between;

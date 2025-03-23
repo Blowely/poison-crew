@@ -35,6 +35,7 @@ import FilaIcon from "../assets/svg/brands/fila-icon";
 import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import Sidebar from "../components/Sidebar/Sidebar";
 import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
+import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -481,318 +482,279 @@ function Home({ onAddToFavorite, onAddToCart }) {
   });
 
   return (
-    <Layout style={{ backgroundColor: "white", position: "relative" }}>
-      {spuId && <div className="productWrapper" id="productWrapper">
-        <Product selectedProduct={selectedProduct} setLoading={setLoading} />
-      </div>
-      }
-      {isOpenBrandsModal && (
-          <Modal
-              title="Бренды"
-              open={isOpenBrandsModal}
-              onOk={onApplyBrandsClick}
-              cancelButtonProps={(<Button>Сбросить</Button>)}
-              cancelText={<Button onClick={onCancelBrandsClick}>Сбросить</Button>}
-              okText="Применить"
-              centered={!isDesktopScreen}
-              onCancel={(e) => {
-                setOpenBrandsModal(false);
-              }}
-              className="custom-modal"
-          >
-            <div
-                style={{
-                  display: "grid",
-                  padding: "15px",
-                  borderBottom: "1px solid #ececec",
-                  gap: "15px",
-                }}
-            >
-              <div style={{ fontSize: "22px", fontWeight: "500" }}>
-                Бренды
-              </div>
-              <BrandsModalSelector brands={selectedBrands} setBrands={setSelectedBrands}/>
-            </div>
-          </Modal>
-      )}
-      {isOpenSizesModal && (
-          <Modal
-              title="Размеры, EU"
-              open={isOpenSizesModal}
-              onOk={onApplySizesClick}
-              cancelButtonProps={(<Button>Сбросить</Button>)}
-              cancelText={<Button onClick={onCancelSizesClick}>Сбросить</Button>}
-              okText="Применить"
-              centered={!isDesktopScreen}
-              onCancel={(e) => {
-                setOpenSizesModal(false);
-              }}
-              className="custom-modal"
-          >
-            <div
-                style={{
-                  display: "grid",
-                  padding: "15px",
-                  borderBottom: "1px solid #ececec",
-                  gap: "15px",
-                }}
-            >
-              <div style={{ fontSize: "22px", fontWeight: "500" }}>
-                Размеры, EU
-              </div>
-              <SizesModalSelector sizes={sizes} setSizes={setSizes}/>
-            </div>
-          </Modal>
-      )}
-      {isVisibleCategories && (
-          <Sidebar
-              visible={isVisibleCategories}
-              setVisibleCategories={setVisibleCategories}
-              setOffset={setOffset}
-              setLoading={setLoading}
-          />
-        )
-      }
-      <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
-           ref={filtersRef}>
-        <Filters
-          setShowFilters={setShowFilters}
-          sizes={sizes}
-          colors={colors}
-          minPrice={minPrice}
-          maxPrice={maxPrice}
-          selectedBrands={selectedBrands}
-          setSelectedBrands={setSelectedBrands}
-          setSizes={setSizes}
-          setMinPrice={onMinPriceChange}
-          setMaxPrice={onMaxPriceChange}
-          setLoading={setLoading}
-          setOffset={setOffset}
-          setColors={setColors}
-        />
-        {!isDesktopScreen &&
-          <div className="filters-phone-apply-btn">
-            <Button
-              type="primary"
-              className={"btn"}
-              onClick={applyFilters}
-            >
-              <span>Применить</span>
-            </Button>
-          </div>
-        }
-      </div>
-      <div className="productsListWrapper" >
-        <div className="main-logo-wrapper">
-          {isDesktopScreen
-              ? <div onClick={() => navigate('/products')}
-                     style={{cursor: "pointer", zIndex: "5", display: "flex", alignItems: "center"}}>
-                <RePoizonMainBigLogo/></div>
-              : <div onClick={() => navigate('/products')}
-                     style={{cursor: "pointer", zIndex: "5", display: "flex", alignItems: "center"}}>
-                <RePoizonMainMiddleLogo/></div>}
-          {isDesktopScreen ?
-              <div className="actions-btns">
-                <GenderSwitcher setOffset={setOffset} setLoading={setLoading} />
-                <div className="items-wrapper">
-                  <div className="item" onClick={() => navigate("/profile")}>
-                    <img style={{height: '23px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
-                         alt=""/>
-                    Профиль
-                  </div>
-                  <div className="item" onClick={() => navigate("/favorites")}>
-                    <img style={{height: '23px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
-                         alt=""/>
-                    Избранное
-                  </div>
-                  <div className="item" onClick={() => navigate("/cart")}>
-                    <img style={{height: '23px'}}
-                         src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
-                         alt=""/>
-                    Корзина
-                  </div>
-                </div>
-
-              </div>
-              : <div className="actions-btns">
-                {/*<MenuOutlined style={{fontSize: '22px'}} onClick={() => navigate(`/${gender}-categories/`)}/>
-                <div onClick={() => navigate("/profile")}>
-                  <NonActiveProfileIcon/>
-                </div>*/}
-              </div>
-          }
+      <Layout style={{ backgroundColor: "white", position: "relative" }}>
+        {spuId && <div className="productWrapper" id="productWrapper">
+          <Product selectedProduct={selectedProduct} setLoading={setLoading} />
         </div>
-        <Header search={search}
-                showFilters={showFilters}
+        }
+        {isOpenBrandsModal && (
+            <Modal
+                title="Бренды"
+                open={isOpenBrandsModal}
+                onOk={onApplyBrandsClick}
+                cancelButtonProps={(<Button>Сбросить</Button>)}
+                cancelText={<Button onClick={onCancelBrandsClick}>Сбросить</Button>}
+                okText="Применить"
+                centered={!isDesktopScreen}
+                onCancel={(e) => {
+                  setOpenBrandsModal(false);
+                }}
+                className="custom-modal"
+            >
+              <div
+                  style={{
+                    display: "grid",
+                    padding: "15px",
+                    borderBottom: "1px solid #ececec",
+                    gap: "15px",
+                  }}
+              >
+                <div style={{fontSize: "22px", fontWeight: "500"}}>
+                  Бренды
+                </div>
+                <BrandsModalSelector brands={selectedBrands} setBrands={setSelectedBrands}/>
+              </div>
+            </Modal>
+        )}
+        {isOpenSizesModal && (
+            <Modal
+                title="Размеры, EU"
+                open={isOpenSizesModal}
+                onOk={onApplySizesClick}
+                cancelButtonProps={(<Button>Сбросить</Button>)}
+                cancelText={<Button onClick={onCancelSizesClick}>Сбросить</Button>}
+                okText="Применить"
+                centered={!isDesktopScreen}
+                onCancel={(e) => {
+                  setOpenSizesModal(false);
+                }}
+                className="custom-modal"
+            >
+              <div
+                  style={{
+                    display: "grid",
+                    padding: "15px",
+                    borderBottom: "1px solid #ececec",
+                    gap: "15px",
+                  }}
+              >
+                <div style={{fontSize: "22px", fontWeight: "500"}}>
+                  Размеры, EU
+                </div>
+                <SizesModalSelector sizes={sizes} setSizes={setSizes}/>
+              </div>
+            </Modal>
+        )}
+        {isVisibleCategories && (
+            <Sidebar
+                visible={isVisibleCategories}
+                setVisibleCategories={setVisibleCategories}
                 setOffset={setOffset}
                 setLoading={setLoading}
-                setShowFilters={setShowFilters}
-                isEnabledFilters={isEnabledFilters}
-                setVisibleCategories={setVisibleCategories}
-        />
-        {!isDesktopScreen && !selectedCategory && <GenderSwitcher setOffset={setOffset} setLoading={setLoading} />}
-
-        <div className="content">
-
-          {selectedCategory && !isDesktopScreen &&
-              <div className="category-title" onClick={onGoBackClick}><LeftOutlined />{getCategoryTitle()}</div>}
-
-          {!selectedCategory &&
-              <>
-                <div className="brands-section-wrapper">
-                  <div className="brands-section-wrapper_card"
-                       onClick={() => onBrandClick(144)}>
-                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(144)}>
-                      <NikeIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Nike</div>
-                  </div>
-                  <div
-                      className="brands-section-wrapper_card"
-                      onClick={() => onBrandClick(494)}
-                  >
-                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(494)}>
-                      <AdidasIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Adidas</div>
-                  </div>
-                  <div
-                      className="brands-section-wrapper_card"
-                      onClick={() => onBrandClick(4)}
-                  >
-                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
-                      <NewBalanceIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>NB</div>
-                  </div>
-
-                  <div className="brands-section-wrapper_card"
-                       onClick={() => onBrandClick(13)}>
-                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(13)}>
-                      <JordanIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
-                  </div>
-                  <div
-                      className="brands-section-wrapper_card"
-                      onClick={() => onBrandClick(176)}
-                  >
-                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(176)}>
-                      <ConverseIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Converse</div>
-                  </div>
-                  <div
-                      className="brands-section-wrapper_card"
-                      onClick={() => onBrandClick(1318)}
-                  >
-                    <div className="brands-section-wrapper_card-icon" style={getBorderStyle(1318)}>
-                      <FilaIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Fila</div>
-                  </div>
-
-                  <div className="brands-section-wrapper_card"
-                       onClick={() => setOpenBrandsModal(true)}>
-                    <div className="brands-section-wrapper_card-icon">
-                      <MoreIcon/>
-                    </div>
-                    <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
-                  </div>
-                </div>
-                <Categories setLoading={setLoading} setOffset={setOffset}/>
-              </>
-          }
-          <div className="filters-content-wrapper">
-            {isDesktopScreen && (
-                <div className="filters-wrapper" ref={filtersRef}>
-                  <Filters
-                      search={search}
-                      brandIds={selectedBrands}
-                      sizes={sizes}
-                      minPrice={minPrice}
-                      maxPrice={maxPrice}
-                      colors={colors}
-                      selectedBrands={selectedBrands}
-                      setSelectedBrands={setSelectedBrands}
-                      setSizes={setSizes}
-                      setMinPrice={onMinPriceChange}
-                      setMaxPrice={onMaxPriceChange}
-                      applyFilters={applyFilters}
-                      setLoading={setLoading}
-                      setOffset={setOffset}
-                      setColors={setColors}
-                  />
-                </div>
-            )}
-            <div style={{width: "100%"}}>
-              {selectedCategory && isDesktopScreen &&
-                  <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>{getCategoryTitle()}</div>}
-              <div className="filters-tags-wrapper">
-                <FilterTags
-                    setOffset={setOffset}
-                    setSizes={setSizes}
-                    setColors={setColors}
-                    setBrands={setSelectedBrands}
-                    setOpenBrandsModal={setOpenBrandsModal}
-                    setOpenSizesModal={setOpenSizesModal}
-                    setLoading={setLoading}
-                />
-
-                <div className="inputs-wrapper">
-                  <Select
-                      defaultValue={SORT_TYPES[sortBy] || SORT_TYPES["by-relevance"]}
-                      value={sort}
-                      size="middle"
-                      onChange={handleChange}
-                      options={SORT_OPTIONS}
-                  />
-                </div>
+            />
+        )
+        }
+        <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
+             ref={filtersRef}>
+          <Filters
+              setShowFilters={setShowFilters}
+              sizes={sizes}
+              colors={colors}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              selectedBrands={selectedBrands}
+              setSelectedBrands={setSelectedBrands}
+              setSizes={setSizes}
+              setMinPrice={onMinPriceChange}
+              setMaxPrice={onMaxPriceChange}
+              setLoading={setLoading}
+              setOffset={setOffset}
+              setColors={setColors}
+          />
+          {!isDesktopScreen &&
+              <div className="filters-phone-apply-btn">
+                <Button
+                    type="primary"
+                    className={"btn"}
+                    onClick={applyFilters}
+                >
+                  <span>Применить</span>
+                </Button>
               </div>
+          }
+        </div>
+        <MainLogoComponent />
+        <div className="productsListWrapper">
+          <Header search={search}
+                  showFilters={showFilters}
+                  setOffset={setOffset}
+                  setLoading={setLoading}
+                  setShowFilters={setShowFilters}
+                  isEnabledFilters={isEnabledFilters}
+                  setVisibleCategories={setVisibleCategories}
+          />
+          {!isDesktopScreen && !selectedCategory && <GenderSwitcher setOffset={setOffset} setLoading={setLoading}/>}
 
-              <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+          <div className="content">
+
+            {selectedCategory && !isDesktopScreen &&
+                <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>{getCategoryTitle()}</div>}
+
+            {!selectedCategory &&
+                <>
+                  <div className="brands-section-wrapper">
+                    <div className="brands-section-wrapper_card"
+                         onClick={() => onBrandClick(144)}>
+                      <div className="brands-section-wrapper_card-icon" style={getBorderStyle(144)}>
+                        <NikeIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Nike</div>
+                    </div>
+                    <div
+                        className="brands-section-wrapper_card"
+                        onClick={() => onBrandClick(494)}
+                    >
+                      <div className="brands-section-wrapper_card-icon" style={getBorderStyle(494)}>
+                        <AdidasIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Adidas</div>
+                    </div>
+                    <div
+                        className="brands-section-wrapper_card"
+                        onClick={() => onBrandClick(4)}
+                    >
+                      <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
+                        <NewBalanceIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>NB</div>
+                    </div>
+
+                    <div className="brands-section-wrapper_card"
+                         onClick={() => onBrandClick(13)}>
+                      <div className="brands-section-wrapper_card-icon" style={getBorderStyle(13)}>
+                        <JordanIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
+                    </div>
+                    <div
+                        className="brands-section-wrapper_card"
+                        onClick={() => onBrandClick(176)}
+                    >
+                      <div className="brands-section-wrapper_card-icon" style={getBorderStyle(176)}>
+                        <ConverseIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Converse</div>
+                    </div>
+                    <div
+                        className="brands-section-wrapper_card"
+                        onClick={() => onBrandClick(1318)}
+                    >
+                      <div className="brands-section-wrapper_card-icon" style={getBorderStyle(1318)}>
+                        <FilaIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Fila</div>
+                    </div>
+
+                    <div className="brands-section-wrapper_card"
+                         onClick={() => setOpenBrandsModal(true)}>
+                      <div className="brands-section-wrapper_card-icon">
+                        <MoreIcon/>
+                      </div>
+                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
+                    </div>
+                  </div>
+                  <Categories setLoading={setLoading} setOffset={setOffset}/>
+                </>
+            }
+            <div className="filters-content-wrapper">
+              {isDesktopScreen && (
+                  <div className="filters-wrapper" ref={filtersRef}>
+                    <Filters
+                        search={search}
+                        brandIds={selectedBrands}
+                        sizes={sizes}
+                        minPrice={minPrice}
+                        maxPrice={maxPrice}
+                        colors={colors}
+                        selectedBrands={selectedBrands}
+                        setSelectedBrands={setSelectedBrands}
+                        setSizes={setSizes}
+                        setMinPrice={onMinPriceChange}
+                        setMaxPrice={onMaxPriceChange}
+                        applyFilters={applyFilters}
+                        setLoading={setLoading}
+                        setOffset={setOffset}
+                        setColors={setColors}
+                    />
+                  </div>
+              )}
+              <div style={{width: isDesktopScreen ? "calc(100% - 290px)" : "100%"}}>
+                {selectedCategory && isDesktopScreen &&
+                    <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>{getCategoryTitle()}</div>}
+                <div className="filters-tags-wrapper">
+                  <FilterTags
+                      setOffset={setOffset}
+                      setSizes={setSizes}
+                      setColors={setColors}
+                      setBrands={setSelectedBrands}
+                      setOpenBrandsModal={setOpenBrandsModal}
+                      setOpenSizesModal={setOpenSizesModal}
+                      setLoading={setLoading}
+                  />
+
+                  <div className="inputs-wrapper">
+                    <Select
+                        defaultValue={SORT_TYPES[sortBy] || SORT_TYPES["by-relevance"]}
+                        value={sort}
+                        size="middle"
+                        onChange={handleChange}
+                        options={SORT_OPTIONS}
+                    />
+                  </div>
+                </div>
+
+                <Suspense fallback={<div>Loading...</div>}>{renderItems()}</Suspense>
+              </div>
             </div>
           </div>
-        </div>
-        {!spuId &&
-            <div className="scroll-top" id="scrollToTop">
-              <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png" alt=""/>
-            </div>
-        }
+          {!spuId &&
+              <div className="scroll-top" id="scrollToTop">
+                <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png"
+                     alt=""/>
+              </div>
+          }
 
-        {!isDesktopScreen &&
-            <footer>
-            <div onClick={() => navigate("/products")}>
-                <img style={{height: '26px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
-                     alt=""/>
-              </div>
-              <div onClick={() => navigate(`/${gender}-categories/`)}>
-                <img style={{height: '26px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
-                     alt=""/>
-              </div>
-              <div onClick={() => navigate("/cart")}>
-                <img style={{height: '26px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
-                     alt=""/>
-              </div>
-              <div onClick={() => navigate("/favorites")}>
-                <img style={{height: '26px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
-                     alt=""/>
-              </div>
-              <div onClick={() => navigate("/profile")}>
-                <img style={{height: '26px'}}
-                     src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
-                     alt=""/>
-              </div>
-            </footer>
-        }
-      </div>
-      {/*<div className="loader">
+          {!isDesktopScreen &&
+              <footer>
+                <div onClick={() => navigate("/products")}>
+                  <img style={{height: '26px'}}
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/1.%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+                       alt=""/>
+                </div>
+                <div onClick={() => navigate(`/${gender}-categories/`)}>
+                  <img style={{height: '26px'}}
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/2.%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3.png"
+                       alt=""/>
+                </div>
+                <div onClick={() => navigate("/cart")}>
+                  <img style={{height: '26px'}}
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
+                       alt=""/>
+                </div>
+                <div onClick={() => navigate("/favorites")}>
+                  <img style={{height: '26px'}}
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
+                       alt=""/>
+                </div>
+                <div onClick={() => navigate("/profile")}>
+                  <img style={{height: '26px'}}
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
+                       alt=""/>
+                </div>
+              </footer>
+          }
+        </div>
+        {/*<div className="loader">
         <div className="loader-box-wrapper">
           <div className="loader-box loader-box_black">
             <div className="loader__item_left_partition"></div>
@@ -805,7 +767,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       </div>*/}
 
 
-    </Layout>
+      </Layout>
   );
 }
 
