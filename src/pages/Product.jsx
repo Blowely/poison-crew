@@ -400,31 +400,31 @@ function Product({ selectedProduct, setLoading = () => {} }) {
                                 title: <a href={getCategoryClickedLink(
                                     1,
                                           product.category1,
-                                          product.category?.category1
+                                          product.category?.category1 || ""
                                         )}>
                                   {
                                     (CATEGORIES.find(el => el.id === product.category1))?.name
-                                    || product.category?.category1
+                                    || product.category?.category1 || ""
                                 }</a>,
                               },
                               {
                                 title: <a href={getCategoryClickedLink(
                                     2,
                                     product.category2,
-                                    product.category?.category2.split('/')[1]
+                                    product.category?.category2?.split('/')[1] || ""
                                 )}>{
                                     (CATEGORIES.find(el => el.id === product.category2))?.name
-                                    || product.category?.category2.split('/')[1]
+                                    || product.category?.category2?.split('/')[1] || ""
                                 }</a>,
                               },
                               {
                                 title: <a href={getCategoryClickedLink(
                                     3,
                                     product.category3,
-                                    product.category?.category3.split('/')[2]
+                                    product.category?.category3?.split('/')[2]
                                 )}>{
                                     (CATEGORIES.find(el => el.id === product.category3))?.name
-                                    || product.category?.category3.split('/')[2]
+                                    || product.category?.category3?.split('/')[2] || ""
                                 }</a>,
                               },
                             ]}
