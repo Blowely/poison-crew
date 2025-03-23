@@ -38,7 +38,7 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
 
   const renderModalContent = () => {
     return <div style={{display: 'grid', padding: '15px', borderBottom: '1px solid #ececec', gap: '15px'}}>
-      {isCodeModalOpen &&
+      {!isCodeModalOpen &&
           <>
             <div style={{fontSize: '22px', fontWeight: '500'}}>Войти или создать профиль</div>
             <Input prefix="+7" type="phone" value={phone} placeholder="000 000-00-00"
@@ -52,7 +52,7 @@ const AuthModal = ({open, onCancel, setModalOpen = () => {}, setRemotePhone, isC
           </>
 
       }
-      {!isCodeModalOpen &&
+      {isCodeModalOpen &&
           <>
             <div style={{fontSize: '22px', fontWeight: '500'}}>Введите код подтверждения</div>
             <div style={{fontSize: '15px'}}>Отправлен на +7{phone}</div>
