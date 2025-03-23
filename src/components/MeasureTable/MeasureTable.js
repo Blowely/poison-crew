@@ -4,9 +4,9 @@ import { Table } from "antd";
 const MeasureTable = ({sizeTable}) => {
   const columns = [
     {
-      title: 'US Men',
-      dataIndex: 'usMen',
-      key: 'usMen',
+      title: 'US',
+      dataIndex: 'us',
+      key: 'us',
     },
     {
       title: 'EU',
