@@ -376,7 +376,13 @@ function Cart() {
                                                 className="cart-product-info-submit-btn"
                                                 loading={loading}
                                                 onClick={onOkHandler}>
-                                            Оплатить по СБП {getPrice(orderAmount)}
+                                            Оплатить по
+                                            <img
+                                                src="https://storage.yandexcloud.net/pc-mediafiles/icons/sbp.png"
+                                                style={{height: '50%'}}
+                                                alt="sbp"
+                                            />
+                                            СБП {getPrice(orderAmount)}
                                         </Button>
                                     </div>
                                 </div>

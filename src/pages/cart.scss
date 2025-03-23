@@ -138,6 +138,11 @@
     display: flex;
     justify-content: space-between;
     gap: 7px;
+
+    > div > img {
+        object-fit: contain;
+        aspect-ratio: 64 / 41;
+    }
 }
 
 .cart-product-info-third-column {
