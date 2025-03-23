@@ -1,9 +1,23 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import AuthModal from "../../pages/AuthModal";
 
 const PhoneFooter = ({tab}) => {
-    const gender = localStorage.getItem('gender');
     const navigate = useNavigate();
+
+    const [openAuth, setOpenAuth] = useState(false);
+    const [codeModal, setCodeModal] = useState(false);
+
+    const gender = localStorage.getItem('gender');
+    const token = localStorage.getItem('token');
+
+    const onProfileClick = () => {
+        if (token) {
+            navigate("/profile");
+        }
+
+        setOpenAuth(true);
+    }
 
     const iconsData = [
         {
@@ -45,7 +59,7 @@ const PhoneFooter = ({tab}) => {
         {
             id: 5,
             tab: 'profile',
-            onClick: () => navigate("/profile"),
+            onClick: onProfileClick,
             src: "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png",
             defaultSrc: "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png",
             alt: "Профиль",
@@ -64,6 +78,17 @@ const PhoneFooter = ({tab}) => {
     }, [tab])
 
     return (<footer>
+        {!token && openAuth &&
+            <AuthModal
+                open={openAuth}
+                setRemotePhone={() => {}}
+                setModalOpen={() => setOpenAuth(true)}
+                onCancel={() => {
+                    setOpenAuth(false); setCodeModal(false)}}
+                isCodeModalOpen={codeModal}
+                setCodeModalOpen={setCodeModal}
+            />
+        }
         {generateIcons()}
     </footer>)
 }
