@@ -418,10 +418,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onGoBackClick = () => {
-    if (isDesktopScreen) {
-      return navigate('/products');
-    }
-    return navigate(`/${gender}-categories/`);
+    return isDesktopScreen ? navigate(`/${gender}-products`) : navigate(`/${gender}-categories/`);
   }
 
   const onApplyBrandsClick = () => {
