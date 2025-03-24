@@ -29,7 +29,7 @@ const Sidebar = ({ visible, setVisibleCategories, setOffset, setLoading }) => {
     };
 
     const renderMenuItem = (item) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '17px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '16px' }}>
             {item.img && (
                 <Image
                     src={item.img}
