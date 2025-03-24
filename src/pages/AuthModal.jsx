@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {Input, Modal, notification} from "antd";
 import "./authModal.scss";
 import {useLazyGetCodeQuery, useAddCodeMutation} from "../store/accounts.store";
