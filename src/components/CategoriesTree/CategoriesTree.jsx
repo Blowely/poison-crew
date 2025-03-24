@@ -47,7 +47,7 @@ function CategoriesTree() {
             return;
         }
 
-        window.location.href = `/${gender}-products?category${subcategory.categoryLvl}Id=${subcategory.id}`;
+        navigate(`/${gender}-products?category${subcategory.categoryLvl}Id=${subcategory.id}`)
     };
 
     const isDesktopScreen = window?.innerWidth > 768;
