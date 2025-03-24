@@ -176,6 +176,5 @@ export const checkAuthProfileClick = () => {
 }
 
 export const getCategoryClickedLink = (level, id, name) => {
-  const gender = localStorage.getItem("gender") || "men";
-  return `${gender}-products?category${level}Id=${id}&categoryName=${name}`;
+  return `?category${level}Id=${id}&categoryName=${name}`;
 }

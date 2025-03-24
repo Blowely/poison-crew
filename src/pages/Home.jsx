@@ -119,9 +119,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
       obj.collName = collection;
     }
 
-    if (offset) {
-      obj.page = offset;
-    }
+    obj.page = offset || 1;
 
     if (minPriceParam) {
       obj.minPrice = minPriceParam;

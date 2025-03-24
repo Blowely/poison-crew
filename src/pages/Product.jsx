@@ -278,6 +278,12 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
     return () => { root.style.overflowY = "unset" };
   }, [])
 
+  const onBreadcrumbItemClick = (link) => {
+    setOffset(1)
+    setLoading(true);
+    navigate(link);
+  }
+
   return (
     <div style={{height: '100%'}}>
       {/*{!token && (
@@ -361,38 +367,55 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                         <Breadcrumb
                             items={[
                               {
-                                title: <a href="/">Главная</a>,
+                                title: <span
+                                    onClick={() => onBreadcrumbItemClick('/')}
+                                    className={'breadcrumb-wrapper-item'}
+                                >
+                                  Главная
+                                </span>,
                               },
                               {
-                                title: <a href={getCategoryClickedLink(
+                                title: <span onClick={
+                                  () => onBreadcrumbItemClick(getCategoryClickedLink(
                                     1,
                                     product.category1,
                                     product.category?.category1 || ""
-                                )}>
+                                ))}
+                                   className={'breadcrumb-wrapper-item'}
+                                >
                                   {
                                       (CATEGORIES.find(el => el.id === product.category1))?.name
                                       || product.category?.category1 || ""
-                                }</a>,
+                                  }
+                                </span>,
                               },
                               {
-                                title: <a href={getCategoryClickedLink(
+                                title: <span onClick={
+                                  () => onBreadcrumbItemClick(getCategoryClickedLink(
                                     2,
                                     product.category2,
                                     product.category?.category2?.split('/')[1] || ""
-                                )}>{
+                                    ))}
+                                   className={'breadcrumb-wrapper-item'}
+                                >{
                                     (CATEGORIES.find(el => el.id === product.category2))?.name
                                     || product.category?.category2?.split('/')[1] || ""
-                                }</a>,
+                                }
+                                </span>,
                               },
                               {
-                                title: <a href={getCategoryClickedLink(
+                                title: <span onClick={
+                                  () => onBreadcrumbItemClick(getCategoryClickedLink(
                                     3,
                                     product.category3,
                                     product.category?.category3?.split('/')[2]
-                                )}>{
+                                ))}
+                                   className={'breadcrumb-wrapper-item'}
+                                >{
                                     (CATEGORIES.find(el => el.id === product.category3))?.name
                                     || product.category?.category3?.split('/')[2] || ""
-                                }</a>,
+                                  }
+                                </span>,
                               },
                             ]}
                         />
