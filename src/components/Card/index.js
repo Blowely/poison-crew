@@ -130,7 +130,7 @@ function Card({
             <img
                 onClick={() => onCardClickHandler(item)}
                 ref={imgElement}
-                src={`${image}?x-oss-process=image/format,webp/resize,w_500`}
+                src={`${image}?x-oss-process=image/format,webp/resize,w_400`}
                 //src={`${image}`}
                 onLoad={onLoadedIcon}
                 loading="lazy"

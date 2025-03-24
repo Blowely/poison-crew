@@ -37,7 +37,7 @@ const ProductGallery = ({images}) => {
     const galleryRef = useRef(null);
 
     const items = images?.map(el =>
-        ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_500'})
+        ({original: el, thumbnail: el + '?x-oss-process=image/format,webp/resize,w_400'})
     )
 
     const renderItem = (item) => {

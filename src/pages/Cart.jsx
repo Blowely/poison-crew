@@ -309,7 +309,7 @@ function Cart() {
                                         <div className="cart-product-info">
                                             <div style={{display: 'flex', gap: '7px'}}>
                                                 <img
-                                                    src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_500`}
+                                                    src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
                                                     style={{width: '100px'}} alt=""/>
                                                 <div>
                                                     <div style={{fontSize: '16px'}}>{el?.name}</div>

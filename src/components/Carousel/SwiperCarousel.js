@@ -36,7 +36,7 @@ const SwiperCarousel = (props) => {
           ref={swiperRef}
       >
           {images?.map((image, index) => {
-              const compressedImage = `${image}?x-oss-process=image/format,webp/resize,w_500`;
+              const compressedImage = `${image}?x-oss-process=image/format,webp/resize,w_400`;
               const originalImage = image;
 
               return (
