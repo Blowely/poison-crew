@@ -4,7 +4,7 @@ import {useAppSelector} from "../../store";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useGetAccountQuery} from "../../store/accounts.store";
 import {useAddOrderMutation} from "../../store/orders.store";
-import {Layout, notification} from "antd";
+import {Image, Layout, notification} from "antd";
 import {LeftOutlined} from "@ant-design/icons";
 import PhoneFooter from "../PhoneFooter/PhoneFooter";
 
@@ -58,6 +58,29 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
     }
   }
 
+  const renderMenuItem = (item) => {
+    return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', }}>
+          {item.img && (
+              <Image
+                  src={item.img}
+                  width={24}
+                  height={24}
+                  preview={false}
+                  style={{
+                    marginRight: 8,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '10px'
+                  }}
+              />
+          )}
+          <span>{item.label}</span>
+        </div>
+    );
+  };
+
   return (
       <Layout>
         <div className="content-block-header">
@@ -75,7 +98,7 @@ function CategoryCard({selectedCategory, setSelectedCategory, subcategories, han
                             className={`category-button`}
                             onClick={() => handleSubCategoryClick(subcategory)}
                         >
-                          {subcategory?.name}
+                          {renderMenuItem(subcategory)}
                         </button>
                       </div>
                   ))}
