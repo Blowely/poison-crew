@@ -19,14 +19,20 @@ const Sidebar = ({visible, setVisibleCategories, setOffset, setLoading}) => {
     // Функция для рендеринга кастомных элементов меню
     const renderMenuItem = (item) => {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', }}>
                 {item.img && (
                     <Image
                         src={item.img}
                         width={24}
                         height={24}
                         preview={false}
-                        style={{ marginRight: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                        style={{
+                            marginRight: 8,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: '10px'
+                        }}
                     />
                 )}
                 <span>{item.label}</span>
