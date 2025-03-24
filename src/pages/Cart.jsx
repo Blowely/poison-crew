@@ -384,7 +384,7 @@ function Cart() {
                                             Оплатить по
                                             <img
                                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/sbp.png"
-                                                style={{height: '23px', margin: '0px 5px 0 10px'}}
+                                                style={{height: '23px', margin: '0 0 0 5px'}}
                                                 alt="sbp"
                                             />
                                             СБП {getPrice(orderAmount)}
