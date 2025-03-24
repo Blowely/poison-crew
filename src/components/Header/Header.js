@@ -87,7 +87,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
               <Button onClick={filtersBtnHandler}
                       style={{borderRadius: '20px', display: 'flex', alignItems: 'center', border: "unset"}}>
                   <img style={{height: '15px', marginRight: "unset"}}
-                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%A4%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B(cropped).png" alt=""/>
+                       src="https://storage.yandexcloud.net/pc-mediafiles/icons/search-photo-cropped.png" alt=""/>
               </Button>
             }
         </div>
