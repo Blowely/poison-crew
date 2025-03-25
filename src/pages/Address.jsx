@@ -92,8 +92,6 @@ function Address() {
   };
 
   const onOkHandler = () => {
-    console.log('nameError=',nameError)
-
     if (nameError) {
       return notification.open({
         duration: 1.5,

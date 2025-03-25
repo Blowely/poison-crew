@@ -24,6 +24,7 @@ import {useAppDispatch} from "../store";
 import { setAddress } from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
 import {useFormik} from "formik";
+import RussianNameInput from "../components/RussianNameInput/RussianNameInput";
 
 function ChoiceAddressModal({
                                 addresses,
@@ -38,6 +39,7 @@ function ChoiceAddressModal({
     const navigate = useNavigate();
 
     const [phone, setPhone] = useState("");
+    const [nameError, setNameError] = useState("");
     const [isOpenDesktopEnterAddressModal, setOpenDesktopEnterAddressModal] = useState(false);
 
     const [updateActiveAddress] = useUpdateActiveAddressMutation();
@@ -314,6 +316,11 @@ function ChoiceAddressModal({
                 setFieldValue("workschedule", res.workschedule);
             };
 
+            const onChangeNameHandler = (ev, error) => {
+                setNameError(typeof error === "string" ? error : "");
+                setFieldValue("fio", ev.target.value)
+            }
+
             return (
                 <div
                     style={{
@@ -330,9 +337,9 @@ function ChoiceAddressModal({
                     <div className="address-items-wrapper">
                         <div className="address-item">
                             <div className="field-name">ФИО получателя</div>
-                            <Input
+                            <RussianNameInput
                                 value={vals.fio}
-                                onChange={(ev) => setFieldValue("fio", ev.target.value)}
+                                onChange={onChangeNameHandler}
                             />
                         </div>
                         <div className="address-item">
@@ -390,13 +397,20 @@ function ChoiceAddressModal({
     };
 
     const onEnterAddressDesktopModalOkHandler = () => {
+        if (nameError) {
+            return notification.open({
+                duration: 1.5,
+                type: "warning",
+                message: nameError,
+            });
+        }
+
         if (vals?.phone?.length !== 10) {
             console.log(',vals?.phone?.length',vals?.phone?.length);
 
             return notification.open({duration: 1.5, message: 'Заполните все поля', type: "warning"})
         }
 
-        console.log('onEnterAddressDesktopModalOkHandler')
         const validRes = onOkHandlerEnterDesktop();
 
         if (!validRes) {

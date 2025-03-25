@@ -35,7 +35,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   const [measureOpen, setMeasureOpen] = useState(false);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [isDisabledBuyBtn] = useState(false);
-  const [product, setProduct] = useState(selectedProduct || {});
+  const [product, setProduct] = useState({});
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
 
   const spuId = searchParams.get("spuId");
