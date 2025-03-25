@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {Empty, Layout} from "antd";
+import {Button, Empty, Layout, Result} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import "./cart.scss";
 import {
-  LeftOutlined,
+    DeleteOutlined,
+    LeftOutlined, RightOutlined,
 } from "@ant-design/icons";
 import Card from "../components/Card";
 import Product from "./Product";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
+import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import DeliverBlock from "../components/Delivery/DeliveryBlock";
+import PromoCode from "../components/PromoCode/PromoCode";
 
 const Favorites = () => {
     const navigate = useNavigate();
@@ -82,16 +86,32 @@ const Favorites = () => {
                 <Product />
             </div>
             }
-            <div className="content-block-header border-radius">
-                <LeftOutlined onClick={onGoBackClick}/>
-                Избранное
-                <div style={{width: '19px'}}/>
-            </div>
-            <div className="content-block centered-content-block" style={{paddingLeft: '0', paddingRight: '0'}} >
-                {renderItems()}
-            </div>
+            {isDesktopScreen
+                ? <MainLogoComponent/>
+                : <div className="content-block-header border-radius">
+                    <LeftOutlined onClick={onGoBackClick}/>
+                    Избранное
+                    <div style={{width: '19px'}}/>
+                </div>
+            }
+
+            {isDesktopScreen &&
+                <div className="content-block-wrapper">
+                    <div className="content-block" style={{padding: isDesktopScreen && '30px 0px 0px 0px'}}>
+                        <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>Избранное</div>
+                        {renderItems()}
+                    </div>
+                </div>
+            }
+
+            {!isDesktopScreen &&
+                <div className="content-block centered-content-block" style={{paddingLeft: '0', paddingRight: '0'}}>
+                    {renderItems()}
+                </div>
+            }
+
             {!isDesktopScreen && (
-                <PhoneFooter tab="favorites" />
+                <PhoneFooter tab="favorites"/>
             )}
         </Layout>
     );
