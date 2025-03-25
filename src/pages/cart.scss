@@ -4,6 +4,10 @@
     padding: 15px;
 }
 
+.cart-content-block-wrapper {
+    display: flex;
+}
+
 .content-block-header {
     position: fixed !important;
     height: 55px;
@@ -34,6 +38,14 @@
 
     @media (min-width: 768px) {
         width: 80%!important;
+    }
+}
+
+.content-block-items-wrapper {
+    display: flex;
+    gap: 20px;
+    .delivery-info-wrapper {
+        width: 70%;
     }
 }
 

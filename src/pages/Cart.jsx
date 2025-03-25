@@ -292,7 +292,76 @@ function Cart() {
                         />
                     }
 
-                    {step === 0 && !!cartItems?.length &&
+                    {step === 0 && isDesktopScreen && !!cartItems?.length &&
+                        <div className="content-block-items-wrapper">
+                            <div className="delivery-info-wrapper">
+                                <div className="cart-item redirect" onClick={onAddressClick}>
+                                    {activeAddr?.address ??
+                                        'Выберите адрес доставки'} <RightOutlined/>
+                                </div>
+                                {cartItems.length
+                                    ? [cartItems[cartItems.length - 1]].map((el, i) => {
+                                        return (
+                                            <div
+                                                key={i} className="cart-item"
+                                                style={{cursor: "pointer"}}
+                                                onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
+                                            >
+                                                <div className="cart-product-info">
+                                                    <div style={{display: 'flex', gap: '7px'}}>
+                                                        <img
+                                                            src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
+                                                            style={{width: '100px'}} alt=""/>
+                                                        <div>
+                                                            <div style={{fontSize: '16px'}}>{el?.name}</div>
+                                                            <div>размер: {el?.selectedSize}</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="cart-product-info-third-column">
+                                                        <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
+                                                        <div id="delete-icon-wrapper">
+                                                            <DeleteOutlined onClick={() => removeFromCartHandler(el)}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>)
+                                    }) : null}
+                                <div className="product-info__item standart" style={{marginTop: '15px'}}>
+                                    <DeliverBlock/>
+                                </div>
+                            </div>
+
+
+                            {!!cartItems.length && (
+                                <div>
+                                    <PromoCode/>
+                                    <div className="cart-product-info-submit-btn-wrapper">
+                                        <div className="cart-product-info-submit-confirm-oferta">
+                                            Нажимая на кнопку "Оплатить", Вы принимаете {' '}
+                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf">
+                                                Условия оферты
+                                            </a>
+                                        </div>
+                                        <Button type="primary"
+                                                className="cart-product-info-submit-btn"
+                                                loading={loading}
+                                                onClick={onOkHandler}>
+                                            Оплатить по
+                                            <img
+                                                src="https://storage.yandexcloud.net/pc-mediafiles/icons/sbp.png"
+                                                style={{height: '23px', margin: '0 0 0 5px'}}
+                                                alt="sbp"
+                                            />
+                                            СБП {getPrice(orderAmount)}
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    }
+
+                    {step === 0 && !isDesktopScreen && !!cartItems?.length &&
                         <>
                             <div className="cart-item redirect" onClick={onAddressClick}>
                                 {activeAddr?.address ??
@@ -327,46 +396,9 @@ function Cart() {
                                     </div>)
                                 }) : null}
 
-
-                            {/*<div className="cart-item">
-                                <div className="cart-order-info">
-                                    <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
-                                </div>
-                            </div>*/}
-
                             {!!cartItems.length && (
                                 <div>
                                     <PromoCode/>
-                                    {/*<Button onClick={() => navigate('/sbp')}>Оплатить по СБП</Button>*/}
-                                    {/*<Card
-                                        className="cart-item-card"
-                                        extra={
-                                            <Select
-                                                placeholder="Выберите банк"
-                                                optionFilterProp="label"
-                                                onChange={onChangeBank}
-                                                menuItemSelectedIcon={<img src={BANKS[bank].src} width="50" alt=""/>}
-                                                defaultValue={{
-                                                    value: 't-bank',
-                                                    label: `Т-БАНК`,
-                                                }}
-                                                options={[
-                                                    {
-                                                        value: 't-bank',
-                                                        label: 'Т-БАНК',
-                                                    },
-                                                    {
-                                                        value: 'sber',
-                                                        label: 'СБЕР',
-                                                    },
-                                                ]}>
-                                                Выбрать
-                                            </Select>
-                                        }
-                                        size="small"
-                                    >
-                                        <Tabs defaultActiveKey="1" className="tabs" items={items} onChange={onChange}/>
-                                    </Card>*/}
                                     <div className="product-info__item standart" style={{marginTop: '15px'}}>
                                         <DeliverBlock/>
                                     </div>
