@@ -1,6 +1,9 @@
 .content-block-profile {
-  padding-top: unset!important;
   height: 100%;
+
+  @media (max-width: 768px) {
+    padding-top: unset!important;
+  }
 }
 
 .profile-items-wrapper {

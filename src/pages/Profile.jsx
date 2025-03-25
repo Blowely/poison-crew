@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Layout} from "antd";
 import {useNavigate} from "react-router-dom";
 import "./profile.scss";
-import {RightOutlined} from "@ant-design/icons";
+import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
@@ -25,6 +25,10 @@ const Profile = () => {
     window.scrollTo({top: 0})
   }, [])
 
+  const onGoBackClick = () => {
+    window.history.go(-1);
+  }
+
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
@@ -33,7 +37,11 @@ const Profile = () => {
             <MainLogoComponent />
         }
         <div className="content-block-wrapper">
-          <div className="content-block content-block-profile">
+          <div className="content-block content-block-profile" style={{padding: isDesktopScreen && '30px 0px 0px 0px'}}>
+            {isDesktopScreen && (
+                <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>Профиль</div>
+            )}
+
             <div className="cart-item cart-item-transparent padding-bottom">
               <div className="transparent">
                 <ActiveProfileLargeIcon/>
@@ -88,7 +96,7 @@ const Profile = () => {
         </div>
 
         {!isDesktopScreen &&
-            <PhoneFooter tab="profile" />
+            <PhoneFooter tab="profile"/>
         }
       </Layout>
   );
