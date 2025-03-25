@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Button, Input, Layout, notification } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { LeftOutlined } from "@ant-design/icons";
+import {CheckCircleOutlined, LeftOutlined} from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../store";
 import "./address.scss";
 import { useFormik } from "formik";
@@ -128,69 +128,75 @@ function Address() {
   const isDesktopScreen = window?.innerWidth > 768;
 
   return (
-    <Layout>
-      <div className="content-block-header border-radius">
-        <LeftOutlined onClick={onGoBackClick}/>
-        Добавление нового адреса <div style={{width: '19px'}}/>
-      </div>
-      <div className="content-address-block">
-        <div className="address-item">
-          <div className="field-name">ФИО получателя</div>
-          <RussianNameInput
-            value={values.fio}
-            onChange={onChangeNameChange}
-          />
+      <Layout>
+        <div className="content-block-header border-radius">
+          <LeftOutlined onClick={onGoBackClick}/>
+          Добавление нового адреса <div style={{width: '19px'}}/>
         </div>
-        <div className="address-item">
-          <div className="field-name">Номер получателя</div>
-          <Input
-            prefix="+7"
-            value={values.phone}
-            onChange={(ev) => phoneInputHandler(ev.target.value)}
-          />
-        </div>
+        <div className="content-address-block">
+          <div className="address-item">
+            <div className="field-name">ФИО получателя</div>
+            <RussianNameInput
+                value={values.fio}
+                onChange={onChangeNameChange}
+            />
+          </div>
+          <div className="address-item">
+            <div className="field-name">Номер получателя</div>
+            <Input
+                prefix="+7"
+                value={values.phone}
+                onChange={(ev) => phoneInputHandler(ev.target.value)}
+            />
+          </div>
 
-        <div className="address-item">
-          <div className="field-name">Адрес</div>
-          <a
-            href="#"
-            onClick={() =>
-              window?.boxberry?.open(
-                onChangeBoxBerry,
-                "1$nMlzaV3e47EGmeeeJDUgIyPySEMtnJm2",
-                "Москва",
-                "",
-                1000,
-                500,
-                0,
-                50,
-                50,
-                50
-              )
-            }
-          >
-            Выбрать пункт выдачи на карте
+          <div className="address-item">
+            <div className="field-name">Адрес</div>
+            <a
+                href="#"
+                onClick={() =>
+                    window?.boxberry?.open(
+                        onChangeBoxBerry,
+                        "1$nMlzaV3e47EGmeeeJDUgIyPySEMtnJm2",
+                        "Москва",
+                        "",
+                        1000,
+                        500,
+                        0,
+                        50,
+                        50,
+                        50
+                    )
+                }
+            >
+              Выбрать пункт выдачи на карте
+            </a>
+            <br/>
+            <br/>
+            <Input value={values.address}/>
+          </div>
+        </div>
+        <div style={{marginLeft: '15px'}}>
+          <CheckCircleOutlined/> Я даю свое <a href="https://storage.yandexcloud.net/pc-mediafiles/important/process-personal-data-agreement-re-poizon.ru.pdf"
+             target="_blank">
+            cогласие на обработку персональных данных
           </a>
-          <br />
-          <br />
-          <Input value={values.address} />
         </div>
-      </div>
-      <div style={{ padding: 15 }}>
-        <Button
-          type="primary"
-          className="cart-product-info-submit-btn"
-          style={{ marginTop: 0 }}
-          onClick={onOkHandler}
-        >
-          Добавить адрес
-        </Button>
-      </div>
-      {!isDesktopScreen &&
-          <PhoneFooter tab="cart" />
-      }
+        <div style={{padding: 15}}>
+          <Button
+              type="primary"
+              className="cart-product-info-submit-btn"
+              style={{marginTop: 0}}
+              onClick={onOkHandler}
+          >
+            Добавить адрес
+          </Button>
+        </div>
+        {!isDesktopScreen &&
+            <PhoneFooter tab="cart"/>
+        }
 
-    </Layout>
+      </Layout>
   );
 }
 

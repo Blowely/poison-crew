@@ -25,6 +25,7 @@ import { setAddress } from "../common/accountSlice";
 import DotsIcon from "../assets/svg/components/dots-icon";
 import {useFormik} from "formik";
 import RussianNameInput from "../components/RussianNameInput/RussianNameInput";
+import {CheckCircleOutlined} from "@ant-design/icons";
 
 function ChoiceAddressModal({
                                 addresses,
@@ -377,6 +378,13 @@ function ChoiceAddressModal({
                             <br/>
                             <Input value={vals.address}/>
                         </div>
+                    </div>
+                    <div>
+                        <CheckCircleOutlined/> Я даю свое <a
+                        href="https://storage.yandexcloud.net/pc-mediafiles/important/process-personal-data-agreement-re-poizon.ru.pdf"
+                        target="_blank">
+                        cогласие на обработку персональных данных
+                    </a>
                     </div>
                 </div>
             );

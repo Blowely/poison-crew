@@ -303,7 +303,7 @@ function Cart() {
                                     <div className="cart-product-info-submit-btn-wrapper">
                                         <div className="cart-product-info-submit-confirm-oferta">
                                             Нажимая на кнопку "Оплатить", Вы принимаете {' '}
-                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf">
+                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf">
                                                 Условия оферты
                                             </a>
                                         </div>
@@ -368,7 +368,7 @@ function Cart() {
                                     <div className="cart-product-info-submit-btn-wrapper">
                                         <div className="cart-product-info-submit-confirm-oferta">
                                             Нажимая на кнопку "Оплатить", Вы принимаете {' '}
-                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer%20re-poizon.ru.pdf">
+                                            <a href="https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf">
                                                 Условия оферты
                                             </a>
                                         </div>
