@@ -304,11 +304,12 @@ function Cart() {
                                         return (
                                             <div
                                                 key={i} className="cart-item"
-                                                style={{cursor: "pointer"}}
-                                                onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
                                             >
                                                 <div className="cart-product-info">
-                                                    <div style={{display: 'flex', gap: '7px'}}>
+                                                    <div
+                                                        style={{display: 'flex', gap: '7px', cursor: "pointer"}}
+                                                        onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
+                                                    >
                                                         <img
                                                             src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
                                                             style={{width: '100px'}} alt=""/>
@@ -370,13 +371,12 @@ function Cart() {
                             {cartItems.length
                                 ? [cartItems[cartItems.length - 1]].map((el, i) => {
                                     return (
-                                    <div
-                                        key={i} className="cart-item"
-                                        style={{cursor: "pointer"}}
-                                        onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
-                                    >
+                                    <div key={i} className="cart-item">
                                         <div className="cart-product-info">
-                                            <div style={{display: 'flex', gap: '7px'}}>
+                                            <div
+                                                onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
+                                                style={{display: 'flex', gap: '7px',cursor: "pointer"}}
+                                            >
                                                 <img
                                                     src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
                                                     style={{width: '100px'}} alt=""/>
