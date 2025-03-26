@@ -115,13 +115,17 @@ const Orders = () => {
                                         <div style={{paddingBottom: '10px'}}>
                                             <StatusTag status={el?.status}/>
                                         </div>
-                                        {el?.products?.map((p, i) => {
+                                        {el?.products?.map((el, i) => {
+                                            if (!el?.product) {
+                                                return null
+                                            }
+
                                             return (
                                                 <div key={i} className="cart-product-info">
                                                     <div style={{display: 'flex', gap: '7px'}}>
-                                                        <img src={p?.images[0]} style={{width: '100px'}} alt=""/>
+                                                        <img src={el?.product?.images[0]} style={{width: '100px'}} alt=""/>
                                                         <div>
-                                                            <div style={{fontSize: '16px'}}>{p?.name}</div>
+                                                            <div style={{fontSize: '16px'}}>{el.product?.name}</div>
                                                             <div>размер: {el?.size}</div>
                                                         </div>
                                                     </div>
