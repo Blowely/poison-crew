@@ -300,7 +300,9 @@ function Cart() {
                                         <Button type="primary"
                                                 className="cart-product-info-submit-btn"
                                                 loading={loading}
-                                                onClick={onOkHandler}>
+                                                onClick={onOkHandler}
+                                                disabled={!selectedIds?.length}
+                                        >
                                             Оплатить по
                                             <img
                                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/sbp.png"
@@ -346,7 +348,9 @@ function Cart() {
                                         <Button type="primary"
                                                 className="cart-product-info-submit-btn"
                                                 loading={loading}
-                                                onClick={onOkHandler}>
+                                                onClick={onOkHandler}
+                                                disabled={!selectedIds?.length}
+                                        >
                                             Оплатить по
                                             <img
                                                 src="https://storage.yandexcloud.net/pc-mediafiles/icons/sbp.png"
