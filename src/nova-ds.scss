@@ -171,3 +171,7 @@ footer {
 .ant-drawer-title {
   font-size: 17px;
 }
+
+.ant-checkbox:not(.ant-checkbox-disabled):hover .ant-checkbox-inner {
+  border-color: rgb(1, 194, 195) !important;
+}

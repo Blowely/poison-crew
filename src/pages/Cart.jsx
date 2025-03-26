@@ -23,6 +23,7 @@ import PromoCode from "../components/PromoCode/PromoCode";
 import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import CartItemComponent from "../components/CartItemComponent/CartItemComponent";
 
 function Cart() {
     const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function Cart() {
     const [step, setStep] = useState(0);
     const [bank, setBank] = useState('t-bank');
     const [loading, setLoading] = useState(false);
+    const [selectedIds, setSelectedIds] = useState([]);
 
     const paymentNumberRef = useRef(null);
     const from = searchParams.get('from');
@@ -121,6 +123,14 @@ function Cart() {
         }
 
         return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
+    }
+
+    const getOrderPrice = () => {
+        const selectedItems = cartItems.filter(el => selectedIds.includes(el.spuId));
+        let totalPrice = 0;
+        selectedItems.map((el) => totalPrice += el.price);
+
+        return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(totalPrice.toString());
     }
 
     const copyToClickBord = (el) => {
@@ -262,35 +272,15 @@ function Cart() {
                                     {activeAddr?.address ??
                                         'Выберите адрес доставки'} <RightOutlined/>
                                 </div>
-                                {cartItems.length
-                                    ? [cartItems[cartItems.length - 1]].map((el, i) => {
-                                        return (
-                                            <div
-                                                key={i} className="cart-item"
-                                            >
-                                                <div className="cart-product-info">
-                                                    <div
-                                                        style={{display: 'flex', gap: '7px', cursor: "pointer"}}
-                                                        onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
-                                                    >
-                                                        <img
-                                                            src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
-                                                            style={{width: '100px'}} alt=""/>
-                                                        <div>
-                                                            <div style={{fontSize: '16px'}}>{el?.name}</div>
-                                                            <div>размер: {el?.selectedSize}</div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="cart-product-info-third-column">
-                                                        <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
-                                                        <div id="delete-icon-wrapper">
-                                                            <DeleteOutlined onClick={() => removeFromCartHandler(el)}/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>)
-                                    }) : null}
+                                <CartItemComponent
+                                    cartItems={cartItems}
+                                    gender={gender}
+                                    navigate={navigate}
+                                    getPrice={getPrice}
+                                    removeFromCartHandler={removeFromCartHandler}
+                                    selectedIds={selectedIds}
+                                    setSelectedIds={setSelectedIds}
+                                />
                                 <div className="product-info__item standart" style={{marginTop: '15px'}}>
                                     <DeliverBlock/>
                                 </div>
@@ -317,7 +307,7 @@ function Cart() {
                                                 style={{height: '23px', margin: '0 0 0 5px'}}
                                                 alt="sbp"
                                             />
-                                            СБП {getPrice(orderAmount)}
+                                            СБП {getOrderPrice()}
                                         </Button>
                                     </div>
                                 </div>
@@ -331,34 +321,15 @@ function Cart() {
                                 {activeAddr?.address ??
                                     'Выберите адрес доставки'} <RightOutlined/>
                             </div>
-                            {cartItems.length
-                                ? [cartItems[cartItems.length - 1]].map((el, i) => {
-                                    return (
-                                    <div key={i} className="cart-item">
-                                        <div className="cart-product-info">
-                                            <div
-                                                onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
-                                                style={{display: 'flex', gap: '7px',cursor: "pointer"}}
-                                            >
-                                                <img
-                                                    src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
-                                                    style={{width: '100px'}} alt=""/>
-                                                <div>
-                                                    <div style={{fontSize: '16px'}}>{el?.name}</div>
-                                                    <div>размер: {el?.selectedSize}</div>
-                                                </div>
-                                            </div>
-
-                                            <div className="cart-product-info-third-column">
-                                                <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
-                                                <div id="delete-icon-wrapper">
-                                                    <DeleteOutlined onClick={() => removeFromCartHandler(el)}/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>)
-                                }) : null}
-
+                            <CartItemComponent
+                                cartItems={cartItems}
+                                gender={gender}
+                                navigate={navigate}
+                                getPrice={getPrice}
+                                removeFromCartHandler={removeFromCartHandler}
+                                selectedIds={selectedIds}
+                                setSelectedIds={setSelectedIds}
+                            />
                             {!!cartItems.length && (
                                 <div>
                                     <PromoCode/>
@@ -382,7 +353,7 @@ function Cart() {
                                                 style={{height: '23px', margin: '0 0 0 5px'}}
                                                 alt="sbp"
                                             />
-                                            СБП {getPrice(orderAmount)}
+                                            СБП {getOrderPrice()}
                                         </Button>
                                     </div>
                                 </div>
