@@ -201,6 +201,10 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   };
 
   const onBrandClick = () => {
+    if (!product?.brandId) {
+      return;
+    }
+
     setLoading(true);
     setOffset(1);
     navigate(`?brandIds=${product?.brandId}`);
