@@ -112,6 +112,45 @@
   font-size: small;
 }
 
+.info-block-wrapper {
+  height: 33px;
+  color: #636363;
+  background: #f8f8f8;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  > .info-block {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    gap: 20px;
+
+    > div {
+      display: flex;
+      gap: 16px;
+
+      > span {
+        font-size: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        > img {
+          height: 20px;
+        }
+      }
+    }
+  }
+}
+
 .main-logo-wrapper {
   width: 100%;
   display: flex;

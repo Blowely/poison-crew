@@ -23,6 +23,10 @@ const MainLogoComponent = ({setOffset, setLoading, style}) => {
         setOpenAuth(true);
     }
 
+    const onInfoBlockItemClick = (link) => {
+        window.open(link);
+    }
+
     return (<>
         {!token && openAuth &&
             <AuthModal
@@ -35,12 +39,30 @@ const MainLogoComponent = ({setOffset, setLoading, style}) => {
                 setCodeModalOpen={setCodeModal}
             />
         }
-        <div className="main-logo-wrapper" style={style}>
+        {isDesktopScreen && <div className="info-block-wrapper" style={style}>
+            <div className="info-block">
+                <div>
+                    <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
+                        <img src="/telegram-icon.svg" alt="Telegram"/>Мы в телеграмм
+                    </span>
+                    <span onClick={() => onInfoBlockItemClick("https://t.me/+0h_e67SLTwsyMGFi")}>Отзывы</span>
+                    <span onClick={() => onInfoBlockItemClick("https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf")}>
+                        Оферта
+                    </span>
+                </div>
+                <div>
+                    <span onClick={() => onInfoBlockItemClick("tg://resolve?domain=re_poizon_store")}>Поддержка</span>
+                    <span>+7 908 156 8531</span>
+                    <span>repoizonstore@gmail.com</span>
+                </div>
+            </div>
+        </div>}
+            <div className="main-logo-wrapper" style={style}>
             {isDesktopScreen
-                ? <div onClick={() => navigate('/products')}
-                       style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
-                    <RePoizonMainBigLogo/></div>
-                : <div onClick={() => navigate('/products')}
+                    ? <div onClick={() => navigate('/products')}
+                           style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
+                        <RePoizonMainBigLogo/></div>
+                    : <div onClick={() => navigate('/products')}
                        style={{cursor: "pointer", zIndex: "1", display: "flex", alignItems: "center"}}>
                     <RePoizonMainMiddleLogo/></div>}
             {isDesktopScreen ?
