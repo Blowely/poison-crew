@@ -72,11 +72,10 @@ function Cart() {
               return notification.open({duration: 2, type: 'error', message:'Товары не выбраны'})
             }
 
-            const cartItem = cartItems[cartItems.length - 1];
 
             const addOrderBody = {
               clientId: accountData?.account?._id,
-              products: [cartItem],
+              products: cartItems,
               address: activeAddr,
             }
 
