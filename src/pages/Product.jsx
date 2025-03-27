@@ -210,8 +210,8 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
     navigate(`?brandIds=${product?.brandId}`);
   }
 
-  const onReviewsBlockClick = () => {
-    window.open("https://t.me/+0h_e67SLTwsyMGFi");
+  const onInfoBlockItemClick = (link) => {
+    window.open(link);
   }
 
   const getImgSrc = () => {
@@ -586,10 +586,32 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                           </span>
                         </div>
                         {!isDesktopScreen &&
-                            <div className="product-info__item standart brand" onClick={onReviewsBlockClick}>
+                            <div className="product-info__item standart brand"
+                                 onClick={() => onInfoBlockItemClick("https://t.me/+0h_e67SLTwsyMGFi")}
+                            >
                               <div className="brand-info">
                                 <span className="brand-name">Отзывы</span>
                                 <span className="items">Отзывы о работе re:Poizon</span>
+                              </div>
+
+                              <span className="brand-name-arrow">
+                            <img className="PoizonImage_img__BNSaU"
+                                 src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                 alt=""/>
+                          </span>
+                            </div>
+                        }
+                        {!isDesktopScreen &&
+                            <div className="product-info__item standart brand"
+                               onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}
+                            >
+                              <div className="brand-info">
+                                <span>
+                                  <span className="brand-name">Мы в телеграм
+                                  </span>
+                                  <img src="/telegram-icon.svg" alt="Telegram"/>
+                                </span>
+                                <span className="items">Новости проекта и модные тренды</span>
                               </div>
 
                               <span className="brand-name-arrow">
