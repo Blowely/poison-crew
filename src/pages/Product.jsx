@@ -387,13 +387,13 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                                   () => onBreadcrumbItemClick(getCategoryClickedLink(
                                     1,
                                     product.category1,
-                                    product.category?.category1 || ""
+                                    product?.category?.category1 || ""
                                 ))}
                                    className={'breadcrumb-wrapper-item'}
                                 >
                                   {
                                       (CATEGORIES.find(el => el.id === product.category1))?.name
-                                      || product.category?.category1 || ""
+                                      || product?.category?.category1 || ""
                                   }
                                 </span>,
                               },
@@ -402,12 +402,12 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                                   () => onBreadcrumbItemClick(getCategoryClickedLink(
                                     2,
                                     product.category2,
-                                    product.category?.category2?.split('/')[1] || ""
+                                    product?.category?.category2?.split('/')[1] || ""
                                     ))}
                                    className={'breadcrumb-wrapper-item'}
                                 >{
                                     (CATEGORIES.find(el => el.id === product.category2))?.name
-                                    || product.category?.category2?.split('/')[1] || ""
+                                    || product?.category?.category2?.split('/')[1] || ""
                                 }
                                 </span>,
                               },
@@ -416,12 +416,12 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                                   () => onBreadcrumbItemClick(getCategoryClickedLink(
                                     3,
                                     product.category3,
-                                    product.category?.category3?.split('/')[2]
+                                    product?.category?.category3?.split('/')[2]
                                 ))}
                                    className={'breadcrumb-wrapper-item'}
                                 >{
                                     (CATEGORIES.find(el => el.id === product.category3))?.name
-                                    || product.category?.category3?.split('/')[2] || ""
+                                    || product?.category?.category3?.split('/')[2] || ""
                                   }
                                 </span>,
                               },
@@ -563,7 +563,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                               </div>
                             </div>
                         )}
-                        {!isDesktopScreen && product.category?.category2 &&
+                        {!isDesktopScreen && product?.category?.category2 &&
                             <div className="product-info__item standart brand"
                                  onClick={
                                    () => onBreadcrumbItemClick(getCategoryClickedLink(
@@ -592,7 +592,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                               </span>
                             </div>
                         }
-                        {!isDesktopScreen && product.category?.category3 &&
+                        {!isDesktopScreen && product?.category?.category3 &&
                             <div className="product-info__item standart brand"
                                  onClick={
                                    () => onBreadcrumbItemClick(getCategoryClickedLink(
