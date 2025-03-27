@@ -645,7 +645,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                         </div>
                         {!isDesktopScreen &&
                             <div className="product-info__item standart brand"
-                                 onClick={() => onInfoBlockItemClick("https://t.me/+0h_e67SLTwsyMGFi")}
+                                 onClick={() => onInfoBlockItemClick("https://t.me/repoizon_otzovik")}
                             >
                               <div className="brand-info">
                                 <span className="brand-name">Отзывы</span>

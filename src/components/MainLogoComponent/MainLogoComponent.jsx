@@ -66,7 +66,7 @@ const MainLogoComponent = ({setOffset, setLoading, style}) => {
                     <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
                         <img src="/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
                     </span>
-                    <span onClick={() => onInfoBlockItemClick("https://t.me/+0h_e67SLTwsyMGFi")}>Отзывы</span>
+                    <span onClick={() => onInfoBlockItemClick("https://t.me/repoizon_otzovik")}>Отзывы</span>
                     <span onClick={() => onInfoBlockItemClick("https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf")}>
                         Оферта
                     </span>
