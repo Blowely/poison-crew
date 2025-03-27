@@ -563,7 +563,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                               </div>
                             </div>
                         )}
-                        {!isDesktopScreen && product.category?.category1 &&
+                        {!isDesktopScreen && product.category?.category2 &&
                             <div className="product-info__item standart brand"
                                  onClick={
                                    () => onBreadcrumbItemClick(getCategoryClickedLink(
