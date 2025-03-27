@@ -21,6 +21,13 @@ const unCacheItem = (item) => {
   }
 }
 
+const clearItems = (selectedIds) => {
+  const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  const updatedItems = selectedIds?.length ? cachedItems.filter(el => !selectedIds?.includes(el.spuId)) : []
+  localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+}
+
 const getOptions = () => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -36,8 +43,9 @@ const getOptions = () => {
         unCacheItem(payload)
         state.items = state.items.filter(el => el._id !== payload._id);
       },
-      clearCart(state) {
-        state.items = [];
+      clearCart(state, { payload }) {
+        clearItems(payload)
+        state.items = payload?.length ? state.items.filter(el => !payload?.includes(el.spuId)) : [];
       }
     }
   }

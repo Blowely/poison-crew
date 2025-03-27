@@ -75,7 +75,7 @@ function Cart() {
 
             const addOrderBody = {
               clientId: accountData?.account?._id,
-              products: cartItems,
+              products: cartItems.filter(el => selectedIds.includes(el.spuId)),
               address: activeAddr,
             }
 
@@ -85,7 +85,7 @@ function Cart() {
                 window.location.href = res.qrCode;
             }
 
-            dispatch(clearCart());
+            dispatch(clearCart(selectedIds));
             setLoading(false);
 
             return navigate('/orders');
