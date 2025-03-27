@@ -210,6 +210,10 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
     navigate(`?brandIds=${product?.brandId}`);
   }
 
+  const onReviewsBlockClick = () => {
+    window.open("https://t.me/+0h_e67SLTwsyMGFi");
+  }
+
   const getImgSrc = () => {
     const brandIndex = BRANDS.findIndex(el => el.id === product?.brandIds);
     if (brandIndex === -1) {
@@ -581,7 +585,20 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                                  alt=""/>
                           </span>
                         </div>
+                        {!isDesktopScreen &&
+                            <div className="product-info__item standart brand" onClick={onReviewsBlockClick}>
+                              <div className="brand-info">
+                                <span className="brand-name">Отзывы</span>
+                                <span className="items">Отзывы о работе re:Poizon</span>
+                              </div>
 
+                              <span className="brand-name-arrow">
+                            <img className="PoizonImage_img__BNSaU"
+                                 src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                 alt=""/>
+                          </span>
+                            </div>
+                        }
                         <div className="product-info__item standart">
                           <DeliverBlock/>
                         </div>
