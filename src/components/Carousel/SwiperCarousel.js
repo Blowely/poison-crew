@@ -83,7 +83,7 @@ const SwiperCarousel = (props) => {
                                             maxHeight: '100%',
                                             objectFit: 'contain',
                                             opacity: index === 0 ? 0 : 1,
-                                            //transition: 'opacity 0.3s ease',
+                                            transition: 'opacity 0.3s ease',
                                             padding: '0 10vw',
                                         }}
                                         alt={'Image'}
