@@ -563,6 +563,64 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                               </div>
                             </div>
                         )}
+                        {!isDesktopScreen && product.category?.category1 &&
+                            <div className="product-info__item standart brand"
+                                 onClick={
+                                   () => onBreadcrumbItemClick(getCategoryClickedLink(
+                                       2,
+                                       product.category2,
+                                       product.category?.category2?.split('/')[1] || ""
+                                   ))}
+                            >
+                              <div className="brand-info">
+                                <span className={'brand-name'}>
+                                  {
+                                      (CATEGORIES.find(el => el.id === product.category2))?.name
+                                      || product.category?.category2?.split('/')[1] || ""
+                                  }
+                                </span>
+                                <span className="items">Еще товары категории {
+                                    (CATEGORIES.find(el => el.id === product.category2))?.name
+                                    || product.category?.category2?.split('/')[1] || ""
+                                }</span>
+                              </div>
+
+                              <span className="brand-name-arrow">
+                                <img className="PoizonImage_img__BNSaU"
+                                     src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                     alt=""/>
+                              </span>
+                            </div>
+                        }
+                        {!isDesktopScreen && product.category?.category3 &&
+                            <div className="product-info__item standart brand"
+                                 onClick={
+                                   () => onBreadcrumbItemClick(getCategoryClickedLink(
+                                       3,
+                                       product.category3,
+                                       product.category?.category3?.split('/')[2]
+                                   ))}
+                            >
+                              <div className="brand-info">
+                                <span className={'brand-name'}>
+                                  {
+                                      (CATEGORIES.find(el => el.id === product.category3))?.name
+                                      || product.category?.category3?.split('/')[2] || ""
+                                  }
+                                </span>
+                                <span className="items">Еще товары категории {
+                                    (CATEGORIES.find(el => el.id === product.category3))?.name
+                                    || product.category?.category3?.split('/')[2] || ""
+                                }</span>
+                              </div>
+
+                              <span className="brand-name-arrow">
+                                <img className="PoizonImage_img__BNSaU"
+                                     src="https://cdn-img.poizon.com/node-common/1475aab5-a55a-f15d-fa9f-09992778d7c0.svg"
+                                     alt=""/>
+                              </span>
+                            </div>
+                        }
 
                         <div className="product-info__item standart">
                           <ItemDetails details={product?.productProperties}/>
@@ -603,7 +661,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                         }
                         {!isDesktopScreen &&
                             <div className="product-info__item standart brand"
-                               onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}
+                                 onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}
                             >
                               <div className="brand-info">
                                 <span>
