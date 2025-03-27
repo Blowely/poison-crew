@@ -1,5 +1,5 @@
 import React, {
-  Suspense, useCallback,
+  Suspense,
   useEffect,
   useRef,
   useState
@@ -9,7 +9,7 @@ import AdidasIcon from "../assets/svg/brands/adidas-icon";
 import NikeIcon from "../assets/svg/brands/nike-icon";
 import JordanIcon from "../assets/svg/brands/jordan-icon";
 import MoreIcon from "../assets/svg/brands/more-icon";
-import {Button, Empty, Layout, Modal, notification, Select} from "antd";
+import {Button, Empty, Layout, Modal, Select} from "antd";
 import Header from "../components/Header/Header";
 import { useGetProductsQuery } from "../store/products.store";
 import "../index.scss";
@@ -17,7 +17,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePrevious } from "../hooks/usePrevios";
 import { useAppDispatch, useAppSelector } from "../store";
 import {addProducts} from "../common/productsSlice";
-import RePoizonMainMiddleLogo from "../assets/svg/re-poizon-main-middle-logo";
 import "../components/InitAnimation/InitAnimation.styles.scss";
 import { startLoaderAnimation } from "../components/InitAnimation/InitAnimation";
 import Product from "./Product";
@@ -32,7 +31,6 @@ import {CATEGORIES} from "../components/constants";
 import BrandsModalSelector from "../components/BrandsModalSelector/BrandsModalSelector";
 import ConverseIcon from "../assets/svg/brands/converse-icon";
 import FilaIcon from "../assets/svg/brands/fila-icon";
-import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import Sidebar from "../components/Sidebar/Sidebar";
 import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";

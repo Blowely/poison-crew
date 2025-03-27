@@ -186,13 +186,16 @@
 .product-info-wrapper {
     margin-left: 73px;
     padding-top: 40px;
-    padding-bottom: 20px;
     max-width: 50%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
     width: 100%;
+
+    @media (max-width: 768px) {
+        padding-bottom: 20px;
+    }
 
     @media (min-width: 768px) {
         padding-top: 30px;

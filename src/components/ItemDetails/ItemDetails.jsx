@@ -4,7 +4,9 @@ import './ItemDetails.scss';
 import {PRODUCT_PROPERTIES} from "../../pages/constants";
 
 const ItemDetails = ({details = []}) => {
-    const [show, setShow] = React.useState(false);
+    const isDesktopScreen = window?.innerWidth > 768;
+
+    const [show, setShow] = React.useState(isDesktopScreen);
     const detailItems = !show ? details.slice(0, 4) : details;
 
     const toggle = (e) => {

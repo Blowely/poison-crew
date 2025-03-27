@@ -1,0 +1,40 @@
+.main-footer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 10px 20px;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    border-top: 1px solid #dddddd!important;
+    padding: 20px;
+    margin-bottom: 10px;
+    height: 90px;
+  }
+
+  > .actions-btns {
+    width: 80vw!important;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px 0 20px;
+    align-items: center;
+
+    > .items-wrapper {
+      display: flex;
+      gap: 20px;
+
+      > .item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        color: #6e6e6e;
+
+        &:hover {
+          color: rgb(1, 194, 195);
+        }
+      }
+    }
+  }
+}
