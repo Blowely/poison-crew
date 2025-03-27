@@ -416,7 +416,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }
 
   const onGoBackClick = () => {
-    return isDesktopScreen ? navigate(`/${gender}-products`) : navigate(`/${gender}-categories/`);
+    return window.history.go(-1);
   }
 
   const onApplyBrandsClick = () => {
