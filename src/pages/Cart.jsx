@@ -1,24 +1,21 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
-import {Button, Card, Layout, message, notification, Result, Select, Tabs} from "antd";
+import {Button, Layout, message, notification, Result} from "antd";
 import {useNavigate, useSearchParams, useLocation} from "react-router-dom";
 import "./cart.scss";
 import {
-    CopyOutlined, DeleteOutlined,
+    CopyOutlined,
     LeftOutlined,
     RightOutlined,
 } from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
 import {useAddOrderMutation} from "../store/orders.store";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
 import {clearCart, removeFromCart} from "../common/cartSlice";
 import {iosCopyToClipboard} from "../common/utils";
 import {BANKS} from "./constants";
-import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
-import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import PromoCode from "../components/PromoCode/PromoCode";
 import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
@@ -28,7 +25,6 @@ import CartItemComponent from "../components/CartItemComponent/CartItemComponent
 function Cart() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { pathname } = useLocation();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
