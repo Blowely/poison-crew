@@ -364,7 +364,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
             }
 
 
-            <div className={'layout-wrapper'} style={{padding: '0'}}>
+            <div className={'layout-wrapper'} style={{padding: isDesktopScreen ? '0 20px' : '0'}}>
               <div className={"content-wrapper"} style={{flexDirection: isDesktopScreen ? 'row' : 'column'}}>
                 <div className={"carousel-wrapper"} style={{
                   maxWidth: isDesktopScreen ? 'calc(50% - 24px / 2)' : 'none',
