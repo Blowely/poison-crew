@@ -44,7 +44,11 @@ const Information = () => {
                 </div>
             }
             <div className="content-block-wrapper">
-                <div className="content-block" style={{height: '100%'}}>
+                <div className="content-block" style={{padding: isDesktopScreen && '30px 0px 0px 0px'}}>
+                    {isDesktopScreen && (
+                        <div className="category-title" onClick={onGoBackClick}><LeftOutlined/>Информация</div>
+                    )}
+
                     <div className="product-info__item standart template" style={{marginTop: '15px'}}>
                         <div className="title">Телефоны и e-mail</div>
                         <div style={{fontSize: '16px'}}>tg: re_poizon_store</div>
@@ -69,7 +73,7 @@ const Information = () => {
             </div>
 
             {!isDesktopScreen &&
-                <PhoneFooter tab="profile" />
+                <PhoneFooter tab="profile"/>
             }
         </Layout>
     );
