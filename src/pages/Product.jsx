@@ -207,7 +207,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
     setLoading(true);
     setOffset(1);
-    navigate(`?brandIds=${product?.brandId}`);
+    navigate(`?brandIds=${product?.brandId}&brandName=${product?.brand}`);
   }
 
   const onInfoBlockItemClick = (link) => {

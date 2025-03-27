@@ -7,7 +7,7 @@ import {COLOR_LIST, SORT_TYPES} from "../../pages/constants";
 import {BrandTag} from "../BrandTag/BrandTag";
 import {SizeTag} from "../SizeTag/SizeTag";
 
-const excludedTags = ['category1Id', 'category2Id', 'category3Id', 'categoryName'];
+const excludedTags = ['category1Id', 'category2Id', 'category3Id', 'categoryName', 'brandName'];
 
 const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsModal, setOpenSizesModal, setLoading}) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -111,8 +111,10 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
                                onClick={() => setOpenBrandsModal(true)}>Бренды</Button>;
             }
 
+            const brandName = searchParams.get('brandName') || "";
+
             const brandIndex = BRANDS.findIndex(c => c.id === Number(brandsIds[0]));
-            const firstBrand = brandIndex >= 0 ? BRANDS[brandIndex].name : null
+            const firstBrand = brandIndex >= 0 ? BRANDS[brandIndex].name : brandName
 
             return <BrandTag key={key} brand={firstBrand} onClick={() => setOpenBrandsModal(true)}
                              brandCount={brandsIds?.length} onRemove={() => onClose(key)}/>
