@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -26,21 +26,38 @@ export const ErrorFallback = ({ error, resetErrorBoundary }) => {
 export const API_URL = "https://api.re-poizon.ru/api";
 
 const Index = () => {
-  return (
-    <Provider store={store}>
-      <ConfigProvider
-        locale={ru_RU}
-        getPopupContainer={(triggerNode) =>
-          triggerNode?.parentNode || document.body
+    useEffect(() => {
+        // Проверяем, что сайт открыт в Telegram (объект Telegram.WebApp доступен)
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.expand();  // Разворачиваем WebView на весь экран
+            tg.ready();   // Сообщаем Telegram, что приложение готово
+            console.log("Telegram WebApp initData:", tg.initDataUnsafe);
         }
-      >
-        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
-          <Router>
-            <Root />
-          </Router>
-        </ErrorBoundary>
-      </ConfigProvider>
-    </Provider>
+    }, []);
+
+  return (
+      <>
+          <Provider store={store}>
+              <ConfigProvider
+                  locale={ru_RU}
+                  getPopupContainer={(triggerNode) =>
+                      triggerNode?.parentNode || document.body
+                  }
+              >
+                  <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+                      <Router>
+                          <Root />
+                      </Router>
+                  </ErrorBoundary>
+              </ConfigProvider>
+          </Provider>
+          {window.Telegram && window.Telegram.WebApp && (
+              <button onClick={() => window.Telegram.WebApp.close()}>
+                  Закрыть Mini App
+              </button>
+          )}
+      </>
   );
 };
 
