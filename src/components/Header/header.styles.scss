@@ -62,6 +62,31 @@
   }
 }
 
+.input-search > input {
+  border-radius: unset!important;
+}
+
+.ant-input-suffix > div {
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  height: 24px;
+  margin: unset;
+  padding: 2px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: unset;
+    height: 16px;
+  }
+
+  /*:hover {
+    color: black;
+  }*/
+}
+
 .header-segmented {
   margin-top: 15px;
   width: 100px;

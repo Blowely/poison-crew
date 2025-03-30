@@ -1,12 +1,20 @@
 import {useSearchParams} from "react-router-dom";
-import {Button, Input} from "antd";
+import {AutoComplete, Button, Input} from "antd";
 import React, {useEffect, useState} from "react";
 import './header.styles.scss';
 import {MenuOutlined} from "@ant-design/icons";
+import axios from "axios";
 
 const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCategories}) => {
+    const defaultOptions = [
+        { value: 'Куртка' },
+        { value: 'Джинсы' },
+        { value: 'Бутсы' },
+    ];
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchValue, setSearchValue] = useState(search || '');
+    const [options, setOptions] = useState(defaultOptions || []);
 
     useEffect(() => {
         if (!search) {
@@ -15,19 +23,26 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
         setSearchValue(search?.replace('+',' '));
     },[search])
 
-    const onChange = (value) => {
+    const onChange = async (value) => {
         if (search && !value) {
             window.scrollTo({top: 0})
             searchParams.delete('search');
             setSearchParams(searchParams);
         }
+
+        axios.get(`http://localhost:3001/api/synonyms?search=${value}`)
+            .then(res => setOptions(res.data.suggested?.map(el => ({value: el}))))
+            .catch(err => setOptions(defaultOptions));
+
+        console.log('value1', value)
         setSearchValue(value);
         onSearch(value);
         setLoading(true);
     }
 
     const onSearch = (value) => {
-        if (!value || !searchValue) {
+        console.log('value2',value)
+        if (!value) {
             return;
         }
 
@@ -73,16 +88,27 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
         >
         <div className="header-input-wrapper">
             {isDesktopScreen && <Button id="desktop-category-btn" onClick={onCategoriesClick}><MenuOutlined /> Каталог</Button>}
-            <Input placeholder="Название, бренд..."
-                   allowClear
-                   value={searchValue}
-                   rootClassName="search-input"
-                   onChange={(e) => onChange(e.target.value)}
-                   onPressEnter={onSearch}
-                   suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-                       <img src={icon} alt="search" />
-                   </div>}
-            />
+            <AutoComplete
+                style={{width: '100%'}}
+                options={options}
+                filterOption={(inputValue, option) => {
+                    return option?.value?.toUpperCase()?.indexOf(inputValue?.toUpperCase()) !== -1
+                }}
+                optionRender={(option) => {
+                    return <><img style={{height: '11px'}} src={icon} alt={icon}/>{option.value}</>
+                }}
+                onChange={onChange}
+                onPressEnter={onSearch}
+                onSelect={onSearch}
+            >
+                <Input rootClassName="input-search" size="large" placeholder="Название, бренд, категория..."
+                       suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+                           <img className="search-icon" src={icon} alt="search" />
+                       </div>}
+                       allowClear
+                />
+            </AutoComplete>
+
             {!isDesktopScreen &&
               <Button onClick={filtersBtnHandler}
                       style={{borderRadius: '20px', display: 'flex', alignItems: 'center', border: "unset"}}>
