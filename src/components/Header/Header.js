@@ -1,6 +1,6 @@
 import {useSearchParams} from "react-router-dom";
 import {AutoComplete, Button, Input} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './header.styles.scss';
 import {MenuOutlined} from "@ant-design/icons";
 import axios from "axios";
@@ -15,6 +15,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchValue, setSearchValue] = useState(search || '');
     const [options, setOptions] = useState(defaultOptions || []);
+    const inputRef = useRef(null);
 
     useEffect(() => {
         if (!search) {
@@ -41,7 +42,6 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
     }
 
     const onSearch = (value) => {
-        console.log('value2',value)
         if (!value) {
             return;
         }
@@ -82,6 +82,11 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
         setIcon(val1);
     }
 
+    const onSelectHandler = (value) => {
+        inputRef?.current?.blur()
+        onSearch(value);
+    }
+
     return (
         <header
           className="header-wrapper d-flex flex-column justify-between align-center pl-20 pt-20 pr-20"
@@ -99,12 +104,13 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
                 }}
                 onChange={onChange}
                 onPressEnter={onSearch}
-                onSelect={onSearch}
+                onSelect={onSelectHandler}
             >
                 <Input rootClassName="input-search" size="large" placeholder="Название, бренд, категория..."
                        suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
                            <img className="search-icon" src={icon} alt="search" />
                        </div>}
+                       ref={inputRef}
                        allowClear
                 />
             </AutoComplete>
