@@ -30,7 +30,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
             setSearchParams(searchParams);
         }
 
-        axios.get(`http://localhost:3001/api/synonyms?search=${value}`)
+        axios.get(`https://api.re-poizon.ru/api/synonyms?search=${value}`)
             .then(res => setOptions(res.data.suggested?.map(el => ({value: el}))))
             .catch(err => setOptions(defaultOptions));
 
