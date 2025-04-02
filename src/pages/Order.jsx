@@ -18,6 +18,7 @@ import TelegramButton from "../components/TelegramButton/TelegramButton";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import {useGetOrdersQuery} from "../store/orders.store";
+import TraceComponent from "../components/TraceComponent/TraceComponent";
 
 const Order = () => {
     const navigate = useNavigate();
@@ -249,7 +250,7 @@ const Order = () => {
                         Оплатить
                     </Button>
                 }
-                {memoOrder?.status === PRODUCT_STATUS.PAID &&
+                {/*{memoOrder?.status === PRODUCT_STATUS.PAID &&
                     <Button
                         type="primary"
                         className="cart-product-info-submit-btn"
@@ -257,7 +258,7 @@ const Order = () => {
                         >
                             Отследить
                         </Button>
-                    }
+                    }*/}
                 </div>
                 {!isDesktopScreen &&
                     <PhoneFooter tab="profile" />

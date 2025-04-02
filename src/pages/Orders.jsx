@@ -140,7 +140,7 @@ const Orders = () => {
                                         })}
                                     </div>
                                 </div>
-                                {el?.status === PRODUCT_STATUS.PAID &&
+                                {!isDesktopScreen && el?.status === PRODUCT_STATUS.PAID &&
                                     <Button
                                         type="primary"
                                         onClick={() => onGoToTraceClick(el?._id, el?.status)}

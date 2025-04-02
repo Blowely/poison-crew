@@ -104,7 +104,7 @@ const Trace = () => {
                     <div className="cart-item">
                         <div className="cart-order-info">
                             <div style={{display: 'flex', alignItems: "center", gap: '10px'}}>
-                                <img src={memoOrder?.products[0]?.images[0]} style={{width: '70px'}} alt=""/>
+                                <img src={memoOrder?.products[0]?.product?.images[0]} style={{width: '70px'}} alt=""/>
                                 <span style={{minWidth: "30%", fontWeight: '500'}}>Ожидается <br/>{createdAtAdded20Days}</span>
                             </div>
                             <Divider style={{margin: '6px 0'}}></Divider>

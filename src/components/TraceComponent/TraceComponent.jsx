@@ -40,8 +40,6 @@ const TraceComponent = ({order}) => {
             description: el.description
         }));
 
-    console.log('order',order)
-
     return (
         <div>
             <div className="cart-item">
