@@ -467,19 +467,21 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
                 </div>
 
-                <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'} style={{borderRadius: 'unset'}}>
+                <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
                   {isDesktopScreen &&
                       <div
-                          className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}>
+                          className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}
+                          style={{borderRadius: '0'}}
+                      >
                         {!isDesktopScreen &&
                             <div className="title">
                               {getIntPrice(choice?.price || selectedProduct?.price)}
                             </div>
                         }
                         <div className="title-wrapper">
-                      <span className="standart" style={{minHeight: '24px'}}>
-                        {selectedProduct?.name || product?.name}
-                      </span>
+                        <span className="standart" style={{minHeight: '24px'}}>
+                          {selectedProduct?.name || product?.name}
+                        </span>
                           {isDesktopScreen &&
                               <div className="title">
                                 {getIntPrice(choice?.price || selectedProduct?.price)}
