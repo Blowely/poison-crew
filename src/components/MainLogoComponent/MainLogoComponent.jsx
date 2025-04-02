@@ -73,7 +73,6 @@ const MainLogoComponent = ({setOffset, setLoading, style}) => {
                 </div>
                 <div>
                     <span onClick={() => onInfoBlockItemClick("tg://resolve?domain=re_poizon_store")}>Поддержка</span>
-                    <span>+7 908 156 8531</span>
                     <span>repoizonstore@gmail.com</span>
                 </div>
             </div>

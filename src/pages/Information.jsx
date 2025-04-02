@@ -52,7 +52,6 @@ const Information = () => {
                     <div className="product-info__item standart template" style={{marginTop: '15px'}}>
                         <div className="title">Телефоны и e-mail</div>
                         <div style={{fontSize: '16px'}}>tg: re_poizon_store</div>
-                        <div style={{fontSize: '16px'}}>+7 908 156 8531</div>
                         <div style={{fontSize: '16px'}}>repoizonstore@gmail.com</div>
                     </div>
                     <div className="telegram-button-wrapper" style={{marginTop: '15px'}}><TelegramButton/></div>
