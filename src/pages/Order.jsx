@@ -10,17 +10,14 @@ import {
     LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
 import {useGetAccountQuery} from "../store/accounts.store";
-import { useGetOrdersQuery} from "../store/orders.store";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
 import {getPrice, iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS} from "./constants";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import StatusTag from "../components/Status";
-import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
-import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import {useGetOrdersQuery} from "../store/orders.store";
 
 const Order = () => {
     const navigate = useNavigate();
@@ -193,7 +190,7 @@ const Order = () => {
                             </div>
                             <p className="delivery-point">📍 Пункт выдачи заказов</p>
                             <p className="delivery-address">{orders[0]?.address?.address}</p>
-                            <p className="delivery-time">⏳ Ожидаемое время доставки: <strong>16-18 дней</strong></p>
+                            <p className="delivery-time">⏳ Ожидаемое время доставки: <strong>16-20 дней</strong></p>
                             <p className="delivery-cost">💰 Доставка (при получении): <strong>~700 ₽</strong></p>
                         </div>
                         <div className="cart-item">
@@ -232,6 +229,7 @@ const Order = () => {
 
                             </div>
                         </div>
+                        {isDesktopScreen && <TraceComponent order={orders[0]}/>}
                         <div className="telegram-button-wrapper" style={{marginTop: '15px'}}>
                             <TelegramButton msg="Здравствуйте! Хочу задать вопрос по заказу: "
                                             text="Задать вопрос по заказу"

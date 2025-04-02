@@ -16,7 +16,7 @@ export const PRODUCT_STATUS = {
 }
 
 export const PRODUCT_STATUS_DICTIONARY = {
-    created: 'Проверка',
+    created: 'Ождание оплаты',
     approved: 'Готов к оплате',
     approved_with_changes: 'Готов к оплате. Цена товара изменилась',
     paid: 'Оплачен',

@@ -8,7 +8,7 @@ const StatusTag = ({status}) => {
         switch (status) {
             case PRODUCT_STATUS.CREATED:
                 data.color = 'blue';
-                data.text = 'Проверка товара';
+                data.text = 'Ожидание оплаты';
                 break;
             case PRODUCT_STATUS.APPROVED:
                 data.color = 'blue';
