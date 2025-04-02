@@ -222,6 +222,35 @@
 .title-wrapper {
     display: grid;
     gap: 24px;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        &.bar {
+            gap: 0;
+            justify-items: center;
+        }
+    }
+
+    > .first-part {
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 10px;
+
+        > .dot {
+            color: #868695;
+            width: 4px;
+            height: 20px;
+            right: 1px;
+            padding: 0 4px;
+        }
+    }
+
+    > .phone-bar-title {
+        font-size: 14px;
+        color: #939393;
+    }
 
     &.transparent {
         box-shadow: unset!important;

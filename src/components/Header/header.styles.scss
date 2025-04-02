@@ -244,34 +244,49 @@
   }
 }
 
-.go-back-btn {
+.product-bar-wrapper {
   z-index: 99;
   position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 5px 5px 5px;
+  background: white; // Изначально прозрачный
+  transition: background 0.3s ease-in-out;
+
+  &.solid {
+    background: white!important; // Сплошной цвет после 100px скролла
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  > .right-items-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+
+.go-back-btn {
   height: 47px;
   padding: 13px 17px;
-  margin-top: 10px;
   font-size: 25px;
-  margin-left: 10px;
   border-radius: 50%;
   color: #919191;
-  background: rgb(178 178 178 / 10%);
+  //background: rgb(178 178 178 / 10%);
   cursor: pointer;
 }
 
 .link-btn {
-  z-index: 99;
-  position: fixed;
   padding: 12px;
-  margin-top: 10px;
   height: 47px;
-  right: 10px;
   border-radius: 35%;
-  background: rgb(178 178 178 / 10%);
+  //background: rgb(178 178 178 / 10%);
   cursor: pointer;
 
   @media (min-width: 768px) {
     position: unset;
     margin-top: unset;
+    background: rgb(178 178 178 / 10%);
   }
 
   &.favorite-btn {

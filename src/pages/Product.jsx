@@ -37,6 +37,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   const [isDisabledBuyBtn] = useState(false);
   const [product, setProduct] = useState({});
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
@@ -44,6 +45,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
   const token = localStorage.getItem("token");
   const prevUpdatedAtRef = useRef(null);
+  const productLayoutRef = useRef(null);
 
   const isLoadingProduct = false;
   const isTest = true
@@ -286,6 +288,19 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
     return () => { root.style.overflowY = "unset" };
   }, [])
 
+  /*window?.onscroll(
+      "scroll",
+      function (event) {
+        try {
+          console.log(event)
+          setIsScrolled(window.scrollY > 100);
+        } catch (e) {
+          console.log("e =", e);
+        }
+      },
+      false,
+  );
+*/
   const onBreadcrumbItemClick = (link) => {
     setOffset(1)
     setLoading(true);
@@ -293,7 +308,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   }
 
   return (
-    <div style={{height: '100%'}}>
+    <div style={{height: '100%'}} ref={productLayoutRef}>
       {/*{!token && (
         <AuthModal
           open={isModalOpen}
@@ -346,21 +361,38 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
       />}
       {!isLoadingProduct && (
           <div style={{height: '100%'}}>
-            {!isDesktopScreen && (
-                <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png"
-                     alt="" className="go-back-btn"
-                     onClick={goBack}/>)
-            }
-            {!isDesktopScreen && (
-                <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
-                  <IconHeart/>
-                </div>)
-            }
-            {!isDesktopScreen && (
-                <img
-                    src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C%D1%81%D1%8F(cropped).png"
-                    className="link-btn"
-                    onClick={copyUrl} alt=""/>)
+            {!isDesktopScreen &&
+                <div className={`product-bar-wrapper ${isScrolled ? "solid" : ""}`}>
+                  <img
+                      src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9D%D0%B0%D0%B7%D0%B0%D0%B4%20(1).png"
+                      alt="" className="go-back-btn"
+                      onClick={goBack}/>
+                  <div className="title-wrapper bar">
+                    <div className="first-part">
+                      <span className="standart" style={{minHeight: '24px', fontWeight: '500'}}>
+                            {selectedProduct?.brand || product?.brand}
+                      </span>
+                      <span className="dot">·</span>
+                      <span className="standart" style={{minHeight: '24px'}}>
+                            {selectedProduct?.name || product?.name}
+                      </span>
+                    </div>
+
+                    <div className={isDesktopScreen ? 'title' : 'phone-bar-title'}>
+                      {getIntPrice(choice?.price || selectedProduct?.price)}
+                    </div>
+                  </div>
+                  <div className="right-items-wrapper">
+                    <div className="link-btn favorite-btn" onClick={onFavoriteIconClick}>
+                      <IconHeart/>
+                    </div>
+                    <img
+                        src="https://storage.yandexcloud.net/pc-mediafiles/icons/%D0%9F%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C%D1%81%D1%8F(cropped).png"
+                        className="link-btn"
+                        onClick={copyUrl} alt=""/>
+                  </div>
+
+                </div>
             }
 
 
@@ -371,7 +403,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                 }}>
                   {isDesktopScreen && product &&
                       <div className="breadcrumb-wrapper">
-                        <div className="back-to-main-btn" onClick={goBack}><ArrowLeftOutlined/></div>
+                      <div className="back-to-main-btn" onClick={goBack}><ArrowLeftOutlined/></div>
                         <Breadcrumb
                             items={[
                               {
@@ -479,9 +511,9 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                             </div>
                         }
                         <div className="title-wrapper">
-                        <span className="standart" style={{minHeight: '24px'}}>
-                          {selectedProduct?.name || product?.name}
-                        </span>
+                          <span className="standart" style={{minHeight: '24px'}}>
+                            {selectedProduct?.name || product?.name}
+                          </span>
                           {isDesktopScreen &&
                               <div className="title">
                                 {getIntPrice(choice?.price || selectedProduct?.price)}
