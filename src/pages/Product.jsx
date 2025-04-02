@@ -467,7 +467,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
                 </div>
 
-                <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'}>
+                <div className={isDesktopScreen ? 'product-info-wrapper' : 'product-info-phone-wrapper'} style={{borderRadius: 'unset'}}>
                   {isDesktopScreen &&
                       <div
                           className={"product-info__item standart " + (isDesktopScreen ? ' transparent space-between' : '')}>
