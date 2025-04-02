@@ -35,6 +35,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelector";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
+import IconHeartSmall from "../assets/svg/iconHeartSmall";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -264,21 +265,19 @@ function Home({ onAddToFavorite, onAddToCart }) {
             const price = item?.price || '';
 
             return (
-                <div key={`${item?.spuId}-${index}`}
-                     onPointerDown={onPointerDown}
-                     onPointerUp={(e) => onPointerUp(item, e)}
-                     onTouchStart={onPointerDown}
-                     onTouchEnd={(e) => onPointerUp(item, e)}
-                >
+                <div key={`${item?.spuId}-${index}`}>
                   <Card
                       onFavorite={(obj) => onAddToFavorite(obj)}
                       onPlus={(obj) => onAddToCart(obj)}
-                      //onCardClickHandler={onCardClickHandler}
                       loading={isLoading}
                       image={image}
                       price={price}
                       item={item}
                       name={title}
+                      onPointerDown={onPointerDown}
+                      onPointerUp={onPointerUp}
+                      onTouchStart={onPointerDown}
+                      onTouchEnd={onPointerUp}
                   />
                 </div>
             );

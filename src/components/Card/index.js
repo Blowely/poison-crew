@@ -9,8 +9,11 @@ function Card({
   price,
   name,
   item,
-  onCardClickHandler = () => {},
-  key
+  key,
+  onPointerDown= () => {},
+  onPointerUp = () => {},
+  onTouchStart = () => {},
+  onTouchEnd = () => {},
 }) {
 
   const [loadingImg, setLoadingImg] = useState(true);
@@ -85,71 +88,75 @@ function Card({
   return (
     <div className={styles.card}
          style={{aspectRatio: isDesktopScreen ? '64 / 57' : '64 / 65.5'}}
-         onClick={() => onCardClickHandler(item)}
          key={key}
     >
-      {!name && (
-        <ContentLoader
-          speed={0.8}
-          backgroundColor="#f3f3f3"
-          foregroundColor="#ecebeb"
-          className={styles.contentImgLoader}
-        >
-          <rect
-            rx="10"
-            ry="10"
-            style={{ width: "100%", height: "100%" }}
-          />
-        </ContentLoader>
-      )}
+      <div
+          onPointerDown={onPointerDown}
+          onPointerUp={(e) => onPointerUp(item, e)}
+          onTouchStart={onPointerDown}
+          onTouchEnd={(e) => onPointerUp(item, e)}
+      >
+        {!name && (
+            <ContentLoader
+                speed={0.8}
+                backgroundColor="#f3f3f3"
+                foregroundColor="#ecebeb"
+                className={styles.contentImgLoader}
+            >
+              <rect
+                  rx="10"
+                  ry="10"
+                  style={{ width: "100%", height: "100%" }}
+              />
+            </ContentLoader>
+        )}
 
-      {image &&
-          <>
-            {loadingImg &&
-                <ContentLoader
-                    speed={0.8}
-                    backgroundColor="#f3f3f3"
-                    foregroundColor="#ecebeb"
-                    className={styles.contentImgLoader}
-                >
-                  <rect
-                      rx="10"
-                      ry="10"
-                      style={{width: "100%", height: "100%"}}
-                  />
-                </ContentLoader>
-            }
+        {image &&
+            <>
+              {loadingImg &&
+                  <ContentLoader
+                      speed={0.8}
+                      backgroundColor="#f3f3f3"
+                      foregroundColor="#ecebeb"
+                      className={styles.contentImgLoader}
+                  >
+                    <rect
+                        rx="10"
+                        ry="10"
+                        style={{width: "100%", height: "100%"}}
+                    />
+                  </ContentLoader>
+              }
 
-            {!loadingImg && (
-              <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
-                <IconHeartSmall/>
+              <img
+                  ref={imgElement}
+                  src={`${image}?x-oss-process=image/format,webp/resize,w_400`}
+                  //src={`${image}`}
+                  onLoad={onLoadedIcon}
+                  loading="lazy"
+              />
+            </>
+
+        }
+
+
+        {!loadingImg && image && (
+            <div>
+              <div className={styles.cardText} style={{}}>
+                {name}
               </div>
-            )}
-
-
-            <img
-                onClick={() => onCardClickHandler(item)}
-                ref={imgElement}
-                src={`${image}?x-oss-process=image/format,webp/resize,w_400`}
-                //src={`${image}`}
-                onLoad={onLoadedIcon}
-                loading="lazy"
-            />
-          </>
-
-      }
-
-
-      {!loadingImg && image && (
-          <div onClick={() => onCardClickHandler(item)}>
-            <div className={styles.cardText} style={{}}>
-              {name}
+              <div className={styles.price}>
+                <span>{getPrice()}</span>
+              </div>
             </div>
-            <div className={styles.price}>
-              <span>{getPrice()}</span>
+        )}
+      </div>
+      {!loadingImg && (
+          <div className="favoriteIcon" ref={favRef} onClick={onFavoriteIconClick}>
+            <IconHeartSmall/>
           </div>
-        </div>
       )}
+
     </div>
   );
 }
