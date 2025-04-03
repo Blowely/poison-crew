@@ -183,3 +183,7 @@ footer {
 .ant-select-item {
   border-radius: 20px!important;
 }
+
+.ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
+  background: #00d1d2;
+}

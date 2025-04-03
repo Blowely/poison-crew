@@ -412,6 +412,10 @@
     font-family: "Roboto Condensed";
     border-radius: 20px;
 
+    &.btn-cart {
+        border-radius: 20px;
+    }
+
     &:hover {
         background: unset;
     }

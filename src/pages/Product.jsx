@@ -25,6 +25,7 @@ import InsuranceBlock from "../components/InsuranceBlock/InsuranceBlock";
 import VerifiedBlock from "../components/VerifiedBlock/VerifiedBlock";
 import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import CartButton from "../components/CartButton/CartButton";
 
 function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} }) {
   const dispatch = useAppDispatch();
@@ -162,7 +163,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
     dispatch(
       addToCart({ ...product, selectedSize: choice?.size?.eu || choice?.size, price: choice.price }),
     );
-    navigate("/cart");
+    //navigate("/cart");
   };
 
   const onChangeChoiceHandler = (el, i) => {
@@ -797,7 +798,13 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
 
                   {isDesktopScreen &&
-                      <div className="btn_wrapper">
+                      <CartButton
+                          price={choice?.price || ""}
+                          onAddToCart={onAddToCart}
+                          disabled={isDisabledBuyBtn}
+                      />
+
+                      /*<div className="btn_wrapper">
                         <Button
                             type="primary"
                             className={"btn"}
@@ -808,7 +815,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                           {getBtnPrice(choice?.price)}
                           <span> {!isDisabledBuyBtn ? 'Добавить в корзину' : ''}</span>
                         </Button>
-                      </div>
+                      </div>*/
                   }
                   {isDesktopScreen && <div className="telegram-button-wrapper">
                     <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href} />
@@ -834,16 +841,11 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
       )}
       {!isDesktopScreen &&
           <footer className="footer-btn-wrapper">
-            <Button
-                type="primary"
-                className={"btn"}
-                onClick={onAddToCart}
+            <CartButton
+                price={choice?.price || ""}
+                onAddToCart={onAddToCart}
                 disabled={isDisabledBuyBtn}
-                loading={isDisabledBuyBtn}
-            >
-              <span>{getBtnPrice(choice?.price)}</span>
-              <span>{!isDisabledBuyBtn ? 'Добавить в корзину' : '₽'}</span>
-            </Button>
+            />
           </footer>
       }
     </div>
