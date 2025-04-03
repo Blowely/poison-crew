@@ -19,6 +19,12 @@
     justify-content: space-between;
     padding: 0 20px;
 
+    > div {
+      :hover {
+        color: #8c8c8c;
+        transition: color 0.2s ease-in-out;
+      }
+    }
   }
 
 }
@@ -37,7 +43,16 @@
     border-radius: 20px;
   }
 
+  &:hover {
+    > img {
+      transform: scale(1.03); /* Увеличивает изображение на 10% */
+    }
+  }
+
   img {
+    transition: transform 0.3s ease;
+    max-width: 100%; /* Чтобы изображение не выходило за границы контейнера */
+    display: block; /* Убирает лишнее пространство под изображением */
     height: auto;
     aspect-ratio: 1/1;
     object-fit: contain;
