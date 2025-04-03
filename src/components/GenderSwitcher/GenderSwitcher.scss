@@ -14,10 +14,22 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0);
     padding-bottom: 3px;
     margin-top: 3px;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: rgb(51, 51, 51);
+      transition: color 0.2s ease;
+    }
 
     &.active {
       color: black;
       border-bottom: 1px solid black;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #8c8c8c;
+        transition: color 0.2s ease;
+      }
 
       &:after {
         content: "";
