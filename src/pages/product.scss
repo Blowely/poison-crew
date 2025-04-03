@@ -42,6 +42,17 @@
     grid-template-columns: repeat(5, 20%);
 }
 
+.counter-wrapper {
+    position: absolute;
+    background: #ececec;
+    margin-top: -16px;
+    margin-left: -16px;
+    padding: 2.5px 6.5px;
+    border-radius: 50%;
+    font-size: 12px;
+    border: 2px solid white;
+}
+
 .size-wrapper {
     background-color: white;
     padding: 10px;

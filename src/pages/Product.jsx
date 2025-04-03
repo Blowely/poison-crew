@@ -575,6 +575,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                                         key={i}
                                         role="presentation"
                                     >
+                                      <div className="counter-wrapper"><span>{i}</span></div>
                                       <div
                                           style={{
                                             fontSize: "17px",
