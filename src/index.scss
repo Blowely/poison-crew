@@ -319,6 +319,11 @@ header {
   @media (max-width: 768px) {
     margin-top: 20px;
   }
+
+  > .brands-section-wrapper_card > .brand-section-name {
+    font-weight: bold;
+    font-size: 10px;
+  }
 }
 
 .brands-section-wrapper_card {
@@ -330,6 +335,31 @@ header {
   align-items: center;
   cursor: pointer;
   min-width: fit-content;
+
+  > .brands-section-wrapper_card-icon {
+    > svg {
+      transition: transform 0.2s ease;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &:hover {
+      > .brands-section-wrapper_card-icon {
+        > svg {
+          transition: transform 0.2s ease;
+          transform: scale(1.1);
+        }
+      }
+
+      > .brand-section-name {
+        color: #8c8c8c;
+        transition: color 0.2s ease;
+      }
+    }
+  }
+
 
   > .brands-section-wrapper_card-icon {
     @media (max-width: 768px) {

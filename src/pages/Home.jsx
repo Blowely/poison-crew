@@ -601,7 +601,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon" style={getBorderStyle(144)}>
                         <NikeIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Nike</div>
+                      <div className="brand-section-name">Nike</div>
                     </div>
                     <div
                         className="brands-section-wrapper_card"
@@ -610,7 +610,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon" style={getBorderStyle(494)}>
                         <AdidasIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Adidas</div>
+                      <div className="brand-section-name">Adidas</div>
                     </div>
                     <div
                         className="brands-section-wrapper_card"
@@ -619,7 +619,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon" style={getBorderStyle(4)}>
                         <NewBalanceIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>NB</div>
+                      <div className="brand-section-name">NB</div>
                     </div>
 
                     <div className="brands-section-wrapper_card"
@@ -627,7 +627,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon" style={getBorderStyle(13)}>
                         <JordanIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Jordan</div>
+                      <div className="brand-section-name">Jordan</div>
                     </div>
                     <div
                         className="brands-section-wrapper_card"
@@ -636,7 +636,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon" style={getBorderStyle(176)}>
                         <ConverseIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Converse</div>
+                      <div className="brand-section-name">Converse</div>
                     </div>
                     <div
                         className="brands-section-wrapper_card"
@@ -645,7 +645,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon" style={getBorderStyle(1318)}>
                         <FilaIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Fila</div>
+                      <div className="brand-section-name">Fila</div>
                     </div>
 
                     <div className="brands-section-wrapper_card"
@@ -653,7 +653,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
                       <div className="brands-section-wrapper_card-icon">
                         <MoreIcon/>
                       </div>
-                      <div style={{fontWeight: "bold", fontSize: "10px"}}>Больше</div>
+                      <div className="brand-section-name">Больше</div>
                     </div>
                   </div>
                   <Categories setLoading={setLoading} setOffset={setOffset}/>
