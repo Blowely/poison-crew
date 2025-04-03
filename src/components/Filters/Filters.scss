@@ -100,10 +100,26 @@
   cursor: pointer;
   border: solid #f1f1f5 1px;
   border-radius: 20px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+
+
+  @media (min-width: 768px) {
+    &:hover {
+      transition: border 0.2s ease;
+      box-sizing: border-box;
+      //border: solid #04b5c5 1px;
+      border: solid rgb(1, 194, 195) 1px;
+      padding: 10px;
+    }
+  }
+
   &.selected {
+    transition: border 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
-    border: solid #000000 1px;
+    border: solid rgb(1, 194, 195) 1px;
     padding: 10px;
+    //background: #fafafa;
+    //box-shadow: inset 0px 0px 3px 2px rgba(0,0,0,0.03);
   }
 }
 

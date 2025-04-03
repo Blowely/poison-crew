@@ -22,7 +22,7 @@
     > div {
       :hover {
         color: #8c8c8c;
-        transition: color 0.2s ease-in-out;
+        transition: color 0.2s ease;
       }
     }
   }
@@ -45,17 +45,20 @@
 
   &:hover {
     > img {
-      transform: scale(1.03); /* Увеличивает изображение на 10% */
+      transition: transform 0.2s ease;
+      transform: scale(1.04);
     }
   }
 
   img {
-    transition: transform 0.3s ease;
-    max-width: 100%; /* Чтобы изображение не выходило за границы контейнера */
-    display: block; /* Убирает лишнее пространство под изображением */
+    transition: transform 0.2s ease;
+    max-width: 100%;
+    display: block;
     height: auto;
     aspect-ratio: 1/1;
     object-fit: contain;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   > div {

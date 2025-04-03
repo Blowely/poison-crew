@@ -5,12 +5,24 @@
   padding: 15px;
   cursor: pointer;
   color: black;
-  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
   color: black;
   width: 100%;
   position: relative;
+
+  @media (min-width: 768px) {
+    &:hover {
+      > div {
+        transition: transform 0.2s ease;
+        > img {
+          transition: transform 0.2s ease;
+          transform: scale(1.03);
+        }
+      }
+    }
+  }
 
   @media (max-width: 768px) {
     .card:hover {
@@ -54,7 +66,7 @@
 
   &:hover {
     @media (min-width: 768px) {
-      box-shadow: 0px 0px 50px -30px rgba(0,0,0,0.75);
+      box-shadow: 0px 0px 40px -32px rgba(0,0,0,0.75);
     }
   }
 
@@ -86,6 +98,7 @@
     width: 100% !important;
     aspect-ratio: 64 / 41 !important;
     object-fit: contain!important;
+    transition: transform 0.2s ease;
   }
 }
 
