@@ -1,42 +1,31 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import {Button, Divider, Layout, message, Result, Steps, Typography} from "antd";
+import {Divider, Layout, message, Steps} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {
-    CopyOutlined, CreditCardOutlined,
-    DeleteOutlined,
+    CopyOutlined,
     LeftOutlined,
     LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
-import {useAppDispatch} from "../store";
 import {useGetAccountQuery} from "../store/accounts.store";
-import {useAddOrderMutation, useGetOrdersQuery, useUpdateStatusMutation} from "../store/orders.store";
-import NonActiveBagIcon from "../assets/svg/non-active-bag-icon";
-import ActiveCartIcon from "../assets/svg/active-cart-icon";
-import NonActiveProfileIcon from "../assets/svg/non-active-profile-icon";
-import SberIcon from "../assets/svg/payment/sber-icon";
+import {useGetOrdersQuery} from "../store/orders.store";
 import {iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_DELIVERY_STATUS, PRODUCT_DELIVERY_STATUS_DICTIONARY, PRODUCT_STATUS} from "./constants";
-import axios from "axios";
 import moment from "moment";
-import NonActiveCartIcon from "../assets/svg/non-active-cart-icon";
-import ActiveProfileIcon from "../assets/svg/active-profile-icon";
+import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 
 
 const Trace = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [step, setStep] = useState(0);
 
-    const from = searchParams.get('from');
     const orderId = searchParams.get('id');
     const token = localStorage.getItem('token');
 
 
-    const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
+    const {data: accountData} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
-    const {data: orders = [], isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
+    const {data: orders = [], isLoading: isLoadingOrders, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });
@@ -135,17 +124,7 @@ const Trace = () => {
                     </div>
                 </div>
             }
-            <footer>
-                <div onClick={() => navigate('/products')}>
-                    <NonActiveBagIcon/>
-                </div>
-                <div onClick={() => navigate('/cart') }>
-                    <NonActiveCartIcon style={{ fontSize: '30px'}} />
-                </div>
-                <div onClick={() => navigate('/profile')}>
-                    <ActiveProfileIcon style={{ fontSize: '30px'}} />
-                </div>
-            </footer>
+            <PhoneFooter tab="profile"/>
         </Layout>
     );
 }
