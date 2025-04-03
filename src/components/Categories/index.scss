@@ -2,9 +2,11 @@
   margin-top: 10px;
   display: flex;
   //gap: 10px;
+  height: auto;
   width: 100%;
   padding: 0 12px;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   justify-content: space-evenly;
 
   @media (max-width: 768px) {
@@ -37,6 +39,7 @@
   flex-direction: column;
   height: auto;
   cursor: pointer;
+  height: auto;
 
   @media (min-width: 768px) {
     background-color: #f8f8f8;
