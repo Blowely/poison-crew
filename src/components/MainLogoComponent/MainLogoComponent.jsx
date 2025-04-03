@@ -28,13 +28,13 @@ const MainLogoComponent = ({setOffset, setLoading, style}) => {
     }
 
     const val11 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C.png"
-    const val12 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/5.%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+    const val12 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/profile-black.png"
 
     const val21 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5.png"
-    const val22 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/4.%D0%98%D0%B7%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+    const val22 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/fav-black.png"
 
     const val31 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png"
-    const val32 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/3.%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2.png"
+    const val32 = "https://storage.yandexcloud.net/pc-mediafiles/icons/v2/cart-black.png"
 
     const [profileIcon, setProfileIcon] = useState(val11)
     const [favIcon, setFavIcon] = useState(val21)

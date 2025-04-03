@@ -208,9 +208,19 @@
         gap: 8px;
         cursor: pointer;
         color: #6e6e6e;
+        font-weight: 500;
+        transition: all 0.15s ease-in-out, width 0s, height 0s;
 
         &:hover {
-          color: rgb(1, 194, 195);
+          color: #000000;
+        }
+
+        &:active {
+          transition: all 0.15s ease-in-out, width 0s, height 0s;
+          opacity: 0.5;
+          transform: scale(.975);
+          -webkit-filter: blur(1px) grayscale(1);
+          filter: blur(1px) grayscale(1);
         }
       }
     }
