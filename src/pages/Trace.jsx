@@ -9,7 +9,7 @@ import {
 import {useGetAccountQuery} from "../store/accounts.store";
 import {useGetOrdersQuery} from "../store/orders.store";
 import {iosCopyToClipboard} from "../common/utils";
-import {PRODUCT_DELIVERY_STATUS, PRODUCT_DELIVERY_STATUS_DICTIONARY, PRODUCT_STATUS} from "./constants";
+import {PRODUCT_DELIVERY_STATUS, PRODUCT_DELIVERY_STATUS_DICTIONARY} from "./constants";
 import moment from "moment";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 
