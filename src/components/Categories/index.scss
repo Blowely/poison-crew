@@ -20,7 +20,8 @@
     padding: 0 20px;
 
     > div {
-      :hover {
+      transition: color 0.2s ease;
+      &:hover {
         color: #8c8c8c;
         transition: color 0.2s ease;
       }

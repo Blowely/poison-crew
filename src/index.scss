@@ -123,10 +123,16 @@ header {
   padding: 0 10px 10px 10px;
   right: 0;
   cursor: pointer;
+  transition: all 0.2s ease;
 
-  > svg:hover {
-    transition: all 0.2s ease-in;
-    transform: scale(1.2);
+  > svg {
+    transition: all 0.2s ease;
+
+    &:hover {
+      transition: all 0.2s ease;
+      transform: scale(1.2);
+    }
+
   }
 }
 
