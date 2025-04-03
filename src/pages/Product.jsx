@@ -62,7 +62,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
       spuId,
       token,
     },
-    { skip: !spuId },
+    { skip: !spuId || Object.keys(selectedProduct)?.length},
   );
 
   useEffect(() => {
@@ -71,14 +71,15 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
   useEffect(() => {
     const currentProduct = product;
-
+    console.log('currentProduct?.skus?.length',currentProduct?.skus?.length)
+    console.log('currentProduct',currentProduct)
     if (!currentProduct?.skus?.length) {
       return;
     }
 
     let handledSizesAndPrices = currentProduct?.skus || []
 
-    if (!currentProduct?.skus?.[0]?.size) {
+    if (!Object.keys(currentProduct?.skus?.[0]?.size)?.length) {
       const propertyTypeSizeIndex = currentProduct?.properties?.propertyTypes.findIndex((type) => type.name === "Размер");
       const sizesValues = currentProduct?.properties?.propertyTypes[propertyTypeSizeIndex]?.values;
 
@@ -87,7 +88,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
         price: currentProduct?.skus[i]?.price,
         size: size?.value
       }));
-
+      console.log('sizesAndPrices =',sizesAndPrices);
       handledSizesAndPrices = sizesAndPrices || [];
     }
 
