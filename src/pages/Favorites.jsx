@@ -16,6 +16,7 @@ import PromoCode from "../components/PromoCode/PromoCode";
 const Favorites = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
+    const [selectedProduct, setSelectedProduct] = useState({});
     const gender = localStorage.getItem("gender") || "men";
     const spuId = searchParams.get("spuId");
 
@@ -45,6 +46,7 @@ const Favorites = () => {
 
         const onCardClickHandler = (item) => {
             const spuId = item?.spuId || '';
+            setSelectedProduct(item);
             searchParams.set('spuId', spuId);
             setSearchParams(searchParams);
             localStorage.setItem('product', JSON.stringify(item));
@@ -83,7 +85,7 @@ const Favorites = () => {
                 }}
                 className="columnLayout">
             {spuId && <div className="productWrapper" id="productWrapper">
-                <Product />
+                <Product selectedProduct={selectedProduct} />
             </div>
             }
             {isDesktopScreen

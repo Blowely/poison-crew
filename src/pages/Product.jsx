@@ -28,7 +28,7 @@ import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent
 import CartButton from "../components/CartButton/CartButton";
 import PoizonVerifiedBlock from "../components/PoizonVerifiedBlock/PoizonVerifiedBlock";
 
-function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} }) {
+function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () => {} }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -253,10 +253,6 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   }
 
   const goBack = () => {
-    if (window.location.href.includes('favorites')) {
-      return window.location.href = window.location.origin?.split('?')[0] + '/favorites';
-    }
-
     if (window?.history?.length === 2) {
       return navigate("/");
     }
