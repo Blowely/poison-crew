@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const cacheItem = (item) => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  const isInCart = cachedItems.findIndex(el => el.spuId === item.spuId);
+  const isInCart = cachedItems.findIndex(el => el?.cartId === item?.cartId);
 
   if (isInCart < 0) {
     localStorage.setItem("cartItems", JSON.stringify([...cachedItems, {
