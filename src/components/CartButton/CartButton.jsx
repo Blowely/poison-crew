@@ -10,14 +10,10 @@ const CartButton = ({
                         isDisabled = false,
                         onAddToCart,
                         decreaseCartItemHandler,
-                        showCounter = false,
                         counterValue,
     }) => {
 
     const navigate = useNavigate();
-
-    const cartItems = useAppSelector((state) => state.cart.items) || [];
-    console.log('cartItems=',cartItems);
 
     const [quantity, setQuantity] = useState(0);
 
@@ -50,8 +46,6 @@ const CartButton = ({
     const onGoToCart = () => {
         navigate('/cart');
     }
-
-    console.log('counterValue',counterValue)
 
     return (
         <div className="cart-button">
