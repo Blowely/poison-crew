@@ -177,7 +177,6 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   };
 
   const onChangeChoiceHandler = (el, i) => {
-    console.log('el',el);
     if (!el.price) {
       return;
     }

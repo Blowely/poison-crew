@@ -158,28 +158,59 @@ const Order = () => {
                                             }
 
                                             const product = el?.product || {};
-                                            totalPrice += el?.price;
+                                            totalPrice += el?.price  * (el?.count || 1);
 
                                             return (
                                                 <div key={i} className="cart-product-info-payment">
                                                     <div style={{display: 'flex', gap: '7px'}}>
-                                                        <img src={product?.images[0]} style={{width: '100px'}} alt=""/>
+                                                        <img src={product?.images[0]}
+                                                             style={{width: '100px', cursor:"pointer"}}
+                                                             alt=""
+                                                             onClick={() => navigate(`/${gender}-products?spuId=${el?.product?.spuId}`)}
+                                                        />
                                                         <div>
-                                                            <div style={{fontSize: '16px'}}>{product?.name}</div>
-                                                            <div>размер: {el?.size}</div>
+                                                            <div
+                                                                onClick={() => navigate(`/${gender}-products?spuId=${el?.product?.spuId}`)}
+                                                                style={{
+                                                                    fontSize: '16px',
+                                                                    marginBottom: '8px',
+                                                                    cursor: 'pointer',
+                                                                }}
+                                                            >
+                                                                {product?.name}
+                                                            </div>
+                                                            <div
+                                                                onClick={() => navigate(`/${gender}-products?spuId=${el?.product?.spuId}`)}
+                                                                style={{
+                                                                    fontSize: '13px',
+                                                                    color: "gray",
+                                                                    marginBottom: '8px',
+                                                                    cursor: 'pointer',
+                                                                }}>
+                                                                размер: {el?.size}
+                                                            </div>
+                                                            {el?.count > 1 &&
+                                                                <div style={{
+                                                                    fontSize: '13px',
+                                                                    color: "gray",
+                                                                    cursor: 'pointer',
+                                                                }}>
+                                                                    количество: {el?.count || "1"}
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                            {getPrice(el.price)}
+                                                            {getPrice(el.price * (el?.count || 1))}
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         })}
 
-                                        <div className="total-price">Товар {totalPrice} ₽</div>
+                                        <div className="total-price">Товар {getPrice(totalPrice)}</div>
                                     </div>
                                 </div>
                             </div>
@@ -221,8 +252,8 @@ const Order = () => {
                                                         ? 'Оплачено'
                                                         : 'Не оплачено'}
                                                 </div>
-                                                <div>Товар <span className="total-price">{totalPrice} ₽</span></div>
-                                                <div>Итого <span className="total-price">{totalPrice} ₽</span></div>
+                                                <div>Товар <span className="total-price">{getPrice(totalPrice)}</span></div>
+                                                <div>Итого <span className="total-price">{getPrice(totalPrice)}</span></div>
                                             </div>
                                         </div>
                                     </div>

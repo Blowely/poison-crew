@@ -155,7 +155,7 @@ const CartItemComponent = (props) => {
                             alignItems: 'flex-end',
                             gap: '8px'
                         }}>
-                        <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
+                        <div style={{fontWeight: '500'}}>{getPrice(el?.price * (el?.count || 1))}</div>
                             <div id="delete-icon-wrapper">
                                 <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/remove-cropped.png"
                                      onClick={() => removeFromCartHandler(el)}

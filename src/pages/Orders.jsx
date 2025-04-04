@@ -57,9 +57,7 @@ const Orders = () => {
     }
 
     const getPrice = (price) => {
-        if (!price) {
-            return '--';
-        }
+        if (!price) return '--';
 
         return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price.toString());
     }
@@ -125,14 +123,36 @@ const Orders = () => {
                                                     <div style={{display: 'flex', gap: '7px'}}>
                                                         <img src={el?.product?.images[0]} style={{width: '100px'}} alt=""/>
                                                         <div>
-                                                            <div style={{fontSize: '16px'}}>{el.product?.name}</div>
-                                                            <div>размер: {el?.size}</div>
+                                                            <div style={{
+                                                                fontSize: '16px',
+                                                                marginBottom: '8px',
+                                                                cursor: 'pointer',
+                                                            }}>
+                                                                {el.product?.name}
+                                                            </div>
+                                                            <div style={{
+                                                                fontSize: '13px',
+                                                                color: "gray",
+                                                                marginBottom: '8px',
+                                                                cursor: 'pointer',
+                                                            }}>
+                                                                размер: {el?.size}
+                                                            </div>
+                                                            {el?.count > 1 &&
+                                                                <div style={{
+                                                                    fontSize: '13px',
+                                                                    color: "gray",
+                                                                    cursor: 'pointer',
+                                                                }}>
+                                                                    количество: {el?.count || "1"}
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                            {getPrice(el?.price)}
+                                                            {getPrice(el?.price * (el?.count || 1))}
                                                         </div>
                                                     </div>
                                                 </div>
