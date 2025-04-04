@@ -122,7 +122,7 @@ function Cart() {
     const getOrderPrice = () => {
         const selectedItems = cartItems.filter(el => selectedIds.includes(el.spuId));
         let totalPrice = 0;
-        selectedItems.map((el) => totalPrice += el.price);
+        selectedItems.map((el) => totalPrice += el.price * (el?.count > 0 ? el.count : 1 ));
 
         return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(totalPrice.toString());
     }
