@@ -80,7 +80,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
     let handledSizesAndPrices = currentProduct?.skus || []
 
-    if (!Object.keys(currentProduct?.skus?.[0]?.size)?.length) {
+    if (!currentProduct?.skus?.[0]?.size || !Object.keys(currentProduct?.skus?.[0]?.size)?.length) {
       const propertyTypeSizeIndex = currentProduct?.properties?.propertyTypes.findIndex((type) => type.name === "Размер");
       const sizesValues = currentProduct?.properties?.propertyTypes[propertyTypeSizeIndex]?.values;
 
@@ -343,7 +343,8 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   }
 
   const getCartItemCount = useCallback((product, size) => {
-    const sizeValue = size?.eu || size?.primary; // Извлекаем значение размера
+    console.log('size',size)
+    const sizeValue = size?.eu || size?.primary || size; // Извлекаем значение размера
     const cartId = `${product.spuId}-${sizeValue}`; // Формируем корректный cartId
 
     const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
