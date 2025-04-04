@@ -333,7 +333,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
   const decreaseCartItemHandler = (product, size) => {
     const cartId = `${product.spuId}-${size}`;
-    console.log('cartId123',cartId)
+
     const obj = {
       ...product,
       cartId,
@@ -343,7 +343,6 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   }
 
   const getCartItemCount = useCallback((product, size) => {
-    console.log('size',size)
     const sizeValue = size?.eu || size?.primary || size; // Извлекаем значение размера
     const cartId = `${product.spuId}-${sizeValue}`; // Формируем корректный cartId
 
