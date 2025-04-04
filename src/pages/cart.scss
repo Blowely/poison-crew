@@ -164,10 +164,15 @@
     flex-direction: column;
 
     > #delete-icon-wrapper {
-        font-size: 18px!important;
+        //font-size: 18px!important;
         padding: 4px;
         background: #f1f1f1;
         border-radius: 8px;
+        display: flex;
+
+        > img {
+            height: 18px!important;
+        }
     }
 }
 

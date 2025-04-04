@@ -19,12 +19,18 @@ const cacheItem = (item) => {
 }
 
 const decreaseCachedItem = (item) => {
-  const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  let cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   const cachedCartIndex = cachedItems.findIndex(el => el?.cartId === item?.cartId);
 
-  cachedItems[cachedCartIndex] = {...cachedItems[cachedCartIndex], count: cachedItems[cachedCartIndex]?.count ? cachedItems[cachedCartIndex]?.count - 1 : 0};
-  console.log('cachedItems',cachedItems);
+  const removeFromCachedCart = () => {
+    cachedItems = cachedItems.filter(el => el.cartId !== item.cartId);
+  }
+
+  cachedItems[cachedCartIndex].count = cachedItems[cachedCartIndex]?.count > 1
+      ? cachedItems[cachedCartIndex]?.count - 1
+      : removeFromCachedCart();
+
   localStorage.setItem("cartItems", JSON.stringify(cachedItems));
 }
 
@@ -81,8 +87,6 @@ const getOptions = () => {
         }
       },
       removeFromCart(state, { payload }) {
-        console.log('payload',payload)
-
         unCacheItem(payload)
         state.items = state.items.filter(el => el.cartId !== payload.cartId);
       },

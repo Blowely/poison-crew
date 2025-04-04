@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Checkbox } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import {Button, Checkbox} from 'antd';
+import {DeleteOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
+import {addToCart, decreaseCartItem} from "../../common/cartSlice";
+import {useAppDispatch} from "../../store";
 
 const CartItemComponent = (props) => {
     const { selectedIds, setSelectedIds, cartItems, gender, navigate, getPrice, removeFromCartHandler } = props;
+
+    const dispatch = useAppDispatch();
 
     // Инициализация выбранных элементов
     useEffect(() => {
@@ -28,6 +32,40 @@ const CartItemComponent = (props) => {
             : [...prev, spuId]
         );
     };
+
+    const getCartItemNumberCount = (product, size) => {
+        const cartId = `${product.spuId}-${size}`;
+        const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
+        return foundedIndex >= 0 ? cartItems[foundedIndex].count : 0;
+    }
+
+    const onAddToCart = (product, size, price) => {
+        if (getCartItemNumberCount(product, size) === 3) return;
+
+        if (!price) {
+            return;
+        }
+
+        dispatch(
+            addToCart({
+                ...product,
+                selectedSize: size,
+                price: price,
+                cartId: `${product.spuId}-${size}`
+            }),
+        );
+    };
+
+    const decreaseCartItemHandler = (product, size) => {
+        const cartId = `${product.spuId}-${size}`;
+        console.log('cartId123',cartId)
+        const obj = {
+            ...product,
+            cartId,
+        }
+
+        dispatch(decreaseCartItem(obj));
+    }
 
     return (
         <div>
@@ -63,22 +101,50 @@ const CartItemComponent = (props) => {
 
                         {/* Основная информация о товаре */}
                         <div
-                            onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
                             style={{
                                 display: 'flex',
                                 gap: '12px',
-                                cursor: 'pointer',
                                 flex: 1
                             }}
                         >
                             <img
+                                onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
                                 src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
-                                style={{ width: '100px', height: '100px', objectFit: 'contain' }}
+                                style={{
+                                    width: '100px',
+                                    height: '100px',
+                                    objectFit: 'contain',
+                                    cursor: 'pointer',
+                                }}
                                 alt=""
                             />
                             <div>
-                                <div style={{ fontSize: '16px', marginBottom: '8px' }}>{el?.name}</div>
-                                <div>Размер: {el?.selectedSize}</div>
+                                <div
+                                    onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
+                                    style={{
+                                        fontSize: '16px',
+                                        marginBottom: '8px',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    {el?.name}
+                                </div>
+                                <div
+                                    onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
+                                    style={{
+                                        fontSize: '13px',
+                                        color: "gray",
+                                        marginBottom: '8px',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    Размер: {el?.selectedSize}
+                                </div>
+                                <div className="cart-button__controls small">
+                                    <MinusOutlined onClick={() => decreaseCartItemHandler(el, el.selectedSize)}/>
+                                    <span style={{padding: '0 5px'}}>{el?.count || "1"}</span>
+                                    <PlusOutlined onClick={() => onAddToCart(el, el.selectedSize, el.price)}/>
+                                </div>
                             </div>
                         </div>
 
@@ -89,10 +155,11 @@ const CartItemComponent = (props) => {
                             alignItems: 'flex-end',
                             gap: '8px'
                         }}>
-                            <div style={{ fontWeight: '500' }}>{getPrice(el?.price)}</div>
+                        <div style={{fontWeight: '500'}}>{getPrice(el?.price)}</div>
                             <div id="delete-icon-wrapper">
-                                <DeleteOutlined
-                                    onClick={() => removeFromCartHandler(el)}
+                                <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/remove-cropped.png"
+                                     onClick={() => removeFromCartHandler(el)}
+                                     alt="delete"
                                 />
                             </div>
                         </div>
