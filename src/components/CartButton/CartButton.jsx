@@ -3,16 +3,21 @@ import { Button } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import "./CartButton.scss";
 import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../store";
 
 const CartButton = ({
                         price,
                         isDisabled = false,
                         onAddToCart,
-                        removeFromCartHandler,
+                        decreaseCartItemHandler,
                         showCounter = false,
+                        counterValue,
     }) => {
 
     const navigate = useNavigate();
+
+    const cartItems = useAppSelector((state) => state.cart.items) || [];
+    console.log('cartItems=',cartItems);
 
     const [quantity, setQuantity] = useState(0);
 
@@ -25,8 +30,9 @@ const CartButton = ({
         setQuantity(quantity + 1);
     }
     const decreaseQuantity = () => {
+        decreaseCartItemHandler()
+
         if (quantity > 1) {
-            removeFromCartHandler()
             setQuantity(quantity - 1);
         } else {
             setQuantity(0);
@@ -45,9 +51,11 @@ const CartButton = ({
         navigate('/cart');
     }
 
+    console.log('counterValue',counterValue)
+
     return (
         <div className="cart-button">
-            {!showCounter ? (
+            {!counterValue ? (
                 <Button
                     type="primary"
                     className="cart-button__add"
@@ -68,7 +76,7 @@ const CartButton = ({
                     </Button>
                     <div className="cart-button__controls">
                         <MinusOutlined onClick={decreaseQuantity}/>
-                        <span style={{padding: '0 5px'}}>{quantity}<div>В корзине</div></span>
+                        <span style={{padding: '0 5px'}}>{counterValue}<div>В корзине</div></span>
                         <PlusOutlined onClick={increaseQuantity}/>
                     </div>
                 </div>

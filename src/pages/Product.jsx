@@ -5,7 +5,7 @@ import {useGetProductQuery, useParseProductQuery} from "../store/products.store"
 import "./product.scss";
 import {ArrowLeftOutlined, LoadingOutlined} from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
-import {addToCart, removeFromCart} from "../common/cartSlice";
+import {addToCart, decreaseCartItem, removeFromCart} from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import {
@@ -53,7 +53,6 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   const isTest = true
 
   const cartItems = useAppSelector((state) => state.cart.items) || [];
-  console.log('cartItems=',cartItems);
 
   const { data: updatedProductData } = useParseProductQuery({
     spuId,
@@ -160,6 +159,8 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   }, []);
 
   const onAddToCart = () => {
+    if (getCartItemNumberCount(product, choice?.size) === 3) return;
+
     if (!choice?.price) {
       return;
     }
@@ -319,14 +320,26 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
   }
 
   const checkIsCartItem = (product, size) => {
-    console.log('product',product)
-    console.log(' size',size)
-     // Извлекаем значение размера
-    const cartId = `${product.spuId}-${size}`; // Формируем корректный cartId
-
+    const cartId = `${product.spuId}-${size}`;
     const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
-    console.log('foundedIndex',foundedIndex)
     return foundedIndex >= 0;
+  }
+
+  const getCartItemNumberCount = (product, size) => {
+    const cartId = `${product.spuId}-${size}`;
+    const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
+    return foundedIndex >= 0 ? cartItems[foundedIndex].count : 0;
+  }
+
+  const decreaseCartItemHandler = (product, size) => {
+    const cartId = `${product.spuId}-${size}`;
+    console.log('cartId123',cartId)
+    const obj = {
+      ...product,
+      cartId,
+    }
+
+    dispatch(decreaseCartItem(obj));
   }
 
   const getCartItemCount = useCallback((product, size) => {
@@ -335,7 +348,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
 
     const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
 
-    if (foundedIndex < 0) {
+    if (foundedIndex < 0 || getCartItemNumberCount(product, sizeValue) === 0) {
       return null
     }
 
@@ -345,10 +358,6 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
       </span>
     </div>
   }, [cartItems]);
-
-  const removeFromCartHandler = () => {
-    dispatch(removeFromCart(product));
-  }
 
   return (
     <div style={{height: '100%'}} ref={productLayoutRef}>
@@ -538,7 +547,6 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                   </div>
                 </div>
                 }
-
 
                 </div>
 
@@ -802,6 +810,7 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                                   key={i}
                                   role="presentation"
                               >
+                                {getCartItemCount(product, el?.size)}
                                 <div
                                     style={{
                                       fontSize: "17px",
@@ -833,9 +842,10 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
                       <CartButton
                           price={choice?.price || ""}
                           onAddToCart={onAddToCart}
-                          removeFromCartHandler={removeFromCartHandler}
+                          decreaseCartItemHandler={() => decreaseCartItemHandler(product, choice?.size)}
                           disabled={isDisabledBuyBtn}
-                          showCounter={checkIsCartItem(product, choice?.size)}
+                          //showCounter={checkIsCartItem(product, choice?.size)}
+                          counterValue={getCartItemNumberCount(product, choice?.size)}
                       />
 
                       /*<div className="btn_wrapper">
@@ -879,9 +889,10 @@ function Product({ selectedProduct, setLoading = () => {}, setOffset = () => {} 
             <CartButton
                 price={choice?.price || ""}
                 onAddToCart={onAddToCart}
-                removeFromCartHandler={removeFromCartHandler}
+                decreaseCartItemHandler={() => decreaseCartItemHandler(product, choice?.size)}
                 disabled={isDisabledBuyBtn}
-                showCounter={checkIsCartItem(product, choice?.size)}
+                //showCounter={checkIsCartItem(product, choice?.size)}
+                counterValue={getCartItemNumberCount(product, choice?.size)}
             />
           </footer>
       }

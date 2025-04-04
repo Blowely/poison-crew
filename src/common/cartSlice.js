@@ -18,13 +18,23 @@ const cacheItem = (item) => {
   }
 }
 
+const decreaseCachedItem = (item) => {
+  const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  const cachedCartIndex = cachedItems.findIndex(el => el?.cartId === item?.cartId);
+
+  cachedItems[cachedCartIndex] = {...cachedItems[cachedCartIndex], count: cachedItems[cachedCartIndex]?.count ? cachedItems[cachedCartIndex]?.count - 1 : 0};
+  console.log('cachedItems',cachedItems);
+  localStorage.setItem("cartItems", JSON.stringify(cachedItems));
+}
+
 const unCacheItem = (item) => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  const isInCart = cachedItems.findIndex(el => el.spuId === item.spuId);
+  const isInCart = cachedItems.findIndex(el => el?.cartId === item?.cartId);
 
   if (isInCart >= 0) {
-    const updatedItems = cachedItems.filter((el) => el?.spuId !== item.spuId);
+    const updatedItems = cachedItems.filter((el) => el?.cartId !== item.cartId);
     localStorage.setItem("cartItems", JSON.stringify(updatedItems));
   }
 }
@@ -45,11 +55,10 @@ const getOptions = () => {
     reducers: {
       addToCart(state, { payload }) {
         cacheItem(payload)
-        console.log('payload',payload)
         const isInCart = state.items.findIndex((el) => el?.cartId === payload.cartId);
 
         if (isInCart < 0) {
-          state.items =  [...state.items, {
+          state.items = [...state.items, {
             ...payload,
             count: 1
           }];
@@ -59,7 +68,21 @@ const getOptions = () => {
           state.items[isInCart].count = state.items[isInCart]?.count ? state.items[isInCart].count + 1 : 1;
         }
       },
+      decreaseCartItem(state, { payload }) {
+        const cartIndex = state.items.findIndex((el) => el?.cartId === payload.cartId);
+        decreaseCachedItem(payload)
+
+        const removeFromCart = () => {
+          state.items = state.items.filter(el => el.cartId !== payload.cartId);
+        }
+
+        if (cartIndex >= 0) {
+          state.items[cartIndex].count = state.items[cartIndex]?.count > 1 ? state.items[cartIndex]?.count - 1 : removeFromCart()
+        }
+      },
       removeFromCart(state, { payload }) {
+        console.log('payload',payload)
+
         unCacheItem(payload)
         state.items = state.items.filter(el => el.cartId !== payload.cartId);
       },
@@ -73,4 +96,4 @@ const getOptions = () => {
 
 export const cartSlice = createSlice(getOptions())
 
-export const {addToCart, removeFromCart, clearCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, clearCart, decreaseCartItem} = cartSlice.actions;
