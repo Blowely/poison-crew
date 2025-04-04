@@ -6,7 +6,15 @@ const cacheItem = (item) => {
   const isInCart = cachedItems.findIndex(el => el.spuId === item.spuId);
 
   if (isInCart < 0) {
-    localStorage.setItem("cartItems", JSON.stringify([...cachedItems, item]));
+    localStorage.setItem("cartItems", JSON.stringify([...cachedItems, {
+      ...item,
+      count: 1
+    }]));
+  }
+
+  if (isInCart >= 0) {
+    cachedItems[isInCart].count = cachedItems[isInCart]?.count ? cachedItems[isInCart].count + 1 : 1;
+    localStorage.setItem("cartItems", JSON.stringify(cachedItems));
   }
 }
 
@@ -37,11 +45,23 @@ const getOptions = () => {
     reducers: {
       addToCart(state, { payload }) {
         cacheItem(payload)
-        state.items = [...state.items, payload];
+        console.log('payload',payload)
+        const isInCart = state.items.findIndex((el) => el?.cartId === payload.cartId);
+
+        if (isInCart < 0) {
+          state.items =  [...state.items, {
+            ...payload,
+            count: 1
+          }];
+        }
+
+        if (isInCart >= 0) {
+          state.items[isInCart].count = state.items[isInCart]?.count ? state.items[isInCart].count + 1 : 1;
+        }
       },
       removeFromCart(state, { payload }) {
         unCacheItem(payload)
-        state.items = state.items.filter(el => el._id !== payload._id);
+        state.items = state.items.filter(el => el.cartId !== payload.cartId);
       },
       clearCart(state, { payload }) {
         clearItems(payload)

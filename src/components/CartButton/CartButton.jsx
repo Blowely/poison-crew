@@ -4,7 +4,14 @@ import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import "./CartButton.scss";
 import {useNavigate} from "react-router-dom";
 
-const CartButton = ({ price, isDisabled = false, onAddToCart }) => {
+const CartButton = ({
+                        price,
+                        isDisabled = false,
+                        onAddToCart,
+                        removeFromCartHandler,
+                        showCounter = false,
+    }) => {
+
     const navigate = useNavigate();
 
     const [quantity, setQuantity] = useState(0);
@@ -13,9 +20,13 @@ const CartButton = ({ price, isDisabled = false, onAddToCart }) => {
         onAddToCart();
         setQuantity(1);
     }
-    const increaseQuantity = () => setQuantity(quantity + 1);
+    const increaseQuantity = () => {
+        onAddToCart();
+        setQuantity(quantity + 1);
+    }
     const decreaseQuantity = () => {
         if (quantity > 1) {
+            removeFromCartHandler()
             setQuantity(quantity - 1);
         } else {
             setQuantity(0);
@@ -36,7 +47,7 @@ const CartButton = ({ price, isDisabled = false, onAddToCart }) => {
 
     return (
         <div className="cart-button">
-            {quantity === 0 ? (
+            {!showCounter ? (
                 <Button
                     type="primary"
                     className="cart-button__add"

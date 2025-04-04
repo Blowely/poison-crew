@@ -47,7 +47,6 @@ function Cart() {
     const {data: accountData, refetch: refetchAcc} = useGetAccountQuery(token, {refetchOnMountOrArgChange: true});
     const [addOrder] = useAddOrderMutation({},{refetchOnMountOrArgChange: true});
 
-
     useLayoutEffect(() => {
         setTimeout(() => {
             window.scrollTo(0, 0);
