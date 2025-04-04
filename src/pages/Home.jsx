@@ -151,12 +151,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
     return obj;
   };
 
-  /*const {
+  const {
     data: products = { items: [], totalCount: 0 },
     isLoading,
-  } = useGetProductsQuery(buildRequest());*/
-  const isLoading = false;
-  const products = { items: [], totalCount: 0 };
+  } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
     `+${minPriceParam}+${maxPriceParam}+${sortBy}+${colorsParam}+${brandsParam}+${gender}` || collection;
