@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import discountedPrice from "../components/DiscountedPrice/DiscountedPrice";
 
 const cacheItem = (item) => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -45,15 +46,16 @@ const unCacheItem = (item) => {
   }
 }
 
-const clearItems = (selectedIds) => {
-  const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-  const updatedItems = selectedIds?.length ? cachedItems.filter(el => !selectedIds?.includes(el.spuId)) : []
+const clearItems = (updatedItems) => {
   localStorage.setItem("cartItems", JSON.stringify(updatedItems));
 }
 
 const applyCacheDiscount = (updatedItems) => {
   localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+}
+
+const getRefreshedCartItems = (items) => {
+  return items.map((item) => ({...item, discountedPrice: null, discount: null}))
 }
 
 const getOptions = () => {
@@ -95,8 +97,10 @@ const getOptions = () => {
         state.items = state.items.filter(el => el.cartId !== payload.cartId);
       },
       clearCart(state, { payload }) {
-        clearItems(payload)
-        state.items = payload?.length ? state.items.filter(el => !payload?.includes(el.spuId)) : [];
+        let updatedItems = payload?.length ? state.items.filter(el => !payload?.includes(el.cartId)) : [];
+
+        state.items = getRefreshedCartItems(updatedItems);// clear discounts
+        clearItems(updatedItems)
       },
       applyCartDiscount(state, {payload}) {
         const discount = payload?.discount || "";
@@ -111,7 +115,7 @@ const getOptions = () => {
 
         state.items = updatedItems;
         applyCacheDiscount(updatedItems)
-      }
+      },
     }
   }
 }

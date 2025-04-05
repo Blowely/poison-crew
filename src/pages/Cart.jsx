@@ -82,6 +82,9 @@ function Cart() {
                 window.location.href = res.qrCode;
             }
 
+            setPromo('');
+            localStorage.removeItem('promo');
+
             dispatch(clearCart(selectedIds));
             setLoading(false);
 
