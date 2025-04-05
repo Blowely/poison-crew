@@ -151,20 +151,20 @@ const Order = () => {
 
                                     <Divider style={{margin: '10px 0'}}></Divider>
 
-                                    <div style={{display: "grid", gap: '7px'}}>
+                                    <div className="order-products-wrapper">
                                         {el?.products?.map((el, i) => {
                                             if (!el?.product) {
                                                 return null;
                                             }
 
                                             const product = el?.product || {};
-                                            totalPrice += el?.price  * (el?.count || 1);
+                                            totalPrice += el?.price * (el?.count || 1);
 
                                             return (
                                                 <div key={i} className="cart-product-info-payment">
                                                     <div style={{display: 'flex', gap: '7px'}}>
                                                         <img src={product?.images[0]}
-                                                             style={{width: '100px', cursor:"pointer"}}
+                                                             style={{width: '100px', cursor: "pointer"}}
                                                              alt=""
                                                              onClick={() => navigate(`/${gender}-products?spuId=${el?.product?.spuId}`)}
                                                         />

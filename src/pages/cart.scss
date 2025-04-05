@@ -151,7 +151,7 @@
     display: flex;
     justify-content: space-between;
     gap: 7px;
-    margin-bottom: 15px;
+    //margin-bottom: 15px;
 
     > div > img {
         object-fit: contain;
@@ -179,6 +179,11 @@
 
 .cart-order-info {
     background-color: white;
+    gap: 15px;
+}
+
+.order-products-wrapper {
+    display: grid;
     gap: 15px;
 }
 

@@ -113,51 +113,53 @@ const Orders = () => {
                                         <div style={{paddingBottom: '10px'}}>
                                             <StatusTag status={el?.status}/>
                                         </div>
-                                        {el?.products?.map((el, i) => {
-                                            if (!el?.product) {
-                                                return null
-                                            }
+                                        <div className="order-products-wrapper">
+                                            {el?.products?.map((el, i) => {
+                                                if (!el?.product) {
+                                                    return null
+                                                }
 
-                                            return (
-                                                <div key={i} className="cart-product-info">
-                                                    <div style={{display: 'flex', gap: '7px'}}>
-                                                        <img src={el?.product?.images[0]} style={{width: '100px'}} alt=""/>
-                                                        <div>
-                                                            <div style={{
-                                                                fontSize: '16px',
-                                                                marginBottom: '8px',
-                                                                cursor: 'pointer',
-                                                            }}>
-                                                                {el.product?.name}
-                                                            </div>
-                                                            <div style={{
-                                                                fontSize: '13px',
-                                                                color: "gray",
-                                                                marginBottom: '8px',
-                                                                cursor: 'pointer',
-                                                            }}>
-                                                                размер: {el?.size}
-                                                            </div>
-                                                            {el?.count > 1 &&
+                                                return (
+                                                    <div key={i} className="cart-product-info">
+                                                        <div style={{display: 'flex', gap: '7px'}}>
+                                                            <img src={el?.product?.images[0]} style={{width: '100px'}} alt=""/>
+                                                            <div>
+                                                                <div style={{
+                                                                    fontSize: '16px',
+                                                                    marginBottom: '8px',
+                                                                    cursor: 'pointer',
+                                                                }}>
+                                                                    {el.product?.name}
+                                                                </div>
                                                                 <div style={{
                                                                     fontSize: '13px',
                                                                     color: "gray",
+                                                                    marginBottom: '8px',
                                                                     cursor: 'pointer',
                                                                 }}>
-                                                                    количество: {el?.count || "1"}
+                                                                    размер: {el?.size}
                                                                 </div>
-                                                            }
+                                                                {el?.count > 1 &&
+                                                                    <div style={{
+                                                                        fontSize: '13px',
+                                                                        color: "gray",
+                                                                        cursor: 'pointer',
+                                                                    }}>
+                                                                        количество: {el?.count || "1"}
+                                                                    </div>
+                                                                }
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div>
-                                                        <div style={{fontWeight: '500', width: 'max-content'}}>
-                                                            {getPrice(el?.price * (el?.count || 1))}
+                                                        <div>
+                                                            <div style={{fontWeight: '500', width: 'max-content'}}>
+                                                                {getPrice(el?.price * (el?.count || 1))}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        })}
+                                                )
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
                                 {!isDesktopScreen && el?.status === PRODUCT_STATUS.PAID &&
