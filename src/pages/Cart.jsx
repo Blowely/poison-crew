@@ -71,7 +71,7 @@ function Cart() {
 
             const addOrderBody = {
               clientId: accountData?.account?._id,
-              products: cartItems.filter(el => selectedIds.includes(el.spuId)),
+              products: cartItems.filter(el => selectedIds.includes(el.cartId)),
               address: activeAddr,
               promo: promo,
             }
@@ -122,9 +122,9 @@ function Cart() {
     }
 
     const getOrderPrice = () => {
-        const selectedItems = cartItems.filter(el => selectedIds.includes(el.spuId));
+        const selectedItems = cartItems.filter(el => selectedIds.includes(el.cartId));
         let totalPrice = 0;
-        selectedItems.map((el) => totalPrice += el.price * (el?.count > 0 ? el.count : 1 ));
+        selectedItems.map((el) => totalPrice += (el?.discountedPrice || el.price) * (el?.count > 0 ? el.count : 1 ));
 
         return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(totalPrice.toString());
     }
@@ -135,7 +135,7 @@ function Cart() {
         message.success( 'Скопировано')
     }
 
-    const getFormattedCardNumber = () => {
+    /*const getFormattedCardNumber = () => {
         const number = BANKS[bank].card_number;
 
         return <span style={{display: "grid", gap: '8px'}}>
@@ -183,9 +183,9 @@ function Cart() {
             </div>
     }
 
-    /*const onPaymentLinkClick = () => {
+    const onPaymentLinkClick = () => {
         window.open(BANKS[bank].link);
-    }*/
+    }
 
     const items = [
         {
@@ -197,7 +197,7 @@ function Cart() {
             key: '2',
             label: 'Реквизиты',
             children: <CardNumberComponent/>,
-        },];
+        },];*/
 
     const onChange = (key) => {
         console.log(key);

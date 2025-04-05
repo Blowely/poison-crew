@@ -3,6 +3,7 @@ import {Button, Checkbox} from 'antd';
 import {DeleteOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {addToCart, decreaseCartItem} from "../../common/cartSlice";
 import {useAppDispatch} from "../../store";
+import DiscountedPrice from "../DiscountedPrice/DiscountedPrice";
 
 const CartItemComponent = (props) => {
     const { selectedIds, setSelectedIds, cartItems, gender, navigate, getPrice, removeFromCartHandler } = props;
@@ -11,14 +12,14 @@ const CartItemComponent = (props) => {
 
     // Инициализация выбранных элементов
     useEffect(() => {
-        const initialIds = (cartItems || []).map(item => item.spuId);
+        const initialIds = (cartItems || []).map(item => item.cartId);
         setSelectedIds(initialIds);
     }, [cartItems]);
 
     // Обработчик выбора всех
     const handleSelectAll = (e) => {
         if (e.target.checked) {
-            const allIds = (cartItems || []).map(item => item.spuId);
+            const allIds = (cartItems || []).map(item => item.cartId);
             setSelectedIds(allIds);
         } else {
             setSelectedIds([]);
@@ -26,10 +27,10 @@ const CartItemComponent = (props) => {
     };
 
     // Переключение отдельного элемента
-    const handleToggleItem = (spuId) => {
-        setSelectedIds(prev => prev.includes(spuId)
-            ? prev.filter(id => id !== spuId)
-            : [...prev, spuId]
+    const handleToggleItem = (cartId) => {
+        setSelectedIds(prev => prev.includes(cartId)
+            ? prev.filter(id => id !== cartId)
+            : [...prev, cartId]
         );
     };
 
@@ -58,7 +59,7 @@ const CartItemComponent = (props) => {
 
     const decreaseCartItemHandler = (product, size) => {
         const cartId = `${product.spuId}-${size}`;
-        console.log('cartId123',cartId)
+
         const obj = {
             ...product,
             cartId,
@@ -90,8 +91,8 @@ const CartItemComponent = (props) => {
                     }}>
                         {/* Чекбокс товара */}
                         <Checkbox
-                            checked={selectedIds.includes(el.spuId)}
-                            onChange={() => handleToggleItem(el.spuId)}
+                            checked={selectedIds.includes(el.cartId)}
+                            onChange={() => handleToggleItem(el.cartId)}
                             style={{
                                 marginTop: '4px',
                                 position: 'absolute',
@@ -155,13 +156,22 @@ const CartItemComponent = (props) => {
                             alignItems: 'flex-end',
                             gap: '8px'
                         }}>
-                        <div style={{fontWeight: '500'}}>{getPrice(el?.price * (el?.count || 1))}</div>
-                            <div id="delete-icon-wrapper">
-                                <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/remove-cropped.png"
-                                     onClick={() => removeFromCartHandler(el)}
-                                     alt="delete"
-                                />
-                            </div>
+                        <div style={{fontWeight: '500', textDecoration: el?.discountedPrice && "line-through"}}>
+                            {getPrice(el?.price * (el?.count || 1))}
+                        </div>
+                        {el?.discountedPrice &&
+                            <DiscountedPrice
+                                discountedPrice={el.discountedPrice}
+                                discount={el.discount}
+                                count={el?.count || 1}
+                            />
+                        }
+                        <div id="delete-icon-wrapper">
+                            <img src="https://storage.yandexcloud.net/pc-mediafiles/icons/v2/remove-cropped.png"
+                                 onClick={() => removeFromCartHandler(el)}
+                                 alt="delete"
+                            />
+                        </div>
                         </div>
                     </div>
                 </div>

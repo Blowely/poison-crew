@@ -1,0 +1,28 @@
+.discounted-price-wrapper {
+  display: flex;
+  gap: 6px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
+  color: #fff;
+  background-color: #f93c00;
+  padding: 0 3px;
+  transform: skew(-7deg);
+  position: relative;
+  max-width: 100%;
+  height: 14px;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  font-size: 8px;
+  align-self: center;
+  border-radius: 4px;
+}
