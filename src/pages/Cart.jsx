@@ -13,7 +13,7 @@ import {useAddOrderMutation} from "../store/orders.store";
 import ChoiceAddressModal from "./ChoiceAddressModal";
 import {cleanAddresses} from "../common/accountSlice";
 import AuthModal from "./AuthModal";
-import {clearCart, removeFromCart} from "../common/cartSlice";
+import {applyCartDiscount, clearCart, removeFromCart} from "../common/cartSlice";
 import {iosCopyToClipboard} from "../common/utils";
 import {BANKS} from "./constants";
 import PromoCode from "../components/PromoCode/PromoCode";
@@ -30,7 +30,7 @@ function Cart() {
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
-    const [promoCode, setPromoCode] = useState('');
+    const [promo, setPromo] = useState('');
     const [phone, setPhone] = useState('');
     const [step, setStep] = useState(0);
     const [bank, setBank] = useState('t-bank');
@@ -73,7 +73,7 @@ function Cart() {
               clientId: accountData?.account?._id,
               products: cartItems.filter(el => selectedIds.includes(el.spuId)),
               address: activeAddr,
-              promoCode: promoCode,
+              promo: promo,
             }
 
             const res = await addOrder(addOrderBody).unwrap();
@@ -211,6 +211,10 @@ function Cart() {
         dispatch(removeFromCart(el));
     }
 
+    const applyDiscount = (discount) => {
+        dispatch(applyCartDiscount({discount}));
+    }
+
     const isDesktopScreen = window?.innerWidth > 768;
 
     return (
@@ -285,7 +289,7 @@ function Cart() {
 
                             {!!cartItems.length && (
                                 <div>
-                                    <PromoCode/>
+                                    <PromoCode promo={promo} setPromo={setPromo} applyDiscount={applyDiscount}/>
                                     <div className="cart-product-info-submit-btn-wrapper">
                                         <div className="cart-product-info-submit-confirm-oferta">
                                             Нажимая на кнопку "Оплатить", Вы принимаете {' '}
@@ -330,7 +334,7 @@ function Cart() {
                             />
                             {!!cartItems.length && (
                                 <div>
-                                    <PromoCode/>
+                                    <PromoCode promo={promo} setPromo={setPromo} applyDiscount={applyDiscount}/>
                                     <div className="product-info__item standart" style={{marginTop: '15px'}}>
                                         <DeliverBlock/>
                                     </div>

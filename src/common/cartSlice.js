@@ -52,6 +52,10 @@ const clearItems = (selectedIds) => {
   localStorage.setItem("cartItems", JSON.stringify(updatedItems));
 }
 
+const applyCacheDiscount = (updatedItems) => {
+  localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+}
+
 const getOptions = () => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -93,6 +97,20 @@ const getOptions = () => {
       clearCart(state, { payload }) {
         clearItems(payload)
         state.items = payload?.length ? state.items.filter(el => !payload?.includes(el.spuId)) : [];
+      },
+      applyCartDiscount(state, {payload}) {
+        const discount = payload?.discount || "";
+        if (!discount || discount?.length < 2) return;
+
+        const updatedItems = state.items.map(el => {
+          if (!el?.price) return el;
+
+          const discountedPrice = Math.trunc(el.price * (1 -`${0}.${discount}`))
+          return {...el, discountedPrice, discount: discount}
+        });
+
+        state.items = updatedItems;
+        applyCacheDiscount(updatedItems)
       }
     }
   }
@@ -100,4 +118,10 @@ const getOptions = () => {
 
 export const cartSlice = createSlice(getOptions())
 
-export const {addToCart, removeFromCart, clearCart, decreaseCartItem} = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  decreaseCartItem,
+  applyCartDiscount
+} = cartSlice.actions;
