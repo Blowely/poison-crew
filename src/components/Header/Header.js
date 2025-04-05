@@ -35,7 +35,6 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
             .then(res => setOptions(res.data.suggested?.map(el => ({value: el}))))
             .catch(err => setOptions(defaultOptions));
 
-        console.log('value1', value)
         setSearchValue(value);
         onSearch(value);
         setLoading(true);
@@ -94,7 +93,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
         <div className="header-input-wrapper">
             {isDesktopScreen && <Button id="desktop-category-btn" onClick={onCategoriesClick}><MenuOutlined /> Каталог</Button>}
             <AutoComplete
-                style={{width: '100%'}}
+                style={{width: '100%', height: 'auto'}}
                 options={options}
                 filterOption={(inputValue, option) => {
                     return option?.value?.toUpperCase()?.indexOf(inputValue?.toUpperCase()) !== -1

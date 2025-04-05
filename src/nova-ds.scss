@@ -187,3 +187,7 @@ footer {
 .ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
   background: #00d1d2;
 }
+
+.ant-result-info .ant-result-icon > .anticon {
+  color: rgb(1, 194, 195) !important;
+}

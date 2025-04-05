@@ -137,6 +137,13 @@
   font-size: small;
 }
 
+.ant-select-single .ant-select-selector .ant-select-selection-search-input {
+  @media (max-width: 768px) {
+    height: 32px;
+  }
+}
+
+
 .info-block-wrapper {
   height: 33px;
   color: #636363;

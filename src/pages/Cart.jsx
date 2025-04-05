@@ -30,6 +30,7 @@ function Cart() {
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
+    const [promoCode, setPromoCode] = useState('');
     const [phone, setPhone] = useState('');
     const [step, setStep] = useState(0);
     const [bank, setBank] = useState('t-bank');
@@ -72,6 +73,7 @@ function Cart() {
               clientId: accountData?.account?._id,
               products: cartItems.filter(el => selectedIds.includes(el.spuId)),
               address: activeAddr,
+              promoCode: promoCode,
             }
 
             const res = await addOrder(addOrderBody).unwrap();
