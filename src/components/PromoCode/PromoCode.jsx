@@ -13,7 +13,6 @@ const PromoCode = ({promo, setPromo, applyDiscount}) => {
     const onApplyCode = async () => {
         setLoading(true);
         axios.get("https://api.re-poizon.ru/api/promo?code=" + promo).then((res) => {
-        //axios.get("http://localhost:3001/api/promo?code=" + promo).then((res) => {
             if (res?.data?.status === true) {
                 notification.open({duration: 1.5, type: 'success', message:'Промокод применен'})
                 applyDiscount(res?.data?.discount);

@@ -25,12 +25,13 @@ import CartItemComponent from "../components/CartItemComponent/CartItemComponent
 function Cart() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const cachedPromo = localStorage.getItem('promo') || '';
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [isCodeModalOpen, setCodeModalOpen] = useState(false);
     const [isChoiceAddressModalOpen, setChoiceAddressModalOpen] = useState(false);
     const [activeAddr, setActiveAddr] = useState('');
-    const [promo, setPromo] = useState('');
+    const [promo, setPromo] = useState(cachedPromo || '');
     const [phone, setPhone] = useState('');
     const [step, setStep] = useState(0);
     const [bank, setBank] = useState('t-bank');
@@ -67,7 +68,6 @@ function Cart() {
             if (!cartItems.length) {
               return notification.open({duration: 2, type: 'error', message:'Товары не выбраны'})
             }
-
 
             const addOrderBody = {
               clientId: accountData?.account?._id,
@@ -213,6 +213,7 @@ function Cart() {
 
     const applyDiscount = (discount) => {
         dispatch(applyCartDiscount({discount}));
+        localStorage.setItem('promo', promo);
     }
 
     const isDesktopScreen = window?.innerWidth > 768;

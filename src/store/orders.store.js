@@ -18,10 +18,10 @@ export const ordersApi = createApi({
       invalidatesTags: (result, error, arg) => [{ type: "Order", id: arg }],
     }),
     addOrder: builder.mutation({
-      query: ({ clientId, products, address }) => ({
+      query: ({ clientId, products, address, promo }) => ({
         url: "/orders",
         method: "POST",
-        body: JSON.stringify({ clientId, products, address }),
+        body: JSON.stringify({ clientId, products, address, promo }),
       }),
     }),
     updateStatus: builder.mutation({
