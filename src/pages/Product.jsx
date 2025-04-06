@@ -524,8 +524,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                     />
                   }
 
-
-
                   {isDesktopScreen && <div style={{width: '100%'}}>
                   <div className="item-details-wrapper">
                     <ItemDetails details={product?.productProperties} style={{marginTop: '50px'}}/>
