@@ -157,7 +157,7 @@ function Address() {
                 onClick={() =>
                     window?.boxberry?.open(
                         onChangeBoxBerry,
-                        "1$nMlzaV3e47EGmeeeJDUgIyPySEMtnJm2",
+                        "1$84r4cMUZm0PRtVGegwW8Pm3IT5Z9tSs3",
                         "Москва",
                         "",
                         1000,
