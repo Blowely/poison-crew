@@ -12,8 +12,8 @@ import {
   getCategoryClickedLink,
   getCheapestElOfSize,
   getCurrentPriceOfSize,
-  getIntPrice,
-  normalizeSize
+  getIntPrice, groupVariationsByColor,
+  normalizeSize, processProduct, transformProductForVariations
 } from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS, CATEGORIES} from "../components/constants";
@@ -27,6 +27,7 @@ import ProductGallery from "../components/CarouselDesktop/CarouselDesktop";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import CartButton from "../components/CartButton/CartButton";
 import PoizonVerifiedBlock from "../components/PoizonVerifiedBlock/PoizonVerifiedBlock";
+import ProductColorSelectorV2 from "../components/ProductColorSelectorV2/ProductColorSelectorV2";
 
 function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () => {} }) {
   const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const [product, setProduct] = useState({});
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [productVariations, setProductVariations] = useState([]);
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
@@ -74,6 +76,12 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   useEffect(() => {
     const currentProduct = product;
     console.log('currentProduct',currentProduct)
+    const processedProduct = processProduct(currentProduct);
+    const variationsByColor  = groupVariationsByColor(processedProduct);
+    setProductVariations(variationsByColor);
+    console.log('processedProduct',processedProduct)
+    console.log('variationsByColor',variationsByColor)
+
     if (!currentProduct?.skus?.length) {
       return;
     }
@@ -574,6 +582,10 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
                   {!isDesktopScreen &&
                       <div style={{display: 'grid', gap: '10px'}}>
+                        <ProductColorSelectorV2
+                            variants={productVariations}
+                            onSelect={(variant, size) => console.log('Selected:', variant, size)}
+                        />
                         <div className={"product-info__item standart"}>
                           {!isDesktopScreen &&
                               <div className="title">
@@ -771,8 +783,16 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                       </div>
                   }
 
-                  {!isDesktopScreen &&
-                      <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href}/>}
+                  {!isDesktopScreen && productVariations &&
+                      <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href}/>
+                  }
+
+                  {isDesktopScreen &&
+                      <ProductColorSelectorV2
+                          variants={productVariations}
+                          onSelect={(group, size) => console.log('Selected:', group, size)}
+                      />
+                  }
 
                   {isDesktopScreen && !!sizesAndPrices?.length && sizesAndPrices[0]?.size !== 'Стандарт' &&
                       <div className="product-info__item">

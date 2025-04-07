@@ -1,0 +1,82 @@
+// ColorSelector.scss
+.product-color-selector {
+  width: 100%;
+
+  @media (max-width: 768px) {
+    overflow: auto;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  &__grid {
+    /*display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));*/
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    @media (max-width: 768px) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__card {
+    border-radius: 20px;
+    transition: border 0.3s, box-shadow 0.3s;
+
+    @media (max-width: 768px) {
+      border-radius: 10px;
+      background: white;
+      border: 1px solid #f1f1f1;
+      height: 60px;
+      min-width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &--selected {
+      border: 1px solid rgb(1, 194, 195);
+      //box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    img {
+      height: 70px;
+      object-fit: contain;
+      border-radius: 20px 20px 0 0!important;
+
+      @media (max-width: 768px) {
+        height: 40px;
+        border-radius: 20px!important;
+      }
+    }
+  }
+
+  &__label {
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 14px;
+    color: #333;
+  }
+}
+
+
+.ant-card-bordered .ant-card-cover {
+  margin-top: 3px;
+  padding: 12px 12px 0 12px;
+  margin-inline-start: unset;
+  margin-inline-end: unset;
+}
+
+.ant-card .ant-card-body {
+padding: 12px;
+}

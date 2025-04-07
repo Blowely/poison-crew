@@ -178,3 +178,107 @@ export const checkAuthProfileClick = () => {
 export const getCategoryClickedLink = (level, id, name) => {
   return `?category${level}Id=${id}&categoryName=${name}`;
 }
+
+export function processProduct(product) {
+  try {
+    // Проверка структуры данных
+    if (!product?.spuId || !Array.isArray(product?.skus) || !Array.isArray(product?.properties?.skus)) {
+      throw new Error('Invalid product data structure');
+    }
+
+    return product.skus.map(sku => {
+      // Находим соответствующий SKU в properties.skus
+      const propertySku = product.properties.skus.find(p => p.skuId === sku.skuId) || {};
+
+      // Извлекаем размер (typeId: 6) и цвет (typeId: 1) если нужно
+      const properties = {
+        size: propertySku.properties?.find(p => p.typeId === 6)?.value || 'N/A',
+        color: propertySku.properties?.find(p => p.typeId === 1)?.value || 'N/A'
+      };
+
+      return {
+        spuId: product.spuId,
+        skuId: sku.skuId,
+        price: sku.price ?? 0, // Используем оператор ?? для null/undefined
+        size: properties.size,
+        color: properties.color, // Добавили цвет для информации
+        images: Array.isArray(sku.images) ? sku.images : [],
+        inStock: sku.price > 0 // Простая проверка наличия
+      };
+    });
+  } catch (error) {
+    console.error('Error processing product:', error);
+    return [];
+  }
+}
+
+export function groupVariationsByColor(products) {
+  const colorGroups = {};
+
+  // Группируем товары по цвету
+  for (const product of products) {
+    const color = product.color;
+
+    if (!colorGroups[color]) {
+      colorGroups[color] = {
+        color: color,
+        images: product.images, // Берем изображения из первого товара в группе
+        sizes: [],
+        priceRange: { min: Infinity, max: -Infinity }, // Для диапазона цен
+        inStock: false // Будет true, если есть хотя бы один товар в наличии
+      };
+    }
+
+    // Добавляем размер
+    colorGroups[color].sizes.push({
+      size: product.size,
+      skuId: product.skuId,
+      price: product.price,
+      inStock: product.inStock
+    });
+
+    // Обновляем информацию о наличии
+    if (product.inStock) {
+      colorGroups[color].inStock = true;
+    }
+
+    // Обновляем диапазон цен
+    if (product.price < colorGroups[color].priceRange.min) {
+      colorGroups[color].priceRange.min = product.price;
+    }
+    if (product.price > colorGroups[color].priceRange.max) {
+      colorGroups[color].priceRange.max = product.price;
+    }
+  }
+
+  // Преобразуем объект в массив и сортируем размеры
+  return Object.values(colorGroups).map(group => ({
+    ...group,
+    sizes: group.sizes.sort((a, b) => a.size.localeCompare(b.size)),
+    // Если минимальная и максимальная цена совпадают - возвращаем одно значение
+    price: group.priceRange.min === group.priceRange.max
+        ? group.priceRange.min
+        : `${group.priceRange.min} - ${group.priceRange.max}`
+  }));
+}
+
+// Пример использования
+const products = [/* ваш массив объектов */];
+const variationsByColor = groupVariationsByColor(products);
+console.log(variationsByColor);
+
+// Использование:
+
+// Пример использования с обработкой ошибок:
+// try {
+//   const variants = processProduct(largeProductData);
+//   console.log('Processed variants:', variants);
+//   console.log('Total variants:', variants.length);
+// } catch (e) {
+//   console.error('Failed to process product:', e);
+// }
+
+// Пример использования:
+// const productData = { ... }; // Ваши данные товара
+// const processedVariants = processProduct(productData);
+// console.log(processedVariants);
