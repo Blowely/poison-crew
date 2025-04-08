@@ -3,13 +3,13 @@ import { Card } from "antd";
 import classNames from "classnames";
 import "./ProductColorSelectorV2.scss";
 
-const ProductColorSelectorV2 = ({ variants, selectedColor, onSelect }) => {
+const ProductColorSelectorV2 = ({ variants, selectedVariation, onSelect }) => {
     const isDesktopScreen = window?.innerWidth > 768;
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(null);
 
     const onCardClick = (variant, index) => {
-     onSelect(variant);
-     setSelectedIndex(index);
+         onSelect(variant);
+         setSelectedIndex(index);
     }
 
     return (
@@ -17,7 +17,10 @@ const ProductColorSelectorV2 = ({ variants, selectedColor, onSelect }) => {
             {isDesktopScreen && <h4 className="product-color-selector__title">Цвет:</h4>}
             <div className="product-color-selector__grid">
                 {variants.filter(el => el.inStock).map((variant, index) => {
-                    const isSelected = selectedIndex === index;
+                    console.log('selectedVariation?.color=',selectedVariation?.color)
+                    const selectedIndexParam = selectedVariation?.color === variant?.color ? index : null;
+
+                    const isSelected = selectedIndexParam === index;
                     const img = `${variant.images?.[0]}?x-oss-process=image/format,webp/resize,w_140`;
 
                     if (!isDesktopScreen) {
@@ -33,7 +36,7 @@ const ProductColorSelectorV2 = ({ variants, selectedColor, onSelect }) => {
                                 </div>
                         )
                     }
-
+                    console.log('isSelected',isSelected)
                     return (
                         <Card
                             key={index}

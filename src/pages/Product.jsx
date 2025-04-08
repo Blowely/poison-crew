@@ -33,7 +33,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [choice, setChoice] = useState({});
   const [measureOpen, setMeasureOpen] = useState(false);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
@@ -46,7 +46,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
-  const color = searchParams.get("color");
+  const colorParam = searchParams.get("color");
   const gender = localStorage.getItem("gender") || "men";
 
   const token = localStorage.getItem("token");
@@ -85,7 +85,12 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     setProductVariations(variationsByColor);
 
     if (!selectedVariation) {
-      setSelectedVariation(variationsByColor[0]);
+      if (colorParam) {
+        const colorIndex = variationsByColor.findIndex((el) => el.color === colorParam);
+        setSelectedVariation(colorIndex >= 0 ? variationsByColor[colorIndex] : variationsByColor[0]);
+      } else {
+        setSelectedVariation(variationsByColor[0]);
+      }
     }
 
     console.log('variationsByColor',variationsByColor)
@@ -374,6 +379,9 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
   const onChangeVariations = (variant) => {
     setSelectedVariation(variant);
+    console.log('variant',variant)
+    searchParams.set("color", variant.color);
+    setSearchParams(searchParams);
   }
 
   return (
@@ -600,7 +608,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                           <ProductColorSelectorV2
                             variants={productVariations}
                             onSelect={onChangeVariations}
-                            selectedColor={selectedVariation}
+                            selectedVariation={selectedVariation}
                           />
                         }
                         <div className={"product-info__item standart"}>
@@ -808,7 +816,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                       <ProductColorSelectorV2
                           variants={productVariations}
                           onSelect={onChangeVariations}
-                          selectedColor={selectedVariation}
+                          selectedVariation={selectedVariation}
                       />
                   }
 
