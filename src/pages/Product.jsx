@@ -812,7 +812,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                       <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href}/>
                   }
 
-                  {productVariations?.length > 1  &&
+                  {isDesktopScreen && productVariations?.length > 1  &&
                       <ProductColorSelectorV2
                           variants={productVariations}
                           onSelect={onChangeVariations}

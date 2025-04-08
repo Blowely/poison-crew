@@ -14,7 +14,7 @@ const ProductColorSelectorV2 = ({ variants, selectedVariation, onSelect }) => {
 
     return (
         <div className="product-color-selector">
-            {isDesktopScreen && <h4 className="product-color-selector__title">Цвет:</h4>}
+            {isDesktopScreen && <div className="product-color-selector__title">Цвет</div>}
             <div className="product-color-selector__grid">
                 {variants.filter(el => el.inStock).map((variant, index) => {
                     console.log('selectedVariation?.color=',selectedVariation?.color)
