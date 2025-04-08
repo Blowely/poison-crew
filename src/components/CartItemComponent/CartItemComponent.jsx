@@ -41,7 +41,7 @@ const CartItemComponent = (props) => {
     }
 
     const onAddToCart = (product, size, price) => {
-        if (getCartItemNumberCount(product, size) === 3) return;
+        if (getCartItemNumberCount(product, size) === 2) return;
 
         if (!price) {
             return;

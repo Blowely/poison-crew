@@ -21,7 +21,7 @@ const ProductColorSelectorV2 = ({ variants, selectedVariation, onSelect }) => {
                     const selectedIndexParam = selectedVariation?.color === variant?.color ? index : null;
 
                     const isSelected = selectedIndexParam === index;
-                    const img = `${variant.images?.[0]}?x-oss-process=image/format,webp/resize,w_140`;
+                    const img = `${variant.images?.[0]}?x-oss-process=image/format,webp/resize,w_110`;
 
                     if (!isDesktopScreen) {
                         return (<div

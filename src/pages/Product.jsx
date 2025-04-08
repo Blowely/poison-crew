@@ -182,7 +182,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   }, []);
 
   const onAddToCart = () => {
-    if (getCartItemNumberCount(product, choice?.size) === 3) return;
+    if (getCartItemNumberCount(product, choice?.size) === 2) return;
 
     if (!choice?.price) {
       return;
