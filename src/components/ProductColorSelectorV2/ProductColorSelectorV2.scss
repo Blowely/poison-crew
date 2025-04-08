@@ -80,3 +80,9 @@
 .ant-card .ant-card-body {
 padding: 12px;
 }
+
+.ant-card-body--disabled {
+  .ant-card-body {
+    padding: 6px!important;
+  }
+}

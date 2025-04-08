@@ -13,7 +13,7 @@ import {
   getCheapestElOfSize,
   getCurrentPriceOfSize,
   getIntPrice, groupVariationsByColor,
-  normalizeSize, processProduct, transformProductForVariations
+  normalizeSize, processProduct
 } from "../common/utils";
 import ItemDetails from "../components/ItemDetails/ItemDetails";
 import {BRANDS, CATEGORIES} from "../components/constants";
@@ -42,6 +42,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [productVariations, setProductVariations] = useState([]);
+  const [selectedVariation, setSelectedVariation] = useState({});
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
@@ -362,6 +363,10 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     </div>
   }, [cartItems]);
 
+  const onChangeVariations = (variant) => {
+    setSelectedVariation(variant);
+  }
+
   return (
     <div style={{height: '100%'}} ref={productLayoutRef}>
       {/*{!token && (
@@ -584,7 +589,8 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                       <div style={{display: 'grid', gap: '10px'}}>
                         <ProductColorSelectorV2
                             variants={productVariations}
-                            onSelect={(variant, size) => console.log('Selected:', variant, size)}
+                            onSelect={onChangeVariations}
+                            selectedColor={selectedVariation}
                         />
                         <div className={"product-info__item standart"}>
                           {!isDesktopScreen &&

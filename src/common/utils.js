@@ -192,8 +192,8 @@ export function processProduct(product) {
 
       // Извлекаем размер (typeId: 6) и цвет (typeId: 1) если нужно
       const properties = {
-        size: propertySku.properties?.find(p => p.typeId === 6)?.value || 'N/A',
-        color: propertySku.properties?.find(p => p.typeId === 1)?.value || 'N/A'
+        size: propertySku.properties?.find(p => p.typeId === 6)?.value || null,
+        color: propertySku.properties?.find(p => p.typeId === 1)?.value || null
       };
 
       return {

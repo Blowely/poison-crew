@@ -40,10 +40,11 @@ const ProductColorSelectorV2 = ({ variants, selectedColor, onSelect }) => {
                             className={classNames("product-color-selector__card", {
                                 "product-color-selector__card--selected": isSelected,
                                 "product-color-selector__card--disabled": !variant.inStock,
+                                "ant-card-body--disabled": !variant.color,
                             })}
                             cover={<img src={img} alt={variant.color} />}
                         >
-                            {isDesktopScreen && <div className="product-color-selector__label">{variant.color}</div>}
+                            {isDesktopScreen && variant.color && <div className="product-color-selector__label">{variant.color}</div>}
                         </Card>
                     );
                 })}
