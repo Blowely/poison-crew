@@ -276,8 +276,8 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   }
 
   const goBack = () => {
-    if (window?.history?.length === 2) {
-      return navigate("/");
+    if (window?.history?.length <= 1) {
+      return navigate(`/${gender}-products`);
     }
 
     window.history.go(-1);
