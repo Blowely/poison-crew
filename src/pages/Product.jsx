@@ -90,10 +90,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
     console.log('variationsByColor',variationsByColor)
 
-    if (variationsByColor.length > 1) {
-
-    }
-
     if (!selectedVariationItem?.sizes?.length) {
       return;
     }
