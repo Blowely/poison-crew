@@ -22,13 +22,15 @@ const ProductColorSelectorV2 = ({ variants, selectedColor, onSelect }) => {
 
                     if (!isDesktopScreen) {
                         return (<div
-                            className={classNames("product-color-selector__card", {
-                                "product-color-selector__card--selected": isSelected,
-                                "product-color-selector__card--disabled": !variant.inStock,
-                            })}
-                            >
-                                <img src={img} alt={variant.color} />
-                            </div>
+                                    key={index}
+                                    onClick={() => onCardClick(variant,index)}
+                                    className={classNames("product-color-selector__card", {
+                                    "product-color-selector__card--selected": isSelected,
+                                    "product-color-selector__card--disabled": !variant.inStock,
+                                    })}
+                                >
+                                    <img src={img} alt={variant.color} />
+                                </div>
                         )
                     }
 

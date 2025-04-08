@@ -42,10 +42,11 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const [sizesAndPrices, setSizesAndPrices] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [productVariations, setProductVariations] = useState([]);
-  const [selectedVariation, setSelectedVariation] = useState({});
+  const [selectedVariation, setSelectedVariation] = useState(null);
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
+  const color = searchParams.get("color");
   const gender = localStorage.getItem("gender") || "men";
 
   const token = localStorage.getItem("token");
@@ -79,17 +80,27 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     console.log('currentProduct',currentProduct)
     const processedProduct = processProduct(currentProduct);
     const variationsByColor  = groupVariationsByColor(processedProduct);
+    const selectedVariationItem =  selectedVariation || variationsByColor[0];
+
     setProductVariations(variationsByColor);
-    console.log('processedProduct',processedProduct)
+
+    if (!selectedVariation) {
+      setSelectedVariation(variationsByColor[0]);
+    }
+
     console.log('variationsByColor',variationsByColor)
 
-    if (!currentProduct?.skus?.length) {
+    if (variationsByColor.length > 1) {
+
+    }
+
+    if (!selectedVariationItem?.sizes?.length) {
       return;
     }
 
-    let handledSizesAndPrices = currentProduct?.skus || []
+    //let handledSizesAndPrices = currentProduct?.skus || []
 
-    if (!currentProduct?.skus?.[0]?.size || !Object.keys(currentProduct?.skus?.[0]?.size)?.length) {
+    /*if (!currentProduct?.skus?.[0]?.size || !Object.keys(currentProduct?.skus?.[0]?.size)?.length) {
       const propertyTypeSizeIndex = currentProduct?.properties?.propertyTypes.findIndex((type) => type.name === "Размер");
       const sizesValues = currentProduct?.properties?.propertyTypes[propertyTypeSizeIndex]?.values;
 
@@ -105,7 +116,9 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     // For bags and else
     if (currentProduct?.skus?.length === 1 && currentProduct?.skus[0].price) {
       handledSizesAndPrices = [{size: 'Стандарт', index: 0, price: currentProduct?.skus[0].price}]
-    }
+    }*/
+
+    const handledSizesAndPrices = selectedVariationItem.sizes;
 
     const sortedHandledSizesAndPrices = [
       ...new Map(
@@ -161,7 +174,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     } else if (prevUpdatedAtRef.current !== currentProduct?.updatedAt) {
       prevUpdatedAtRef.current = currentProduct?.updatedAt;
     }
-  }, [product]);
+  }, [product, selectedVariation]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -524,14 +537,14 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
                   {isDesktopScreen &&
                       <ProductGallery
-                          images={remoteProduct?.images || selectedProduct?.images}
+                        images={selectedVariation?.images || []}
                         onLoad={onLoadCarousel}
                         onError={onLoadCarousel}
                     />
                   }
                   {!isDesktopScreen &&
                     <SwiperCarousel
-                        images={remoteProduct?.images || selectedProduct?.images}
+                        images={selectedVariation?.images || []}
                         onLoad={onLoadCarousel}
                         onError={onLoadCarousel}
                     />
@@ -587,11 +600,13 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
                   {!isDesktopScreen &&
                       <div style={{display: 'grid', gap: '10px'}}>
-                        <ProductColorSelectorV2
+                        {productVariations?.length > 1  &&
+                          <ProductColorSelectorV2
                             variants={productVariations}
                             onSelect={onChangeVariations}
                             selectedColor={selectedVariation}
-                        />
+                          />
+                        }
                         <div className={"product-info__item standart"}>
                           {!isDesktopScreen &&
                               <div className="title">
@@ -793,10 +808,11 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                       <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href}/>
                   }
 
-                  {isDesktopScreen &&
+                  {productVariations?.length > 1  &&
                       <ProductColorSelectorV2
                           variants={productVariations}
-                          onSelect={(group, size) => console.log('Selected:', group, size)}
+                          onSelect={onChangeVariations}
+                          selectedColor={selectedVariation}
                       />
                   }
 
