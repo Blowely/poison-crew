@@ -43,6 +43,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const [isScrolled, setIsScrolled] = useState(false);
   const [productVariations, setProductVariations] = useState([]);
   const [selectedVariation, setSelectedVariation] = useState(null);
+  const [selectedSku, setSelectedSku] = useState(null);
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
