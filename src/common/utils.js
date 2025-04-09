@@ -107,7 +107,7 @@ export const getCheapestElOfSize = (sizes = []) => {
     }
   });
 
-  return {size: cheapestEl.size?.eu || cheapestEl?.size || '',  price: cheapestEl.price, index: cheapestIndex};
+  return {size: cheapestEl.size?.eu || cheapestEl?.size || '',  price: cheapestEl.price, index: cheapestIndex, skuId: cheapestEl?.skuId || ""};
 };
 
 export const useFirstRender = () => {
@@ -262,23 +262,38 @@ export function groupVariationsByColor(products) {
   }));
 }
 
-// Пример использования
-const products = [/* ваш массив объектов */];
-const variationsByColor = groupVariationsByColor(products);
-console.log(variationsByColor);
+export function findVariantBySkuId(variations, skuId) {
+  // Проверяем входные данные
+  if (!Array.isArray(variations)) {
+    console.error('Ошибка: variations должен быть массивом');
+    return null;
+  }
 
-// Использование:
+  if (typeof skuId !== 'number') {
+    console.error('Ошибка: skuId должен быть числом');
+    return null;
+  }
 
-// Пример использования с обработкой ошибок:
-// try {
-//   const variants = processProduct(largeProductData);
-//   console.log('Processed variants:', variants);
-//   console.log('Total variants:', variants.length);
-// } catch (e) {
-//   console.error('Failed to process product:', e);
-// }
+  // Ищем во всех вариациях
+  for (const variation of variations) {
+    // Проверяем наличие sizes в вариации
+    if (!variation.sizes || !Array.isArray(variation.sizes)) {
+      continue;
+    }
 
-// Пример использования:
-// const productData = { ... }; // Ваши данные товара
-// const processedVariants = processProduct(productData);
-// console.log(processedVariants);
+    // Ищем в размерах текущей вариации
+    const foundSize = variation.sizes.find(size => size.skuId === skuId);
+
+    if (foundSize) {
+      // Возвращаем объект с информацией о вариации и размере
+      return {
+        ...variation,
+        size: foundSize
+      };
+    }
+  }
+
+  // Если ничего не нашли
+  console.warn(`Вариант с skuId ${skuId} не найден`);
+  return null;
+}

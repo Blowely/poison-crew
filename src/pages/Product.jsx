@@ -5,10 +5,11 @@ import {useGetProductQuery, useParseProductQuery} from "../store/products.store"
 import "./product.scss";
 import {ArrowLeftOutlined, LoadingOutlined} from "@ant-design/icons";
 import {useAppDispatch, useAppSelector} from "../store";
-import {addToCart, decreaseCartItem, removeFromCart} from "../common/cartSlice";
+import {addToCart, decreaseCartItem} from "../common/cartSlice";
 import SwiperCarousel from "../components/Carousel/SwiperCarousel";
 import MeasureTable from "../components/MeasureTable/MeasureTable";
 import {
+  findVariantBySkuId,
   getCategoryClickedLink,
   getCheapestElOfSize,
   getCurrentPriceOfSize,
@@ -43,14 +44,15 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const [isScrolled, setIsScrolled] = useState(false);
   const [productVariations, setProductVariations] = useState([]);
   const [selectedVariation, setSelectedVariation] = useState(null);
-  const [selectedSku, setSelectedSku] = useState(null);
 
   const spuId = searchParams.get("spuId");
   const sizesParam = searchParams.get("sizes");
   const colorParam = searchParams.get("color");
-  const gender = localStorage.getItem("gender") || "men";
+  const skuParam = searchParams.get("sku") || null;
 
+  const gender = localStorage.getItem("gender") || "men";
   const token = localStorage.getItem("token");
+
   const prevUpdatedAtRef = useRef(null);
   const productLayoutRef = useRef(null);
 
@@ -89,6 +91,9 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
       if (colorParam) {
         const colorIndex = variationsByColor.findIndex((el) => el.color === colorParam);
         setSelectedVariation(colorIndex >= 0 ? variationsByColor[colorIndex] : variationsByColor[0]);
+      } else if (skuParam) {
+        const foundVariation = findVariantBySkuId(variationsByColor, Number(skuParam));
+        setSelectedVariation(foundVariation);
       } else {
         setSelectedVariation(variationsByColor[0]);
       }
@@ -139,26 +144,27 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
       }
     });
 
-    //console.log('sortedHandledSizesAndPrices',sortedHandledSizesAndPrices)
-
     setSizesAndPrices(sortedHandledSizesAndPrices);
 
     if (!sortedHandledSizesAndPrices?.length) {
       return;
     }
 
-    let p = getCheapestElOfSize(sortedHandledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
-
-    if ((typeof p?.size === 'object' && Object.keys(p?.size)?.length) || !p?.size) {
-      p.size = 'Стандарт';
-    }
-
-    setChoice({ size: p?.size, price: p.price, index: p.index });
-
+    let p = null;
     if (sizesParam?.split(',').length  === 1) {
-      const p = getCurrentPriceOfSize(sizesParam, sortedHandledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
-      setChoice({ size: p?.size, price: p.price, index: p.index });
+      p = getCurrentPriceOfSize(sizesParam, sortedHandledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
+    } else {
+      p = getCheapestElOfSize(sortedHandledSizesAndPrices?.filter(el => el.price && (el?.size || el?.size?.primary)));
+
+      if ((typeof p?.size === 'object' && Object.keys(p?.size)?.length) || !p?.size) {
+        p.size = 'Стандарт';
+      }
     }
+
+    setChoice({ size: p?.size, price: p.price, index: p.index, skuId: p.skuId });
+
+    searchParams.set('sku', p.skuId);
+    setSearchParams(searchParams, {replace: true});
 
     const icon = document.getElementsByClassName('tabler-icon-heart')[0];
     if (!icon) return;
@@ -206,7 +212,10 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     }
 
     const price = el?.price;
-    setChoice({ size: el?.size?.primary || el?.size || 'cтандарт', price, index: i });
+    setChoice({ size: el?.size?.primary || el?.size || 'cтандарт', price, index: i, skuId: el?.skuId });
+    console.log('el?.skuId',el?.skuId)
+    searchParams.set('sku', el?.skuId);
+    setSearchParams(searchParams, { replace: true });
   };
 
   const getTitlePrice = (price) => {
@@ -380,9 +389,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
   const onChangeVariations = (variant) => {
     setSelectedVariation(variant);
-    console.log('variant',variant)
-    searchParams.set("color", variant.color);
-    setSearchParams(searchParams);
   }
 
   return (

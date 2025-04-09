@@ -7,6 +7,7 @@ const ProductColorSelectorV2 = ({ variants, selectedVariation, onSelect }) => {
     const isDesktopScreen = window?.innerWidth > 768;
     const [selectedIndex, setSelectedIndex] = useState(null);
 
+
     const onCardClick = (variant, index) => {
          onSelect(variant);
          setSelectedIndex(index);
@@ -17,7 +18,6 @@ const ProductColorSelectorV2 = ({ variants, selectedVariation, onSelect }) => {
             {isDesktopScreen && <div className="product-color-selector__title">Цвет</div>}
             <div className="product-color-selector__grid">
                 {variants.filter(el => el.inStock).map((variant, index) => {
-                    console.log('selectedVariation?.color=',selectedVariation?.color)
                     const selectedIndexParam = selectedVariation?.color === variant?.color ? index : null;
 
                     const isSelected = selectedIndexParam === index;
