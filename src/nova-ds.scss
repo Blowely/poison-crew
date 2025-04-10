@@ -191,3 +191,8 @@ footer {
 .ant-result-info .ant-result-icon > .anticon {
   color: rgb(1, 194, 195) !important;
 }
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: rgb(1, 194, 195);
+  background-color: rgb(1, 194, 195);
+}
