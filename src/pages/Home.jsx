@@ -242,7 +242,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
     productsItems = [...productsItems, ...[...Array(15)]];
 
-    if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 60 && !isLoading && !loading) {
+    if (productsSlice[trimCollectionValue]?.length && products?.items?.length < 20 && !isLoading && !loading) {
       productsItems = productsSlice[trimCollectionValue]
     }
 
