@@ -4,6 +4,7 @@ import {DeleteOutlined, MinusOutlined, PlusOutlined} from '@ant-design/icons';
 import {addToCart, decreaseCartItem} from "../../common/cartSlice";
 import {useAppDispatch} from "../../store";
 import DiscountedPrice from "../DiscountedPrice/DiscountedPrice";
+import {getSkuImages} from "../../common/utils";
 
 const CartItemComponent = (props) => {
     const { selectedIds, setSelectedIds, cartItems, gender, navigate, getPrice, removeFromCartHandler } = props;
@@ -67,6 +68,8 @@ const CartItemComponent = (props) => {
         dispatch(decreaseCartItem(obj));
     }
 
+
+
     return (
         <div>
             {/* Чекбокс "Выбрать все" */}
@@ -109,7 +112,7 @@ const CartItemComponent = (props) => {
                         >
                             <img
                                 onClick={() => navigate(`/${gender}-products?spuId=${el.spuId}`)}
-                                src={`${el?.images?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
+                                src={`${getSkuImages(el?.skus, el.skuId)?.[0]}?x-oss-process=image/format,webp/resize,w_400`}
                                 style={{
                                     width: '100px',
                                     height: '100px',

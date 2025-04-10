@@ -297,3 +297,11 @@ export function findVariantBySkuId(variations, skuId) {
   console.warn(`Вариант с skuId ${skuId} не найден`);
   return null;
 }
+
+export const getSkuImages = (skus, skuId) => {
+  if (skus?.length === 0) return [];
+
+  const foundSkuIndex = skus.findIndex(sku => sku.skuId === skuId);
+  if (foundSkuIndex === -1) return [];
+  return skus[foundSkuIndex].images;
+}
