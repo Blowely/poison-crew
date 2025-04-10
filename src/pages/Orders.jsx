@@ -13,6 +13,7 @@ import RePoizonMainBigLogo from "../assets/svg/re-poizon-main-middle-big-logo";
 import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import {getSkuImages} from "../common/utils";
 
 const Orders = () => {
     const navigate = useNavigate();
@@ -118,11 +119,13 @@ const Orders = () => {
                                                 if (!el?.product) {
                                                     return null
                                                 }
+                                                const images = getSkuImages(el?.product?.skus, el?.skuId);
 
                                                 return (
                                                     <div key={i} className="cart-product-info">
                                                         <div style={{display: 'flex', gap: '7px'}}>
-                                                            <img src={el?.product?.images[0]} style={{width: '100px'}} alt=""/>
+                                                            <img src={`${images?.[0]}?x-oss-process=image/format,webp/resize,w_300`}
+                                                                 style={{width: '100px'}} alt=""/>
                                                             <div>
                                                                 <div style={{
                                                                     fontSize: '16px',

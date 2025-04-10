@@ -10,7 +10,7 @@ import {
     LoadingOutlined, ReloadOutlined,
 } from "@ant-design/icons";
 import {useGetAccountQuery} from "../store/accounts.store";
-import {getPrice, iosCopyToClipboard} from "../common/utils";
+import {getPrice, getSkuImages, iosCopyToClipboard} from "../common/utils";
 import {PRODUCT_STATUS} from "./constants";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import StatusTag from "../components/Status";
@@ -160,10 +160,12 @@ const Order = () => {
                                             const product = el?.product || {};
                                             totalPrice += el?.price * (el?.count || 1);
 
+                                            const images = getSkuImages(el?.product?.skus, el?.skuId);
+
                                             return (
                                                 <div key={i} className="cart-product-info-payment">
                                                     <div style={{display: 'flex', gap: '7px'}}>
-                                                        <img src={product?.images[0]}
+                                                        <img src={`${images?.[0]}?x-oss-process=image/format,webp/resize,w_300`}
                                                              style={{width: '100px', cursor: "pointer"}}
                                                              alt=""
                                                              onClick={() => navigate(`/${gender}-products?spuId=${el?.product?.spuId}`)}
