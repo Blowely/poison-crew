@@ -71,7 +71,7 @@ function Cart() {
 
             const addOrderBody = {
               clientId: accountData?.account?._id,
-              products: cartItems.filter(el => selectedIds.includes(el.cartId)),
+              products: cartItems.filter(el => selectedIds.includes(el.skuId)),
               address: activeAddr,
               promo: promo,
             }
@@ -125,7 +125,7 @@ function Cart() {
     }
 
     const getOrderPrice = () => {
-        const selectedItems = cartItems.filter(el => selectedIds.includes(el.cartId));
+        const selectedItems = cartItems.filter(el => selectedIds.includes(el.skuId));
         let totalPrice = 0;
         selectedItems.map((el) => totalPrice += (el?.discountedPrice || el.price) * (el?.count > 0 ? el.count : 1 ));
 

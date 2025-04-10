@@ -4,7 +4,7 @@ import discountedPrice from "../components/DiscountedPrice/DiscountedPrice";
 const cacheItem = (item) => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  const isInCart = cachedItems.findIndex(el => el?.cartId === item?.cartId);
+  const isInCart = cachedItems.findIndex(el => el?.skuId === item?.skuId);
 
   if (isInCart < 0) {
     localStorage.setItem("cartItems", JSON.stringify([...cachedItems, {
@@ -22,10 +22,10 @@ const cacheItem = (item) => {
 const decreaseCachedItem = (item) => {
   let cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  const cachedCartIndex = cachedItems.findIndex(el => el?.cartId === item?.cartId);
+  const cachedCartIndex = cachedItems.findIndex(el => el?.skuId === item?.skuId);
 
   const removeFromCachedCart = () => {
-    cachedItems = cachedItems.filter(el => el.cartId !== item.cartId);
+    cachedItems = cachedItems.filter(el => el.skuId !== item.skuId);
   }
 
   cachedItems[cachedCartIndex].count = cachedItems[cachedCartIndex]?.count > 1
@@ -38,10 +38,10 @@ const decreaseCachedItem = (item) => {
 const unCacheItem = (item) => {
   const cachedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  const isInCart = cachedItems.findIndex(el => el?.cartId === item?.cartId);
+  const isInCart = cachedItems.findIndex(el => el?.skuId === item?.skuId);
 
   if (isInCart >= 0) {
-    const updatedItems = cachedItems.filter((el) => el?.cartId !== item.cartId);
+    const updatedItems = cachedItems.filter((el) => el?.skuId !== item.skuId);
     localStorage.setItem("cartItems", JSON.stringify(updatedItems));
   }
 }
@@ -67,7 +67,7 @@ const getOptions = () => {
     reducers: {
       addToCart(state, { payload }) {
         cacheItem(payload)
-        const isInCart = state.items.findIndex((el) => el?.cartId === payload.cartId);
+        const isInCart = state.items.findIndex((el) => el?.skuId === payload.skuId);
 
         if (isInCart < 0) {
           state.items = [...state.items, {
@@ -81,11 +81,11 @@ const getOptions = () => {
         }
       },
       decreaseCartItem(state, { payload }) {
-        const cartIndex = state.items.findIndex((el) => el?.cartId === payload.cartId);
+        const cartIndex = state.items.findIndex((el) => el?.skuId === payload.skuId);
         decreaseCachedItem(payload)
 
         const removeFromCart = () => {
-          state.items = state.items.filter(el => el.cartId !== payload.cartId);
+          state.items = state.items.filter(el => el.skuId !== payload.skuId);
         }
 
         if (cartIndex >= 0) {
@@ -94,10 +94,10 @@ const getOptions = () => {
       },
       removeFromCart(state, { payload }) {
         unCacheItem(payload)
-        state.items = state.items.filter(el => el.cartId !== payload.cartId);
+        state.items = state.items.filter(el => el.skuId !== payload.skuId);
       },
       clearCart(state, { payload }) {
-        let updatedItems = payload?.length ? state.items.filter(el => !payload?.includes(el.cartId)) : [];
+        let updatedItems = payload?.length ? state.items.filter(el => !payload?.includes(el.skuId)) : [];
 
         state.items = getRefreshedCartItems(updatedItems);// clear discounts
         clearItems(updatedItems)

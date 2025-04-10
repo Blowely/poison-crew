@@ -189,7 +189,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   }, []);
 
   const onAddToCart = () => {
-    if (getCartItemNumberCount(product, choice?.size) === 2) return;
+    if (getCartItemNumberCount(product, choice.skuId) === 2) return;
 
     if (!choice?.price) {
       return;
@@ -200,7 +200,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
         ...product,
         selectedSize: choice?.size?.eu || choice?.size,
         price: choice.price,
-        cartId: `${product.spuId}-${choice?.size?.eu || choice?.size}`
+        skuId: choice.skuId
       }),
     );
     //navigate("/cart");
@@ -213,7 +213,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
 
     const price = el?.price;
     setChoice({ size: el?.size?.primary || el?.size || 'cтандарт', price, index: i, skuId: el?.skuId });
-    console.log('el?.skuId',el?.skuId)
     searchParams.set('sku', el?.skuId);
     setSearchParams(searchParams, { replace: true });
   };
@@ -347,36 +346,24 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     navigate(link);
   }
 
-  const checkIsCartItem = (product, size) => {
-    const cartId = `${product.spuId}-${size}`;
-    const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
-    return foundedIndex >= 0;
-  }
-
-  const getCartItemNumberCount = (product, size) => {
-    const cartId = `${product.spuId}-${size}`;
-    const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
+  const getCartItemNumberCount = (product, skuId) => {
+    const foundedIndex = cartItems.findIndex((el) => el.skuId === skuId);
     return foundedIndex >= 0 ? cartItems[foundedIndex].count : 0;
   }
 
-  const decreaseCartItemHandler = (product, size) => {
-    const cartId = `${product.spuId}-${size}`;
-
+  const decreaseCartItemHandler = (product, size, skuId) => {
     const obj = {
       ...product,
-      cartId,
+      skuId
     }
 
     dispatch(decreaseCartItem(obj));
   }
 
-  const getCartItemCount = useCallback((product, size) => {
-    const sizeValue = size?.eu || size?.primary || size; // Извлекаем значение размера
-    const cartId = `${product.spuId}-${sizeValue}`; // Формируем корректный cartId
+  const getCartItemCount = useCallback((product, size, skuId) => {
+    const foundedIndex = cartItems.findIndex((el) => el.skuId === skuId);
 
-    const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
-
-    if (foundedIndex < 0 || getCartItemNumberCount(product, sizeValue) === 0) {
+    if (foundedIndex < 0 || getCartItemNumberCount(product, skuId) === 0) {
       return null
     }
 
@@ -391,21 +378,10 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     setSelectedVariation(variant);
   }
 
+  console.log('sizesAndPrices=',sizesAndPrices)
+
   return (
     <div style={{height: '100%'}} ref={productLayoutRef}>
-      {/*{!token && (
-        <AuthModal
-          open={isModalOpen}
-          setRemotePhone={setPhone}
-          setModalOpen={setModalOpen}
-          onCancel={() => {
-            setModalOpen(false);
-            setCodeModalOpen(false);
-          }}
-          isCodeModalOpen={isCodeModalOpen}
-          setCodeModalOpen={setCodeModalOpen}
-        />
-      )}*/}
       {measureOpen && (
         <Modal
           title="Таблица размеров"
@@ -660,7 +636,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                         key={i}
                                         role="presentation"
                                     >
-                                      {getCartItemCount(product, el?.size)}
+                                      {getCartItemCount(product, el?.size, el?.skuId)}
                                       <div
                                           style={{
                                             fontSize: "17px",
@@ -856,7 +832,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                                   key={i}
                                   role="presentation"
                               >
-                                {getCartItemCount(product, el?.size)}
+                                {getCartItemCount(product, el?.size, el.skuId)}
                                 <div
                                     style={{
                                       fontSize: "17px",
@@ -888,24 +864,11 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                       <CartButton
                           price={choice?.price || ""}
                           onAddToCart={onAddToCart}
-                          decreaseCartItemHandler={() => decreaseCartItemHandler(product, choice?.size)}
+                          decreaseCartItemHandler={() => decreaseCartItemHandler(product, choice?.size, choice?.skuId)}
                           disabled={isDisabledBuyBtn}
                           //showCounter={checkIsCartItem(product, choice?.size)}
-                          counterValue={getCartItemNumberCount(product, choice?.size)}
+                          counterValue={getCartItemNumberCount(product, choice?.skuId)}
                       />
-
-                      /*<div className="btn_wrapper">
-                        <Button
-                            type="primary"
-                            className={"btn"}
-                            onClick={onAddToCart}
-                            disabled={isDisabledBuyBtn}
-                            loading={isDisabledBuyBtn}
-                        >
-                          {getBtnPrice(choice?.price)}
-                          <span> {!isDisabledBuyBtn ? 'Добавить в корзину' : ''}</span>
-                        </Button>
-                      </div>*/
                   }
                   {isDesktopScreen && <div className="telegram-button-wrapper">
                     <TelegramButton text="Задать вопрос по товару" productUrl={window.location.href} />
@@ -938,7 +901,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
                 decreaseCartItemHandler={() => decreaseCartItemHandler(product, choice?.size)}
                 disabled={isDisabledBuyBtn}
                 //showCounter={checkIsCartItem(product, choice?.size)}
-                counterValue={getCartItemNumberCount(product, choice?.size)}
+                counterValue={getCartItemNumberCount(product, choice?.skuId)}
             />
           </footer>
       }

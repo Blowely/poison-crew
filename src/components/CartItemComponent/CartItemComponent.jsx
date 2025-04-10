@@ -12,14 +12,14 @@ const CartItemComponent = (props) => {
 
     // Инициализация выбранных элементов
     useEffect(() => {
-        const initialIds = (cartItems || []).map(item => item.cartId);
+        const initialIds = (cartItems || []).map(item => item.skuId);
         setSelectedIds(initialIds);
     }, [cartItems]);
 
     // Обработчик выбора всех
     const handleSelectAll = (e) => {
         if (e.target.checked) {
-            const allIds = (cartItems || []).map(item => item.cartId);
+            const allIds = (cartItems || []).map(item => item.skuId);
             setSelectedIds(allIds);
         } else {
             setSelectedIds([]);
@@ -27,21 +27,21 @@ const CartItemComponent = (props) => {
     };
 
     // Переключение отдельного элемента
-    const handleToggleItem = (cartId) => {
-        setSelectedIds(prev => prev.includes(cartId)
-            ? prev.filter(id => id !== cartId)
-            : [...prev, cartId]
+    const handleToggleItem = (skuId) => {
+        setSelectedIds(prev => prev.includes(skuId)
+            ? prev.filter(id => id !== skuId)
+            : [...prev, skuId]
         );
     };
 
-    const getCartItemNumberCount = (product, size) => {
-        const cartId = `${product.spuId}-${size}`;
-        const foundedIndex = cartItems.findIndex((el) => el.cartId === cartId);
+    const getCartItemNumberCount = (product, skuId) => {
+        const foundedIndex = cartItems.findIndex((el) => el.skuId === skuId);
+        console.log('foundedIndex=',foundedIndex);
         return foundedIndex >= 0 ? cartItems[foundedIndex].count : 0;
     }
 
-    const onAddToCart = (product, size, price) => {
-        if (getCartItemNumberCount(product, size) === 2) return;
+    const onAddToCart = (product, size, price, skuId) => {
+        if (getCartItemNumberCount(product, skuId) === 2) return;
 
         if (!price) {
             return;
@@ -52,17 +52,16 @@ const CartItemComponent = (props) => {
                 ...product,
                 selectedSize: size,
                 price: price,
-                cartId: `${product.spuId}-${size}`
+                skuId: skuId
             }),
         );
     };
 
-    const decreaseCartItemHandler = (product, size) => {
-        const cartId = `${product.spuId}-${size}`;
+    const decreaseCartItemHandler = (product, skuId) => {
 
         const obj = {
             ...product,
-            cartId,
+            skuId,
         }
 
         dispatch(decreaseCartItem(obj));
@@ -91,8 +90,8 @@ const CartItemComponent = (props) => {
                     }}>
                         {/* Чекбокс товара */}
                         <Checkbox
-                            checked={selectedIds.includes(el.cartId)}
-                            onChange={() => handleToggleItem(el.cartId)}
+                            checked={selectedIds.includes(el.skuId)}
+                            onChange={() => handleToggleItem(el.skuId)}
                             style={{
                                 marginTop: '4px',
                                 position: 'absolute',
@@ -142,9 +141,9 @@ const CartItemComponent = (props) => {
                                     Размер: {el?.selectedSize}
                                 </div>
                                 <div className="cart-button__controls small">
-                                    <MinusOutlined onClick={() => decreaseCartItemHandler(el, el.selectedSize)}/>
+                                    <MinusOutlined onClick={() => decreaseCartItemHandler(el, el.skuId)} />
                                     <span style={{padding: '0 5px'}}>{el?.count || "1"}</span>
-                                    <PlusOutlined onClick={() => onAddToCart(el, el.selectedSize, el.price)}/>
+                                    <PlusOutlined onClick={() => onAddToCart(el, el.selectedSize, el.price, el.skuId)}/>
                                 </div>
                             </div>
                         </div>
