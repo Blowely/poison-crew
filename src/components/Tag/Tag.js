@@ -135,7 +135,9 @@ const FilterTags = ({setOffset, setSizes, setColors, setBrands, setOpenBrandsMod
                              sizeCount={sizesIds?.length} onRemove={() => onClose(key)}/>
         }
 
-        return params[key] && <Tag key={key} closable onClose={() => onClose(key)}>{getValue(key)}</Tag>
+        return params[key] && <Tag key={key} closable onClose={() => onClose(key)} style={{display: 'flex'}}>
+            <div className="text-wrapper">{getValue(key)}</div>
+        </Tag>
     })}</div>
 }
 export default FilterTags;
