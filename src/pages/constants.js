@@ -147,10 +147,11 @@ export const COLOR_LIST = [
     { name: "Чёрный", color: "#000000", hex: "000000" }
 ];
 
-export const APPAREL_SIZES_ORDER = ["XXXXS", "XXXS", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"]; // Приоритет сортировки
+export const APPAREL_SIZES_ORDER = ["XXXXXS", "XXXXS", "XXXS", "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL", "XXXXXL"]; // Приоритет сортировки
 
 
 export const APPAREL_SIZES = [
+    '5XS',
     '4XS',
     '3XS',
     '2XS',
@@ -162,6 +163,7 @@ export const APPAREL_SIZES = [
     '2XL',
     '3XL',
     '4XL',
+    '5XL',
 ]
 
 export const SIZES = [

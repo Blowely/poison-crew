@@ -31,13 +31,18 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
             setSearchParams(searchParams);
         }
 
-        axios.get(`https://api.re-poizon.ru/api/synonyms?search=${value}`)
-            .then(res => setOptions(res.data.suggested?.map(el => ({value: el}))))
-            .catch(err => setOptions(defaultOptions));
-
         setSearchValue(value);
         onSearch(value);
         setLoading(true);
+        setOptions([]);
+
+        //axios.get(`https://api.re-poizon.ru/api/synonyms?search=${value}`)
+        //const res = await axios.get(`http://localhost:3001/api/synonyms?search=${value}`)
+        const res = await axios.get(`https://api.re-poizon.ru/api/synonyms?search=${value}`)
+
+        const result = res.data.suggested?.map((el, i) => ({value: el, key: i}));
+        console.log(result);
+        setOptions(result);
     }
 
     const onSearch = (value) => {
@@ -95,11 +100,11 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
             <AutoComplete
                 style={{width: '100%', height: 'auto'}}
                 options={options}
-                filterOption={(inputValue, option) => {
+                /*filterOption={(inputValue, option) => {
                     return option?.value?.toUpperCase()?.indexOf(inputValue?.toUpperCase()) !== -1
-                }}
+                }}*/
                 optionRender={(option) => {
-                    return <><img style={{height: '11px'}} src={icon} alt={icon}/>{option.value}</>
+                    return <div key={option.key}><img style={{height: '11px'}} src={icon} alt={icon}/>{option.value}</div>
                 }}
                 onChange={onChange}
                 onPressEnter={onSearch}
