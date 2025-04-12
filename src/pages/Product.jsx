@@ -56,7 +56,6 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
   const prevUpdatedAtRef = useRef(null);
   const productLayoutRef = useRef(null);
 
-  const isLoadingProduct = false;
   const isTest = true
 
   const cartItems = useAppSelector((state) => state.cart.items) || [];
@@ -66,7 +65,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     token,
   }, {skip: !spuId || isTest});
 
-  let { data: remoteProduct } = useGetProductQuery(
+  let { data: remoteProduct, isLoading: isLoadingProduct } = useGetProductQuery(
     {
       spuId,
       token,
@@ -409,16 +408,17 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
           </div>
         </Modal>
       )}
-      {isLoadingProduct && (
-        <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
-          <LoadingOutlined style={{fontSize: '24px'}} spin />
-        </div>)
-      }
       {isDesktopScreen && <MainLogoComponent
                               style={{width:'100vw', marginLeft:'-12.5%'}}
                               setLoading={setLoading}
                               setOffset={setOffset}
       />}
+      {isLoadingProduct && (
+          //<div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+          <div style={{width: '100%', height: 'calc(100% - 140px)', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
+            <LoadingOutlined style={{fontSize: '44px'}} spin />
+          </div>)
+      }
       {!isLoadingProduct && (
           <div style={{height: '100%'}}>
             {!isDesktopScreen &&
@@ -893,7 +893,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
             </div>
           </div>
       )}
-      {!isDesktopScreen &&
+      {!isDesktopScreen && !isLoadingProduct &&
           <footer className="footer-btn-wrapper">
             <CartButton
                 price={choice?.price || ""}
