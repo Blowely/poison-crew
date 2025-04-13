@@ -1,0 +1,73 @@
+User-agent: *
+Disallow: /*sort
+Disallow: *openstat*
+Disallow: *?utm*
+Disallow: /order*
+Disallow: *&utm*
+Disallow: *?from*
+Disallow: *&from*
+Disallow: *gclid*
+Disallow: *yclid*
+Disallow: *ymclid*
+Disallow: *?tid*
+Disallow: *&tid*
+Disallow: *&tid*
+Disallow: *.swf
+Disallow: *search?*
+Disallow: *my/wishlist*
+Disallow: *points*
+Disallow: *pack/new*
+Disallow: *pack?
+Disallow: */preload$
+Disallow: *?search=*
+
+Disallow: /checkout/
+Disallow: /order/
+Disallow: /product/*/reviews
+
+Allow: *.js
+Allow: *.css
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.gif
+Allow: *.svg
+Allow: *.pdf
+Clean-param: sku
+Clean-param: brands
+
+User-agent: Googlebot
+Disallow: /*sort
+Disallow: *openstat*
+Disallow: *?utm*
+Disallow: *&utm*
+Disallow: *?from*
+Disallow: *&from*
+Disallow: *gclid*
+Disallow: *yclid*
+Disallow: *ymclid*
+Disallow: *?tid*
+Disallow: *&tid*
+Disallow: *&tid*
+Disallow: *.swf
+Disallow: *search?*
+Disallow: *points*
+Disallow: *pack/new*
+Disallow: *pack?
+Disallow: */preload$
+Disallow: *?search=*
+
+Disallow: /cart/
+Disallow: /order/
+
+Allow: *.js
+Allow: *.css
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.gif
+Allow: *.svg
+Allow: *.pdf
+
+User-Agent: YandexAdditional
+Disallow: /
