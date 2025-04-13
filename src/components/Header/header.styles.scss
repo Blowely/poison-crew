@@ -30,8 +30,9 @@
     > span > div{
       display: flex;
       align-items: center;
+      height: auto;
       > img {
-        height: 30px;
+        //height: 30px;
         margin: unset;
         padding: 5px 5px 5px 5px;
         cursor: pointer;
@@ -71,10 +72,17 @@
   align-items: center;
 }
 
+.ant-input-prefix > div {
+  display: flex;
+  align-items: center;
+}
+
+
 .search-icon {
   height: 24px;
   margin: unset;
   padding: 2px;
+  margin-right: 4px;
   cursor: pointer;
 
   @media (max-width: 768px) {

@@ -111,7 +111,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
                 onSelect={onSelectHandler}
             >
                 <Input rootClassName="input-search" size="large" placeholder="Название, бренд, категория..."
-                       suffix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+                       prefix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
                            <img className="search-icon" src={icon} alt="search" />
                        </div>}
                        ref={inputRef}
