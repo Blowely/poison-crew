@@ -5,17 +5,19 @@ import './header.styles.scss';
 import {MenuOutlined} from "@ant-design/icons";
 import axios from "axios";
 
-const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCategories}) => {
-    const defaultOptions = [
-        { value: 'Куртка' },
-        { value: 'Джинсы' },
-        { value: 'Бутсы' },
-    ];
+const defaultOptions = [
+    { value: 'Куртка' },
+    { value: 'Джинсы' },
+    { value: 'Бутсы' },
+];
 
+const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCategories}) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchValue, setSearchValue] = useState(search || '');
+
+    const [searchValue, setSearchValue] = useState('');
     const [options, setOptions] = useState(defaultOptions || []);
     const inputRef = useRef(null);
+    const suffixRef = useRef(null);
 
     useEffect(() => {
         if (!search) {
@@ -34,14 +36,12 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
         setSearchValue(value);
         onSearch(value);
         setLoading(true);
-        setOptions([]);
 
         //axios.get(`https://api.re-poizon.ru/api/synonyms?search=${value}`)
         //const res = await axios.get(`http://localhost:3001/api/synonyms?search=${value}`)
         const res = await axios.get(`https://api.re-poizon.ru/api/synonyms?search=${value}`)
 
         const result = res.data.suggested?.map((el, i) => ({value: el.value, key: i}));
-        console.log(result);
         setOptions(result);
     }
 
@@ -100,6 +100,7 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
             <AutoComplete
                 style={{width: '100%', height: 'auto'}}
                 options={options}
+                value={search}
                 /*filterOption={(inputValue, option) => {
                     return option?.value?.toUpperCase()?.indexOf(inputValue?.toUpperCase()) !== -1
                 }}*/
@@ -110,7 +111,11 @@ const Header = ({search, setShowFilters, setOffset, setLoading, setVisibleCatego
                 onPressEnter={onSearch}
                 onSelect={onSelectHandler}
             >
-                <Input rootClassName="input-search" size="large" placeholder="Название, бренд, категория..."
+                <Input
+                       type="search"
+                       className="input-search"
+                       size="large"
+                       placeholder="Название, бренд, категория..."
                        prefix={<div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
                            <img className="search-icon" src={icon} alt="search" />
                        </div>}
