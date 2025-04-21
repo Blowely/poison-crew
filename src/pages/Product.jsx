@@ -71,7 +71,8 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
       spuId,
       token,
     },
-    { skip: !spuId || Object.keys(selectedProduct)?.length},
+    { skip: !spuId || selectedProduct?.skus?.length}, //bug
+    //{ skip: !spuId || Object.keys(selectedProduct)?.length},
   );
 
   useEffect(() => {
