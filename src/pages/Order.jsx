@@ -122,17 +122,6 @@ const Order = () => {
                                             {/*{el?.status === PRODUCT_STATUS.CREATED && 'Сразу после подтверждения(~3мин) ' +
                                         'заказ станет доступным к оплате'
                                     }*/}
-                                            {el?.status === PRODUCT_STATUS.CANCELED && <>
-                                                Нет в наличии
-                                                <Button
-                                                    size="small"
-                                                    style={{marginLeft: '10px'}}
-                                                    type="text"
-                                                >
-                                                    Сменить размер
-                                                </Button>
-                                            </>
-                                            }
                                             {el?.status === PRODUCT_STATUS.APPROVED_WITH_CHANGES &&
                                                 <Tooltip title={priceChangesTooltipText}>
                                                     <InfoCircleOutlined style={{fontSize: '20px'}}/>
