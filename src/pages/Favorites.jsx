@@ -12,6 +12,7 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import PromoCode from "../components/PromoCode/PromoCode";
+import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 
 const Favorites = () => {
     const navigate = useNavigate();
@@ -89,7 +90,7 @@ const Favorites = () => {
             </div>
             }
             {isDesktopScreen
-                ? <MainLogoComponent/>
+                ? <HeaderInfoWrapper />
                 : <div className="content-block-header border-radius">
                     <LeftOutlined onClick={onGoBackClick}/>
                     Избранное

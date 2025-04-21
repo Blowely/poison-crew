@@ -8,6 +8,8 @@ import {useGetAccountQuery} from "../store/accounts.store";
 import ActiveProfileLargeIcon from "../assets/svg/active-profile-icon";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import Header from "../components/Header/Header";
+import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Profile = () => {
   return (
       <Layout>
         {isDesktopScreen &&
-            <MainLogoComponent />
+            <HeaderInfoWrapper />
         }
         <div className="content-block-wrapper">
           <div className="content-block content-block-profile" style={{padding: isDesktopScreen && '30px 0px 0px 0px'}}>

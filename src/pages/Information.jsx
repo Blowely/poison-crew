@@ -11,6 +11,7 @@ import GenderSwitcher from "../components/GenderSwitcher/GenderSwitcher";
 import TelegramButton from "../components/TelegramButton/TelegramButton";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
+import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 
 const Information = () => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Information = () => {
     return (
         <Layout>
             {isDesktopScreen &&
-                <MainLogoComponent />
+                <HeaderInfoWrapper />
             }
             {!isDesktopScreen &&
                 <div className="content-block-header border-radius">

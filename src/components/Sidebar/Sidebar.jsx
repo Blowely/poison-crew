@@ -3,9 +3,12 @@ import { Menu, Drawer, Image } from "antd";
 import "./Sidebar.scss";
 import { useNavigate } from "react-router-dom";
 import { FILLED_CATEGORIES } from "../constants";
+import {useAppDispatch} from "../../store";
+import {hideSidebar} from "../../common/productsSlice";
 
-const Sidebar = ({ visible, setVisibleCategories, setOffset, setLoading }) => {
+const Sidebar = ({ visible, setOffset, setLoading }) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (visible) {
@@ -24,7 +27,7 @@ const Sidebar = ({ visible, setVisibleCategories, setOffset, setLoading }) => {
 
         setOffset(0);
         setLoading(true);
-        setVisibleCategories(false);
+        dispatch(hideSidebar());
         navigate(`?category${props?.categoryLvl}Id=${props.id}`);
     };
 
@@ -54,7 +57,7 @@ const Sidebar = ({ visible, setVisibleCategories, setOffset, setLoading }) => {
             <Drawer
                 title="Каталог"
                 placement="left"
-                onClose={() => setVisibleCategories(false)}
+                onClose={() => dispatch(hideSidebar())}
                 visible={visible}
                 bodyStyle={{ overflowY: "auto", maxHeight: "100vh" }} // Даем возможность скроллить сайдбар
             >

@@ -12,6 +12,8 @@ import ErrorHandler from "./common/ErrorHandler";
 import {PrivateAppRouter} from "./PrivateAppRouter";
 import moment from "moment";
 import 'moment/locale/ru';
+import Sidebar from "./components/Sidebar/Sidebar";
+import {useAppSelector} from "./store";
 
 moment.locale('ru');
 
@@ -20,6 +22,7 @@ const Root = () => {
   const [favorites, setFavorites] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
+  const isVisibleCategories = useAppSelector((state) => state.products.isVisibleSidebar);
 
   const onAddToCart = (obj) => {
     try {
@@ -87,6 +90,13 @@ const Root = () => {
             onClose={() => setCartOpened(false)}
             onRemove={onRemoveItem}
           />
+        )}
+        {isVisibleCategories && (
+            <Sidebar
+                visible={isVisibleCategories}
+                setOffset={() => {}}
+                setLoading={() => {}}
+            />
         )}
 
         <ErrorBoundary FallbackComponent={ErrorFallback}>

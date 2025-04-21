@@ -21,6 +21,7 @@ import DeliverBlock from "../components/Delivery/DeliveryBlock";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import CartItemComponent from "../components/CartItemComponent/CartItemComponent";
+import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 
 function Cart() {
     const dispatch = useAppDispatch();
@@ -246,7 +247,7 @@ function Cart() {
                 />
             }
             {isDesktopScreen &&
-                <MainLogoComponent />
+                <HeaderInfoWrapper />
             }
 
             {!isDesktopScreen &&

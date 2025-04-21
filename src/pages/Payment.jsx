@@ -34,7 +34,7 @@ const Payment = () => {
 
     const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
-    const {data: orders = [], isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
+    const {data: orders = [], isFetching: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });

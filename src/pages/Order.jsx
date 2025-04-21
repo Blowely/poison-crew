@@ -19,6 +19,7 @@ import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import {useGetOrdersQuery} from "../store/orders.store";
 import TraceComponent from "../components/TraceComponent/TraceComponent";
+import HeaderInfoWrapper from "../components/HeaderInfoWrapper/HeaderInfoWrapper";
 
 const Order = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Order = () => {
 
     const {data: accountData, isLoading: isLoadingAcc, error: accError} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
-    const {data: orders = [], isLoading: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
+    const {data: orders = [], isFetching: isLoadingOrders, error: ordersError, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });
@@ -77,7 +78,7 @@ const Order = () => {
     return (
         <Layout>
             {isDesktopScreen &&
-                <MainLogoComponent />
+                <HeaderInfoWrapper />
             }
             {!isDesktopScreen &&
                 <div className="content-block-header content-block-header-order border-radius">

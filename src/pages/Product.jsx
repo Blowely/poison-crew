@@ -29,6 +29,7 @@ import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent
 import CartButton from "../components/CartButton/CartButton";
 import PoizonVerifiedBlock from "../components/PoizonVerifiedBlock/PoizonVerifiedBlock";
 import ProductColorSelectorV2 from "../components/ProductColorSelectorV2/ProductColorSelectorV2";
+import Header from "../components/Header/Header";
 
 function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () => {} }) {
   const dispatch = useAppDispatch();
@@ -65,7 +66,7 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
     token,
   }, {skip: !spuId || isTest});
 
-  let { data: remoteProduct, isLoading: isLoadingProduct } = useGetProductQuery(
+  let { data: remoteProduct, isFetching: isLoadingProduct } = useGetProductQuery(
     {
       spuId,
       token,
@@ -408,11 +409,30 @@ function Product({ selectedProduct = {}, setLoading = () => {}, setOffset = () =
           </div>
         </Modal>
       )}
-      {isDesktopScreen && <MainLogoComponent
-                              style={{width:'100vw', marginLeft:'-12.5%'}}
-                              setLoading={setLoading}
-                              setOffset={setOffset}
-      />}
+      {isDesktopScreen && <div className="info-block-wrapper" style={{width:'100vw', marginLeft:'-12.5%'}}>
+        <div className="info-block">
+          <div>
+                    <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
+                        <img src="/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
+                    </span>
+            <span onClick={() => onInfoBlockItemClick("https://t.me/repoizon_otzovik")}>Отзывы</span>
+            <span onClick={() => onInfoBlockItemClick("https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf")}>
+                        Оферта
+                    </span>
+          </div>
+          <div>
+            <span onClick={() => onInfoBlockItemClick("tg://resolve?domain=re_poizon_store")}>Поддержка</span>
+            <span>repoizonstore@gmail.com</span>
+          </div>
+        </div>
+      </div>}
+      {isDesktopScreen &&
+          <Header
+              style={{width:'100vw', marginLeft:'-12.5%'}}
+              setLoading={setLoading}
+              setOffset={setOffset}
+          />
+      }
       {isLoadingProduct && (
           //<div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
           <div style={{width: '100%', height: 'calc(100% - 140px)', display: 'flex', justifyContent: 'center', alignItems:'center' }}>

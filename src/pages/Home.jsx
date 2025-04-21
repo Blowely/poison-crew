@@ -36,6 +36,7 @@ import SizesModalSelector from "../components/SizesModalSelector/SizesModalSelec
 import MainLogoComponent from "../components/MainLogoComponent/MainLogoComponent";
 import PhoneFooter from "../components/PhoneFooter/PhoneFooter";
 import IconHeartSmall from "../assets/svg/iconHeartSmall";
+import {clearCart} from "../common/cartSlice";
 
 function Home({ onAddToFavorite, onAddToCart }) {
   const navigate = useNavigate();
@@ -65,7 +66,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
   const [colors, setColors] = useState(!!colorsParam ? colorsParam?.split(',') : []);
   const [isOpenBrandsModal, setOpenBrandsModal] = useState(false);
   const [isOpenSizesModal, setOpenSizesModal] = useState(false);
-  const [isVisibleCategories, setVisibleCategories] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -153,7 +153,7 @@ function Home({ onAddToFavorite, onAddToCart }) {
 
   const {
     data: products = { items: [], totalCount: 0 },
-    isLoading,
+    isFetching: isLoading,
   } = useGetProductsQuery(buildRequest());
 
   const searchOrCollection = `${category3IdParam}+${category2IdParam}+${category1IdParam}+${search}+${sizesParam}`+
@@ -235,10 +235,9 @@ function Home({ onAddToFavorite, onAddToCart }) {
   }, []);
 
   const renderItems = () => {
-
-    let productsItems = isLoading
-      ? [...Array(60)]
-      : productsSlice[trimCollectionValue] || []
+    console.log('isLoading',isLoading);
+    console.log('loading',loading);
+    let productsItems = productsSlice[trimCollectionValue] || []
 
     productsItems = [...productsItems, ...[...Array(15)]];
 
@@ -474,6 +473,10 @@ function Home({ onAddToFavorite, onAddToCart }) {
     });
   });
 
+  const onInfoBlockItemClick = (link) => {
+    window.open(link);
+  }
+
   return (
       <Layout style={{ backgroundColor: "white", position: "relative" }}>
         {spuId && <div className="productWrapper" id="productWrapper">
@@ -538,15 +541,6 @@ function Home({ onAddToFavorite, onAddToCart }) {
               </div>
             </Modal>
         )}
-        {isVisibleCategories && (
-            <Sidebar
-                visible={isVisibleCategories}
-                setVisibleCategories={setVisibleCategories}
-                setOffset={setOffset}
-                setLoading={setLoading}
-            />
-        )
-        }
         <div className="filters-phone-wrapper" style={{display: showFilters ? 'block' : 'none'}}
              ref={filtersRef}>
           <Filters
@@ -576,16 +570,36 @@ function Home({ onAddToFavorite, onAddToCart }) {
               </div>
           }
         </div>
-        <MainLogoComponent />
+        {isDesktopScreen && <div className="info-block-wrapper">
+          <div className="info-block">
+            <div>
+                    <span onClick={() => onInfoBlockItemClick("https://t.me/re_poizon_ru")}>
+                        <img src="/telegram-icon.svg" alt="Telegram"/>Мы в телеграм
+                    </span>
+              <span onClick={() => onInfoBlockItemClick("https://t.me/repoizon_otzovik")}>Отзывы</span>
+              <span onClick={() => onInfoBlockItemClick("https://storage.yandexcloud.net/pc-mediafiles/important/public-offer-re-poizon.pdf")}>
+                        Оферта
+                    </span>
+            </div>
+            <div>
+              <span onClick={() => onInfoBlockItemClick("tg://resolve?domain=re_poizon_store")}>Поддержка</span>
+              <span>repoizonstore@gmail.com</span>
+            </div>
+          </div>
+        </div>}
+        {!isDesktopScreen && <MainLogoComponent />}
+        {!spuId &&
+            <Header search={search}
+                    showFilters={showFilters}
+                    setOffset={setOffset}
+                    setLoading={setLoading}
+                    setShowFilters={setShowFilters}
+                    isEnabledFilters={isEnabledFilters}
+            />
+        }
+
         <div className="productsListWrapper">
-          <Header search={search}
-                  showFilters={showFilters}
-                  setOffset={setOffset}
-                  setLoading={setLoading}
-                  setShowFilters={setShowFilters}
-                  isEnabledFilters={isEnabledFilters}
-                  setVisibleCategories={setVisibleCategories}
-          />
+
           {!isDesktopScreen && <GenderSwitcher setOffset={setOffset} setLoading={setLoading}/>}
 
           <div className="content">

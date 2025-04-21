@@ -25,7 +25,7 @@ const Trace = () => {
 
     const {data: accountData} = useGetAccountQuery(token);
     const clientId = accountData?.account?._id;
-    const {data: orders = [], isLoading: isLoadingOrders, refetch} = useGetOrdersQuery(clientId, {
+    const {data: orders = [], isFetching: isLoadingOrders, refetch} = useGetOrdersQuery(clientId, {
         skip: !clientId,
         refetchOnMountOrArgChange: true
     });
