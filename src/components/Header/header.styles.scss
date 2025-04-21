@@ -359,3 +359,9 @@
     }
   }
 }
+
+.ant-select-item-option-content > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
